@@ -386,246 +386,485 @@ troops = [
 
 #soldiers:
 #This troop is the troop marked as soldiers_begin
-  ["farmer","Farmer","Farmers",tf_guarantee_boots|tf_guarantee_ranged,no_scene,reserved,fac_commoners,
-[itm_stones, itm_sniper_crossbow,itm_flintlock_pistol,
- itm_carbatinae_2_bare,itm_carbatinae_1_bare,itm_ankle_boots,
-itm_woolen_cap_newgrn,itm_woolen_cap_newwht,itm_woolen_cap,itm_shirt,itm_roman_shirt,itm_bl_tunicsr02,itm_shirtb,itm_shirtd,itm_shirte,
-itm_pitch_fork,itm_cudgel,itm_battle_fork,itm_staff,itm_quarter_staff,itm_sickle],
-   def_attrib|level(15),wp(110),knows_common,man_face_middle_1, man_face_old_2],
+  [
+      "farmer","Farmer (Lig. I.)","Farmers",
+      tf_guarantee_boots|tf_guarantee_ranged,no_scene,reserved,fac_commoners,
+      [
+         itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,
+         itm_pitch_fork,itm_cudgel,itm_battle_fork,itm_staff,itm_quarter_staff,itm_sickle,
+         itm_carbatinae_2_bare,itm_carbatinae_1_bare,itm_ankle_boots,
+         itm_woolen_cap_newgrn,itm_woolen_cap_newwht,itm_woolen_cap,
+         itm_shirt,itm_roman_shirt,itm_bl_tunicsr02,itm_shirtb,itm_shirtd,itm_shirte,
+      ],
+      def_attrib|level(15),wp(110),knows_common,man_face_middle_1, man_face_old_2
+   ],
+  
   ##JIK chief - new troop entry
-  ["cantaber_iuventus","Cantaber Iuventus","Cantaber Iuventi",tf_guarantee_boots|tf_guarantee_shield|tf_guarantee_ranged,no_scene,reserved,fac_commoners,
-  [itm_javelin,
-itm_turret_hat_blue,itm_turret_hat_green,itm_bare_legs_blue,itm_carbatinae_2_bare,
-   itm_roman_shirt,itm_shirtc,itm_shirtd,itm_shirte,itm_khergit_elite_armor,itm_hauberk6,itm_mail_shirt_a_copy,
-itm_rathos_spangenhelm_a,itm_bowl_helmet,itm_norman_helmet,itm_leather_cap,itm_spear_2,itm_spatha,itm_hunting_dagger,
-   itm_cantabro_shield_1,itm_cantabro_shield_2,itm_cantabro_shield_3,itm_cantabro_shield_4,itm_cantabro_shield_5,itm_cantabro_shield_6,itm_cantabro_shield_7,itm_cantabro_shield_8,itm_cantabro_shield_9,itm_cantabro_shield_10],
-  def_attrib3|level(32),wp(260),knows_warrior_elite,mercenary_face_1, mercenary_face_2], #chief cambiado
+  [
+      "cantaber_iuventus","Cantaber Iuventus","Cantaber Iuventi",
+      tf_guarantee_boots|tf_guarantee_shield|tf_guarantee_ranged,no_scene,reserved,fac_commoners,
+      [
+         itm_javelin,itm_spear_2,itm_spatha,itm_hunting_dagger,
+         itm_turret_hat_blue,itm_turret_hat_green,itm_bare_legs_blue,itm_carbatinae_2_bare,
+         itm_roman_shirt,itm_shirtc,itm_shirtd,itm_shirte,itm_khergit_elite_armor,itm_hauberk6,itm_mail_shirt_a_copy,
+         itm_rathos_spangenhelm_a,itm_bowl_helmet,itm_norman_helmet,itm_leather_cap,
+         itm_cantabro_shield_1,itm_cantabro_shield_2,itm_cantabro_shield_3,itm_cantabro_shield_4,itm_cantabro_shield_5,
+         itm_cantabro_shield_6,itm_cantabro_shield_7,itm_cantabro_shield_8,itm_cantabro_shield_9,itm_cantabro_shield_10
+      ],
+      def_attrib3|level(32),wp(260),knows_warrior_elite,mercenary_face_1, mercenary_face_2
+   ], #chief cambiado
 
+  [
+      "townsman","Townsman (Lig. I.)","Townsmen",
+      tf_guarantee_boots,no_scene,reserved,fac_commoners,
+      [
+         itm_knife,itm_cudgel,itm_hatchet,
+         itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,itm_stones,
+         itm_bare_legs_blue,itm_carbatinae_2_bare,itm_carbatinae_1_bare,
+         itm_woolen_cap_newblu,itm_woolen_cap_newred,itm_woolen_cap_newblk,
+         itm_shirt,itm_roman_shirt,itm_bl_tunicsr01_2,itm_bl_tunicsr01,itm_shirtb,itm_shirtc,itm_fat_body
+      ],
+      def_attrib|level(15),wp(110),knows_common,mercenary_face_1, mercenary_face_2
+   ],
 
-  ["townsman","Townsman","Townsmen",tf_guarantee_boots,no_scene,reserved,fac_commoners,
-[itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,itm_stones,
- itm_bare_legs_blue,itm_carbatinae_2_bare,itm_carbatinae_1_bare,itm_woolen_cap_newblu,itm_woolen_cap_newred,itm_woolen_cap_newblk,
-itm_shirt,itm_roman_shirt,itm_bl_tunicsr01_2,itm_bl_tunicsr01,itm_shirtb,itm_shirtc,itm_fat_body,
-itm_knife,itm_cudgel,itm_hatchet],
-   def_attrib|level(15),wp(110),knows_common,mercenary_face_1, mercenary_face_2],
-  ["watchman","Guard (Med. I.)","Guards",tf_guarantee_boots,no_scene,reserved,fac_commoners,
-[itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,
- itm_ankle_boots,itm_wrapping_boots,itm_woolen_cap_newred,itm_woolen_cap_newgrn,itm_woolen_cap_newwht,itm_woolen_cap,
-itm_shirtb,itm_shirtc,itm_shirtd,itm_shirte,itm_green_tunic,itm_red_tunic,itm_blue_tunic,
-itm_spiked_club,itm_boar_spear,itm_hand_axe,itm_talak_seax,
- itm_buckler28,itm_buckler16,itm_buckler15],
-   def_attrib2|level(19),wp(140),knows_warrior_basic,mercenary_face_1, mercenary_face_2],
+  [
+      "watchman","Guard (Lig. I.)","Guards",
+      tf_guarantee_boots,no_scene,reserved,fac_commoners,
+      [
+         itm_spiked_club,itm_boar_spear,itm_hand_axe,itm_talak_seax,
+         itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,
+         itm_ankle_boots,itm_wrapping_boots,itm_woolen_cap_newred,
+         itm_woolen_cap_newgrn,itm_woolen_cap_newwht,itm_woolen_cap,
+         itm_shirtb,itm_shirtc,itm_shirtd,itm_shirte,itm_green_tunic,itm_red_tunic,itm_blue_tunic,
+         itm_buckler28,itm_buckler16,itm_buckler15
+      ],
+      def_attrib2|level(19),wp(140),knows_warrior_basic,mercenary_face_1, mercenary_face_2
+   ],
+
 #tempered chief anadido
-  ["shepherd","Shepherd","Shepherds",tf_guarantee_armor|tf_guarantee_ranged,no_scene,reserved,fac_commoners,
-   [itm_sniper_crossbow,itm_flintlock_pistol,itm_flintlock_pistol_militar,
-    itm_mule,itm_donkey_mount,itm_bare_legs_blue,itm_carbatinae_2_bare,itm_carbatinae_1_bare,itm_woolen_cap_newwht,itm_woolen_cap,
-itm_shirt,itm_roman_shirt,itm_shirtb,itm_shirtc,itm_shirtd,itm_shirte,
-itm_shepherds_crook,itm_knife,itm_staff],
-   def_attrib|level(15),wp(110),knows_common|knows_pathfinding_1|knows_tracking_1,man_face_middle_1, man_face_old_2],
+  [
+      "shepherd","Shepherd (Lig. I.)","Shepherds",
+      tf_guarantee_armor|tf_guarantee_ranged,no_scene,reserved,fac_commoners,
+      [
+         itm_shepherds_crook,itm_knife,itm_staff,
+         itm_sniper_crossbow,itm_flintlock_pistol,itm_flintlock_pistol_militar,
+         itm_mule,itm_donkey_mount,itm_bare_legs_blue,itm_carbatinae_2_bare,
+         itm_carbatinae_1_bare,itm_woolen_cap_newwht,itm_woolen_cap,
+         itm_shirt,itm_roman_shirt,itm_shirtb,itm_shirtc,itm_shirtd,itm_shirte,
+      ],
+      def_attrib|level(15),wp(110),knows_common|knows_pathfinding_1|knows_tracking_1,man_face_middle_1, man_face_old_2
+   ],
+
 #tempered chief acaba
-  ["caravan_guard","Spearman (Med. I.)","Spearmen",tf_guarantee_boots|tf_guarantee_shield,no_scene,0,fac_commoners,
-   [itm_javelin,itm_javelin,itm_javelin,itm_javelin,
- itm_carbatinae_2_green,itm_carbatinae_1_blue,itm_carbatinae_2_grey,
-itm_black_cloak,itm_piel_coat01,itm_piel_coat02,itm_white_cloak_hood,itm_white_cloak,
-    itm_armor_8,itm_armor_9,itm_linen_tunic,itm_green_tunic,itm_red_tunic,itm_blue_tunic,
-itm_spear_3,itm_hand_axe,itm_talak_seax,
-    itm_leathershield_small_b,itm_woodenshield_small,itm_woodenshield_small_d,itm_leathershield_small_d],
-   def_attrib2|level(23),wp(170),knows_warrior_normal,mercenary_face_1, mercenary_face_2],
-  ["mercenary_swordsman","Milite (Hv. I.)","Milites",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,no_scene,reserved,fac_commoners,
-   [itm_throwing_spears,itm_throwing_spears3,itm_throwing_spears4,itm_jarid,
- itm_decorated_leather_shoes,itm_carbatinae_2,itm_iron_greaves,
-itm_coat_of_plates4,itm_mail_shirt_bluehorses,itm_padded_jack_6_trig,itm_padded_jack_7_trig,
-itm_woolen_cap_newred,itm_woolen_cap_newgrn,itm_woolen_cap,itm_bowl_helmet,itm_norman_helmet,itm_leather_cap,
-itm_spear_1,itm_spear_6,itm_had_seax,itm_scianshort,
-    itm_leathershield_medium,itm_leathershield_medium_y,itm_leathershield_medium_b,itm_woodenshield_medium],
-   def_attrib3|level(27),wp(200),knows_warrior_veteran,mercenary_face_1, mercenary_face_2],
-  ["hired_blade","Veteran Warrior (Hv. I.)","Veterans Warriors",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_helmet|tf_guarantee_shield,no_scene,reserved,fac_commoners,
-   [itm_throwing_spears,itm_throwing_spears3,
-itm_decorated_leather_shoes_grey,itm_carbatinae_1_grey,itm_decorated_leather_shoes_orange,
-itm_mail_shirt_greenhorses,itm_mail_shirt_red,itm_mail_shirt_reddragon,itm_mail_shirt_redhorses,itm_mail_shirt_whiteaxes,
-itm_rath_spangenlord5,itm_bowl_helmet,itm_vaegir_war_helmet,itm_briton_helm,
-    itm_scythe,itm_lance,itm_le_pictishsword2,itm_bl_sword01_01,itm_le_bamburghsword,
-    itm_celtic_vae_shield1,itm_celtic_vae_shield2,itm_celtic_vae_shield3,itm_celtic_vae_shield4],
-   def_attrib3|level(27),wp(200),knows_warrior_veteran,mercenary_face_1, mercenary_face_2],
-  ["frisian_warrior","Professional Mercenary (Hv. I.)","Professional Mercenaries",tf_guarantee_boots|tf_guarantee_shield,no_scene,reserved,fac_commoners,
-   [itm_throwing_spears,itm_throwing_spears3,
-itm_carbatinae_2,itm_decorated_leather_shoes_green,itm_decorated_leather_shoes_blue,
-itm_mail_shirt_bluehorses,itm_mail_shirt_blueunicorn,itm_mail_shirt_whiteraven,itm_mail_shirt_green,itm_mail_shirt_red,itm_mail_shirt_grn,
-itm_rath_spangenlord5,itm_bowl_helmet,itm_vaegir_war_helmet,itm_briton_helm5,
-    itm_bamburghsword2,itm_bl_sword01_03,itm_new_sword2,itm_axe_2,itm_axehammer_2,itm_axehammer_1,
-   itm_leathershield_medium,itm_leathershield_medium_y,itm_leathershield_medium_b,itm_woodenshield_medium],
-   def_attrib3|level(27),wp(200),knows_warrior_veteran,mercenary_face_1, mercenary_face_2],
-  ["mercenary_crossbowman","Archer","Archers",tf_guarantee_boots|tf_guarantee_ranged,no_scene,reserved,fac_commoners,
-   [itm_arrows,itm_short_bow,itm_short_bow,itm_hunting_bow,itm_short_bow,
-itm_ankle_boots,itm_wrapping_boots,
-itm_shirt,itm_roman_shirt,
-itm_hunting_dagger,itm_club_one,itm_head_wrappings,itm_spiked_club],
-   veteran_ranged_attrib|level(19),wp_one_handed (60)|wp_polearm (60) |wp_archery(140),knows_tracker_npc|knows_power_draw_3|knows_athletics_2|knows_shield_1,mercenary_face_1, mercenary_face_2],
-  ["slingers","Slinger","Slingers",tf_guarantee_ranged,no_scene,reserved,fac_commoners,
-   [itm_flintlock_pistol_militar,itm_sniper_lead,
- itm_bare_legs_blue,itm_carbatinae_2_bare,itm_carbatinae_1_bare,
-itm_turret_hat_blue,itm_turret_hat_green,
-itm_shirt,itm_roman_shirt,
-itm_knife,itm_hatchet],
-   veteran_ranged_attrib|level(19),wp(140),knows_tracker_npc|knows_power_draw_3|knows_athletics_2|knows_shield_1,mercenary_face_1, mercenary_face_2],
-  ["mercenary_horseman","Horseman (Lig. C.)","Horsemen",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_ranged|tf_guarantee_horse|tf_guarantee_shield,no_scene,reserved,fac_commoners,
-[itm_javelin_jinetes,itm_javelin_jinetes,
- itm_sumpter_horse,itm_saddle_horse,itm_steppe_horse,itm_charger,itm_normal_horse11,itm_normal_horse12,itm_normal_horse13,itm_normal_horse14,
- itm_carbatinae_2_green,itm_carbatinae_2_grey,
-itm_piel_coat04,itm_piel_coat03,itm_blue_cloak,itm_red_cloak,
-itm_armor_8,itm_armor_9,itm_short_tunic,itm_green_tunic,itm_blue_tunic,itm_padded_jack_7_trig,itm_padded_jack_9_trig,
- itm_spear_2,itm_hand_axe,itm_talak_seax,
-    itm_leathershield_small_b,itm_woodenshield_small,itm_woodenshield_small_d,itm_leathershield_small_d],
-   def_attrib2|level(23),wp(170),knows_warrior_normal,mercenary_face_1, mercenary_face_2],
+  [
+      "caravan_guard","Spearman (Med. I.)","Spearmen",
+      tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,no_scene,0,fac_commoners,
+      [
+         itm_spear_3,itm_hand_axe,itm_talak_seax,
+         itm_javelin,itm_javelin,itm_javelin,itm_javelin,
+         itm_carbatinae_2_green,itm_carbatinae_1_blue,itm_carbatinae_2_grey,
+         itm_black_cloak,itm_piel_coat01,itm_piel_coat02,itm_white_cloak_hood,itm_white_cloak,
+         itm_armor_8,itm_armor_9,itm_linen_tunic,itm_green_tunic,itm_red_tunic,itm_blue_tunic,
+         itm_leathershield_small_b,itm_woodenshield_small,itm_woodenshield_small_d,itm_leathershield_small_d,
+      ],
+      def_attrib2|level(23),wp(170),knows_warrior_normal,mercenary_face_1, mercenary_face_2
+   ],
+
+  [
+      "mercenary_swordsman","Milite (Hv. I.)","Milites",
+      tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_helmet,no_scene,reserved,fac_commoners,
+      [
+         itm_spear_1,itm_spear_6,itm_had_seax,itm_scianshort,
+         itm_throwing_spears,itm_throwing_spears3,itm_throwing_spears4,itm_jarid,
+         itm_decorated_leather_shoes,itm_carbatinae_2,itm_decorated_leather_shoes_blue,
+         itm_coat_of_plates4,itm_mail_shirt_bluehorses,itm_padded_jack_6_trig,itm_padded_jack_7_trig,
+         itm_woolen_cap_newred,itm_woolen_cap_newgrn,itm_woolen_cap,itm_bowl_helmet,itm_norman_helmet,itm_leather_cap,
+         itm_leathershield_medium,itm_leathershield_medium_y,itm_leathershield_medium_b,itm_woodenshield_medium
+      ],
+      def_attrib3|level(27),wp(200),knows_warrior_veteran,mercenary_face_1, mercenary_face_2
+   ],
+
+  [
+      "hired_blade","Veteran Warrior (Hv. I.)","Veterans Warriors",
+      tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_helmet|tf_guarantee_shield,
+      no_scene,reserved,fac_commoners,
+      [
+         itm_throwing_spears,itm_throwing_spears3,
+         itm_scythe,itm_lance,itm_le_pictishsword2,itm_bl_sword01_01,itm_le_bamburghsword,
+         itm_leather_gloves,
+         itm_decorated_leather_shoes_grey,itm_carbatinae_1_grey,itm_decorated_leather_shoes_orange,itm_iron_greaves,
+         itm_mail_shirt_greenhorses,itm_mail_shirt_red,itm_mail_shirt_reddragon,
+         itm_mail_shirt_redhorses,itm_mail_shirt_whiteaxes,
+         itm_rath_spangenlord5,itm_bowl_helmet,itm_vaegir_war_helmet,itm_briton_helm,
+         itm_celtic_vae_shield1,itm_celtic_vae_shield2,itm_celtic_vae_shield3,itm_celtic_vae_shield4
+      ],
+      def_attrib3|level(29),wp(220),knows_warrior_veteran,mercenary_face_1, mercenary_face_2
+   ],
+
+  [
+      "frisian_warrior","Professional Mercenary (Hv. I.)","Professional Mercenaries",
+      tf_guarantee_boots|tf_guarantee_shield,no_scene,reserved,fac_commoners,
+      [
+         itm_throwing_spears,itm_throwing_spears3,
+         itm_carbatinae_2,itm_decorated_leather_shoes_green,itm_decorated_leather_shoes_blue,
+         itm_mail_shirt_bluehorses,itm_mail_shirt_blueunicorn,itm_mail_shirt_whiteraven,itm_mail_shirt_green,itm_mail_shirt_red,itm_mail_shirt_grn,
+         itm_rath_spangenlord5,itm_bowl_helmet,itm_vaegir_war_helmet,itm_briton_helm5,
+         itm_bamburghsword2,itm_bl_sword01_03,itm_new_sword2,itm_axe_2,itm_axehammer_2,itm_axehammer_1,
+         itm_leathershield_medium,itm_leathershield_medium_y,itm_leathershield_medium_b,itm_woodenshield_medium
+      ],
+      def_attrib3|level(27),wp(200),knows_warrior_veteran,mercenary_face_1, mercenary_face_2
+   ],
+
+  [
+      "mercenary_crossbowman","Archer","Archers",
+      tf_guarantee_boots|tf_guarantee_ranged,no_scene,reserved,fac_commoners,
+      [
+         itm_arrows,itm_arrows,itm_short_bow,itm_short_bow,itm_hunting_bow,itm_short_bow,
+         itm_ankle_boots,itm_wrapping_boots,
+         itm_shirt,itm_roman_shirt,
+         itm_hunting_dagger,itm_club_one,itm_head_wrappings,itm_spiked_club
+      ],
+      veteran_ranged_attrib|level(19),wp_one_handed (60)|wp_polearm (60) |wp_archery(140),
+      knows_tracker_npc|knows_power_draw_3|knows_athletics_2|knows_shield_1,
+      mercenary_face_1, mercenary_face_2
+   ],
+
+  [
+      "slingers","Slinger","Slingers",
+      tf_guarantee_boots|tf_guarantee_ranged,no_scene,reserved,fac_commoners,
+      [
+         itm_flintlock_pistol_militar,itm_sniper_lead,
+         itm_bare_legs_blue,itm_carbatinae_2_bare,itm_carbatinae_1_bare,
+         itm_turret_hat_blue,itm_turret_hat_green,
+         itm_shirt,itm_roman_shirt,
+         itm_knife,itm_hatchet
+      ],
+      veteran_ranged_attrib|level(19),wp(140),
+      knows_tracker_npc|knows_power_draw_3|knows_athletics_2|knows_shield_1,
+      mercenary_face_1, mercenary_face_2
+   ],
+  
+  [
+      "mercenary_horseman","Horseman (Lig. C.)","Horsemen",
+      tf_mounted|tf_guarantee_all,no_scene,reserved,fac_commoners,
+      [
+         itm_javelin_jinetes,itm_javelin_jinetes,
+         itm_sumpter_horse,itm_saddle_horse,itm_steppe_horse,itm_charger,itm_normal_horse11,
+         itm_normal_horse12,itm_normal_horse13,itm_normal_horse14,
+         itm_carbatinae_2_green,itm_carbatinae_2_grey,
+         itm_piel_coat04,itm_piel_coat03,itm_blue_cloak,itm_red_cloak,
+         itm_armor_8,itm_armor_9,itm_short_tunic,itm_green_tunic,itm_blue_tunic,
+         itm_padded_jack_7_trig,itm_padded_jack_9_trig,
+         itm_spear_2,itm_hand_axe,itm_talak_seax,
+         itm_leathershield_small_b,itm_woodenshield_small,itm_woodenshield_small_d,itm_leathershield_small_d
+      ],
+      def_attrib2|level(23),wp(170),knows_warrior_normal,mercenary_face_1, mercenary_face_2
+   ],
+
 ###mercenarios escolta chief para crear parties
-  ["mercenary_leader","Mercenary Captain","Mercenary Captains",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield,no_scene,reserved,fac_commoners,
-   [itm_throwing_spears,itm_arabian_horse_b,itm_courser,itm_arabian_horse_b2,itm_arabian_horse_a3,itm_arabian_horse_b3,
-    itm_spatha,itm_had_seax,itm_mail_shirt_red,itm_mail_shirt_ylw,itm_mail_shirt_blk,itm_mail_shirt_wht,itm_carbatinae_2_blue,itm_leather_gloves,itm_celtic_vae_shield1,itm_celtic_vae_shield2,itm_celtic_vae_shield3,itm_celtic_vae_shield4,itm_celtic_vae_shield5],
-   def_attrib2|level(40),wp_one_handed(192)|wp_two_handed(100)|wp_polearm(187)|wp_archery(60)|wp_crossbow(90)|wp_throwing(76),knows_warrior_veteran, mercenary_face_1, mercenary_face_2],
+  [
+      "mercenary_leader","Mercenary Captain","Mercenary Captains",
+      tf_mounted|tf_guarantee_all,no_scene,reserved,fac_commoners,
+      [
+         itm_throwing_spears,itm_arabian_horse_b,itm_courser,itm_arabian_horse_b2,
+         itm_arabian_horse_a3,itm_arabian_horse_b3,
+         itm_spatha,itm_had_seax,itm_mail_shirt_red,itm_mail_shirt_ylw,itm_mail_shirt_blk,
+         itm_mail_shirt_wht,itm_carbatinae_2_blue,itm_leather_gloves,itm_celtic_vae_shield1,
+         itm_celtic_vae_shield2,itm_celtic_vae_shield3,itm_celtic_vae_shield4,itm_celtic_vae_shield5
+      ],
+      def_attrib2|level(40),wp_one_handed(192)|wp_two_handed(100)|wp_polearm(187)|wp_archery(60)|wp_crossbow(90)|wp_throwing(76),
+      knows_warrior_elite, mercenary_face_1, mercenary_face_2
+   ],
+
 #Tempered chief  mercenary skirmisher added for spying and skirmishing
-  ["mercenary_skirmisher","Spy","Spies",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_ranged,no_scene,reserved,fac_commoners,
-   [itm_javelin,itm_hunting_bow,itm_arrows,
-     itm_leather_gloves,itm_carbatinae_2,itm_carbatinae_1_grey,
-itm_youhou_assassin_hood,itm_green_cloak_hoodc,itm_brown_cloak_hoodc,itm_black_cloak_hoodc,itm_grey_cloak_hoodc,
-itm_linen_tunic,itm_armor_9,
-itm_club,itm_hand_axe,itm_knife],
-   elite_ranged_attrib|level(27),wp_archery(120)|wp(100),knows_tracker_npc|knows_riding_8|knows_ironflesh_3|knows_shield_2|knows_power_strike_1|knows_power_draw_3|knows_horse_archery_4,mercenary_face_1, mercenary_face_2],  #Tempered  mercenary scouts for skirmisher party template
-  ["mercenary_cavalry","Equite (Hv. C.)","Equites",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield|tf_guarantee_ranged,no_scene,reserved,fac_commoners, 
-   [itm_throwing_spears,itm_arabian_horse_b,itm_courser,itm_arabian_horse_a4,itm_arabian_horse_b4,itm_courser4,itm_courser5,
-itm_iron_greaves,
-itm_mail_shirt_blk,itm_mail_shirt_wht,itm_mail_shirt_grn,itm_padded_jack_3_trig,itm_padded_jack_4_trig,
-itm_rath_spangenlord5,itm_vaegir_war_helmet,itm_briton_helm4,
-itm_celtic_vae_shield2,itm_celtic_vae_shield3,itm_celtic_vae_shield4,itm_celtic_vae_shield5,
-itm_had_seax,itm_spear_8,itm_spear_4,itm_spatha],
-   def_attrib3|level(27),wp(200),knows_warrior_veteran,mercenary_face_1, mercenary_face_2],
+  [
+      "mercenary_skirmisher","Spy","Spies",
+      tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_ranged,no_scene,reserved,fac_commoners,
+      [
+         itm_javelin,itm_hunting_bow,itm_arrows,
+         itm_leather_gloves,itm_carbatinae_2,itm_carbatinae_1_grey,
+         itm_youhou_assassin_hood,itm_green_cloak_hoodc,itm_brown_cloak_hoodc,itm_black_cloak_hoodc,itm_grey_cloak_hoodc,
+         itm_linen_tunic,itm_armor_9,
+         itm_club,itm_hand_axe,itm_knife
+      ],
+      elite_ranged_attrib|level(27),wp_archery(120)|wp(100),
+      knows_tracker_npc|knows_riding_8|knows_ironflesh_3|knows_shield_2|knows_power_strike_1|knows_power_draw_3|knows_horse_archery_4,
+      mercenary_face_1, mercenary_face_2
+   ],  #Tempered  mercenary scouts for skirmisher party template
+
+  [
+      "mercenary_cavalry","Equite (Hv. C.)","Equites",
+      tf_mounted|tf_guarantee_all,no_scene,reserved,fac_commoners, 
+      [
+         itm_throwing_spears,itm_arabian_horse_b,itm_courser,itm_arabian_horse_a4,
+         itm_arabian_horse_b4,itm_courser4,itm_courser5,
+         itm_iron_greaves,
+         itm_mail_shirt_blk,itm_mail_shirt_wht,itm_mail_shirt_grn,itm_padded_jack_3_trig,itm_padded_jack_4_trig,
+         itm_rath_spangenlord5,itm_vaegir_war_helmet,itm_briton_helm4,
+         itm_celtic_vae_shield2,itm_celtic_vae_shield3,itm_celtic_vae_shield4,itm_celtic_vae_shield5,
+         itm_had_seax,itm_spear_8,itm_spear_4,itm_spatha
+      ],
+      def_attrib3|level(27),wp(200),knows_warrior_veteran,mercenary_face_1, mercenary_face_2
+   ],
+
   ["mercenaries_end","mercenaries_end","mercenaries_end",0,no_scene,reserved,fac_commoners,
    [],
    def_attrib|level(4),wp(60),knows_common,mercenary_face_1, mercenary_face_2],
 
 
 #peasant - retainer - footman - man-at-arms -  knight - cantware
-  ["sarranid_recruit","Gebur Jute (Lig. I.)","Geburas Jutes",tf_guarantee_boots,0,0,fac_neutral,
-   [itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,
-itm_ankle_boots,itm_wrapping_boots,
-itm_woolen_cap_newblu,itm_woolen_cap_newwht,itm_woolen_cap,
-itm_shirt,itm_roman_shirt,itm_fattiglinenskjortir,itm_bl_tunicsr01_2,itm_bl_tunicsr02,itm_mercia_tunic1,itm_blue_short_tunic,itm_bl_tunicsr01,itm_fat_body,
-itm_knife,itm_pitch_fork,itm_cudgel,itm_stones,itm_battle_fork,itm_staff,itm_sickle],
-   def_attrib|level(15),wp(110),knows_warrior_basic, vaegir_face_younger_1, vaegir_face_middle_2],
-  ["sarranid_footman","Kotsetla Jute (Lig. I.)","Kotsetlas Jutes",tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
-   [itm_javelin,itm_javelin,itm_javelin,itm_sniper_crossbow,itm_flintlock_pistol,itm_heavy_crossbow,
-itm_ankle_boots,itm_wrapping_boots,
-itm_woolen_cap_newblu,itm_woolen_cap_newwht,itm_woolen_cap,
-itm_piel_coat01,itm_piel_coat05,itm_piel_coat06,itm_piel_coat07,
-itm_wessex_tunic3,itm_bl_tunicsr02,itm_mercia_tunic1,itm_blue_short_tunic,itm_bl_tunicsleather,itm_idi_furjacket4,itm_idi_furjacket5,itm_idi_furjacket6,
-itm_palka4,itm_palka5,itm_scimitar,itm_axefaradon2,
-itm_buckler7,itm_buckler6,itm_buckler8,itm_buckler9],
-   def_attrib2|level(19),wp(140),knows_warrior_basic, vaegir_face_young_1, vaegir_face_middle_2],
-  ["sarranid_skirmisher","Sceotand Jute (Missile)","Sceotandas Jutes",tf_guarantee_ranged|tf_guarantee_armor|tf_guarantee_boots,0,0,fac_neutral,
-   [itm_arrows,itm_short_bow,itm_short_bow,itm_short_bow,itm_hunting_bow,
-itm_carbatinae_1_bare,itm_ankle_boots,itm_wrapping_boots,
-itm_woolen_cap_newblk,itm_woolen_cap_newwht,itm_woolen_cap,
-itm_shirt,itm_roman_shirt,itm_woolen_hood,itm_bl_tunicsr01_2,itm_leather_steppe_cap_a,itm_mercia_tunic1,itm_blue_short_tunic,
-itm_cudgel,itm_dagger,itm_frankish_axe2],
-   basic_ranged_attrib|str_10|level(15),wp_one_handed(40)|wp_polearm (40) |wp_archery(110),knows_ironflesh_1|knows_power_draw_2|knows_power_throw_1,vaegir_face_young_1, vaegir_face_old_2],
-  ["sarranid_veteran_footman","Geneata Jute (Med. I.)","Geneatas Jutes",tf_guarantee_boots|tf_guarantee_shield|tf_guarantee_armor,0,0,fac_neutral,
-   [itm_javelin,itm_javelin,itm_javelin,itm_javelin,
-itm_carbatinae_1_grey,itm_carbatinae_1_green,itm_carbatinae_2_orange,
-itm_woolen_cap_newblk,itm_woolen_cap_newwht,itm_woolen_cap,
-itm_blue_short_tunic2,itm_bluevikingshirt,itm_coat_of_plates9,itm_coat_of_plates7,itm_pelt_coat2,itm_idi_furjacket4,
- itm_vikingaxeb,itm_saxon_spear,itm_spear_3,itm_lance,itm_langseax,itm_falchion,itm_spear_3,
-    itm_ad_viking_shield_round_01,itm_ad_viking_shield_round_02,itm_ad_viking_shield_round_03,itm_ad_viking_shield_round_04,itm_ad_viking_shield_round_05,itm_ad_viking_shield_round_06,itm_ad_viking_shield_round_07],
-   def_attrib2|level(23),wp(170),knows_warrior_normal,vaegir_face_young_1, vaegir_face_old_2],
-  ["centware_portaestandarte","Tacnberend","Tacnberend",tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
-   [itm_carbatinae_2_grey,itm_carbatinae_1_grey,itm_carbatinae_1_green,itm_carbatinae_1_orange,
-itm_piel_coat03,itm_piel_coat04,itm_piel_coat05,itm_piel_coat01,itm_piel_coat06,
-itm_shirt,itm_roman_shirt,itm_wessex_tunic3,itm_mercia_tunic1,itm_blue_short_tunic,itm_bl_tunicsleather,
-itm_goat_cap,itm_felt_steppe_cap,itm_boar_helmet,
-itm_wessexbanner5,itm_personalbanner,itm_trophy_b],
-   def_attrib2|level(23),wp_one_handed(170)|wp_polearm (125)|wp(80),knows_warrior_normal,vaegir_face_young_1, vaegir_face_old_2],
-  ["centware_sacerdote","Jute Cleric","Jutes Clerics",tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
-   [itm_carbatinae_1_green,itm_carbatinae_1_orange,itm_carbatinae_2_orange,
-     itm_blue_gambeson,itm_skirmisher_armor,     
-     itm_stones,itm_staff],
-   def_attrib|level(23),wp(170),knows_cleric,sac_face_1, sac_face_2],
-  ["sarranid_infantry","Geoguth Jute (Med. I.)","Geoguthas Jutes",tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
-   [itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,
- itm_carbatinae_1,itm_carbatinae_1_green,itm_carbatinae_1_orange,
-itm_woolen_cap_newblu,itm_woolen_cap_newgrn,
-itm_bl_tunicsleather_3,itm_bl_tunicsleather,itm_bl_tunicsleather_2,itm_rawhide_coat,itm_coat_of_plates1,itm_coat_of_plates2,itm_coat_of_plates3,itm_coat_of_plates5,itm_coat_of_plates4,
- itm_spear_6,itm_spear_3,itm_langseax,
-    itm_norman_shield_4,itm_norman_shield_5,itm_norman_shield_6,itm_norman_shield_7,itm_norman_shield_8,itm_plate_covered_round_shield],
-   def_attrib2|level(23),wp(170),knows_warrior_normal,vaegir_face_young_1, vaegir_face_older_2],
-  ["sarranid_guard","Beadu rinc Jute (Med. I.)","Beadu rincas Jutes",tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots,0,0,fac_neutral,
-  [itm_throwing_spears3,itm_throwing_spears4,itm_javelin,itm_jarid,itm_javelin,
-itm_carbatinae_1_grey,itm_carbatinae_1_green,itm_carbatinae_2_orange,
-itm_piel_coat02,itm_piel_coat07,itm_bl_boar_fur,
-itm_bl_tunic03,itm_bluevikingshirt,itm_redvikingshirt,itm_redtunic,itm_bl_tunic03,
-itm_leather_armor_c2,itm_leather_armor_c,itm_vae_thick_coat2,itm_vae_thick_coat3,itm_tattered_leather_armor_gr,itm_padded_leather_blue,
-itm_rathos_bowl_helmet,itm_bowl_helmet,itm_sarranid_helmet1,itm_horn_helmet_3,itm_rathos_spangenhelm_b_light,itm_sarranid_veiled_helmet,
- itm_talak_seax,itm_spear_3,itm_axehammer_2,itm_axehammer_1,
-    itm_ad_viking_shield_round_02,itm_ad_viking_shield_round_03,itm_ad_viking_shield_round_04,itm_ad_viking_shield_round_05,itm_ad_viking_shield_round_06,itm_ad_viking_shield_round_07,itm_ad_viking_shield_round_08],
-   def_attrib3|level(25),wp(185),knows_warrior_veteran,vaegir_face_middle_1, vaegir_face_older_2],
-  ["sarranid_horseman","Gesith Jute (Lig. C.)","Gesithas Jutes",tf_mounted|tf_guarantee_boots|tf_guarantee_gloves|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield|tf_guarantee_ranged,0,0,fac_neutral,
-   [itm_javelin,itm_javelin,itm_javelin,itm_javelin,
-    itm_normal_horse30,itm_saddle_horse,itm_steppe_horse,itm_charger,itm_normal_horse21,itm_normal_horse22,itm_normal_horse27,
-     itm_leather_gloves,
-itm_mail_boots,itm_decorated_leather_shoes_orange,
- itm_tattered_leather_armor_gr,itm_padded_leather_brown,itm_leather_armor_c,itm_leather_armor_c2,itm_byrnie,itm_mail_shirthre,itm_mail_shirtredwhite,itm_mail_shirt_1_trig,
-itm_nordic_fighter_helmet,itm_nordic_footman_helmet,itm_nordic_veteran_archer_helmet,itm_vendel14,itm_horn_helmet_3,itm_vendel14_2,
- itm_hunting_dagger,itm_axe_hammer_long,itm_spear_8,itm_spear_4,
-    itm_saxon_adorno_14,itm_saxon_adorno_15,itm_tab_shield_small_round_c],
-   def_attrib3|level(27),wp(200),knows_warrior_veteran,vaegir_face_middle_1, vaegir_face_older_2],
-  ["sarranid_mamluke","Ridwiga Jute (Hv. I.)","Ridwigas Jutes",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_shield,0,0,fac_neutral,
-   [itm_throwing_spears3,itm_light_throwing_axes,itm_throwing_axes,itm_throwing_spears4,itm_jarid,
-     itm_leather_gloves,
-itm_decorated_leather_shoes_grey,itm_carbatinae_1_grey,itm_iron_greaves,
- itm_tattered_leather_armor_blu,itm_ad_viking_byrnie_01,itm_ad_viking_byrnie_02,itm_ad_viking_byrnie_03,itm_ad_viking_byrnie_04,itm_mail_shirt_9_trig,
-itm_vaegir_fur_helmet,itm_magyar_helmet_a,itm_flat_topped_helmet,itm_nordic_huscarl_helmet,itm_sarranid_mail_coif,itm_rath_spangenlord5,itm_khergit_cavalry_helmet,
- itm_ornate_seax,itm_vikingaxeb,itm_vikingaxe,itm_le_richsword2,itm_valssword,itm_saxon_richsword,itm_battle_axe,    
-    itm_ad_viking_shield_round_09,itm_saxon_adorno_15,itm_saxon_adorno_16,itm_saxon_adorno_17,itm_saxon_adorno_18,itm_saxon_adorno_19],
-   def_attrib3|level(27),wp(200),knows_warrior_veteran,vaegir_face_young_1, vaegir_face_older_2],
-   ["sarranid_archer","Duguth Jute (Hv. I.)","Duguthas Jutes",tf_guarantee_boots|tf_guarantee_gloves|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_neutral,
-   [itm_throwing_spears3,itm_light_throwing_axes,itm_throwing_axes,itm_throwing_spears4,itm_jarid,
-     itm_leather_gloves,
-itm_carbatinae_1_grey,itm_mail_boots,itm_decorated_leather_shoes_orange,
-itm_woolen_cap_newwht,itm_woolen_cap,itm_norman_helmet,itm_leather_cap,itm_horn_helmet_2,itm_leather_steppe_cap_b,
-itm_noblemanshirt,itm_noblemanshirt_gaelic,
-itm_coat_of_plates6,itm_coat_of_plates7,itm_coat_of_plates8,itm_coat_of_plates9,itm_padded_jack_3_trig,itm_mail_shirt_8_trig,itm_mail_shirt_7_trig,itm_mail_shirt_6_trig,itm_mail_shirt_4_trig,
- itm_le_bamburghsword,itm_spear_2,itm_langseax,
-    itm_norman_shield_4,itm_norman_shield_5,itm_norman_shield_6,itm_norman_shield_7,itm_norman_shield_8,itm_plate_covered_round_shield],
-   def_attrib3|level(27),wp(200),knows_warrior_veteran,vaegir_face_middle_1, vaegir_face_older_2],
-  ["sarranid_master_archer","Hearthweru Jute (Elit. I.)","Hearthweruas Jutes",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_helmet|tf_guarantee_shield,0,0,fac_neutral,
-   [itm_throwing_spears3,itm_light_throwing_axes,itm_throwing_spears4,itm_throwing_axes,itm_jarid,
-     itm_leather_gloves,
-itm_light_leather_boots,itm_carbatinae_2_greaves_green,itm_carbatinae_1_greaves_blue,itm_carbatinae_2_greaves_orange,itm_splinted_leather_greaves,
-itm_vikinglamellar2yellow,itm_vikinglamellar2red,itm_vikinglamellar2blue,itm_wolf_coat1,itm_wolfpelt_mail_coat,itm_mail_shirt_grn,itm_mail_shirt_red,
-itm_horn_helmet,itm_segmented_helmet,itm_vaegir_fur_cap,itm_byzantion_helmet_a,itm_vaegir_mask,itm_nasal_helmet,itm_rus_helmet_a,itm_spiked_helmet,
- itm_spear_1,itm_spear_2,itm_ornate_seax,itm_axehammer_2,itm_le_richsword2,itm_valssword,
-itm_tab_shield_round_c],
-       def_attrib3|level(32),wp(260),knows_warrior_elite,vaegir_face_young_1, vaegir_face_older_2],
-  ["sarranid_messenger","Horsweala Jute","Horswealas Jutes",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse,0,0,fac_neutral,
-   [itm_javelin,itm_saddle_horse, itm_leather_gloves,
- itm_decorated_leather_shoes,itm_carbatinae_2,itm_decorated_leather_shoes_green,itm_decorated_leather_shoes_blue,itm_carbatinae_2_blue,
-itm_shirt,itm_roman_shirt,itm_fattiglinenskjortir,itm_wessex_tunic3,itm_bl_tunicsr02,itm_mercia_tunic1,itm_blue_short_tunic,itm_bl_tunicsleather,
- itm_spear_6,itm_spear_3,itm_langseax,
-    itm_norman_shield_4,itm_norman_shield_5,itm_norman_shield_6,itm_norman_shield_7,itm_norman_shield_8,itm_plate_covered_round_shield],
-   def_attrib3|agi_21|level(27),wp(200),knows_common|knows_riding_7|knows_power_throw_2,vaegir_face_young_1, vaegir_face_older_2],
-  ["sarranid_deserter","Jute Deserter","Jutes Deserters",tf_guarantee_shield|tf_guarantee_boots,0,0,fac_deserters,
-   [itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,
- itm_carbatinae_2,itm_carbatinae_2_blue,itm_carbatinae_2_grey,itm_carbatinae_1_green,
-itm_fattiglinenskjortir,itm_wessex_tunic3,itm_bl_tunicsr02,itm_mercia_tunic1,itm_blue_short_tunic,itm_bl_tunicsleather,
-itm_woolen_cap_newblu,itm_woolen_cap_newred,itm_woolen_cap_newwht,itm_woolen_cap,itm_bowl_helmet,itm_horn_helmet_2,itm_leather_warrior_cap,
- itm_vikingaxeb,itm_saxon_spear,itm_spear_3,itm_langseax,itm_falchion,itm_spear_3,
-    itm_ad_viking_shield_round_01,itm_ad_viking_shield_round_02,itm_ad_viking_shield_round_03,itm_ad_viking_shield_round_04,itm_ad_viking_shield_round_05,itm_ad_viking_shield_round_06],
-   def_attrib2|str_10|level(23),wp(170),knows_warrior_normal,vaegir_face_young_1, vaegir_face_older_2],
-  ["sarranid_prison_guard","Prison Guard","Prison Guards", tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_neutral,
-   [itm_throwing_spears3,itm_leather_gloves,itm_decorated_leather_shoes,itm_woolen_cap_newblu,itm_woolen_cap_newred,itm_norman_helmet,itm_leather_cap,itm_bowl_helmet,
-itm_noblemanshirt,itm_noblemanshirt_gaelic,itm_coat_of_plates7,itm_tattered_leather_armor_blk,itm_spear_2,itm_langseax,itm_plate_covered_round_shield],
-   def_attrib3|level(29),wp(200),knows_athletics_3|knows_shield_2|knows_ironflesh_3,vaegir_face_middle_1, vaegir_face_older_2],
-  ["sarranid_castle_guard","Castle Guard","Castle Guards", tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
-   [itm_throwing_spears3,itm_leather_gloves,itm_decorated_leather_shoes,itm_woolen_cap_newblu,itm_woolen_cap_newred,itm_norman_helmet,itm_leather_cap,itm_bowl_helmet,
-itm_noblemanshirt,itm_noblemanshirt_gaelic,itm_coat_of_plates7,itm_tattered_leather_armor_blk,itm_spear_2,itm_langseax,itm_plate_covered_round_shield],
-   def_attrib3|level(29),wp(200),knows_athletics_3|knows_shield_2|knows_ironflesh_3,vaegir_face_middle_1, vaegir_face_older_2],
+  [
+      "sarranid_recruit","Gebur Jute (Lig. I.)","Geburas Jutes",
+      tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
+      [
+         itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,
+         itm_ankle_boots,itm_wrapping_boots,
+         itm_woolen_cap_newblu,itm_woolen_cap_newwht,itm_woolen_cap,
+         itm_shirt,itm_roman_shirt,itm_fattiglinenskjortir,itm_bl_tunicsr01_2,itm_bl_tunicsr02,
+         itm_mercia_tunic1,itm_blue_short_tunic,itm_bl_tunicsr01,itm_fat_body,
+         itm_knife,itm_pitch_fork,itm_cudgel,itm_stones,itm_battle_fork,itm_staff,itm_sickle
+      ],
+      def_attrib|level(15),wp(110),knows_warrior_basic, vaegir_face_younger_1, vaegir_face_middle_2
+   ],
+
+  [
+      "sarranid_footman","Kotsetla Jute (Lig. I.)","Kotsetlas Jutes",
+      tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_neutral,
+      [
+         itm_javelin,itm_javelin,itm_javelin,itm_sniper_crossbow,itm_flintlock_pistol,itm_heavy_crossbow,
+         itm_ankle_boots,itm_wrapping_boots,
+         itm_woolen_cap_newblu,itm_woolen_cap_newwht,itm_woolen_cap,
+         itm_bl_tunic03,itm_bluevikingshirt,itm_redvikingshirt,itm_redtunic,itm_bl_tunic03,
+         itm_piel_coat01,itm_piel_coat05,itm_piel_coat06,itm_piel_coat07,
+         itm_wessex_tunic3,itm_bl_tunicsr02,itm_mercia_tunic1,itm_blue_short_tunic,itm_bl_tunicsleather,
+         itm_idi_furjacket4,itm_idi_furjacket5,itm_idi_furjacket6,
+         itm_palka4,itm_palka5,itm_scimitar,itm_axefaradon2,
+         itm_buckler7,itm_buckler6,itm_buckler8,itm_buckler9
+      ],
+      def_attrib2|level(19),wp(140),knows_warrior_basic, vaegir_face_young_1, vaegir_face_middle_2
+   ],
+
+  [
+      "sarranid_skirmisher","Sceotand Jute (Missile)","Sceotandas Jutes",
+      tf_guarantee_ranged|tf_guarantee_armor|tf_guarantee_boots,0,0,fac_neutral,
+      [
+         itm_arrows,itm_arrows,itm_short_bow,itm_short_bow,itm_short_bow,itm_hunting_bow,
+         itm_carbatinae_1_bare,itm_ankle_boots,itm_wrapping_boots,
+         itm_woolen_cap_newblk,itm_woolen_cap_newwht,itm_woolen_cap,
+         itm_shirt,itm_roman_shirt,itm_woolen_hood,itm_bl_tunicsr01_2,
+         itm_leather_steppe_cap_a,itm_mercia_tunic1,itm_blue_short_tunic,
+         itm_cudgel,itm_dagger,
+      ],
+      basic_ranged_attrib|str_10|level(15),wp_one_handed(40)|wp_polearm (40) |wp_archery(110),
+      knows_ironflesh_1|knows_power_draw_2|knows_power_throw_1,vaegir_face_young_1, vaegir_face_old_2
+   ],
+
+  [
+      "sarranid_veteran_footman","Geneata Jute (Med. I.)","Geneatas Jutes",
+      tf_guarantee_boots|tf_guarantee_shield|tf_guarantee_armor,0,0,fac_neutral,
+      [
+         itm_javelin,itm_javelin,itm_javelin,itm_javelin,
+         itm_carbatinae_1_grey,itm_carbatinae_1_green,itm_carbatinae_2_orange,
+         itm_woolen_cap_newblk,itm_woolen_cap_newwht,itm_woolen_cap,
+         itm_rathos_bowl_helmet,itm_bowl_helmet,
+         itm_bl_tunicsleather,itm_bl_tunicsleather_2,itm_bl_tunicsleather_3,
+         itm_blue_short_tunic2,itm_bluevikingshirt,itm_pelt_coat2,itm_idi_furjacket4,
+         itm_leather_vest_red,itm_leather_vest_green,itm_leather_vest_blue,
+         itm_vikingaxeb,itm_saxon_spear,itm_spear_3,itm_lance,itm_langseax,itm_falchion,itm_spear_3,
+         itm_ad_viking_shield_round_01,itm_ad_viking_shield_round_02,itm_ad_viking_shield_round_03,
+         itm_ad_viking_shield_round_04,itm_ad_viking_shield_round_05,itm_ad_viking_shield_round_06,
+         itm_ad_viking_shield_round_07
+      ],
+      def_attrib2|level(23),wp(170),knows_warrior_normal,vaegir_face_young_1, vaegir_face_old_2
+   ],
+
+  [
+      "centware_portaestandarte","Tacnberend","Tacnberend",
+      tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
+      [
+         itm_carbatinae_2_grey,itm_carbatinae_1_grey,itm_carbatinae_1_green,itm_carbatinae_1_orange,
+         itm_piel_coat03,itm_piel_coat04,itm_piel_coat05,itm_piel_coat01,itm_piel_coat06,
+         itm_shirt,itm_roman_shirt,itm_wessex_tunic3,itm_mercia_tunic1,itm_blue_short_tunic,itm_bl_tunicsleather,
+         itm_goat_cap,itm_felt_steppe_cap,itm_boar_helmet,
+         itm_wessexbanner5,itm_personalbanner,itm_trophy_b
+      ],
+      def_attrib2|level(23),wp_one_handed(170)|wp_polearm (125)|wp(80),
+      knows_warrior_normal,vaegir_face_young_1, vaegir_face_old_2
+   ],
+
+  [
+      "centware_sacerdote","Jute Cleric","Jutes Clerics",
+      tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
+      [
+         itm_carbatinae_1_green,itm_carbatinae_1_orange,itm_carbatinae_2_orange,
+         itm_blue_gambeson,itm_skirmisher_armor,     
+         itm_stones,itm_staff
+      ],
+      def_attrib|level(23),wp(170),knows_cleric,sac_face_1, sac_face_2
+   ],
+
+  [
+      "sarranid_infantry","Geoguth Jute (Med. I.)","Geoguthas Jutes",
+      tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
+      [
+         itm_spear_6,itm_spear_3,itm_langseax,
+         itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,
+         itm_carbatinae_1,itm_carbatinae_1_green,itm_carbatinae_1_orange,
+         itm_woolen_cap_newblu,itm_woolen_cap_newgrn,itm_leather_cap,itm_horn_helmet_2,itm_horn_helmet,
+         itm_coat_of_plates1,itm_coat_of_plates3,itm_coat_of_plates4,itm_coat_of_plates5,itm_coat_of_plates9,
+         itm_norman_shield_4,itm_norman_shield_5,itm_norman_shield_6,itm_norman_shield_7,itm_norman_shield_8,
+         itm_plate_covered_round_shield
+      ],
+      def_attrib2|level(23),wp(170),knows_warrior_normal,vaegir_face_young_1, vaegir_face_older_2
+   ],
+  
+  [
+      "sarranid_guard","Beadu rinc Jute (Med. I.)","Beadu rincas Jutes",
+      tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots|tf_guarantee_helmet,0,0,fac_neutral,
+      [
+         itm_throwing_spears3,itm_throwing_spears4,itm_javelin,itm_jarid,itm_javelin,
+         itm_carbatinae_1_grey,itm_carbatinae_1_green,itm_carbatinae_2_orange,
+         itm_piel_coat02,itm_piel_coat07,itm_bl_boar_fur,
+         itm_leather_armor_c2,itm_leather_armor_c,itm_vae_thick_coat2,itm_vae_thick_coat3,
+         itm_tattered_leather_armor_gr,itm_padded_leather_blue,itm_horn_helmet_3,
+         itm_rathos_spangenhelm_b_light,itm_sarranid_veiled_helmet,
+         itm_talak_seax,itm_spear_3,itm_axehammer_2,itm_axehammer_1,
+         itm_ad_viking_shield_round_02,itm_ad_viking_shield_round_03,itm_ad_viking_shield_round_04,
+         itm_ad_viking_shield_round_05,itm_ad_viking_shield_round_06,itm_ad_viking_shield_round_07,
+         itm_ad_viking_shield_round_08
+      ],
+      def_attrib3|level(25),wp(185),knows_warrior_veteran,vaegir_face_middle_1, vaegir_face_older_2
+   ],
+
+  [
+      "sarranid_horseman","Gesith Jute (Lig. C.)","Gesithas Jutes",
+      tf_mounted|tf_guarantee_all,0,0,fac_neutral,
+      [
+         itm_javelin,itm_javelin,itm_javelin,itm_javelin,
+         itm_normal_horse30,itm_saddle_horse,itm_steppe_horse,itm_charger,
+         itm_normal_horse21,itm_normal_horse22,itm_normal_horse27,
+         itm_leather_gloves,
+         itm_mail_boots,itm_decorated_leather_shoes_orange,
+         itm_tattered_leather_armor_gr,itm_padded_leather_brown,itm_leather_armor_c,
+         itm_leather_armor_c2,itm_byrnie,itm_mail_shirthre,itm_mail_shirtredwhite,itm_mail_shirt_1_trig,
+         itm_nordic_fighter_helmet,itm_nordic_footman_helmet,itm_nordic_veteran_archer_helmet,
+         itm_vendel14,itm_horn_helmet_3,itm_vendel14_2,
+         itm_axe_hammer_long,itm_spear_8,itm_spear_4,itm_valssword,
+         itm_saxon_adorno_14,itm_saxon_adorno_15,itm_tab_shield_small_round_c
+      ],
+      def_attrib3|level(27),wp(200),knows_warrior_veteran,vaegir_face_middle_1, vaegir_face_older_2
+   ],
+
+  [
+      "sarranid_mamluke","Ridwiga Jute (Hv. I.)","Ridwigas Jutes",
+      tf_guarantee_boots|tf_guarantee_gloves|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_shield,0,0,fac_neutral,
+      [
+         itm_throwing_spears3,itm_light_throwing_axes,itm_throwing_axes,itm_throwing_spears4,itm_jarid,
+         itm_leather_gloves,
+         itm_decorated_leather_shoes_grey,itm_carbatinae_1_grey,itm_iron_greaves,
+         itm_tattered_leather_armor_blu,itm_ad_viking_byrnie_01,itm_ad_viking_byrnie_02,
+         itm_ad_viking_byrnie_03,itm_ad_viking_byrnie_04,itm_mail_shirt_9_trig,
+         itm_vaegir_fur_helmet,itm_magyar_helmet_a,itm_flat_topped_helmet,itm_nordic_huscarl_helmet,
+         itm_sarranid_mail_coif,itm_khergit_cavalry_helmet,
+         itm_vikingaxeb,itm_vikingaxe,itm_le_richsword2,itm_saxon_richsword,itm_battle_axe,    
+         itm_ad_viking_shield_round_09,itm_saxon_adorno_15,itm_saxon_adorno_16,itm_saxon_adorno_17,
+         itm_saxon_adorno_18,itm_saxon_adorno_19
+      ],
+      def_attrib3|level(27),wp(200),knows_warrior_veteran,vaegir_face_young_1, vaegir_face_older_2
+   ],
+
+   [
+      "sarranid_archer","Duguth Jute (Hv. I.)","Duguthas Jutes",
+      tf_guarantee_boots|tf_guarantee_gloves|tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_helmet,0,0,fac_neutral,
+      [
+         itm_throwing_spears3,itm_light_throwing_axes,itm_throwing_axes,itm_throwing_spears4,itm_jarid,
+         itm_leather_gloves,
+         itm_carbatinae_1_grey,itm_mail_boots,itm_decorated_leather_shoes_orange,
+         itm_norman_helmet,itm_leather_steppe_cap_b,itm_sarranid_helmet1,itm_rath_spangenlord5,
+         itm_noblemanshirt,itm_noblemanshirt_gaelic,itm_coat_of_plates6,itm_coat_of_plates8,itm_coat_of_plates9,
+         itm_padded_jack_3_trig,itm_mail_shirt_8_trig,itm_mail_shirt_7_trig,itm_mail_shirt_6_trig,itm_mail_shirt_4_trig,
+         itm_le_bamburghsword,itm_spear_2,itm_langseax,
+         itm_norman_shield_4,itm_norman_shield_5,itm_norman_shield_6,itm_norman_shield_7,
+         itm_norman_shield_8,itm_plate_covered_round_shield
+      ],
+      def_attrib3|level(27),wp(200),knows_warrior_veteran,vaegir_face_middle_1, vaegir_face_older_2
+   ],
+
+  [
+      "sarranid_master_archer","Hearthweru Jute (Elit. I.)","Hearthweruas Jutes",
+      tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_helmet|tf_guarantee_shield,0,0,fac_neutral,
+      [
+         itm_throwing_spears3,itm_light_throwing_axes,itm_throwing_spears4,itm_throwing_axes,itm_jarid,
+         itm_leather_gloves,
+         itm_light_leather_boots,itm_carbatinae_2_greaves_green,itm_carbatinae_1_greaves_blue,
+         itm_carbatinae_2_greaves_orange,itm_splinted_leather_greaves,
+         itm_vikinglamellar2yellow,itm_vikinglamellar2red,itm_vikinglamellar2blue,itm_wolf_coat1,
+         itm_wolfpelt_mail_coat,itm_mail_shirt_grn,itm_mail_shirt_red,
+         itm_segmented_helmet,itm_vaegir_fur_cap,itm_byzantion_helmet_a,
+         itm_vaegir_mask,itm_nasal_helmet,itm_rus_helmet_a,itm_spiked_helmet,
+         itm_spear_1,itm_spear_2,itm_axehammer_1,itm_le_richsword2,itm_valssword,itm_frankish_axe2,
+         itm_tab_shield_round_c
+      ],
+      def_attrib3|level(32),wp(260),knows_warrior_elite,vaegir_face_young_1, vaegir_face_older_2
+   ],
+  
+  [
+      "sarranid_messenger","Horsweala Jute","Horswealas Jutes",
+      tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse,0,0,fac_neutral,
+      [
+         itm_javelin,itm_saddle_horse, itm_leather_gloves,
+         itm_decorated_leather_shoes,itm_carbatinae_2,itm_decorated_leather_shoes_green,
+         itm_decorated_leather_shoes_blue,itm_carbatinae_2_blue,
+         itm_shirt,itm_roman_shirt,itm_fattiglinenskjortir,itm_wessex_tunic3,itm_bl_tunicsr02,
+         itm_mercia_tunic1,itm_blue_short_tunic,itm_bl_tunicsleather,
+         itm_spear_6,itm_spear_3,itm_langseax,
+         itm_norman_shield_4,itm_norman_shield_5,itm_norman_shield_6,itm_norman_shield_7,
+         itm_norman_shield_8,itm_plate_covered_round_shield
+      ],
+      def_attrib3|agi_21|level(27),wp(200),knows_common|knows_riding_7|knows_power_throw_2,
+      vaegir_face_young_1, vaegir_face_older_2
+   ],
+  
+  [
+      "sarranid_deserter","Jute Deserter","Jutes Deserters",
+      tf_guarantee_shield|tf_guarantee_boots,0,0,fac_deserters,
+      [
+         itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,
+         itm_carbatinae_2,itm_carbatinae_2_blue,itm_carbatinae_2_grey,itm_carbatinae_1_green,
+         itm_fattiglinenskjortir,itm_wessex_tunic3,itm_bl_tunicsr02,itm_mercia_tunic1,
+         itm_blue_short_tunic,itm_bl_tunicsleather,
+         itm_woolen_cap_newblu,itm_woolen_cap_newred,itm_woolen_cap_newwht,itm_woolen_cap,
+         itm_bowl_helmet,itm_horn_helmet_2,itm_leather_warrior_cap,
+         itm_vikingaxeb,itm_saxon_spear,itm_spear_3,itm_langseax,itm_falchion,itm_spear_3,
+         itm_ad_viking_shield_round_01,itm_ad_viking_shield_round_02,itm_ad_viking_shield_round_03,
+         itm_ad_viking_shield_round_04,itm_ad_viking_shield_round_05,itm_ad_viking_shield_round_06
+      ],
+      def_attrib2|str_10|level(23),wp(170),knows_warrior_normal,vaegir_face_young_1, vaegir_face_older_2
+   ],
+  
+  [
+      "sarranid_prison_guard","Prison Guard","Prison Guards",
+      tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_neutral,
+      [
+         itm_throwing_spears3,itm_leather_gloves,itm_decorated_leather_shoes,itm_woolen_cap_newblu,
+         itm_woolen_cap_newred,itm_norman_helmet,itm_leather_cap,itm_bowl_helmet,
+         itm_noblemanshirt,itm_noblemanshirt_gaelic,itm_leather_vest_red,itm_tattered_leather_armor_blk,
+         itm_spear_2,itm_langseax,itm_plate_covered_round_shield
+      ],
+      def_attrib3|level(29),wp(200),knows_athletics_3|knows_shield_2|knows_ironflesh_3,vaegir_face_middle_1, vaegir_face_older_2
+   ],
+  
+  [
+      "sarranid_castle_guard","Castle Guard","Castle Guards", 
+      tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
+      [
+         itm_throwing_spears3,itm_leather_gloves,itm_decorated_leather_shoes,itm_woolen_cap_newblu,
+         itm_woolen_cap_newred,itm_norman_helmet,itm_leather_cap,itm_bowl_helmet,
+         itm_noblemanshirt,itm_noblemanshirt_gaelic,itm_leather_vest_red,itm_tattered_leather_armor_blk,
+         itm_spear_2,itm_langseax,itm_plate_covered_round_shield
+      ],
+      def_attrib3|level(29),wp(200),knows_athletics_3|knows_shield_2|knows_ironflesh_3,vaegir_face_middle_1, vaegir_face_older_2
+   ],
 
 
 #TEMPERED chief NEW TROOP LINE FOR RANGERS
@@ -832,7 +1071,7 @@ itm_roman_shirt,itm_fattiglinenskjortir,itm_wessex_tunic3,itm_bl_tunicsr02,itm_m
    [itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,
 itm_carbatinae_1_blue,itm_carbatinae_1_grey,itm_carbatinae_1_green,itm_carbatinae_2_orange,
 itm_blue_short_tunic2,itm_bluevikingshirt,itm_mercia_tunic10,
-itm_coat_of_plates8,itm_coat_of_plates7,itm_pelt_coat2,itm_idi_furjacket6,
+itm_coat_of_plates8,itm_leather_vest_red,itm_pelt_coat2,itm_idi_furjacket6,
  itm_vikingaxeb,itm_saxon_spear,itm_spear_3,itm_lance,itm_langseax,itm_falchion,itm_spear_3,
     itm_ad_viking_shield_round_10,itm_ad_viking_shield_round_11,itm_ad_viking_shield_round_12,itm_ad_viking_shield_round_13,itm_ad_viking_shield_round_16,itm_ad_viking_shield_round_17,itm_ad_viking_shield_round_18],
    def_attrib2|level(23),wp(170),knows_warrior_normal,vaegir_face_young_1, vaegir_face_old_2],
@@ -841,7 +1080,7 @@ itm_coat_of_plates8,itm_coat_of_plates7,itm_pelt_coat2,itm_idi_furjacket6,
 itm_carbatinae_1_grey,itm_carbatinae_1_green,itm_carbatinae_2_orange,
 itm_woolen_cap_newblk,itm_woolen_cap_newwht,itm_rathos_bowl_helmet,
 itm_bl_tunicsleather,itm_bl_tunicsleather_2,
-itm_rawhide_coat,itm_coat_of_plates1,itm_coat_of_plates2,itm_coat_of_plates3,itm_coat_of_plates5,
+itm_leather_vest_green,itm_coat_of_plates1,itm_leather_vest_blue,itm_coat_of_plates3,itm_coat_of_plates5,
  itm_spear_6,itm_spear_3,itm_langseax,
     itm_nomad_shield,itm_leather_covered_round_shield,itm_hide_covered_round_shield,itm_shield_heater_c,itm_bl_roundshields_a,itm_norman_shield_1,itm_norman_shield_2,itm_norman_shield_3],
    def_attrib2|level(23),wp(170),knows_warrior_normal,vaegir_face_young_1, vaegir_face_older_2],
@@ -876,7 +1115,7 @@ itm_rathos_spangenhelm_yellow_plum,itm_rathos_spangenhelm_a,itm_nordic_huscarl_h
    [itm_throwing_spears3,itm_throwing_spears4,itm_throwing_spears4,itm_jarid,
      itm_leather_gloves,
  itm_decorated_leather_shoes,itm_mail_boots,itm_iron_greaves,
-itm_coat_of_plates6,itm_coat_of_plates7,itm_padded_jack_6_trig,itm_tattered_leather_armor_blk,itm_mail_shirt_8_trig,itm_mail_shirt_4_trig,
+itm_coat_of_plates6,itm_leather_vest_red,itm_padded_jack_6_trig,itm_tattered_leather_armor_blk,itm_mail_shirt_8_trig,itm_mail_shirt_4_trig,
 itm_woolen_cap_newblu,itm_woolen_cap_newred,itm_woolen_cap_newwht,itm_woolen_cap,
 itm_norman_helmet,itm_leather_cap,itm_fur_hat,itm_leather_cap,itm_leather_steppe_cap_b,
  itm_le_bamburghsword,itm_spear_2,itm_langseax,
@@ -1063,7 +1302,7 @@ itm_buckler15,itm_buckler16,itm_buckler28,itm_buckler32,itm_buckler42],
   ["nord_trained_footman","Geneata Engle (Med. I.)","Geneatas Engles",tf_guarantee_boots|tf_guarantee_shield|tf_guarantee_armor,0,0,fac_neutral,
    [itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,
  itm_carbatinae_1,itm_carbatinae_2,itm_carbatinae_2_green,itm_carbatinae_1_orange,
-itm_blue_short_tunic2,itm_bluevikingshirt,itm_mercia_tunic10,itm_wessex_tunic4,itm_coat_of_plates9,itm_coat_of_plates7,itm_pelt_coat2,itm_idi_furjacket5,itm_idi_furjacket6,
+itm_blue_short_tunic2,itm_bluevikingshirt,itm_mercia_tunic10,itm_wessex_tunic4,itm_coat_of_plates9,itm_leather_vest_red,itm_pelt_coat2,itm_idi_furjacket5,itm_idi_furjacket6,
  itm_lui_battleaxetwoh,itm_saxon_spear,itm_spear_3,itm_langseax,itm_falchion,itm_spear_3,
     itm_ad_viking_shield_round_35,itm_ad_viking_shield_round_36,itm_ad_viking_shield_round_37,itm_ad_viking_shield_round_38,itm_ad_viking_shield_round_39,itm_ad_viking_shield_round_40,itm_ad_viking_shield_round_41,itm_ad_viking_shield_round_42],
    def_attrib2|level(23),wp(170),knows_warrior_normal,nord_face_young_1, nord_face_old_2],
@@ -1071,7 +1310,7 @@ itm_blue_short_tunic2,itm_bluevikingshirt,itm_mercia_tunic10,itm_wessex_tunic4,i
    [itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,
 itm_carbatinae_2_green,itm_carbatinae_1_blue,itm_carbatinae_2_orange,
 itm_bl_tunicsleather_3,itm_bl_tunicsleather,itm_bl_tunicsleather_2,
-itm_rawhide_coat,itm_coat_of_plates1,itm_coat_of_plates2,itm_coat_of_plates3,itm_coat_of_plates5,
+itm_leather_vest_green,itm_coat_of_plates1,itm_leather_vest_blue,itm_coat_of_plates3,itm_coat_of_plates5,
  itm_spear_6,itm_spear_3,itm_langseax,
     itm_viking_shield_round_27,itm_viking_shield_round_28,itm_viking_shield_round_17,itm_viking_shield_round_33,itm_viking_shield_round_26,itm_viking_shield_round_34,itm_shield_ocho,itm_steel_shield],
    def_attrib2|level(23),wp(170),knows_warrior_normal,nord_face_young_1, nord_face_old_2],
@@ -1128,7 +1367,7 @@ itm_horn_helmet,itm_horn_helmet_2,itm_spangenhelm_helm,itm_vendel_helmet2,itm_br
    [itm_throwing_spears3,itm_throwing_spears4,itm_jarid,
  itm_decorated_leather_shoes_blue,itm_carbatinae_2_blue,itm_mail_boots,
 itm_noblemanshirt_gaelic,itm_noblemanshirt_pictish,
-itm_coat_of_plates7,itm_coat_of_plates8,itm_coat_of_plates9,itm_padded_jack_3_trig,itm_tattered_leather_armor_blk,itm_mail_shirt_8_trig,itm_mail_shirt_7_trig,itm_mail_shirt_4_trig,
+itm_leather_vest_red,itm_coat_of_plates8,itm_coat_of_plates9,itm_padded_jack_3_trig,itm_tattered_leather_armor_blk,itm_mail_shirt_8_trig,itm_mail_shirt_7_trig,itm_mail_shirt_4_trig,
 itm_woolen_cap_newwht,itm_woolen_cap,
 itm_norman_helmet,itm_rathos_bowl_helmet,itm_leather_cap,itm_leather_steppe_cap_b,
  itm_spear_1,itm_le_bamburghsword,itm_langseax,
@@ -1386,7 +1625,7 @@ itm_spear_1,itm_knife,itm_spear_3,itm_woodenshield_small_d],
 
 #fac_slavers
 ##  ["slave_keeper","Slave Keeper","Slave Keepers",tf_guarantee_armor,0,0,fac_slavers,
-##   [itm_cudgel,itm_club,itm_woolen_cap,itm_rawhide_coat,itm_coarse_tunic,itm_leather_armor_c,itm_nordic_shield,itm_ankle_boots,itm_wrapping_boots,itm_sumpter_horse],
+##   [itm_cudgel,itm_club,itm_woolen_cap,itm_leather_vest_green,itm_coarse_tunic,itm_leather_armor_c,itm_nordic_shield,itm_ankle_boots,itm_wrapping_boots,itm_sumpter_horse],
 ##   def_attrib|level(10),wp(60),knows_common,bandit_face1, bandit_face2],
   ["slave_driver","Slave Driver","Slave Drivers",tf_guarantee_boots|tf_guarantee_shield,0,0,fac_slavers,
    [itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,

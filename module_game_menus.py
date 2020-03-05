@@ -1811,7 +1811,7 @@ game_menus = [
 ##        (troop_add_item, "trp_player","itm_short_bow",imod_bent),
 ##        (troop_add_item, "trp_player","itm_arrows",0),
 ##        (troop_add_item, "trp_player","itm_axe",imod_chipped),
-##        (troop_add_item, "trp_player","itm_rawhide_coat",0),
+##        (troop_add_item, "trp_player","itm_leather_vest_green",0),
 ##        (troop_add_item, "trp_player","itm_hide_boots",0),
 ##        (troop_add_item, "trp_player","itm_dried_meat",0),
 ##        (troop_add_item, "trp_player","itm_sumpter_horse",imod_heavy),
@@ -2019,7 +2019,7 @@ game_menus = [
         (troop_raise_proficiency, "trp_player",wpt_archery,35),
            
         (troop_add_item, "trp_player","itm_axe",imod_chipped),
-        (troop_add_item, "trp_player","itm_rawhide_coat",0),
+        (troop_add_item, "trp_player","itm_leather_vest_green",0),
         (troop_add_item, "trp_player","itm_carbatinae_1_blue",0),
         (troop_add_item, "trp_player","itm_hunting_bow",0),
         (troop_add_item, "trp_player","itm_barbed_arrows",0),
