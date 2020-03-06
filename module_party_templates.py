@@ -16,9 +16,9 @@ pmf_is_prisoner = 0x0001
 #  5) Faction
 #  6) Personality. See header_parties.py for an explanation of personality flags.
 #  7) List of stacks. Each stack record is a tuple that contains the following fields:
-#    7.1) Troop-id. 
-#    7.2) Minimum number of troops in the stack. 
-#    7.3) Maximum number of troops in the stack. 
+#    7.1) Troop-id.
+#    7.2) Minimum number of troops in the stack.
+#    7.3) Maximum number of troops in the stack.
 #    7.4) Member flags(optional). Use pmf_is_prisoner to note that this member is a prisoner.
 #     Note: There can be at most 6 stacks.
 ####################################################################################################################
@@ -30,7 +30,7 @@ party_templates = [
   ("enemy","Enemy",icon_gray_knight,0,fac_undeads,merchant_personality,[]),
   ("hero_party","Hero Party",icon_gray_knight,0,fac_commoners,merchant_personality,[]),
 ####################################################################################################################
-# Party templates before this point are hard-wired into the game and should not be changed. 
+# Party templates before this point are hard-wired into the game and should not be changed.
 ####################################################################################################################
 ##  ("old_garrison","Old Garrison",icon_vaegir_knight,0,fac_neutral,merchant_personality,[]),
   ("village_defenders","Village Defenders",icon_peasant,0,fac_commoners,merchant_personality,[(trp_farmer,10,20),(trp_peasant_woman,0,8)]),
@@ -57,7 +57,7 @@ party_templates = [
   ("sea_band","Warrior Band",icon_axeman|carries_goods(2),0,fac_mountain_bandits,bandit_personality,[(trp_looter_leader2,1,2),(trp_sea_raider,8,40),(trp_looter,8,40),(trp_mountain_bandit,5,30)]),
 #chief acaba
   ("deserters","Masterless Men",icon_axeman|carries_goods(3),0,fac_deserters,bandit_personality,[]),
-  
+
   ("merchant_caravan","Merchant Caravan",icon_gray_knight|carries_goods(40)|pf_auto_remove_in_town|pf_quest_party,0,fac_commoners,escorted_merchant_personality,[(trp_caravan_master,1,1),(trp_caravan_guard,5,25)]),
   ("troublesome_bandits","Troublesome Bandits",icon_axeman|carries_goods(9)|pf_quest_party,0,fac_outlaws,bandit_personality,[(trp_bandit,14,55)]),
   ("bandits_awaiting_ransom","Bandits Awaiting Ransom",icon_axeman|carries_goods(9)|pf_auto_remove_in_town|pf_quest_party,0,fac_neutral,bandit_personality,[(trp_bandit,24,58),(trp_kidnapped_girl,1,1,pmf_is_prisoner)]),
@@ -116,13 +116,13 @@ party_templates = [
 
 # Caravans
   ("center_reinforcements","Reinforcements",icon_axeman|carries_goods(16),0,fac_commoners,soldier_personality,[(trp_townsman,5,30),(trp_watchman,4,20)]),
-  
+
   ("kingdom_hero_party","War Party",icon_flagbearer_a|pf_show_faction|pf_default_behavior,0,fac_commoners,soldier_personality,[]),
-  
+
 # Reinforcements
   # each faction includes three party templates. One is less-modernised, one is med-modernised and one is high-modernised
-  # less-modernised templates are generally includes 7-14 troops in total, 
-  # med-modernised templates are generally includes 5-10 troops in total, 
+  # less-modernised templates are generally includes 7-14 troops in total,
+  # med-modernised templates are generally includes 5-10 troops in total,
   # high-modernised templates are generally includes 3-5 troops in total
 
   ("kingdom_1_reinforcements_a", "{!}kingdom_1_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_sarranid_recruit,2,4),(trp_sarranid_footman,2,5),(trp_sarranid_skirmisher,1,3)]),
@@ -141,7 +141,7 @@ party_templates = [
   ("kingdom_4_reinforcements_b", "{!}kingdom_4_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_nord_trained_footman,6,12),(trp_nord_warrior,6,12),(trp_nord_veteran,3,6)]),
   ("kingdom_4_reinforcements_c", "{!}kingdom_4_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_nord_veteran_archer,4,10),(trp_anglo_portaestandarte,0,1),(trp_anglo_sacerdote,0,1),(trp_todos_cuerno,0,1)]),
 
-  ("kingdom_5_reinforcements_a", "{!}kingdom_5_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_vaegir_recruit,2,3),(trp_herdsman,0,1),(trp_vaegir_footman,2,5),(trp_vaegir_skirmisher,1,3)]),
+  ("kingdom_5_reinforcements_a", "{!}kingdom_5_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_vaegir_recruit,2,3),(trp_fresena,0,1),(trp_vaegir_footman,2,5),(trp_vaegir_skirmisher,1,3)]),
   ("kingdom_5_reinforcements_b", "{!}kingdom_5_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_vaegir_veteran,6,12),(trp_vaegir_infantry,6,12),(trp_vaegir_guard,3,6)]),
   ("kingdom_5_reinforcements_c", "{!}kingdom_5_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_vaegir_archer,4,10),(trp_saxon_portaestandarte,0,1),(trp_anglo_pagano,0,1),(trp_saxon_sacerdote,0,1),(trp_todos_cuerno,0,1)]),
 
@@ -156,11 +156,11 @@ party_templates = [
   ("kingdom_8_reinforcements_a", "{!}kingdom_8_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_swadian_recruit,2,4),(trp_swadian_militia,2,4),(trp_swadian_skirmisher,2,4)]),
   ("kingdom_8_reinforcements_b", "{!}kingdom_8_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_swadian_footman,5,11),(trp_swadian_infantry,5,11),(trp_swadian_man_at_arms,4,8)]),
   ("kingdom_8_reinforcements_c", "{!}kingdom_8_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_swadian_sergeant,4,10),(trp_briton_portaestandarte,0,1),(trp_briton_sacerdote,0,1),(trp_todos_cuerno,0,1)]),
-  
+
   ("kingdom_9_reinforcements_a", "{!}kingdom_9_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_nord_recruit,2,4),(trp_nord_footman,2,5),(trp_nord_huntsman,1,3)]),
   ("kingdom_9_reinforcements_b", "{!}kingdom_9_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_nord_trained_footman,6,12),(trp_nord_warrior,6,12),(trp_nord_veteran,3,6)]),
   ("kingdom_9_reinforcements_c", "{!}kingdom_9_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_nord_veteran_archer,4,10),(trp_anglo_portaestandarte,0,1),(trp_anglo_pagano,0,1),(trp_todos_cuerno,0,1)]),
-  
+
   ("kingdom_10_reinforcements_a", "{!}kingdom_10_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_swadian_recruit,2,4),(trp_swadian_militia,2,4),(trp_swadian_skirmisher,2,4)]),
   ("kingdom_10_reinforcements_b", "{!}kingdom_10_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_swadian_footman,5,11),(trp_swadian_infantry,5,11),(trp_swadian_man_at_arms,4,8)]),
   ("kingdom_10_reinforcements_c", "{!}kingdom_10_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_swadian_sergeant,4,10),(trp_briton_portaestandarte,0,1),(trp_briton_sacerdote,0,1),(trp_todos_cuerno,0,1)]),
@@ -279,7 +279,7 @@ party_templates = [
   ("sea_raider_lair","Frankish Landing",icon_ship_on_land|carries_goods(2)|pf_is_static|pf_hide_defenders,0,fac_neutral,bandit_personality,[(trp_sea_raider,15,50)]), #chief cambiado icono
   ("sea_raider_lair2","Dena Landing",icon_ship_on_land|carries_goods(2)|pf_is_static|pf_hide_defenders,0,fac_neutral,bandit_personality,[(trp_black_khergit_horseman,15,50)]), #chief cambiado icono
   ("looter_lair","Kidnappers' Hideout",icon_camp|carries_goods(2)|pf_is_static|pf_hide_defenders,0,fac_neutral,bandit_personality,[(trp_looter,15,25)]),#chief cambiado icono
-  
+
   ("bandit_lair_templates_end","{!}bandit_lair_templates_end",icon_axeman|carries_goods(2)|pf_is_static,0,fac_outlaws,bandit_personality,[(trp_sea_raider,15,50)]),
 
   ("leaded_looters","Band of Robbers",icon_axeman|carries_goods(8)|pf_quest_party,0,fac_neutral,bandit_personality,[(trp_looter_leader,1,1),(trp_looter,3,3)]),
@@ -294,12 +294,12 @@ party_templates = [
    ##diplomacy chief  end
 #tempered chief
   ("skirmish_party","Skirmishers",icon_khergit|carries_goods(1)|pf_always_visible|pf_limit_members,0,fac_commoners,aggressiveness_0 | courage_15,[]), #Tempered chief skirmish party
-  ("spy_party","Cautious Traveler",icon_gray_knight|carries_goods(1)|pf_always_visible|pf_limit_members,0,fac_commoners,aggressiveness_0 | courage_15,[(trp_mercenary_skirmisher,1,1)]), #Tempered chief spy party 
+  ("spy_party","Cautious Traveler",icon_gray_knight|carries_goods(1)|pf_always_visible|pf_limit_members,0,fac_commoners,aggressiveness_0 | courage_15,[(trp_mercenary_skirmisher,1,1)]), #Tempered chief spy party
   ("player_loot_wagon","Supply Wagon",icon_mule|pf_show_faction|pf_quest_party,0,fac_commoners,escorted_merchant_personality,[]), #Tempered chief added player loot wagon
   ("escaped_companion","Exhausted Companion",icon_gray_knight|pf_show_faction,0,fac_commoners,escorted_merchant_personality,[]), #Tempered chief added for defeated player companions
   ("funeral_pyre","Funeral Pyre",icon_funeral_pyre|pf_is_static|pf_hide_defenders|pf_always_visible|pf_no_label ,0,fac_neutral,escorted_merchant_personality,[]), #tempered chief funeral pyre
   ("personal_messenger","Messenger",icon_gray_knight|pf_always_visible|pf_limit_members,0,fac_commoners,aggressiveness_0 | courage_15,[(trp_mercenary_skirmisher,1,1)]), #Tempered chief messenger
-  ("entrench","Entrenchment",icon_last_entrench|pf_is_static|pf_always_visible|pf_no_label,0, fac_neutral,bandit_personality,[]),  
+  ("entrench","Entrenchment",icon_last_entrench|pf_is_static|pf_always_visible|pf_no_label,0, fac_neutral,bandit_personality,[]),
 #tempered chief acaba
 #chief sacerdotes party
     ("sacerdotes_party","Christian Clergy",icon_peasant|carries_goods(2),0,fac_christians,merchant_personality,[(trp_picto_sacerdote,3,9), (trp_peasant_woman,4,15)]),
