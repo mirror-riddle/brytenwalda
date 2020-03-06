@@ -872,12 +872,13 @@ troops = [
   #arbol frisio frisios chief
    [
      "fresena","Fresena (Lig. I.)","Frisen",
-     tf_guarantee_armor,no_scene,reserved,fac_neutral,
+     tf_guarantee_armor|tf_guarantee_boots,no_scene,reserved,fac_neutral,
      [
        itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,
        itm_ankle_boots,itm_wrapping_boots,
        itm_woolen_cap_newgrn,itm_woolen_cap_newblk,itm_woolen_cap_newwht,itm_woolen_cap,
-       itm_shirt,itm_roman_shirt,itm_bl_tunicsr02,itm_bl_tunicsr01,itm_shirtb,itm_shirtc,itm_shirtd,itm_shirte,itm_fat_body,
+       itm_shirt,itm_roman_shirt,itm_bl_tunicsr02,itm_bl_tunicsr01,itm_shirtb,itm_shirtc,
+       itm_shirtd,itm_shirte,itm_fat_body,
        itm_knife,itm_pitch_fork,itm_cudgel,itm_quarter_staff,itm_sickle,itm_wooden_stick
      ],
      def_attrib|level(15),wp(110),knows_warrior_basic,nord_face_young_1, nord_face_older_2
@@ -890,23 +891,28 @@ troops = [
        itm_javelin,itm_javelin,itm_javelin,itm_sniper_crossbow,itm_flintlock_pistol,
        itm_carbatinae_1_grey,itm_carbatinae_1_green,
        itm_woolen_cap_newgrn,itm_woolen_cap_newwht,
-       itm_shirt,itm_roman_shirt,itm_shirtb,itm_shirtc,itm_shirtd,itm_shirte,itm_coat_of_plates6,itm_coat_of_plates1,itm_coat_of_plates8,itm_coat_of_plates11,
+       itm_shirt,itm_roman_shirt,itm_shirtb,itm_shirtc,itm_shirtd,itm_shirte,
+       itm_coat_of_plates6,itm_coat_of_plates1,itm_coat_of_plates8,itm_coat_of_plates11,
        itm_frisian_helmet_mesh,itm_horn_helmet_2,itm_leather_cap,
        itm_spear_6,itm_langseax,
-       itm_ad_viking_shield_round_01,itm_ad_viking_shield_round_37,itm_ad_viking_shield_round_38,itm_ad_viking_shield_round_39,itm_ad_viking_shield_round_41
+       itm_ad_viking_shield_round_01,itm_ad_viking_shield_round_37,itm_ad_viking_shield_round_38,
+       itm_ad_viking_shield_round_39,itm_ad_viking_shield_round_41
      ],
      def_attrib2|level(21),wp(150),knows_warrior_normal, nord_face_young_1, nord_face_older_2
    ],
 
    [
      "skel_fresena","Skel Fresena (Hv. I.)","Skel Frisen",
-     tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_shield,no_scene,reserved,fac_neutral,
+     tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_shield|tf_guarantee_gloves,
+     no_scene,reserved,fac_neutral,
      [
        itm_throwing_spears,itm_throwing_spears,itm_throwing_spears,
        itm_leather_gloves,
        itm_decorated_leather_shoes_blue,itm_mail_boots,itm_decorated_leather_shoes_orange,
-       itm_blue_short_tunic2,itm_bluevikingshirt,itm_mercia_tunic10,itm_wessex_tunic4,itm_mail_shirt_ylw,itm_mail_shirt_blk,itm_mail_shirt_wht,itm_padded_jack_3_trig,
-       itm_flat_topped_helmet,itm_kettle_hat,itm_nordic_footman_helmet,itm_nordic_fighter_helmet,itm_nasal_helmet,itm_vaegir_fur_helmet,
+       itm_blue_short_tunic2,itm_bluevikingshirt,itm_mercia_tunic10,itm_wessex_tunic4,
+       itm_mail_shirt_ylw,itm_mail_shirt_blk,itm_mail_shirt_wht,itm_padded_jack_3_trig,
+       itm_flat_topped_helmet,itm_kettle_hat,itm_nordic_footman_helmet,itm_nordic_fighter_helmet,
+       itm_nasal_helmet,itm_vaegir_fur_helmet,
        itm_spear_6,itm_spear_3,itm_axehammer_2,itm_langseax,itm_axehammer1,itm_bl_sword01_03,itm_new_sword2,
        itm_tab_shield_round_c
      ],
@@ -915,14 +921,17 @@ troops = [
 
    [
      "herem_fresena","Herem Fresena (Lig. C.)","Herem Frisen",
-     tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield,no_scene,reserved,fac_neutral,
+     tf_mounted|tf_guarantee_all,no_scene,reserved,fac_neutral,
      [
        itm_javelin,itm_javelin,itm_javelin,
-       itm_normal_horse21,itm_normal_horse22,itm_normal_horse27,itm_normal_horse24,itm_normal_horse25,itm_normal_horse26,
+       itm_normal_horse21,itm_normal_horse22,itm_normal_horse27,itm_normal_horse24,
+       itm_normal_horse25,itm_normal_horse26,
        itm_carbatinae_2_blue,itm_carbatinae_2_grey,
-       itm_shirtb,itm_shirtc,itm_shirtd,itm_shirte,itm_armor_27,itm_armor_26,itm_peasant_man_e,itm_peasant_man_f,itm_padded_jack_4_trig,itm_padded_jack_6_trig,
+       itm_shirtb,itm_shirtc,itm_shirtd,itm_shirte,itm_armor_27,itm_armor_26,
+       itm_peasant_man_e,itm_peasant_man_f,itm_padded_jack_4_trig,itm_padded_jack_6_trig,
        itm_frisian_helmet_mesh,itm_footman_helmet,itm_sarranid_veiled_helmet,itm_horn_helmet_2,itm_leather_cap,
-       itm_hunting_dagger,itm_spear_8,itm_spear_4,itm_leathershield_small_b,itm_woodenshield_small_d,itm_woodenshield_small,itm_leathershield_small_d
+       itm_hunting_dagger,itm_spear_8,itm_spear_4,itm_leathershield_small_b,itm_woodenshield_small_d,
+       itm_woodenshield_small,itm_leathershield_small_d
      ],
      def_attrib3|level(23),wp(170),knows_warrior_veteran,nord_face_young_1, nord_face_older_2
    ],
@@ -937,7 +946,8 @@ troops = [
        itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,
        itm_bare_legs_blue,itm_carbatinae_2_bare,itm_carbatinae_1_bare,
        itm_hood_newblk,itm_common_hood,
-       itm_shirt,itm_roman_shirt,itm_bl_tunicsr01,itm_bl_tunicsr01_2,itm_bl_tunicsr02,itm_shirtb,itm_shirtc,itm_shirtd,itm_fattiglinenskjortir,
+       itm_shirt,itm_roman_shirt,itm_bl_tunicsr01,itm_bl_tunicsr01_2,itm_bl_tunicsr02,
+       itm_shirtb,itm_shirtc,itm_shirtd,itm_fattiglinenskjortir,
        itm_knife,itm_pitch_fork,itm_cudgel,itm_battle_fork,itm_club,itm_sickle
      ],
      def_attrib|level(15),wp(110),knows_common,swadian_face_younger_1, swadian_face_middle_2
@@ -945,12 +955,15 @@ troops = [
 
    [
      "swadian_militia","Bonheddwr (Lig. I.)","Bonheddwyr",
-     tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
+     tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_neutral,
      [
        itm_throwing_knives,itm_throwing_knives,itm_javelin,itm_sniper_crossbow,itm_flintlock_pistol,itm_heavy_crossbow,
-       itm_carbatinae_2_bare,itm_carbatinae_1_bare,itm_hood_newblu,itm_hood_newblk,itm_hood_newwht,itm_black_hood,itm_black_cloak,itm_white_cloak,itm_piel_coat05,
-       itm_armor_8,itm_armor_9,itm_short_tunic,itm_red_tunic,itm_green_tunic,itm_leather_steppe_cap_a,itm_peasant_archer,itm_armor_26,
-       itm_spiked_club,itm_club,itm_hand_axe,itm_sarranid_two_handed_axe_b,itm_wooden_shield,itm_nordic_shield,itm_ckler,itm_buckler28,itm_talak_buckler
+       itm_carbatinae_2_bare,itm_carbatinae_1_bare,itm_hood_newblu,itm_hood_newblk,itm_hood_newwht,
+       itm_black_hood,itm_black_cloak,itm_white_cloak,itm_piel_coat05,
+       itm_armor_8,itm_armor_9,itm_short_tunic,itm_red_tunic,itm_green_tunic,
+       itm_leather_steppe_cap_a,itm_peasant_archer,itm_armor_26,
+       itm_spiked_club,itm_club,itm_hand_axe,itm_sarranid_two_handed_axe_b,
+       itm_wooden_shield,itm_nordic_shield,itm_ckler,itm_buckler28,itm_talak_buckler
      ],
      def_attrib2|level(19),wp(140),knows_warrior_basic,swadian_face_young_1, swadian_face_old_2
    ],
@@ -962,10 +975,12 @@ troops = [
        itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,
        itm_carbatinae_2_blue,itm_carbatinae_1_grey,itm_carbatinae_1_green,
        itm_piel_coat04,itm_piel_coat05,itm_piel_coat06,itm_piel_coat07,
-       itm_shirt,itm_roman_shirt,itm_shirt_blu,itm_shirt_grn,itm_linen_tunic,itm_shirt_ylw,itm_shirt_tel,itm_shirt_blk,
+       itm_shirt,itm_roman_shirt,itm_shirt_blu,itm_shirt_grn,itm_linen_tunic,
+       itm_shirt_ylw,itm_shirt_tel,itm_shirt_blk,
        itm_padded_jack_9_trig,itm_goatist_tunic,itm_padded_jack_6_trig,
        itm_sarranid_two_handed_mace_1,itm_sarranid_mace_1,itm_spear_2,itm_broadsword,itm_scianshort,
-       itm_ad_viking_shield_round_25,itm_ad_viking_shield_round_26,itm_ad_viking_shield_round_27,itm_ad_viking_shield_round_28,itm_ad_viking_shield_round_29
+       itm_ad_viking_shield_round_25,itm_ad_viking_shield_round_26,itm_ad_viking_shield_round_27,
+       itm_ad_viking_shield_round_28,itm_ad_viking_shield_round_29
      ],
      def_attrib2|level(23),wp(170),knows_warrior_normal,swadian_face_young_1, swadian_face_old_2
    ],
@@ -977,9 +992,11 @@ troops = [
        itm_throwing_spears,itm_throwing_spears,
        itm_decorated_leather_shoes_blue,itm_decorated_leather_shoes_grey,itm_carbatinae_1_grey,itm_carbatinae_2,
        itm_shirt_red,itm_bl_tunic01,itm_bl_tunic04,itm_bl_tunic09,itm_linen_tunic,itm_bl_tunic10,
-       itm_arena_tunicj_brown,itm_arena_tunicj_magenta,itm_arena_tunicj_violet,itm_mail_with_surcoat,itm_mail_shirt_3,itm_lamellar_armor,itm_cuir_bouilli,itm_mamluke_mail,itm_padded_jack_6_trig,
+       itm_arena_tunicj_brown,itm_arena_tunicj_magenta,itm_arena_tunicj_violet,itm_mail_with_surcoat,
+       itm_mail_shirt_3,itm_lamellar_armor,itm_cuir_bouilli,itm_mamluke_mail,itm_padded_jack_6_trig,
        itm_hasta,itm_roman_spear_1,itm_broadsword,itm_saxonsword1, itm_arming_cap,itm_padded_coif,
-       itm_ad_viking_shield_round_22,itm_ad_viking_shield_round_23,itm_ad_viking_shield_round_24,itm_ad_viking_shield_round_25,itm_ad_viking_shield_round_26
+       itm_ad_viking_shield_round_22,itm_ad_viking_shield_round_23,itm_ad_viking_shield_round_24,
+       itm_ad_viking_shield_round_25,itm_ad_viking_shield_round_26
      ],
      def_attrib3|level(27),wp(200),knows_warrior_veteran,swadian_face_young_1, swadian_face_old_2
    ],
@@ -988,10 +1005,13 @@ troops = [
      "briton_portaestandarte","Gwas Ys Tafell","Gwas Ys Tafell",
      tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
      [
-       itm_carbatinae_2_blue,itm_carbatinae_2_grey,itm_carbatinae_1_grey,itm_carbatinae_1_green,  itm_piel_coat02,itm_piel_coat03,
-       itm_shirt,itm_roman_shirt,itm_shirt_blu,itm_shirt_grn,itm_shirt_ylw,itm_shirt_tel,itm_shirt_blk,itm_bl_tunic02,itm_woolen_hood,itm_leather_steppe_cap_a,
+       itm_carbatinae_2_blue,itm_carbatinae_2_grey,itm_carbatinae_1_grey,itm_carbatinae_1_green,
+       itm_piel_coat02,itm_piel_coat03,
+       itm_shirt,itm_roman_shirt,itm_shirt_blu,itm_shirt_grn,itm_shirt_ylw,itm_shirt_tel,
+       itm_shirt_blk,itm_bl_tunic02,itm_woolen_hood,itm_leather_steppe_cap_a,
        itm_wessexbanner9,itm_wessexbanner4,itm_personalbanner,itm_trophy_b,
-       itm_long_mail_coat,itm_cloaked_tunic,itm_tattered_leather_armor_blk,itm_tattered_leather_armor_wht,itm_leather_gloves,itm_helm_captaina
+       itm_long_mail_coat,itm_cloaked_tunic,itm_tattered_leather_armor_blk,
+       itm_tattered_leather_armor_wht,itm_leather_gloves,itm_helm_captaina
      ],
      def_attrib2|level(23),wp(165),knows_warrior_normal,vaegir_face_young_1, vaegir_face_old_2
    ],
@@ -1008,27 +1028,31 @@ troops = [
 
    [
      "swadian_infantry","Gwrda (Skrm.)","Gwrdas",
-     tf_guarantee_boots|tf_guarantee_shield,0,0,fac_neutral,
+     tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_neutral,
      [
        itm_javelin_jinetes,itm_javelin_jinetes,itm_javelin_jinetes,
-       itm_carbatinae_1,itm_carbatinae_2_grey,itm_carbatinae_1_green,itm_black_cloak,itm_white_cloak,itm_irishcloak,itm_piel_coat07,
-       itm_shirt_grn,itm_shirt_ylw,itm_shirt_tel,itm_shirt_blk,itm_bl_tunic02,itm_vae_thick_coat2,itm_vae_thick_coat3,
+       itm_carbatinae_1,itm_carbatinae_2_grey,itm_carbatinae_1_green,itm_black_cloak,
+       itm_white_cloak,itm_irishcloak,itm_piel_coat07,
+       itm_shirt_grn,itm_shirt_ylw,itm_shirt_tel,itm_shirt_blk,itm_bl_tunic02,
+       itm_vae_thick_coat2,itm_vae_thick_coat3,
        itm_helm_captaina,itm_skull_cap_new_c,itm_leather_warrior_cap,itm_leather_steppe_cap_b,
-       itm_gallic_axe_1,itm_sarranid_two_handed_axe_b,itm_scianshort,itm_shield_8,itm_shield_9,itm_shield_10,itm_shield_11,itm_shield_12,itm_shield_13,itm_shield_14,itm_shield_15
+       itm_gallic_axe_1,itm_sarranid_two_handed_axe_b,itm_scianshort,itm_shield_8,
+       itm_shield_9,itm_shield_10,itm_shield_11,itm_shield_12,itm_shield_13,itm_shield_14,itm_shield_15
      ],
      def_attrib2|level(23),wp(170),knows_warrior_normal,swadian_face_young_1, swadian_face_old_2
    ],
 
    [
      "swadian_sergeant","Cadwr (Hv. I.)","Cadwyr",
-     tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_neutral,
+     tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_gloves|tf_guarantee_helmet,0,0,fac_neutral,
      [
        itm_throwing_spears,itm_throwing_spears,itm_throwing_spears,
        itm_leather_gloves,
        itm_decorated_leather_shoes_green,itm_decorated_leather_shoes_blue,itm_carbatinae_2_blue,
        itm_nordiclightarmor10,itm_nordiclightarmor11,itm_nordiclightarmor12,itm_padded_jack_6_trig,
        itm_light_leather,itm_mail_with_surcoat,itm_coat_of_plates,itm_swadian_mail_hauberk,itm_byrnie5,
-       itm_rathos_spangenhelm_a_light,itm_rathos_spangenhelm_b_light,itm_briton_helm,itm_rathos_bowl_helmet, itm_arming_cap, itm_padded_coif,
+       itm_rathos_spangenhelm_a_light,itm_rathos_spangenhelm_b_light,itm_briton_helm,
+       itm_rathos_bowl_helmet, itm_arming_cap, itm_padded_coif,
        itm_hasta,itm_roman_spear_1,itm_saxonsword1,itm_nordic_sword,itm_broadsword,itm_le_pictishsword6,
        itm_shield_1,itm_shield_2,itm_shield_3,itm_shield_4,itm_shield_5,itm_shield_6,itm_shield_7,itm_shield_10
      ],
@@ -1037,13 +1061,15 @@ troops = [
 
    [
      "campeon","Campgwr (Elit. I.)","Campgwyr",
-     tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_shield,0,0,fac_neutral,
+     tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_shield|tf_guarantee_gloves,0,0,fac_neutral,
      [
        itm_throwing_spears,itm_throwing_spears,itm_throwing_spears,
        itm_leather_gloves,
-       itm_carbatinae_1_greaves_green,itm_carbatinae_1_greaves_blue,itm_carbatinae_2_greaves_blue,itm_carbatinae_1_greaves_grey,
+       itm_carbatinae_1_greaves_green,itm_carbatinae_1_greaves_blue,itm_carbatinae_2_greaves_blue,
+       itm_carbatinae_1_greaves_grey,
        itm_wei_xiadi_sar_hauberk,itm_swadian_mail_hauberk,itm_byrnie4,
-       itm_irishcloak,itm_piel_coat07,itm_piel_coat05,itm_rathos_spangenhelm_yellow_plum,itm_romanelitehelm,itm_rathos_spangenhelm_b,itm_briton_helm2,itm_briton_helm3,itm_briton_helm5,itm_steppe_cap,
+       itm_irishcloak,itm_piel_coat07,itm_piel_coat05,itm_rathos_spangenhelm_yellow_plum,
+       itm_romanelitehelm,itm_rathos_spangenhelm_b,itm_briton_helm2,itm_briton_helm3,itm_briton_helm5,itm_steppe_cap,
        itm_roman_spear_1,itm_bamburghsword2,itm_celticsword,itm_saxonsword1,itm_broadsword,itm_le_bamburghsword,
        itm_celticsaxon_adorno_8,itm_celticsaxon_adorno_9,itm_shield_16,itm_shield_17,itm_tab_shield_round_c
      ],
@@ -1057,7 +1083,8 @@ troops = [
        itm_arrows,itm_short_bow,itm_short_bow,itm_hunting_bow,itm_hunting_bow,
        itm_bare_legs_blue,itm_carbatinae_2_bare,itm_carbatinae_1_bare,
        itm_hood_newblu,itm_hood_newblk,itm_hood_newwht,itm_black_hood,
-       itm_shirt,itm_roman_shirt,itm_armor_8,itm_armor_9,itm_linen_tunic,itm_short_tunic,itm_red_tunic,itm_green_tunic,itm_blue_tunic,itm_armor_26,
+       itm_shirt,itm_roman_shirt,itm_armor_8,itm_armor_9,itm_linen_tunic,
+       itm_short_tunic,itm_red_tunic,itm_green_tunic,itm_blue_tunic,itm_armor_26,
        itm_wooden_stick,itm_hand_axe,itm_cudgel
      ],
      basic_ranged_attrib|level(19),wp(60)|wp_archery(140),
@@ -1071,7 +1098,8 @@ troops = [
        itm_arrows,itm_long_bow,itm_long_bow,itm_long_bow,itm_long_bow,itm_long_bow,
        itm_carbatinae_2_green,itm_carbatinae_1_blue,itm_carbatinae_2_blue,itm_carbatinae_2_grey,
        itm_hood_newwht,itm_black_hood,itm_head_wrappings,itm_common_hood,
-       itm_shirt,itm_fattiglinenskjortir,itm_shirt_blu,itm_shirt_grn,itm_shirt_ylw,itm_shirt_tel,itm_shirt_blk,itm_bl_tunic02,itm_peasant_archer,itm_armor_26,
+       itm_shirt,itm_fattiglinenskjortir,itm_shirt_blu,itm_shirt_grn,itm_shirt_ylw,
+       itm_shirt_tel,itm_shirt_blk,itm_bl_tunic02,itm_peasant_archer,itm_armor_26,
        itm_scianshortbone,itm_scianshort,itm_hand_axe,itm_lui_waronehandedaxec
      ],
      veteran_ranged_attrib|str_14|level(23),wp(70)|wp_archery(170),
@@ -1083,12 +1111,16 @@ troops = [
      tf_mounted|tf_guarantee_all,0,0,fac_neutral,
      [
        itm_javelin_jinetes,itm_javelin_jinetes,itm_javelin_jinetes,itm_javelin_jinetes,
-       itm_normal_horse11,itm_normal_horse12,itm_normal_horse13,itm_normal_horse14,itm_normal_horse15,itm_normal_horse16,
+       itm_normal_horse11,itm_normal_horse12,itm_normal_horse13,itm_normal_horse14,
+       itm_normal_horse15,itm_normal_horse16,
        itm_decorated_leather_shoes,itm_decorated_leather_shoes_orange,itm_ankle_boots,
-       itm_padded_jack_3_trig,itm_padded_jack_7_trig,itm_khergit_elite_armor,itm_sarranid_mail_shirt,itm_mail_shirt_1,itm_mail_shirt_2,
-       itm_irishcloak,itm_piel_coat07,itm_piel_coat05,itm_rathos_bowl_helmet,itm_briton_helm,itm_norman_helmet,itm_rath_spangenlord5,itm_rathos_spangenhelm_a_yellow2,
+       itm_padded_jack_3_trig,itm_padded_jack_7_trig,itm_khergit_elite_armor,itm_sarranid_mail_shirt,
+       itm_mail_shirt_1,itm_mail_shirt_2,
+       itm_irishcloak,itm_piel_coat07,itm_piel_coat05,itm_rathos_bowl_helmet,itm_briton_helm,
+       itm_norman_helmet,itm_rath_spangenlord5,itm_rathos_spangenhelm_a_yellow2,
        itm_sarranid_axe_b,itm_saxonsword1,itm_scythe,itm_hunting_dagger,
-       itm_shield_round_02,itm_shield_round_03,itm_shield_round_04,itm_shield_round_05,itm_shield_round_06,itm_shield_round_07,itm_shield_round_01
+       itm_shield_round_02,itm_shield_round_03,itm_shield_round_04,itm_shield_round_05,itm_shield_round_06,
+       itm_shield_round_07,itm_shield_round_01
      ],
      def_attrib3|level(27),wp(200),knows_warrior_veteran,swadian_face_young_1, swadian_face_old_2
    ],
@@ -1098,10 +1130,14 @@ troops = [
      tf_mounted|tf_guarantee_all,0,0,fac_neutral,
      [
        itm_javelin,
-       itm_arabian_horse_b,itm_courser,itm_arabian_horse_a3,itm_arabian_horse_b3,itm_arabian_horse_a4,itm_arabian_horse_b4,itm_courser4,
-       itm_leather_gloves,itm_carbatinae_2_greaves_green,itm_carbatinae_1_greaves_green,itm_carbatinae_2_greaves_grey,itm_splinted_leather_greaves,
-       itm_mail_shirt_reddragon,itm_swadian_mail_hauberk,itm_wei_xiadi_sar_hauberk,itm_banded_armor,itm_coat_of_plates_red,itm_plate_armor,itm_mail_hauberk,
-       itm_irishcloak,itm_piel_coat07,itm_piel_coat05,itm_briton_helm,itm_dux_ridge_helm,itm_barf_helm,itm_spangenhelm_a_ornate,itm_vaegir_war_helmet,itm_briton_helm4,itm_spangenhelm_a_trim,itm_steppe_cap,
+       itm_arabian_horse_b,itm_courser,itm_arabian_horse_a3,itm_arabian_horse_b3,
+       itm_arabian_horse_a4,itm_arabian_horse_b4,itm_courser4,
+       itm_leather_gloves,itm_carbatinae_2_greaves_green,itm_carbatinae_1_greaves_green,
+       itm_carbatinae_2_greaves_grey,itm_splinted_leather_greaves,
+       itm_mail_shirt_reddragon,itm_swadian_mail_hauberk,itm_wei_xiadi_sar_hauberk,
+       itm_banded_armor,itm_coat_of_plates_red,itm_plate_armor,itm_mail_hauberk,
+       itm_irishcloak,itm_piel_coat07,itm_piel_coat05,itm_briton_helm,itm_dux_ridge_helm,
+       itm_barf_helm,itm_spangenhelm_a_ornate,itm_vaegir_war_helmet,itm_briton_helm4,itm_spangenhelm_a_trim,itm_steppe_cap,
        itm_sarranid_axe_b,itm_saxonsword1,itm_celticsword,itm_le_pictishsword2,itm_broadsword,
        itm_tab_shield_small_round_c,itm_shield_round_08,itm_norman_shield_5,itm_ad_viking_shield_round_11
      ],
@@ -1114,9 +1150,12 @@ troops = [
      [
        itm_leather_gloves,itm_leather_gloves,itm_javelin,itm_arabian_horse_b,
        itm_decorated_leather_shoes,itm_carbatinae_2,itm_decorated_leather_shoes_green,
-       itm_shirt,itm_roman_shirt,itm_shirt_blu,itm_shirt_grn,itm_linen_tunic,itm_shirt_ylw,itm_shirt_tel,itm_shirt_blk,itm_bl_tunic02,
-       itm_sarranid_axe_b,itm_sarranid_axe_b,itm_scianlong,itm_scianlongbone,itm_scythe,itm_nordic_sword,itm_broadsword,
-       itm_shield_round_02,itm_shield_round_03,itm_shield_round_04,itm_shield_round_05,itm_shield_round_06,itm_shield_round_07,itm_shield_round_01
+       itm_shirt,itm_roman_shirt,itm_shirt_blu,itm_shirt_grn,itm_linen_tunic,
+       itm_shirt_ylw,itm_shirt_tel,itm_shirt_blk,itm_bl_tunic02,
+       itm_sarranid_axe_b,itm_sarranid_axe_b,itm_scianlong,itm_scianlongbone,
+       itm_scythe,itm_nordic_sword,itm_broadsword,
+       itm_shield_round_02,itm_shield_round_03,itm_shield_round_04,itm_shield_round_05,
+       itm_shield_round_06,itm_shield_round_07,itm_shield_round_01
      ],
      def_attrib3|agi_21|level(29),wp(230),
      knows_common|knows_riding_7|knows_power_draw_3|knows_horse_archery_5,swadian_face_young_1, swadian_face_old_2
@@ -1128,10 +1167,12 @@ troops = [
      [
        itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,
        itm_carbatinae_1,itm_carbatinae_2,itm_carbatinae_2_green,
-       itm_roman_shirt,itm_shirt_blu,itm_shirt_grn,itm_shirt_blk,itm_bl_tunic02,itm_shirt,itm_shirt_grn,itm_shirt_ylw,itm_bl_tunic02,
+       itm_roman_shirt,itm_shirt_blu,itm_shirt_grn,itm_shirt_blk,itm_bl_tunic02,
+       itm_shirt,itm_shirt_grn,itm_shirt_ylw,itm_bl_tunic02,
        itm_leather_cap,itm_skull_cap_new_c,itm_leather_warrior_cap,itm_leather_steppe_cap_b,itm_leather_steppe_cap_c,
        itm_sarranid_two_handed_mace_1,itm_sarranid_mace_1,itm_spear_2,itm_langseax,itm_scianshort,
-       itm_ad_viking_shield_round_24,itm_ad_viking_shield_round_25,itm_ad_viking_shield_round_26,itm_ad_viking_shield_round_27,itm_ad_viking_shield_round_28,itm_ad_viking_shield_round_29
+       itm_ad_viking_shield_round_24,itm_ad_viking_shield_round_25,itm_ad_viking_shield_round_26,
+       itm_ad_viking_shield_round_27,itm_ad_viking_shield_round_28,itm_ad_viking_shield_round_29
      ],
      def_attrib2|level(23),wp(170),knows_warrior_normal,swadian_face_young_1, swadian_face_old_2\
    ],
@@ -1173,7 +1214,8 @@ troops = [
        itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,
        itm_ankle_boots,itm_wrapping_boots,
        itm_woolen_cap_newgrn,itm_woolen_cap_newblk,itm_woolen_cap_newwht,itm_woolen_cap,
-       itm_shirt,itm_roman_shirt,itm_fattiglinenskjortir,itm_bl_tunicsr01_2,itm_bl_tunicsr02,itm_mercia_tunic1,itm_blue_short_tunic,itm_bl_tunicsr01,itm_fattiglinenskjortir,
+       itm_shirt,itm_roman_shirt,itm_fattiglinenskjortir,itm_bl_tunicsr01_2,itm_bl_tunicsr02,
+       itm_mercia_tunic1,itm_blue_short_tunic,itm_bl_tunicsr01,itm_fattiglinenskjortir,
        itm_knife,itm_battle_fork,itm_club,itm_quarter_staff,itm_sickle,itm_hatchet,itm_wooden_stick
      ],
      def_attrib|level(15),wp(110),knows_warrior_basic, vaegir_face_younger_1, vaegir_face_middle_2
@@ -1181,13 +1223,14 @@ troops = [
 
    [
      "vaegir_footman","Kotsetla Seaxe (Lig. I.)","Kotsetlas Seaxna",
-     tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
+     tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_neutral,
      [
        itm_javelin,itm_javelin,itm_javelin,itm_sniper_crossbow,itm_flintlock_pistol,itm_heavy_crossbow,
        itm_ankle_boots,itm_wrapping_boots,
        itm_woolen_cap_newred,itm_woolen_cap_newgrn,itm_woolen_cap_newblk,
        itm_piel_coat02,itm_piel_coat03,itm_piel_coat04,
-       itm_roman_shirt,itm_fattiglinenskjortir,itm_peasant_man_c,itm_armor_27,itm_peasant_man_e,itm_woolen_hood,itm_idi_furjacket1,itm_idi_furjacket2,itm_idi_furjacket5,
+       itm_roman_shirt,itm_fattiglinenskjortir,itm_peasant_man_c,itm_armor_27,itm_peasant_man_e,
+       itm_woolen_hood,itm_idi_furjacket1,itm_idi_furjacket2,itm_idi_furjacket5,
        itm_palka2,itm_palka3,itm_scimitar,itm_sarranid_axe_a,
        itm_buckler10,itm_buckler11,itm_buckler12,itm_buckler13,itm_buckler14
      ],
@@ -1227,7 +1270,8 @@ troops = [
      tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
      [
        itm_bare_legs_blue,itm_ankle_boots,itm_wrapping_boots,itm_piel_coat02,itm_piel_coat05,itm_piel_coat07,
-       itm_roman_shirt,itm_fattiglinenskjortir,itm_wessex_tunic3,itm_bl_tunicsr02,itm_mercia_tunic1,itm_blue_short_tunic,itm_bl_tunicsleather,
+       itm_roman_shirt,itm_fattiglinenskjortir,itm_wessex_tunic3,itm_bl_tunicsr02,
+       itm_mercia_tunic1,itm_blue_short_tunic,itm_bl_tunicsleather,
        itm_horn,itm_trophy_a,itm_buckler11,itm_stones,itm_falchion
      ],
      def_attrib2|level(15),wp(115),knows_warrior_normal,vaegir_face_young_1, vaegir_face_old_2
@@ -1279,7 +1323,7 @@ troops = [
 
    [
      "vaegir_guard","Beadu rinc Seaxe (Med. I.)","Beadu rincas Seaxna",
-     tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots,0,0,fac_neutral,
+     tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots|tf_guarantee_helmet,0,0,fac_neutral,
      [
        itm_throwing_spears3,itm_javelin,itm_throwing_spears4,
        itm_leather_gloves,itm_carbatinae_2,itm_carbatinae_2_green,
@@ -1300,10 +1344,13 @@ troops = [
      tf_mounted|tf_guarantee_all,0,0,fac_neutral,
      [
        itm_javelin,itm_javelin,
-       itm_normal_horse30,itm_saddle_horse,itm_normal_horse21,itm_normal_horse22,itm_normal_horse27,itm_normal_horse24,itm_normal_horse25,itm_normal_horse26,
+       itm_normal_horse30,itm_saddle_horse,itm_normal_horse21,itm_normal_horse22,itm_normal_horse27,
+       itm_normal_horse24,itm_normal_horse25,itm_normal_horse26,
        itm_carbatinae_2_blue,itm_decorated_leather_shoes_grey,itm_mail_boots,itm_decorated_leather_shoes_orange,
-       itm_tattered_leather_armor_gr,itm_padded_leather_blue,itm_byrnie,itm_mail_shirthre,itm_mail_shirtredwhite,itm_mail_shirt_1_trig,
-       itm_rathos_spangenhelm_b,itm_nordic_fighter_helmet,itm_spangenhelm_helm,itm_rathos_spangenhelm_a_yellow2,itm_horn_helmet_2,itm_horn_helmet,itm_horn_helmet_3,
+       itm_tattered_leather_armor_gr,itm_padded_leather_blue,itm_byrnie,itm_mail_shirthre,
+       itm_mail_shirtredwhite,itm_mail_shirt_1_trig,
+       itm_rathos_spangenhelm_b,itm_nordic_fighter_helmet,itm_spangenhelm_helm,itm_rathos_spangenhelm_a_yellow2,
+       itm_horn_helmet_2,itm_horn_helmet,itm_horn_helmet_3,
        itm_hunting_dagger,itm_axehammer_2,itm_spear_8,itm_spear_4,itm_saxonsword,itm_le_richsword1,
        itm_saxon_adorno_6,itm_saxon_adorno_7,itm_tab_shield_small_round_c
      ],
@@ -1312,7 +1359,7 @@ troops = [
 
    [
      "vaegir_knight","Ridwiga Seaxe (Hv. I.)","Ridwigas Seaxna",
-     tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_shield,0,0,fac_neutral,
+     tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_shield|tf_guarantee_gloves,0,0,fac_neutral,
      [
        itm_throwing_spears3,itm_throwing_spears4,itm_jarid,
        itm_leather_gloves,
@@ -1330,7 +1377,7 @@ troops = [
 
    [
      "vaegir_archer","Duguth Seaxe (Hv. I.)","Duguthas Seaxna",
-     tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots,0,0,fac_neutral,
+     tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots|tf_guarantee_gloves|tf_guarantee_helmet,0,0,fac_neutral,
      [
        itm_throwing_spears3,itm_throwing_spears4,itm_throwing_spears4,itm_jarid,
        itm_leather_gloves,
@@ -1353,9 +1400,10 @@ troops = [
        itm_throwing_spears3,itm_throwing_spears4,itm_jarid,
        itm_leather_gloves,
        itm_carbatinae_1_greaves_orange,itm_splinted_leather_greaves,
-       itm_byrnie_e_new,itm_hauberk6,itm_mail_shirt_1_trig,itm_byrnie5,itm_wolfpelt_mail_coat,itm_mail_shirt_grn,itm_mail_shirt_red,itm_nowa,itm_byrnie_b_new,itm_byrnie_e_new,itm_ad_viking_byrnie_06,itm_byrnie2,
+       itm_byrnie_e_new,itm_hauberk6,itm_mail_shirt_1_trig,itm_byrnie5,itm_wolfpelt_mail_coat,
+       itm_mail_shirt_grn,itm_mail_shirt_red,itm_nowa,itm_byrnie_b_new,itm_byrnie_e_new,itm_ad_viking_byrnie_06,itm_byrnie2,
        itm_vendel14_2,itm_vendel14,itm_vaegir_mask,itm_gaul_helmet,itm_spangenhelm_helm,itm_rathos_spangenhelm_b,itm_fur_hat,
-       itm_spear_1,itm_spear_2,itm_ornate_seax,itm_saxonsword,itm_saxon_richsword,itm_le_pictishsword3,
+       itm_spear_1,itm_spear_2,itm_saxonsword,itm_saxon_richsword,itm_le_pictishsword3,
        itm_tab_shield_round_c,itm_viking_shield_round_27,itm_shield_round_01,itm_shield_round_05
      ],
      def_attrib3|level(32),wp(260),knows_warrior_elite,vaegir_face_young_1, vaegir_face_older_2
@@ -1367,7 +1415,8 @@ troops = [
      [
        itm_leather_gloves,itm_javelin,itm_saddle_horse,
        itm_decorated_leather_shoes_grey,itm_carbatinae_1_grey,itm_mail_boots,itm_decorated_leather_shoes_orange,itm_iron_greaves,
-       itm_shirt,itm_roman_shirt,itm_fattiglinenskjortir,itm_wessex_tunic3,itm_bl_tunicsr02,itm_mercia_tunic1,itm_blue_short_tunic,itm_bl_tunicsleather,
+       itm_shirt,itm_roman_shirt,itm_fattiglinenskjortir,itm_wessex_tunic3,itm_bl_tunicsr02,
+       itm_mercia_tunic1,itm_blue_short_tunic,itm_bl_tunicsleather,
        itm_spear_6,itm_spear_3,itm_langseax,
        itm_shield_heater_c,itm_bl_roundshields_a,itm_norman_shield_1,itm_norman_shield_2,itm_norman_shield_3
      ],
@@ -1417,7 +1466,7 @@ troops = [
 # pictos
    [
      "khergit_tribesman","Petta (Lig. I.)","Pettas",
-     tf_guarantee_armor,0,0,fac_neutral,
+     tf_guarantee_armor|tf_guarantee_boots,0,0,fac_neutral,
      [
        itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,
        itm_bare_legs_blue,itm_carbatinae_2_bare,itm_carbatinae_1_bare,
@@ -1431,7 +1480,7 @@ troops = [
 
    [
      "pict_woman","Sept woman (Lig. I.)","Sept women",
-     tf_female|tf_guarantee_ranged|tf_guarantee_armor,0,0,fac_neutral,
+     tf_female|tf_guarantee_ranged|tf_guarantee_armor|tf_guarantee_boots,0,0,fac_neutral,
      [
        itm_javelin_jinetes,itm_javelin_jinetes,itm_javelin_jinetes,itm_sniper_crossbow,itm_flintlock_pistol,
        itm_bare_legs_blue,
@@ -1457,7 +1506,7 @@ troops = [
 
    [
      "khergit_horseman","Boaire (Lig. I.)","Boaires",
-     tf_guarantee_armor,0,0,fac_neutral,
+     tf_guarantee_armor|tf_guarantee_boots|tf_guarantee_shield,0,0,fac_neutral,
      [
        #itm_throwing_knives,itm_throwing_knives,
        itm_javelin,itm_sniper_crossbow,itm_flintlock_pistol,
@@ -1474,7 +1523,7 @@ troops = [
 
    [
      "khergit_horse_archer","Fuidir (Skrm.)","Fuidirs",
-     tf_guarantee_armor|tf_guarantee_shield,0,0,fac_neutral,
+     tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_boots,0,0,fac_neutral,
      [
        itm_javelin_jinetes,itm_javelin_jinetes,itm_javelin_jinetes,
        itm_sniper_crossbow,itm_flintlock_pistol,itm_heavy_crossbow,
@@ -1491,7 +1540,7 @@ troops = [
 
    [
      "fuidir_elite","Eite Fuidir (Elit. Skrm.)","Elite Fuidirs",
-     tf_guarantee_armor|tf_guarantee_shield,0,0,fac_neutral,
+     tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_helmet,0,0,fac_neutral,
      [
        itm_javelin_jinetes,itm_javelin_jinetes,itm_javelin_jinetes,itm_javelin_jinetes,
        itm_carbatinae_2_bare,itm_carbatinae_1_bare,
@@ -1541,7 +1590,7 @@ troops = [
 
    [
      "khergit_veteran_horse_archer","Creach Sluagh (Med. I.)","Creach Sluagh",
-     tf_guarantee_armor|tf_guarantee_shield,0,0,fac_neutral,
+     tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_boots,0,0,fac_neutral,
      [
        itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,
        itm_carbatinae_2_bare,itm_carbatinae_1_bare,
@@ -1575,7 +1624,7 @@ troops = [
 
    [
      "picti_bruide","Bruide (Hv. I.)","Bruides",
-     tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_neutral,
+     tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_helmet|tf_guarantee_gloves,0,0,fac_neutral,
      [
        itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,
        itm_leather_gloves,itm_carbatinae_1_bare,itm_decorated_leather_shoes_bare,
@@ -1702,7 +1751,7 @@ troops = [
    # Anglos
   [
     "nord_recruit","Gebur Engle (Lig. I.)","Geburas Engles",
-    tf_guarantee_boots,0,0,fac_neutral,
+    tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
     [
       itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,
       itm_ankle_boots,itm_wrapping_boots,
@@ -1716,7 +1765,7 @@ troops = [
 
   [
     "nord_footman","Kotsetla Engle (Lig. I.)","Kotsetlas Engles",
-    tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
+    tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_neutral,
     [
       itm_javelin,itm_javelin,itm_javelin,itm_sniper_crossbow,itm_flintlock_pistol,itm_heavy_crossbow,
       itm_ankle_boots,itm_wrapping_boots,
@@ -1801,7 +1850,7 @@ troops = [
 
   [
     "nord_veteran","Beadu rinc Engle (Med. I.)","Beadu rincas Engles",
-    tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots,0,0,fac_neutral,
+    tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots|tf_guarantee_helmet,0,0,fac_neutral,
     [
       itm_throwing_spears3,itm_javelin,itm_throwing_spears4,itm_javelin,
       itm_carbatinae_2_blue,itm_carbatinae_2_grey,
@@ -1849,7 +1898,7 @@ troops = [
 
   [
     "nord_archer","Rigwiga Engle (Hv. I.)","Ridwigas Engles",
-    tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_shield,0,0,fac_neutral,
+    tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_shield|tf_guarantee_gloves,0,0,fac_neutral,
     [
       itm_throwing_spears3,itm_throwing_spears4,itm_jarid,
       itm_leather_gloves,itm_decorated_leather_shoes_grey,itm_iron_greaves,
@@ -1866,7 +1915,7 @@ troops = [
 
   [
     "nord_veteran_archer","Duguth Engle (Hv. I.)","Duguthas Engles",
-    tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots,0,0,fac_neutral,
+    tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots|tf_guarantee_helmet,0,0,fac_neutral,
     [
       itm_throwing_spears3,itm_throwing_spears4,itm_jarid,
       itm_decorated_leather_shoes_blue,itm_carbatinae_2_blue,itm_mail_boots,
@@ -1893,7 +1942,7 @@ troops = [
       itm_mail_shirt_grn,itm_mail_shirt_red,itm_byrnie_e_new,itm_byrnie2,
       itm_vaegir_war_helmet,itm_briton_helm,itm_briton_helm5,itm_flat_topped_helmet,itm_talak_spangenhelm,
       itm_vaegir_mask,itm_briton_helm4,itm_bascinet_3,
-      itm_spear_1,itm_spear_2,itm_ornate_seax,itm_new_sword4,itm_new_sword3,itm_le_richsword1,
+      itm_spear_1,itm_spear_2,itm_new_sword4,itm_new_sword3,itm_le_richsword1,
       itm_tab_shield_round_c
     ],
     def_attrib3|level(32),wp(260),knows_warrior_elite,nord_face_young_1, nord_face_old_2
@@ -1954,7 +2003,7 @@ troops = [
    # irlandeses
   [
     "rhodok_tribesman","Bothach (Lig. I.)","Bothach",
-    tf_guarantee_armor,0,0,fac_neutral,
+    tf_guarantee_armor|tf_guarantee_boots,0,0,fac_neutral,
     [
       itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,
       itm_bare_legs_blue,itm_carbatinae_2_bare,itm_carbatinae_1_bare,
@@ -1983,7 +2032,7 @@ troops = [
 
   [
     "rhodok_spearman","Ceither (Lig. I.)","Ceithers",
-    tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
+    tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_neutral,
     [
       #itm_darts,itm_darts,itm_throwing_knives,itm_throwing_knives,
       itm_sniper_crossbow,itm_flintlock_pistol,
@@ -2089,7 +2138,7 @@ troops = [
 
   [
     "rhodok_sergeant","Airig (Hv. I.)","Arras",
-    tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_shield,0,0,fac_neutral,
+    tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_shield|tf_guarantee_gloves,0,0,fac_neutral,
     [
       itm_throwing_spears,itm_throwing_spears,itm_throwing_spears,itm_throwing_spears,
       itm_leather_gloves,itm_bare_legs_blue,itm_carbatinae_2_bare,
@@ -2234,12 +2283,12 @@ troops = [
     "mountain_bandit","Morth","Morths",
     tf_guarantee_boots|tf_guarantee_ranged,0,0,fac_outlaws,
     [
-      itm_sniper_crossbow,itm_sniper_lead,itm_flintlock_pistol,
+      itm_sniper_crossbow,itm_sniper_lead,itm_flintlock_pistol,itm_hunting_bow,itm_arrows,
       itm_bare_legs_blue,itm_carbatinae_2_bare,itm_carbatinae_1_bare,itm_ankle_boots,itm_wrapping_boots,
       itm_shirt,itm_roman_shirt,itm_bl_tunicsleather,
       itm_hunting_dagger
     ],
-    basic_ranged_attrib|str_14|level(19),wp(60),
+    basic_ranged_attrib|str_14|level(15),wp(60)|wp_archery(100),
     knows_warrior_normal|knows_power_draw_2,rhodok_face_young_1, rhodok_face_old_2
   ],
 
@@ -2253,12 +2302,12 @@ troops = [
       itm_peasant_man_e,itm_peasant_man_f,itm_leather_jerkin,
       itm_hand_axe,itm_hatchet,itm_axe_2,itm_knife,itm_cudgel
     ],
-    def_attrib2|level(19),wp(140),knows_warrior_basic,swadian_face_young_1, swadian_face_old_2
+    def_attrib2|level(23),wp(140)|wp_archery(160),knows_warrior_basic,swadian_face_young_1, swadian_face_old_2
   ],
 
   [
     "sea_raider","Frank","Frankish",
-    tf_guarantee_boots|tf_guarantee_shield,0,0,fac_outlaws,
+    tf_guarantee_boots|tf_guarantee_shield|tf_guarantee_armor,0,0,fac_outlaws,
     [
       itm_light_throwing_axes,itm_jarid,itm_throwing_axes,itm_throwing_spears3,itm_javelin,itm_throwing_spears4,
       itm_decorated_leather_shoes,itm_decorated_leather_shoes_green,
@@ -2273,7 +2322,7 @@ troops = [
 
   [
     "steppe_bandit","Scotos","Scoti",
-    tf_guarantee_boots|tf_guarantee_shield,0,0,fac_outlaws,
+    tf_guarantee_boots|tf_guarantee_shield|tf_guarantee_armor,0,0,fac_outlaws,
     [
       itm_darts,itm_javelin,itm_throwing_knives,itm_javelin,itm_throwing_knives,itm_sniper_crossbow,itm_flintlock_pistol,
       itm_carbatinae_1_grey,itm_carbatinae_1_green,
@@ -2290,7 +2339,7 @@ troops = [
 
   [
     "taiga_bandit","Outlaw Warrior","Outlaw Warriors",
-    tf_guarantee_boots|tf_guarantee_shield,0,0,fac_outlaws,
+    tf_guarantee_boots|tf_guarantee_shield|tf_guarantee_armor,0,0,fac_outlaws,
     [
       itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,
       itm_carbatinae_1,itm_carbatinae_2,itm_carbatinae_2_green,itm_carbatinae_1_blue,itm_carbatinae_1_grey,itm_carbatinae_1_green,
@@ -2311,7 +2360,7 @@ troops = [
       itm_roman_shirt,itm_shirt_blu,itm_shirt_grn,itm_shirt_ylw,itm_shirt_tel,itm_shirt_blk,itm_bl_tunic02,
       itm_peasant_archer,itm_armor_26,itm_knife
     ],
-    basic_ranged_attrib|str_14|level(17),wp(60)|wp_archery(150),
+    basic_ranged_attrib|str_14|level(19),wp(100)|wp_archery(130),
     knows_warrior_normal|knows_power_draw_2,khergit_face_young_1, khergit_face_old_2
   ],
 
@@ -2334,9 +2383,9 @@ troops = [
   #lideres bandidos chief
   [
     "sea_raider_leader2","Ship Captain","Captains",
-    tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_outlaws,
+    tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_gloves|tf_guarantee_helmet,0,0,fac_outlaws,
     [
-      itm_throwing_spears3,
+      itm_throwing_spears3,itm_leather_gloves,
       itm_carbatinae_2_greaves_green,itm_carbatinae_1_greaves_green,
       itm_mail_shirt_wht,itm_byrnie_f_new,itm_mail_shirt_grn,itm_heraldic_mail_with_tunic,
       itm_nordic_warlord_helmet,itm_full_helm,itm_spangenhelm_helm,
@@ -2350,7 +2399,7 @@ troops = [
 
   [
     "looter_leader2","Bandit Leader","Bandit Leaders",
-    tf_guarantee_boots,0,0,fac_outlaws,
+    tf_guarantee_boots|tf_guarantee_armor,0,0,fac_outlaws,
     [
       itm_javelin,itm_javelin,itm_javelin,
       itm_leather_gloves,itm_decorated_leather_shoes_green,itm_decorated_leather_shoes_blue,
@@ -2433,6 +2482,7 @@ troops = [
     tf_mounted|tf_guarantee_all,0,0,fac_slavers,
     [
       itm_javelin,
+      itm_leather_gloves,
       itm_saddle_horse,itm_steppe_horse,
       itm_carbatinae_2_greaves_orange,itm_splinted_leather_greaves,
       itm_padded_jack_3_trig,itm_padded_jack_4_trig,itm_padded_jack_6_trig,itm_war_bow,itm_arrows,
@@ -2473,7 +2523,7 @@ troops = [
       itm_lady_dress_green,itm_lady_dress_blue,
       itm_knife,itm_club,itm_hand_axe
     ],
-    def_attrib|level(15),wp(110),knows_common,refugee_face1,refugee_face2
+    def_attrib|level(15),wp(110)|wp_archery(110),knows_common,refugee_face1,refugee_face2
   ],
 
   [
@@ -2487,7 +2537,7 @@ troops = [
       itm_peasant_dress_b_new,itm_pict_long_tunic3,
       itm_knife,itm_club,itm_hand_axe
     ],
-    def_attrib|level(17),wp(125),knows_common|knows_power_draw_2,refugee_face1,refugee_face2
+    def_attrib|level(17),wp(125)|wp_archery(125),knows_common|knows_power_draw_2,refugee_face1,refugee_face2
   ],
 
   [
@@ -2501,7 +2551,7 @@ troops = [
       itm_pict_long_tunic4,itm_lady_dress_green,itm_lady_dress_blue,
       itm_knife,itm_club,itm_hand_axe
     ],
-    def_attrib|level(20),wp(145),
+    def_attrib|level(20),wp(145)|wp_archery(145),
     knows_common|knows_athletics_2|knows_ironflesh_1|knows_power_draw_3,refugee_face1,refugee_face2
   ],
 
@@ -2516,7 +2566,7 @@ troops = [
       itm_lady_dress_green,itm_lady_dress_blue,
       itm_knife,itm_club,itm_hand_axe
     ],
-    def_attrib|level(24),wp(160),
+    def_attrib|level(24),wp(160)|wp_archery(160),
     knows_common|knows_athletics_3|knows_ironflesh_2|knows_shield_2|knows_power_draw_3,refugee_face1,refugee_face2
   ],
 
@@ -7159,19 +7209,20 @@ upgrade2(troops,"rhodok_veteran_spearman","gael_deaisbard","rhodok_veteran_cross
 upgrade(troops,"rhodok_veteran_crossbowman","rhodok_sharpshooter")
 upgrade(troops,"rhodok_trained_crossbowman","rhodok_sergeant")
 
-upgrade2(troops,"looter","mountain_bandit", "forest_bandit")
-
 #new tree connections
-upgrade(troops,"mountain_bandit","caravan_guard")
-upgrade(troops,"looter_leader2","mercenary_leader")
-upgrade(troops,"sea_raider_leader2","mercenary_leader")
+upgrade(troops,"mountain_bandit","desert_bandit")
 upgrade(troops,"desert_bandit","forest_bandit")
+
+upgrade(troops,"looter_leader2","mercenary_leader")
+# upgrade(troops,"sea_raider_leader2","mercenary_leader")
 #upgrade(troops,"forest_bandit","mercenary_crossbowman")
 #new tree connections ended
 
-upgrade(troops,"brigand","taiga_bandit")
+upgrade(troops,"looter","bandit")
+upgrade2(troops, "bandit", "brigand", "taiga_bandit")
+upgrade(troops, "brigand", "slave_hunter")
 upgrade(troops,"taiga_bandit","slave_hunter")
-upgrade2(troops,"bandit","brigand","slave_driver")
+
 upgrade(troops,"slave_driver","manhunter")
 upgrade(troops,"manhunter","slave_hunter")
 upgrade(troops,"slave_hunter","slave_crusher")
