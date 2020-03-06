@@ -3159,7 +3159,7 @@ troops = [
     [
       itm_bluevikingshirt,itm_ankle_boots,itm_knife
     ],
-    str_10|agi_9|int_9|cha_6|level(1),wp(50),
+    str_10|agi_9|int_9|cha_6|level(1),wp(100),
     knows_tracking_4|knows_ironflesh_2|knows_weapon_master_2|
     knows_power_throw_2|knows_inventory_management_2|knows_pathfinding_2|
     knows_athletics_3|knows_spotting_3|knows_riding_1, #skills 2/3 player at that level
@@ -3172,7 +3172,7 @@ troops = [
     [
       itm_linen_tunic,itm_carbatinae_1_bare,itm_club
     ],
-    str_7|agi_6|int_9|cha_12|level(1),wp(40),
+    str_7|agi_6|int_9|cha_12|level(1),wp(80),
     knows_ironflesh_2|knows_weapon_master_2|knows_trade_7|
     knows_inventory_management_7|knows_athletics_2|knows_riding_1,
     0x000000094a1013c24756d14224b347af00000000001c36db0000000000000000
@@ -3184,8 +3184,8 @@ troops = [
     [
       itm_blue_tunic_long,itm_carbatinae_2,itm_knife
     ],
-    str_6|agi_6|int_11|cha_11|level(1),wp(30),
-    knows_wound_treatment_5|knows_trade_3|knows_first_aid_5|knows_surgery_2|
+    str_6|agi_6|int_14|cha_11|level(1),wp(80),
+    knows_wound_treatment_5|knows_trade_3|knows_first_aid_5|knows_surgery_5|
     knows_inventory_management_2|knows_athletics_2|knows_riding_1|knows_leadership_2,
     0x000000019f0c8004472355def396431e00000000000f5da30000000000000000
   ], #chief acabado
@@ -3196,7 +3196,7 @@ troops = [
     [
       itm_leather_jerkin,itm_ankle_boots, itm_spear_2
     ],
-    str_10|agi_8|int_8|cha_8|level(1),wpe(70,60,50,40),
+    str_10|agi_8|int_8|cha_8|level(1),wpe(90,60,50,40),
     knows_weapon_master_3|knows_power_strike_2|knows_inventory_management_1|
     knows_ironflesh_2|knows_riding_1|knows_athletics_2|knows_power_draw_2|
     knows_shield_2|knows_tactics_4|knows_leadership_2,
@@ -3209,7 +3209,7 @@ troops = [
     [
       itm_linen_tunic,itm_ankle_boots, itm_spear_2
     ],
-    str_9|agi_7|int_8|cha_10|level(1),wp(70),
+    str_9|agi_7|int_8|cha_10|level(1),wp(80),
     knows_riding_1|knows_power_strike_3|knows_ironflesh_3|knows_power_throw_2|
     knows_shield_2|knows_leadership_5|knows_weapon_master_2|knows_athletics_2,
     0x000000018310e1c44691ad2333b0acdc00000000001e99230000000000000000
@@ -3221,7 +3221,7 @@ troops = [
     [
       itm_shirt,itm_ankle_boots,itm_javelin, itm_spear_3
     ],
-    str_10|agi_10|int_6|cha_8|level(17),wp(120),
+    str_10|agi_10|int_6|cha_8|level(1),wp(110),
     knows_power_throw_4|knows_weapon_master_2|knows_power_strike_2|knows_ironflesh_2|
     knows_athletics_2|knows_shield_2|knows_trainer_2|knows_leadership_5,
     0x00000001bc08e5c9631e6e279c4d9cdb00000000001d4b720000000000000000
@@ -3233,7 +3233,7 @@ troops = [
     [
       itm_picta_4,itm_carbatinae_2_bare, itm_hunting_bow, itm_arrows, itm_knife
     ],
-    str_7|agi_11|int_10|cha_6|level(1),wp(60),
+    str_7|agi_11|int_10|cha_6|level(1),wp(80),
     knows_ironflesh_1|knows_inventory_management_2|knows_pathfinding_2|knows_riding_1|
     knows_tracking_5|knows_athletics_2|knows_spotting_2|knows_power_throw_2|
     knows_weapon_master_2|knows_shield_2,
@@ -3246,7 +3246,7 @@ troops = [
     [
       itm_woolen_cap_newwht,itm_shirt,itm_carbatinae_2_bare, itm_spear_3
     ],
-    str_10|agi_8|int_6|cha_10|level(1),wp(70),
+    str_10|agi_8|int_6|cha_10|level(1),wp(90),
     knows_weapon_master_3|knows_persuasion_2|knows_power_strike_2|
     knows_ironflesh_2|knows_athletics_3|knows_shield_2|knows_leadership_3|
     knows_entertain_2|knows_inventory_management_2,
@@ -3259,7 +3259,7 @@ troops = [
     [
       itm_arena_tunic_blue,itm_carbatinae_1_grey, itm_spear_1
     ],
-    str_9|agi_10|int_6|cha_9|level(1),wp(70),
+    str_9|agi_10|int_6|cha_9|level(1),wp(90),
     knows_weapon_master_2|knows_persuasion_2|knows_riding_1|knows_athletics_2|
     knows_leadership_1|knows_tactics_2|knows_power_throw_2|knows_power_strike_2|
     knows_ironflesh_2|knows_shield_2,
@@ -3272,7 +3272,7 @@ troops = [
     [
       itm_shirt,itm_carbatinae_1_grey, itm_spear_2, itm_talak_seax
     ],
-    str_13|agi_10|int_5|cha_6|level(17),wp(100),
+    str_13|agi_10|int_5|cha_6|level(1),wp(110),
     knows_weapon_master_3|knows_trainer_2|knows_leadership_4|knows_ironflesh_5|
     knows_athletics_2|knows_shield_2|knows_power_strike_2|knows_inventory_management_2,
     0x000000015e105004570cae574c6e48fd00000000001f2c9a0000000000000000
@@ -3310,7 +3310,7 @@ troops = [
     [
       itm_arena_tunic_white,itm_carbatinae_1_grey, itm_spear_2
     ],
-    str_9|agi_7|int_11|cha_7|level(19),wp(80),
+    str_9|agi_7|int_11|cha_7|level(1),wp(110),
     knows_trainer_4|knows_leadership_1|knows_athletics_2|knows_ironflesh_3|
     knows_power_strike_3|knows_power_throw_2|knows_shield_2|knows_weapon_master_2,
     0x000000079f08520a494d564b6b65b89b00000000001da51e0000000000000000
@@ -3322,7 +3322,7 @@ troops = [
     [
       itm_fattiglinenskjortir,itm_carbatinae_1_grey, itm_spear_1
     ],
-    str_8|agi_8|int_8|cha_10|level(21),wp(70),
+    str_8|agi_8|int_8|cha_10|level(1),wp(100),
     knows_riding_1|knows_leadership_1|knows_athletics_2|knows_ironflesh_2|
     knows_trainer_3|knows_power_strike_2|knows_power_throw_1|knows_shield_2|
     knows_weapon_master_3|knows_entertain_2,
@@ -3335,8 +3335,8 @@ troops = [
     [
       itm_arena_tunic_white,itm_carbatinae_1_grey, itm_spear_5
     ],
-    str_8|agi_8|int_12|cha_6|level(1),wp(50),
-    knows_tactics_2|knows_engineer_4|knows_trade_1|knows_athletics_2|
+    str_8|agi_8|int_12|cha_6|level(1),wp(80),
+    knows_tactics_2|knows_engineer_5|knows_trade_1|knows_athletics_2|
     knows_power_throw_2|knows_shield_2|knows_tracking_1|knows_spotting_1,
     0x0000000f5110e45308ec865716aa35ab00000000001d2b8d0000000000000000
   ], #chief acabado
@@ -3347,7 +3347,7 @@ troops = [
     [
       itm_shirt,itm_carbatinae_1_grey, itm_knife,itm_donkey_mount
     ],
-    str_9|agi_9|int_6|cha_10|level(1),wp(40),
+    str_9|agi_9|int_6|cha_10|level(1),wp(80),
     knows_ironflesh_3|knows_persuasion_2|knows_weapon_master_2|knows_athletics_2|
     knows_shield_2|knows_surgery_1|knows_wound_treatment_4|knows_first_aid_3,
     0x00000004bf0475c85f4e9592de4e574c00000000001e369c0000000000000000
@@ -3360,7 +3360,7 @@ troops = [
     [
       itm_war_paint_two, itm_knife, itm_spear_2
     ],
-    str_12|agi_6|int_6|cha_4|level(1),wp(70),
+    str_12|agi_6|int_6|cha_4|level(1),wp(90),
     knows_weapon_master_2|knows_power_throw_2|knows_power_strike_2|
     knows_inventory_management_2|knows_looting_2|knows_ironflesh_4|
     knows_athletics_2|knows_shield_2|knows_leadership_3|knows_tactics_2,
@@ -3373,7 +3373,7 @@ troops = [
     [
       itm_spear_2, itm_war_paintus
     ],
-    str_12|agi_13|int_6|cha_5|level(1),wp(70),
+    str_12|agi_13|int_6|cha_5|level(1),wp(90),
     knows_weapon_master_2|knows_power_throw_2|knows_power_strike_2|
     knows_ironflesh_3|knows_athletics_2|knows_shield_2|knows_leadership_3|
     knows_inventory_management_2|knows_looting_3,
@@ -3387,7 +3387,7 @@ troops = [
     [
       itm_spear_2, itm_shirt, itm_ankle_boots
     ],
-    str_9|agi_10|int_9|cha_6|level(1),wpe(50,50,80,70),
+    str_9|agi_10|int_9|cha_6|level(1),wpe(80,80,80,70),
     knows_ironflesh_2|knows_wound_treatment_2|knows_weapon_master_2|
     knows_power_draw_2|knows_pathfinding_3|knows_athletics_2|
     knows_tracking_3|knows_spotting_3|knows_riding_1|knows_inventory_management_1, #skills 2/3 player at that level
@@ -3400,7 +3400,7 @@ troops = [
     [
       itm_shirt,itm_carbatinae_1_grey, itm_knife
     ],
-    str_7|agi_7|int_9|cha_11|level(1),wp(50),
+    str_7|agi_7|int_9|cha_11|level(1),wp(80),
     knows_weapon_master_2| knows_power_throw_2|knows_pathfinding_4|knows_athletics_1|
     knows_tracking_1|knows_spotting_4|knows_riding_1|knows_inventory_management_2|knows_trade_4, #skills 2/3 player at that level
     0x00000009f408928c24acb238d3692aeb00000000001dbd220000000000000000
@@ -3413,7 +3413,7 @@ troops = [
     [
       itm_staff, itm_robe
     ],
-    str_12|agi_6|int_11|cha_5|level(1),wp(30),
+    str_12|agi_6|int_11|cha_5|level(1),wp(70),
     knows_ironflesh_2|knows_persuasion_2|knows_weapon_master_3|knows_power_strike_3|
     knows_athletics_1|knows_inventory_management_2|knows_surgery_1|knows_wound_treatment_4|knows_first_aid_4,
     0x00000009dc0812c6392288c05579cd13000000000012a2d30000000000000000
@@ -3425,7 +3425,7 @@ troops = [
     [
       itm_short_bow, itm_arrows, itm_shirt, itm_woolen_dress,itm_knife
     ],
-    str_9|agi_12|int_7|cha_6|level(1),wpe(30,70,80,70),
+    str_9|agi_12|int_7|cha_6|level(1),wpe(70,90,80,70),
     knows_power_draw_2|knows_weapon_master_2|knows_wound_treatment_1|
     knows_trade_3|knows_power_throw_1|knows_leadership_2|knows_first_aid_1|
     knows_surgery_1|knows_inventory_management_2|knows_athletics_3|knows_riding_1|knows_looting_2,
@@ -3438,7 +3438,7 @@ troops = [
     [
       itm_black_hood, itm_hand_axe, itm_ankle_boots
     ],
-    str_11|agi_10|int_9|cha_4|level(1),wpe(50,70,60,70),
+    str_11|agi_10|int_9|cha_4|level(1),wpe(70,90,60,70),
     knows_power_strike_1|knows_weapon_master_1|knows_ironflesh_2|knows_power_throw_2|
     knows_power_draw_2|knows_athletics_2|knows_tracking_3|knows_spotting_3|
     knows_riding_1|knows_inventory_management_1, #skills 2/3 player at that level
@@ -3451,7 +3451,7 @@ troops = [
     [
       itm_shortened_spear, itm_javelin, itm_shirtc, itm_ankle_boots
     ],
-    str_10|agi_6|int_10|cha_8|level(1),wp(50),
+    str_10|agi_6|int_10|cha_8|level(1),wp(90),
     knows_pathfinding_3|knows_tracking_1|knows_spotting_3|knows_leadership_2|
     knows_athletics_1|knows_ironflesh_2|knows_persuasion_2|knows_power_throw_2|
     knows_shield_2|knows_inventory_management_2|knows_weapon_master_1, #skills 2/3 player at that level
@@ -3465,7 +3465,7 @@ troops = [
     [
       itm_shortened_spear, itm_black_hood, itm_robe, itm_ankle_boots
     ],
-    str_9|agi_8|int_10|cha_7|level(19),wp(60),
+    str_9|agi_8|int_10|cha_7|level(1),wp(110),
     knows_power_strike_2|knows_weapon_master_2|knows_riding_1|
     knows_ironflesh_2|knows_tactics_3|knows_engineer_3|knows_trade_1|
     knows_athletics_2|knows_power_throw_1|knows_shield_2|knows_trainer_3|
@@ -3479,7 +3479,7 @@ troops = [
     [
       itm_short_bow, itm_arrows, itm_knife, itm_armor_9, itm_ankle_boots
     ],
-    str_10|agi_6|int_6|cha_12|level(1),wpe(40,70,70,70),
+    str_10|agi_6|int_6|cha_12|level(1),wpe(70,100,70,70),
     knows_riding_2|knows_power_draw_2|knows_leadership_4|knows_athletics_1|
     knows_ironflesh_2|knows_power_strike_2|knows_power_throw_3|knows_shield_2|
     knows_weapon_master_2|knows_inventory_management_2,
