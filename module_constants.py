@@ -1,7 +1,7 @@
-from ID_items import *
-from ID_quests import *
-from ID_factions import *
-from header_triggers import *
+from header_triggers import key_z, key_t, key_n, key_o, key_j, key_k, key_l, key_semicolon, key_u, key_f7, key_f9
+from ID_items import itm_spice, itm_siege_supply
+# from ID_quests import *
+# from ID_factions import *
 
 #######################################
 ##############################################################
@@ -27,8 +27,8 @@ slot_item_urban_demand             = 11 #consumer demand for a good in town, mea
 slot_item_rural_demand             = 12 #consumer demand in villages, measured in abstract units
 slot_item_desert_demand            = 13 #consumer demand in villages, measured in abstract units
 
-slot_item_production_slot          = 14 
-slot_item_production_string        = 15 
+slot_item_production_slot          = 14
+slot_item_production_string        = 15
 
 slot_item_tied_to_good_price       = 20 #ie, weapons and metal armor to tools, padded to cloth, leather to leatherwork, etc
 
@@ -85,7 +85,7 @@ slot_agent_duel_start_time        = 22
 slot_agent_on_ship				  = 23 #for KLABAUTERMANN only Phaiak chief sea battles
 
 slot_agent_walker_occupation      = 25
-    
+
 #COOP chief #########################################################
 slot_agent_coop_spawn_party       = 26
 slot_agent_coop_banner            = 27
@@ -294,7 +294,7 @@ slot_faction_morale_of_player_troops    = 99
 ##slot_troop_recruit_price = 199
 ##troops_refill_rate = 20
 #somebody chief acaba
-	
+
 #diplomacy
 #dplmc faction slots 110-117 (see below)
 #MOTO chief following in blocks of 40 (32 factions)
@@ -316,14 +316,14 @@ slot_faction_neighbors_begin	= 240	#MOTO chief avoid center2 loop by storing res
 	# reGonalist/dynastic (based around an alternate ruling house
 	# regionalist/republican
 	# messianic (ie, Canudos)
-	
+
 ##diplomacy start+ chief
 #Treaty lengths.  Use these constants instead of "magic numbers" to make it
 #obvious what code is supposed to do, and also make it easy to change the
 #lengths without having to go through the entire mod.
 
 # Truces (as exist in Native)
-dplmc_treaty_truce_days_initial    = 20 
+dplmc_treaty_truce_days_initial    = 20
 dplmc_treaty_truce_days_expire     =  0
 
 #Trade treaties convert to truces after 20 days.
@@ -335,7 +335,7 @@ dplmc_treaty_defense_days_initial  = 60
 dplmc_treaty_defense_days_expire   = dplmc_treaty_trade_days_initial
 
 #Alliances convert to defensive alliances after 20 days.
-dplmc_treaty_alliance_days_initial = 80 
+dplmc_treaty_alliance_days_initial = 80
 dplmc_treaty_alliance_days_expire  = dplmc_treaty_defense_days_initial
 
 #Define these by name to make them more clear in the source code.
@@ -454,7 +454,7 @@ argument_ruler        = 2 #deprecate for commons
 argument_commons      = 2
 
 argument_benefit      = 3 #deprecate for reward
-argument_reward       = 3 
+argument_reward       = 3
 
 argument_victory      = 4
 argument_lords        = 5
@@ -516,7 +516,7 @@ slot_party_home_center            = 123 #Only use with caravans and villagers
 slot_center_current_improvement   = 124
 slot_center_improvement_end_hour  = 125
 
-slot_party_last_traded_center     = 126 
+slot_party_last_traded_center     = 126
 
 
 
@@ -619,7 +619,7 @@ slot_town_trade_routes_end = slot_town_trade_route_15 + 1
 num_trade_goods = itm_siege_supply - itm_spice
 slot_town_trade_good_productions_begin       = 500 #a harmless number, until it can be deprecated, motomataru, it is native, are you sure to change?
 
-#These affect production but in some cases also demand, so it is perhaps easier to itemize them than to have separate 
+#These affect production but in some cases also demand, so it is perhaps easier to itemize them than to have separate
 
 slot_village_number_of_cattle            = 205
 slot_center_head_cattle         = 205 #dried meat, cheese, hides, butter
@@ -727,7 +727,7 @@ slot_center_siege_with_ram     = 402
 spt_castle             = 2
 spt_town               = 3
 spt_village            = 4
-#spt_forager            = 5 
+#spt_forager            = 5
 spt_merchant_caravan     = 5     #Seatrader activado aqui chief
 ##spt_war_party          = 6
 spt_patrol             = 7 #chief diplomacy patrols
@@ -831,7 +831,7 @@ slot_troop_occupation          = 2  # 0 = free, 1 = merchant	SEE troop occupatio
 #homage_feudal   =              = 3 #
 
 
-slot_troop_state               = 3  
+slot_troop_state               = 3
 slot_troop_last_talk_time      = 4
 slot_troop_met                 = 5 #i also use this for the courtship state -- may become cumbersome
 slot_troop_courtship_state     = 5 #2 professed admiration, 3 agreed to seek a marriage, 4 ended relationship
@@ -887,7 +887,7 @@ slot_troop_father              = 31
 slot_troop_mother              = 32
 slot_troop_guardian            = 33 #Usually siblings are identified by a common parent.This is used for brothers if the father is not an active npc. At some point we might introduce geneologies
 slot_troop_betrothed           = 34 #Obviously superseded once slot_troop_spouse is filled
-#other relations are derived from one's parents 
+#other relations are derived from one's parents
 #slot_troop_daughter            = 33
 #slot_troop_son                 = 34
 #slot_troop_sibling             = 35
@@ -1107,14 +1107,14 @@ slot_troop_enemy_routed_agents                  = 151
 
 #Special quest slots
 slot_troop_mission_participation        = 152
-mp_unaware                              = 0 
-mp_stay_out                             = 1 
-mp_prison_break_fight                   = 2 
-mp_prison_break_stand_back              = 3 
-mp_prison_break_escaped                 = 4 
-mp_prison_break_caught                  = 5 
+mp_unaware                              = 0
+mp_stay_out                             = 1
+mp_prison_break_fight                   = 2
+mp_prison_break_stand_back              = 3
+mp_prison_break_escaped                 = 4
+mp_prison_break_caught                  = 5
 
-#Below are some constants to expand the political system a bit. The idea is to make quarrels less random, but instead make them serve a rational purpose -- as a disincentive to lords to seek 
+#Below are some constants to expand the political system a bit. The idea is to make quarrels less random, but instead make them serve a rational purpose -- as a disincentive to lords to seek
 
 slot_troop_controversy                     = 153 #Determines whether or not a troop is likely to receive fief or marshalship
 slot_troop_recent_offense_type 	           = 154 #failure to join army, failure to support colleague
@@ -1168,7 +1168,7 @@ troop_slots_reserved_for_relations_start        = 200 #this is based on id_troop
 slot_troop_relations_begin				= troop_slots_reserved_for_relations_start #this creates an array for relations between troops
 											#Right now, lords start at 165 and run to around 290, including pretenders
 
-											
+
 ########################################################
 ##  PLAYER SLOTS           #############################
 ########################################################
@@ -1344,20 +1344,20 @@ scene_prop_number_of_agents_pushing = 3 #for belfries only
 scene_prop_next_entry_point_id      = 4 #for belfries only
 scene_prop_belfry_platform_moved    = 5 #for belfries only
 ###sea battles chief phaiak empieza
-scene_prop_sail						= 6 #for KLABAUTERMANN only begins 
-scene_prop_rowing				    = 7  
-scene_prop_rudder				    = 8  
-scene_prop_last_speed				= 9  
-scene_prop_last_turn			    = 10 
-scene_prop_wank_state			    = 11 
+scene_prop_sail						= 6 #for KLABAUTERMANN only begins
+scene_prop_rowing				    = 7
+scene_prop_rudder				    = 8
+scene_prop_last_speed				= 9
+scene_prop_last_turn			    = 10
+scene_prop_wank_state			    = 11
 scene_prop_boarding_wanted		    = 12 # "-1"=no, "0"=yes, "1"=yes, also with friendly ships
 scene_prop_landing_wanted		    = 13 # "0"=no, "1"=yes
-scene_prop_boarding_left		    = 14 
-scene_prop_boarding_right		    = 15 
-scene_prop_boarding_progress	    = 16 
+scene_prop_boarding_left		    = 14
+scene_prop_boarding_right		    = 15
+scene_prop_boarding_progress	    = 16
 scene_prop_sail_off_instance	    = 17
 scene_prop_planks_a				    = 18
-scene_prop_planks_b				    = 19 #for KLABAUTERMANN only ends 
+scene_prop_planks_b				    = 19 #for KLABAUTERMANN only ends
 scene_prop_slots_end                = 20
 
 #scene_prop_slots_end                = 6
@@ -1403,7 +1403,7 @@ logent_village_extorted          = 2
 logent_caravan_accosted          = 3 #in caravan accosted, center and troop object are -1, and the defender's faction is the object
 logent_traveller_attacked        = 3 #in traveller attacked, origin and destination are center and troop object, and the attacker's faction is the object
 
-logent_helped_peasants           = 4 
+logent_helped_peasants           = 4
 
 logent_party_traded              = 5
 
@@ -1423,7 +1423,7 @@ logent_pledged_allegiance          = 21
 logent_liege_grants_fief_to_vassal = 22
 
 
-logent_renounced_allegiance      = 23 
+logent_renounced_allegiance      = 23
 
 logent_player_claims_throne_1    		               = 24
 logent_player_claims_throne_2    		               = 25
@@ -1454,7 +1454,7 @@ logent_lord_insults_lord_for_dishonor                  = 43
 
 
 
-logent_game_start                           = 45 
+logent_game_start                           = 45
 logent_poem_composed                        = 46 ##Not added
 logent_tournament_distinguished             = 47 ##Not added
 logent_tournament_won                       = 48 ##Not added
@@ -1518,7 +1518,7 @@ logent_war_declaration_types_end							= 96
 
 #lord reputation type, for commentaries
 #"Martial" will be twice as common as the other types
-lrep_none           = 0 
+lrep_none           = 0
 lrep_martial        = 1 #chivalrous but not terribly empathetic or introspective, - eg Richard Lionheart, your average 14th century French baron
 lrep_quarrelsome    = 2 #spiteful, cynical, a bit paranoid, possibly hotheaded - eg Robert Graves' Tiberius, some of Charles VI's uncles
 lrep_selfrighteous  = 3 #coldblooded, moralizing, often cruel - eg William the Conqueror, Timur, Octavian, Aurangzeb (although he is arguably upstanding instead, particularly after his accession)
@@ -1534,9 +1534,9 @@ lrep_custodian      = 10 #used for commons, specifically ex-companions. Tries to
 #lreps specific to dependent noblewomen
 lrep_conventional    = 21 #Charlotte York in SATC seasons 1-2, probably most medieval aristocrats
 lrep_adventurous     = 22 #Tomboyish. However, this basically means that she likes to travel and hunt, and perhaps yearn for wider adventures. However, medieval noblewomen who fight are rare, and those that attempt to live independently of a man are rarer still, and best represented by pre-scripted individuals like companions
-lrep_otherworldly    = 23 #Prone to mysticism, romantic. 
+lrep_otherworldly    = 23 #Prone to mysticism, romantic.
 lrep_ambitious       = 24 #Lady Macbeth
-lrep_moralist        = 25 #Equivalent of upstanding or benefactor -- takes nobless oblige, and her traditional role as repository of morality, very seriously. Based loosely on Christine de Pisa 
+lrep_moralist        = 25 #Equivalent of upstanding or benefactor -- takes nobless oblige, and her traditional role as repository of morality, very seriously. Based loosely on Christine de Pisa
 
 #a more complicated system of reputation could include the following...
 
@@ -1551,7 +1551,7 @@ lrep_moralist        = 25 #Equivalent of upstanding or benefactor -- takes noble
 
 courtship_poem_tragic      = 1 #Emphasizes longing, Laila and Majnoon
 courtship_poem_heroic      = 2 #Norse sagas with female heroines
-courtship_poem_comic       = 3 #Emphasis on witty repartee -- Contrasto (Sicilian school satire) 
+courtship_poem_comic       = 3 #Emphasis on witty repartee -- Contrasto (Sicilian school satire)
 courtship_poem_mystic      = 4 #Sufi poetry. Song of Songs
 courtship_poem_allegoric   = 5 #Idealizes woman as a civilizing force -- the Romance of the Rose, Siege of the Castle of Love
 
@@ -1568,7 +1568,7 @@ courtship_poem_allegoric   = 5 #Idealizes woman as a civilizing force -- the Rom
 tutorial_fighters_begin = "trp_tutorial_fighter_1"
 tutorial_fighters_end   = "trp_tutorial_archer_1"
 
-#Walker types: 
+#Walker types:
 walkert_default            = 0
 walkert_needs_money        = 1
 walkert_needs_money_helped = 2
@@ -2043,7 +2043,7 @@ ctm_ranged   = 2
 ctm_mounted  = 3
 ctm_training = 4
 
-##diplomacy chief begin 
+##diplomacy chief begin
 # recruiter kit begin
 dplmc_slot_party_recruiter_needed_recruits = 233           # Amount of recruits the employer ordered.
 dplmc_slot_party_recruiter_origin = 234                    # Walled center from where the recruiter was hired.
@@ -2104,10 +2104,10 @@ dplmc_spt_spouse                              = 19
 #dplmc_spt_gift_caravan                        = 21
 dplmc_spt_gift_caravan                        = 116
 dplmc_slot_faction_policy_time                      = 110
-dplmc_slot_faction_centralization                   = 111        
-dplmc_slot_faction_aristocracy                      = 112        
-dplmc_slot_faction_serfdom                          = 113 
-dplmc_slot_faction_quality                          = 114 
+dplmc_slot_faction_centralization                   = 111
+dplmc_slot_faction_aristocracy                      = 112
+dplmc_slot_faction_serfdom                          = 113
+dplmc_slot_faction_quality                          = 114
 dplmc_slot_faction_patrol_time                      = 115
 
 # dplmc_slot_faction_attitude                   = 116	MOTO not used
@@ -2223,14 +2223,14 @@ DPLMC_VIRTUAL_RELATIVE_MULTIPLIER = -4
 DPLMC_VIRTUAL_RELATIVE_FATHER_OFFSET = -1#e.g. father for x = (DPLMC_VIRTUAL_RELATIVE_MULTIPLIER * x) + DPLMC_VIRTUAL_RELATIVE_FATHER_OFFSET
 DPLMC_VIRTUAL_RELATIVE_MOTHER_OFFSET = -2
 DPLMC_VIRTUAL_RELATIVE_SPOUSE_OFFSET = -3
-##diplomacy chief end 
+##diplomacy chief end
 
 #TEMPERED chief PARTY SLOTS
 slot_spy_in_town = 300  #number range from zero, used to check if spy is in a town and how long he has been there in hours.
 slot_spy_sabotage = 301  #sets a sabotage mission on a town equal to this number, used by spy update simple trigger
-slot_well_poisoned = 302 #tally of days a well has been poisoned 
+slot_well_poisoned = 302 #tally of days a well has been poisoned
 slot_spy_target_town = 303 #the town the spy is associated with, used in simple trigger for entering town, also used by personal messenger to identify target of message
-slot_spies_deployed = 304 #tally of spy parties currently deployed 
+slot_spies_deployed = 304 #tally of spy parties currently deployed
 slot_party_entrenched = 305 #0 for not entrenched, 1 for entrenched. -1 for working on entrenchment.
 slot_party_hired = 306 #current time plus 24, party hired to aid for 24 hours
 slot_party_nearby = 307 #used to identify nearby parties. 0 for not nearby, party id for nearby
@@ -2427,7 +2427,7 @@ coop_event_troop_raise_skill                      = 24
 coop_event_troop_raise_proficiency_linear         = 25
 coop_event_troop_set_slot                         = 26
 coop_event_player_set_slot                        = 27
-coop_event_send_inventory                         = 28 
+coop_event_send_inventory                         = 28
 coop_event_prsnt_coop_item_select                 = 29
 coop_event_inv_troop_set_slot                     = 30
 coop_event_set_scene_1                            = 31
@@ -2579,7 +2579,7 @@ slot_team_d0_target_team                = 284	#targeted battlegroup (team ID)
 slot_team_d0_target_division            = 293	#targeted battlegroup (division ID)
 #Battlegroup slots end
 
-reset_team_stats_begin = slot_team_size  
+reset_team_stats_begin = slot_team_size
 reset_team_stats_end   = slot_team_d0_avg_y + 8 + 1
 
 scratch_team = 7
@@ -2650,38 +2650,38 @@ Team3_Cavalry_Destination	= 59	#pos59
 
 ## Prebattle Deployment Begin chief Cabadrin
 #max_battle_size = 150 #Or reset if you've modded the battlesize
-slot_troop_prebattle_first_round = slot_lady_no_messages 
-slot_troop_prebattle_array       = slot_lady_last_suitor 
-slot_party_prebattle_customized_deployment = slot_center_accumulated_rents  
-slot_party_prebattle_battle_size           = slot_center_accumulated_tariffs 
-slot_party_prebattle_size_in_battle        = slot_town_wealth  
-slot_party_prebattle_in_battle_count       = slot_town_prosperity 
+slot_troop_prebattle_first_round = slot_lady_no_messages
+slot_troop_prebattle_array       = slot_lady_last_suitor
+slot_party_prebattle_customized_deployment = slot_center_accumulated_rents
+slot_party_prebattle_battle_size           = slot_center_accumulated_tariffs
+slot_party_prebattle_size_in_battle        = slot_town_wealth
+slot_party_prebattle_in_battle_count       = slot_town_prosperity
 #Note: regs0-31, reg60 used in presentation
 ## Prebattle Deployment End
 
 #para negativos equipamiento chief habilidades
 desnudos_begin = "itm_war_paint_two"
-desnudos_end = "itm_linen_shirt" 
+desnudos_end = "itm_linen_shirt"
 armadura_pesada_begin = "itm_mail_coat_1"
-armadura_pesada_end = "itm_byrnie_d_new" 
+armadura_pesada_end = "itm_byrnie_d_new"
 armadura_pesada2_begin = "itm_byrnie_d_new"
-armadura_pesada2_end = "itm_haubergeon" 
+armadura_pesada2_end = "itm_haubergeon"
 armadura_pesada3_begin = "itm_haubergeon"
-armadura_pesada3_end = "itm_cuir_bouilli" 
+armadura_pesada3_end = "itm_cuir_bouilli"
 armadura_pesada4_begin = "itm_cuir_bouilli"
-armadura_pesada4_end = "itm_vikinglamellar2" 
+armadura_pesada4_end = "itm_vikinglamellar2"
 armadura_media_begin = "itm_vikinglamellar2"
 armadura_media_end = "itm_padded_jack_8_trig"
 armadura_media2_begin = "itm_byrnie"
 armadura_media2_end = "itm_byrnie5"
 yelmos_pesados_begin = "itm_boar_helmet"
-yelmos_pesados_end = "itm_helm_captaina" 
+yelmos_pesados_end = "itm_helm_captaina"
 yelmos_pesados2_begin = "itm_norman_helmet"
 yelmos_pesados2_end = "itm_sarranid_horseman_helmet"
 calzado_pesados_begin = "itm_iron_greaves"
-calzado_pesados_end = "itm_decorated_leather_shoes_greaves_green" 
+calzado_pesados_end = "itm_decorated_leather_shoes_greaves_green"
 escudos_pesados_begin = "itm_celtic_shield_small_round_a"
-escudos_pesados_end = "itm_h_shield" 
+escudos_pesados_end = "itm_h_shield"
 escudos_pesados2_begin = "itm_tarcze_celtyckie"
 escudos_pesados2_end = "itm_tab_shield_small_round_c"
 burro_begin = "itm_warhorse_steppe"
@@ -2813,7 +2813,7 @@ additional_heroes_end = "trp_town_1_seneschal"
 freelancer_version = 13
 #Floris or no Diplomacy:
 #freelancer_can_use_item  = "script_troop_can_use_item"
-#with Diplomacy: (also, disable dplmc in modmerger_options) 
+#with Diplomacy: (also, disable dplmc in modmerger_options)
 freelancer_can_use_item = "script_dplmc_troop_can_use_item"
 
 #Party Slots
@@ -2841,13 +2841,13 @@ mount_patrol_closing_dist = 6000
 
 #seafare of Duh chief
 slot_town_has_ship = 490
- 
+
 slot_ship_center = 491
- 
+
 slot_ship_choice = 492
- 
+
 slot_ship_time = 493
- 
+
 ship_wild_no_guard = 100
 ship_wild_guarded = 150
 ship_player_sailing = 200
@@ -2889,16 +2889,18 @@ def _validate_constants(verbose=False):
         to_key = from_key[:-len("_begin")]+"_end"
         if not to_key in d:
             if verbose:
-                print "%s has no matching %s" % (from_key, to_key)
+                print("%s has no matching %s" %(from_key, to_key))
             continue
         from_value = d[from_key]
         to_value = d[to_key]
-        if not type(from_value) in (int, float, long):
+        if not type(from_value) in (int, float, complex):
+            continue
+        if not type(to_value) in (int, float, complex):
             continue
         if not from_value <= to_value:
             raise Exception("ERROR, condition %s <= %s failed [not true that %s <= %s]" % (from_key, to_key, str(from_value), str(to_value)))
         elif verbose:
-            print "%s <= %s [%s <= %s]" % (from_key, to_key, str(from_value), str(to_value))
+            print("%s <= %s [%s <= %s]" % (from_key, to_key, str(from_value), str(to_value)))
 
 #Automatically run this on module import, so errors are detected
 #during building.

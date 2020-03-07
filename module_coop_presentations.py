@@ -1,13 +1,14 @@
+# import string
+
 from header_common import *
 from header_presentations import *
-from header_mission_templates import *
-from ID_meshes import *
 from header_operations import *
 from header_triggers import *
 from module_constants import *
 from header_items import *
-import string
 
+# from header_mission_templates import *
+# from ID_meshes import *
 
 
 ####################################################################################################################
@@ -720,17 +721,17 @@ coop_presentations = [
       #(assign, ":cur_troop_index", 0),
       # (try_for_range, ":cur_troop_index", 101, ":num_heroes"),
         # (troop_get_slot, ":troop_no", ":selected_troop", ":cur_troop_index"),
-       
+
         (try_for_range, ":stack", 0, ":num_heroes"),
-          (party_stack_get_troop_id, ":troop_no", ":hero_party", ":stack"),	
+          (party_stack_get_troop_id, ":troop_no", ":hero_party", ":stack"),
 
 
 
 
 
        #debug message
-       # (assign, reg2, ":cur_troop_index"), 
-       # (assign, reg1, ":num_heroes"), 
+       # (assign, reg2, ":cur_troop_index"),
+       # (assign, reg1, ":num_heroes"),
        # (str_store_troop_name, s40, ":troop_no"),
        # (display_message, "@{reg1} slt {reg2} list {s40}"),
 
@@ -738,7 +739,7 @@ coop_presentations = [
         (get_max_players, ":num_players"),
         (try_for_range, ":all_player_no", 0, ":num_players"), #if troop is picked but not spawned
           (player_is_active, ":all_player_no"),
-          (player_get_slot, ":other_player_selected_troop", ":all_player_no", slot_player_coop_selected_troop), 
+          (player_get_slot, ":other_player_selected_troop", ":all_player_no", slot_player_coop_selected_troop),
           (eq, ":other_player_selected_troop", ":troop_no"),
           (assign, ":num_players", 0),
           (assign, ":break", 1),
@@ -761,7 +762,7 @@ coop_presentations = [
         (eq, ":break", 0),
         (str_store_troop_name, s1, ":troop_no"),
         (create_button_overlay, reg0, s1, 0),
-        (overlay_set_color, reg0, 0xFFFFFF), 
+        (overlay_set_color, reg0, 0xFFFFFF),
 
           #native uses multi_data_troop_button_indices_begin which limits to 16 troops per team
         (troop_set_slot, "trp_temp_array_c", reg0, ":troop_no"), #store troop id in slot = object
@@ -778,7 +779,7 @@ coop_presentations = [
       (try_end),
       (presentation_set_duration, 999999),
       ]),
-   
+
     (ti_on_presentation_event_state_change,
      [(store_trigger_param_1, ":object"),
 
@@ -823,7 +824,7 @@ coop_presentations = [
 #        (is_between, ":my_player_no", 0, multiplayer_max_possible_player_id),
 #        (multiplayer_get_my_troop, ":my_troop"),
 #        (try_begin), #spectator
-#          (neg|is_between, ":my_troop", active_npcs_including_player_begin, active_npcs_end), 
+#          (neg|is_between, ":my_troop", active_npcs_including_player_begin, active_npcs_end),
 #          (player_set_troop_id, ":my_player_no", -1),
 #          (multiplayer_send_int_to_server, multiplayer_event_change_troop_id, -1),
 #          (multiplayer_send_int_to_server, multiplayer_event_change_team_no, multi_team_spectator),
@@ -926,47 +927,47 @@ coop_presentations = [
             (eq, ":cur_ai_troop_index", 4),
             (overlay_set_val, reg0, "$coop_class_0_wanted"),
             (assign, "$g_presentation_obj_commander_select_17", reg0),
-            (str_store_class_name, s0, 0), 
+            (str_store_class_name, s0, 0),
           (else_try),
             (eq, ":cur_ai_troop_index", 5),
             (overlay_set_val, reg0, "$coop_class_1_wanted"),
             (assign, "$g_presentation_obj_commander_select_18", reg0),
-            (str_store_class_name, s0, 1), 
+            (str_store_class_name, s0, 1),
           (else_try),
             (eq, ":cur_ai_troop_index", 6),
             (overlay_set_val, reg0, "$coop_class_2_wanted"),
             (assign, "$g_presentation_obj_commander_select_19", reg0),
-            (str_store_class_name, s0, 2), 
+            (str_store_class_name, s0, 2),
           (else_try),
             (eq, ":cur_ai_troop_index", 7),
             (overlay_set_val, reg0, "$coop_class_3_wanted"),
             (assign, "$g_presentation_obj_commander_select_20", reg0),
-            (str_store_class_name, s0, 3), 
+            (str_store_class_name, s0, 3),
           (else_try),
             (eq, ":cur_ai_troop_index", 8),
             (overlay_set_val, reg0, "$coop_class_4_wanted"),
             (assign, "$g_presentation_obj_commander_select_21", reg0),
-            (str_store_class_name, s0, 4), 
+            (str_store_class_name, s0, 4),
           (else_try),
             (eq, ":cur_ai_troop_index", 9),
             (overlay_set_val, reg0, "$coop_class_5_wanted"),
             (assign, "$g_presentation_obj_commander_select_22", reg0),
-            (str_store_class_name, s0, 5), 
+            (str_store_class_name, s0, 5),
           (else_try),
             (eq, ":cur_ai_troop_index", 10),
             (overlay_set_val, reg0, "$coop_class_6_wanted"),
             (assign, "$g_presentation_obj_commander_select_23", reg0),
-            (str_store_class_name, s0, 6), 
+            (str_store_class_name, s0, 6),
           (else_try),
             (eq, ":cur_ai_troop_index", 11),
             (overlay_set_val, reg0, "$coop_class_7_wanted"),
             (assign, "$g_presentation_obj_commander_select_24", reg0),
-            (str_store_class_name, s0, 7), 
+            (str_store_class_name, s0, 7),
           (else_try),
             (eq, ":cur_ai_troop_index", 12),
             (overlay_set_val, reg0, "$coop_class_8_wanted"),
             (assign, "$g_presentation_obj_commander_select_25", reg0),
-            (str_store_class_name, s0, 8), 
+            (str_store_class_name, s0, 8),
           (try_end),
 
           (create_text_overlay, reg0, "str_s0", 0), #s0
@@ -982,7 +983,7 @@ coop_presentations = [
       (try_end),
       (presentation_set_duration, 999999),
       ]),
-            
+
     (ti_on_presentation_event_state_change,
      [(store_trigger_param_1, ":object"),
       (store_trigger_param_2, ":value"),
@@ -1045,15 +1046,15 @@ coop_presentations = [
         (try_end),
 
       ]),
-    
-    
+
+
     (ti_on_presentation_run,
      [
 
 ## this causes an error sometimes
 ##      (multiplayer_get_my_player, ":my_player_no"),
 ##      (player_get_gold, ":player_gold", ":my_player_no"),
-##      (call_script, "script_multiplayer_calculate_cur_selected_items_cost", ":my_player_no", 1),      
+##      (call_script, "script_multiplayer_calculate_cur_selected_items_cost", ":my_player_no", 1),
 ##      (try_begin),
 ##        (ge, ":player_gold", reg0),
 ##        (overlay_set_color, "$g_presentation_obj_commander_select_12", 0xFFFFFF),
@@ -1304,7 +1305,7 @@ coop_presentations = [
 
       (presentation_set_duration, 999999),
       ]),
-            
+
     (ti_on_presentation_event_state_change,
      [(store_trigger_param_1, ":object"),
       (try_begin),
@@ -1313,7 +1314,7 @@ coop_presentations = [
         (presentation_set_duration, 0),
       (try_end),
       ]),
-    
+
     (ti_on_presentation_run,
      [
         (eq, "$coop_battle_started", 1),
@@ -1365,12 +1366,12 @@ coop_presentations = [
         (assign, ":end_cond", 1000),
         (call_script, "script_game_multiplayer_get_game_type_mission_template", "$g_multiplayer_game_type"),
         (assign, ":cur_mt", reg0),
-        
+
         (str_store_server_name, s0),
         (str_store_string, s3, "str_server_name_s0"),
-        (str_store_string, s2, "str_s2_s3"),        
+        (str_store_string, s2, "str_s2_s3"),
 
-        (try_begin),                
+        (try_begin),
           (eq, "$g_multiplayer_game_type", multiplayer_game_type_coop_battle),
           (str_store_string, s0, "str_multi_game_type_9"),
         (else_try),
@@ -1378,7 +1379,7 @@ coop_presentations = [
           (str_store_string, s0, "str_multi_game_type_10"),
         (try_end),
         (str_store_string, s3, "str_game_type_s0"),
-        (str_store_string, s2, "str_s2_s3"),   
+        (str_store_string, s2, "str_s2_s3"),
 
         (store_current_scene, ":cur_scene"),
         # (val_sub, ":cur_scene", "scn_multi_scene_1"),
@@ -1394,33 +1395,33 @@ coop_presentations = [
         (try_end),
         (str_store_string, s3, "str_map_name_s0"),
         (str_store_string, s2, "str_s2_s3"),
-        
+
         (store_mission_timer_a, ":mission_timer"),
         (val_add, ":mission_timer", "$server_mission_timer_while_player_joined"),
-        (assign, reg0, ":mission_timer"),       
+        (assign, reg0, ":mission_timer"),
         (store_mul, "$g_multiplayer_game_max_seconds", "$g_multiplayer_game_max_minutes", 60),
         (store_sub, ":remaining_seconds", "$g_multiplayer_game_max_seconds", ":mission_timer"),
         (store_div, reg0, ":remaining_seconds", 60),
         (store_mod, reg1, ":remaining_seconds", 60),
         (try_begin),
           (ge, reg0, 10),
-          (ge, reg1, 10),          
+          (ge, reg1, 10),
           (str_clear, s0),
           (str_clear, s1),
-        (else_try),  
+        (else_try),
           (ge, reg0, 10),
           (str_clear, s0),
           (str_store_string, s1, "@0"),
-        (else_try),  
+        (else_try),
           (ge, reg1, 10),
           (str_store_string, s0, "@0"),
           (str_clear, s1),
-        (else_try),  
+        (else_try),
           (str_store_string, s0, "@0"),
           (str_store_string, s1, "@0"),
         (try_end),
         (str_store_string, s3, "str_remaining_time_s0reg0_s1reg1"),
-        
+
         (str_store_string, s2, "str_s2_s3"),
 
         (try_for_range, ":cur_option", 0, ":end_cond"),
@@ -1434,7 +1435,7 @@ coop_presentations = [
             (str_store_string, s3, s0),
             (str_store_string, s2, "str_s2_s3"),
           (try_end),
-        (try_end),        
+        (try_end),
         (create_text_overlay, reg0, s2, tf_scrollable),
         (overlay_set_color, reg0, 0xFFFFFF),
         (position_set_x, pos1, 230),
@@ -1622,7 +1623,7 @@ coop_presentations = [
         (gt, "$coop_my_troop_no", 0),
 
         (assign, ":stop", 0),
-        (try_for_agents, ":cur_agent"), 
+        (try_for_agents, ":cur_agent"),
           (eq, ":stop", 0),
           (agent_is_human, ":cur_agent"),
           (assign, ":stop", 1),
@@ -1914,7 +1915,7 @@ coop_presentations = [
         (val_add, ":y_needed", 70),
       (try_end),
 
-      (multiplayer_get_my_player, ":my_player_no"),       
+      (multiplayer_get_my_player, ":my_player_no"),
 
       (try_begin),
         (gt, ":y_needed", 490),
@@ -1984,7 +1985,7 @@ coop_presentations = [
 # dont use faction shield so name will always show
         # (team_get_faction, ":faction_of_team_1", 0),
         # (team_get_faction, ":faction_of_team_2", 1),
-          
+
         # (try_begin),
           # (eq, ":faction_of_team_1", ":faction_of_team_2"),
           # (eq, ":i_team", 1),
@@ -2008,14 +2009,14 @@ coop_presentations = [
           # (eq, ":cur_faction", "fac_kingdom_1"),
           # (create_mesh_overlay, reg0, "mesh_ui_kingdom_shield_6"),
         # (try_end),
-      
+
         # (position_set_x, pos1, 100),
         # (position_set_y, pos1, 100),
         # (overlay_set_position, reg0, pos3),
 #this part removes faction name if it cant find a shield
         # (position_set_x, pos1, 50),
         # (position_set_y, pos1, 50),
-        # (overlay_set_size, reg0, pos1),      
+        # (overlay_set_size, reg0, pos1),
 
 #############
 
@@ -2048,7 +2049,7 @@ coop_presentations = [
         (overlay_set_position, reg0, pos1),
         (position_set_x, pos1, 1200),
         (position_set_y, pos1, 1200),
-        (overlay_set_size, reg0, pos1),      
+        (overlay_set_size, reg0, pos1),
 
         (try_begin),
           # (multiplayer_is_server),
@@ -2069,11 +2070,11 @@ coop_presentations = [
           (overlay_set_position, reg0, pos1),
           (position_set_x, pos1, 600),
           (position_set_y, pos1, 600),
-          (overlay_set_size, reg0, pos1),      
+          (overlay_set_size, reg0, pos1),
         (try_end),
 ##################################################
         (val_sub, ":cur_y", 60),
-      
+
         (create_text_overlay, reg0, "str_player_name", 0),
         (overlay_set_color, reg0, 0xFFFFFF),
         (position_set_x, pos1, ":cur_x"),
@@ -2085,7 +2086,7 @@ coop_presentations = [
 
         # (try_begin), #at headquarters and capture the flag write score instead before kill count
           # (this_or_next|eq, "$g_multiplayer_game_type", multiplayer_game_type_capture_the_flag),
-          # (eq, "$g_multiplayer_game_type", multiplayer_game_type_headquarters),      
+          # (eq, "$g_multiplayer_game_type", multiplayer_game_type_headquarters),
           # (create_text_overlay, reg0, "str_score", 0),
           # (overlay_set_color, reg0, 0xFFFFFF),
           # (store_add, ":sub_cur_x", ":cur_x", 138),
@@ -2096,7 +2097,7 @@ coop_presentations = [
           # (position_set_y, pos1, 750),
           # (overlay_set_size, reg0, pos1),
         # (try_end),
-      
+
         (create_text_overlay, reg0, "str_kills", tf_center_justify),
         (overlay_set_color, reg0, 0xFFFFFF),
         (store_add, ":sub_cur_x", ":cur_x", 206), #191
@@ -2116,7 +2117,7 @@ coop_presentations = [
         (position_set_x, pos1, 750),
         (position_set_y, pos1, 750),
         (overlay_set_size, reg0, pos1),
-      
+
         (create_text_overlay, reg0, "str_ping", tf_center_justify),
         (overlay_set_color, reg0, 0xFFFFFF),
         (store_add, ":sub_cur_x", ":cur_x", 308), #291
@@ -2126,7 +2127,7 @@ coop_presentations = [
         (position_set_x, pos1, 750),
         (position_set_y, pos1, 750),
         (overlay_set_size, reg0, pos1),
-      
+
         (create_mesh_overlay, reg0, "mesh_white_plane"),
         (overlay_set_color, reg0, 0xFFFFFF),
         (overlay_set_alpha, reg0, 0xD0),
@@ -2140,12 +2141,12 @@ coop_presentations = [
         (overlay_set_size, reg0, pos1),
 
         (val_sub, ":cur_y", 35),
-      
+
         (store_add, ":end_cond", ":num_players", 1),
         (try_for_range, ":unused", 0, ":end_cond"),
           (assign, ":max_score_plus_death", -30030),
           (assign, ":max_score_plus_death_player_no", -1),
-          (try_for_range, ":player_no", 0, ":num_players"),            
+          (try_for_range, ":player_no", 0, ":num_players"),
             (store_add, ":slot_index", ":player_no", multi_data_player_index_list_begin),
             (troop_slot_eq, "trp_multiplayer_data", ":slot_index", 1),
             (player_get_team_no, ":player_team", ":player_no"),
@@ -2153,20 +2154,20 @@ coop_presentations = [
 
             (try_begin),
               (this_or_next|eq, "$g_multiplayer_game_type", multiplayer_game_type_capture_the_flag),
-              (eq, "$g_multiplayer_game_type", multiplayer_game_type_headquarters),      
+              (eq, "$g_multiplayer_game_type", multiplayer_game_type_headquarters),
               (player_get_score, ":kill_count", ":player_no"), #get score in "capture the flag" or "headquarters"
             (else_try),
               (player_get_kill_count, ":kill_count", ":player_no"), #get kill count in "siege" or "battle" or "team deathmatch" or "deathmatch"
             (try_end),
-      
+
             (player_get_death_count, ":death_count", ":player_no"), #get_death_count
 
             (store_mul, ":player_score_plus_death", ":kill_count", 1000),
             (val_sub, ":player_score_plus_death", ":death_count"),
-      
+
             (this_or_next|gt, ":player_score_plus_death", ":max_score_plus_death"),
             (eq, ":player_score_plus_death", -30030),
-      
+
             (assign, ":max_score_plus_death", ":player_score_plus_death"),
             (assign, ":max_score_plus_death_player_no", ":player_no"),
           (try_end),
@@ -2174,7 +2175,7 @@ coop_presentations = [
             (ge, ":max_score_plus_death_player_no", 0),
             (store_add, ":slot_index", ":max_score_plus_death_player_no", multi_data_player_index_list_begin),
             (troop_set_slot, "trp_multiplayer_data", ":slot_index", 0),
-      
+
             (try_begin),
               (eq, ":my_player_no", ":max_score_plus_death_player_no"),
               (create_mesh_overlay, reg0, "mesh_white_plane"),
@@ -2189,10 +2190,10 @@ coop_presentations = [
               (position_set_y, pos1, 1000),
               (overlay_set_size, reg0, pos1),
             (try_end),
-  
+
             (try_begin), #at headquarters and capture the flag write score instead dead label before kill count
               # (this_or_next|eq, "$g_multiplayer_game_type", multiplayer_game_type_capture_the_flag),
-              # (eq, "$g_multiplayer_game_type", multiplayer_game_type_headquarters),      
+              # (eq, "$g_multiplayer_game_type", multiplayer_game_type_headquarters),
 
               # (assign, ":font_color", 0xFFFFFF),
               # (player_get_agent_id, ":max_score_plus_death_agent_id", ":max_score_plus_death_player_no"),
@@ -2207,7 +2208,7 @@ coop_presentations = [
               # (overlay_set_color, reg0, ":font_color"),
               # (position_set_x, pos1, 750),
               # (position_set_y, pos1, 750),
-              # (overlay_set_size, reg0, pos1),      
+              # (overlay_set_size, reg0, pos1),
               # (store_add, ":sub_cur_x", ":cur_x", 165), #150
               # (position_set_x, pos1, ":sub_cur_x"),
               # (position_set_y, pos1, ":cur_y"),
@@ -2255,23 +2256,23 @@ coop_presentations = [
             (overlay_set_color, reg0, ":font_color"),
             (position_set_x, pos1, 750),
             (position_set_y, pos1, 750),
-            (overlay_set_size, reg0, pos1),      
+            (overlay_set_size, reg0, pos1),
             (store_add, ":sub_cur_x", ":cur_x", 215), #200
             (position_set_x, pos1, ":sub_cur_x"),
             (position_set_y, pos1, ":cur_y"),
             (overlay_set_position, reg0, pos1),
-      
+
             (player_get_death_count, reg0, ":max_score_plus_death_player_no"),
             (create_text_overlay, reg0, "str_reg0", tf_right_align),
             (overlay_set_color, reg0, ":font_color"),
             (position_set_x, pos1, 750),
             (position_set_y, pos1, 750),
-            (overlay_set_size, reg0, pos1),      
+            (overlay_set_size, reg0, pos1),
             (store_add, ":sub_cur_x", ":cur_x", 265), #250
             (position_set_x, pos1, ":sub_cur_x"),
             (position_set_y, pos1, ":cur_y"),
             (overlay_set_position, reg0, pos1),
-      
+
             (player_get_ping, reg0, ":max_score_plus_death_player_no"),
             (create_text_overlay, reg0, "str_reg0", tf_right_align),
             (overlay_set_color, reg0, ":font_color"),
@@ -2292,7 +2293,7 @@ coop_presentations = [
 #              (else_try),
 #                (assign, ":number_of_bots_in_cur_team", "$g_multiplayer_num_bots_team_2"),
 #              (try_end),
-             
+
               # (team_get_bot_kill_count, reg0, ":i_team"),
               # (team_get_bot_death_count, reg1, ":i_team"),
               # (try_begin),
@@ -2303,7 +2304,7 @@ coop_presentations = [
               # (else_try),
                 # (assign, ":write_bot_informations_of_team", 0),
               # (try_end),
-      
+
               # (eq, ":write_bot_informations_of_team", 1),
 
 #              (store_sub, ":number_of_dead_bots", ":number_of_bots_in_cur_team", ":number_of_alive_bots"),
@@ -2313,7 +2314,7 @@ coop_presentations = [
               (else_try),
                 (assign, ":font_color", 0xD0D0D0),
               (try_end),
-	  
+
 #              (try_begin),
 #                (gt, ":number_of_dead_bots", 0),
 #                (try_begin),
@@ -2324,7 +2325,7 @@ coop_presentations = [
 #                  (assign, reg0, ":number_of_dead_bots"),
 #                  (create_text_overlay, reg0, "str_reg0_dead", 0),
 #                  (store_add, ":sub_cur_x", ":cur_x", 123),
-#                (try_end),      
+#                (try_end),
 #                (overlay_set_color, reg0, ":font_color"),
 #                (position_set_x, pos1, 750),
 #                (position_set_y, pos1, 750),
@@ -2350,7 +2351,7 @@ coop_presentations = [
               (position_set_x, pos1, ":cur_x"),
               (position_set_y, pos1, ":cur_y"),
               (overlay_set_position, reg0, pos1),
-      
+
               (team_get_bot_kill_count, reg0, ":i_team"),
               (create_text_overlay, reg0, "str_reg0", tf_right_align),
               (overlay_set_color, reg0, ":font_color"),
@@ -2361,7 +2362,7 @@ coop_presentations = [
               (position_set_x, pos1, ":sub_cur_x"),
               (position_set_y, pos1, ":cur_y"),
               (overlay_set_position, reg0, pos1),
-      
+
               (team_get_bot_death_count, reg0, ":i_team"),
               (create_text_overlay, reg0, "str_reg0", tf_right_align),
               (overlay_set_color, reg0, ":font_color"),
@@ -2402,7 +2403,7 @@ coop_presentations = [
       (overlay_set_position, reg0, pos1),
       (position_set_x, pos1, 36000),
       (position_set_y, pos1, 50),
-      (overlay_set_size, reg0, pos1), 
+      (overlay_set_size, reg0, pos1),
 
       (try_begin),
         (gt, ":spectator_rows", 0),
@@ -2410,7 +2411,7 @@ coop_presentations = [
         (assign, ":cur_x", 280),
         (val_sub, ":cur_y", 50),
 
-        #"spectators" text 
+        #"spectators" text
         (create_text_overlay, reg0, "str_spectators", 0),
         (overlay_set_color, reg0, 0xFFFFFF),
         (position_set_x, pos1, ":cur_x"),
@@ -2481,7 +2482,7 @@ coop_presentations = [
           (position_set_x, pos1, ":cur_x"),
           (position_set_y, pos1, ":cur_y"),
           (overlay_set_position, reg0, pos1),
-          
+
           (player_get_ping, reg0, ":player_no"),
           (create_text_overlay, reg0, "str_reg0", tf_right_align),
           (overlay_set_color, reg0, ":font_color"),
@@ -2492,13 +2493,13 @@ coop_presentations = [
           (position_set_x, pos1, ":sub_cur_x"),
           (position_set_y, pos1, ":cur_y"),
           (overlay_set_position, reg0, pos1),
-          (val_sub, ":cur_y", 20),      
+          (val_sub, ":cur_y", 20),
         (try_end),
       (try_end),
-	  
+
       (omit_key_once, key_mouse_scroll_up),
       (omit_key_once, key_mouse_scroll_down),
-      
+
       (presentation_set_duration, 999999),
       ]),
     (ti_on_presentation_run,
@@ -2550,7 +2551,7 @@ coop_presentations = [
       (assign, "$g_presentation_obj_item_select_14", -1),
       (assign, "$g_presentation_obj_item_select_15", -1),
       (assign, "$g_presentation_obj_item_select_16", -1),
-      
+
       (try_begin),
         (neq, "$g_current_opened_item_details", -1),
         (close_item_details),
@@ -2790,9 +2791,9 @@ coop_presentations = [
       # (position_set_x, pos1, 680),
       # (position_set_y, pos1, 652),
       # (overlay_set_position, "$g_presentation_obj_item_select_12", pos1),
-      
-      # (store_add, "$g_presentation_obj_item_select_next", "$g_presentation_obj_item_select_12", 1), 
-      (store_add, "$g_presentation_obj_item_select_next", "$g_presentation_obj_item_select_11", 3), #add 3 to skip container, need to be > item11 + 2 
+
+      # (store_add, "$g_presentation_obj_item_select_next", "$g_presentation_obj_item_select_12", 1),
+      (store_add, "$g_presentation_obj_item_select_next", "$g_presentation_obj_item_select_11", 3), #add 3 to skip container, need to be > item11 + 2
 
      # (player_get_troop_id, ":my_troop_no", ":my_player_no"),
       (try_begin),
@@ -2889,13 +2890,13 @@ coop_presentations = [
       (try_end),
       (presentation_set_duration, 999999),
       ] ),
-    
+
     (ti_on_presentation_mouse_enter_leave,
        [(store_trigger_param_1, ":object"),
         (store_trigger_param_2, ":enter_leave"),
 
             # (assign, reg1, ":object"),
-            # (try_begin), 
+            # (try_begin),
               # (eq, ":enter_leave", 0),
               # (str_store_string, s42, "@Enter"),
             # (else_try),
@@ -2909,7 +2910,7 @@ coop_presentations = [
           (try_begin),
             (eq, ":enter_leave", 0),
 
-            (assign, ":item_no", -1), 
+            (assign, ":item_no", -1),
             (try_begin),
               (ge, ":object", "$g_presentation_obj_item_select_next"),
               (store_sub, ":tested_object", ":object", "$g_presentation_obj_item_select_next"),
@@ -2993,7 +2994,7 @@ coop_presentations = [
               # (store_add, ":player_slot_index", slot_player_selected_item_indices_begin, 8),
               # (val_sub, ":player_slot_index", 1),
               # (multiplayer_get_my_player, ":my_player_no"),
-              # (player_get_slot, ":item_no", ":my_player_no", ":player_slot_index"),  
+              # (player_get_slot, ":item_no", ":my_player_no", ":player_slot_index"),
               (troop_get_slot, ":item_no", "trp_temp_troop", 7),
               (troop_get_slot, ":item_imod", "trp_temp_troop", 17),
               (assign, ":target_obj", "$g_inside_obj_8"),
@@ -3032,7 +3033,7 @@ coop_presentations = [
               (assign, "$g_current_opened_item_details", ":target_obj"),
             (try_end),
           (else_try),
-            (assign, ":item_no", -1), 
+            (assign, ":item_no", -1),
             (try_begin),
               (ge, ":object", "$g_presentation_obj_item_select_next"),
               (store_sub, ":tested_object", ":object", "$g_presentation_obj_item_select_next"),
@@ -3043,7 +3044,7 @@ coop_presentations = [
               (val_div, ":tested_object", 2),
               (store_add, ":cur_slot", multi_data_item_button_indices_begin, ":tested_object"),
               (troop_get_slot, ":item_no", "trp_multiplayer_data", ":cur_slot"),
-  
+
               (assign, ":target_obj", ":object"),
               (val_add, ":target_obj", ":mod_value"),
             (else_try),
@@ -3108,7 +3109,7 @@ coop_presentations = [
               # (store_add, ":player_slot_index", slot_player_selected_item_indices_begin, 8),
               # (val_sub, ":player_slot_index", 1),
               # (multiplayer_get_my_player, ":my_player_no"),
-              # (player_get_slot, ":item_no", ":my_player_no", ":player_slot_index"), 
+              # (player_get_slot, ":item_no", ":my_player_no", ":player_slot_index"),
                 (troop_get_slot, ":item_no", "trp_temp_troop", 7),
               (assign, ":target_obj", "$g_inside_obj_8"),
             (else_try),
@@ -3134,7 +3135,7 @@ coop_presentations = [
           (presentation_set_duration, 0),
         (try_end),
       ]),
-        
+
     (ti_on_presentation_event_state_change,
      [(store_trigger_param_1, ":object"),
       #(store_trigger_param_2, ":value"),
@@ -3209,8 +3210,8 @@ coop_presentations = [
 #            (start_presentation, "prsnt_coop_item_select"),
           (try_end),
         (else_try),
-          (gt, "$g_presentation_state", 0),       
- 
+          (gt, "$g_presentation_state", 0),
+
           (store_sub, ":tested_object", ":object", "$g_presentation_obj_item_select_next"),
           (val_div, ":tested_object", 2),
           (assign, ":end_cond", multi_data_item_button_indices_end),
@@ -3260,7 +3261,7 @@ coop_presentations = [
             # (else_try),
               # (overlay_set_color, "$g_presentation_obj_item_select_12", 0xFF0000),
             # (try_end),
-        
+
             (assign, ":end_cond", 0), #break
           (try_end),
           (assign, "$g_presentation_state", 0),
@@ -3292,7 +3293,7 @@ coop_presentations = [
         (presentation_set_duration, 0),
       (try_end),
       ]),
-    
+
     (ti_on_presentation_mouse_press,
      [(store_trigger_param_1, ":object"),
       (store_trigger_param_2, ":mouse_state"),
@@ -3424,15 +3425,15 @@ coop_presentations = [
             (gt, "$g_presentation_state", 0),
             (presentation_set_duration, 0),
             (assign, "$g_presentation_state", 0),
-            (start_presentation, "prsnt_coop_item_select"),      
+            (start_presentation, "prsnt_coop_item_select"),
           (try_end),
         (try_end),
       (else_try),
         (assign, "$g_close_equipment_selection", 0),
         (presentation_set_duration, 0),
-      (try_end),      
+      (try_end),
       ]),
-    
+
     (ti_on_presentation_run,
      [(store_trigger_param_1, ":cur_time"),
 

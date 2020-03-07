@@ -1,4 +1,5 @@
 from header_particle_systems import *
+
 #psf_always_emit         = 0x0000000002
 #psf_global_emit_dir     = 0x0000000010
 #psf_emit_at_water_level = 0x0000000020
@@ -11,7 +12,7 @@ from header_particle_systems import *
 
 ####################################################################################################################
 #   Each particle system contains the following fields:
-#  
+#
 #  1) Particle system id (string): used for referencing particle systems in other files.
 #     The prefix psys_ is automatically added before each particle system id.
 #  2) Particle system flags (int). See header_particle_systems.py for a list of available flags
@@ -24,9 +25,9 @@ from header_particle_systems import *
 #  8) Turbulance size:  Size of random turbulance (in meters)
 #  9) Turbulance strength: How much a particle is affected by turbulance.
 ####
-# 10,11) Alpha keys :    Each attribute is controlled by two keys and 
+# 10,11) Alpha keys :    Each attribute is controlled by two keys and
 # 12,13) Red keys   :    each key has two fields: (time, magnitude)
-# 14,15) Green keys :    For example scale key (0.3,0.6) means 
+# 14,15) Green keys :    For example scale key (0.3,0.6) means
 # 16,17) Blue keys  :    scale of each particle will be 0.6 at the
 # 18,19) Scale keys :    time 0.3 (where time=0 means creation and time=1 means end of the particle)
 #
@@ -40,7 +41,7 @@ from header_particle_systems import *
 # 24) Particle rotation damping: How quickly particles stop their rotation
 ####################################################################################################################
 
-particle_systems = [  
+particle_systems = [
 #chief cambia cosas en rain y snow
     ("game_rain", psf_billboard_2d|psf_global_emit_dir|psf_always_emit, "prtcl_rain",
      1000, 0.7, 0.33, 2.0, 10.0, 0.0,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
@@ -68,7 +69,7 @@ particle_systems = [
      200,                       #rotation speed
      0.5                        #rotation damping
     ),
-    
+
 ##    ("game_blood", psf_billboard_3d|psf_randomize_size|psf_randomize_rotation, "prtcl_dust_a",
 ##     50, 0.65, 0.95, 1.0, 10.0, 0.0,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
 ##     (0.3, 0.3), (1, 0.2),        #alpha keys
@@ -82,7 +83,7 @@ particle_systems = [
 ##     0,                       #rotation speed
 ##     0.5                        #rotation damping
 ##    ),
-##    
+##
 #chief cambiado
     ("game_blood", psf_billboard_3d |psf_randomize_size|psf_randomize_rotation,  "prt_mesh_blood_1",
      5000, 5.65, 3, 0.9, 10, 10,        #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
@@ -110,7 +111,7 @@ particle_systems = [
      0,                         #rotation speed
      0,                         #rotation damping
     ),
-    #chief cambia sangre acaba    
+    #chief cambia sangre acaba
  #   ("game_hoof_dust", psf_billboard_3d|psf_randomize_size|psf_randomize_rotation, "prtcl_dust_a",
  #    50, 1.0, 0.95, -0.1, 10.0, 0.0,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
  #    (0.0, 0.5), (1, 0.0),        #alpha keys
@@ -180,7 +181,7 @@ particle_systems = [
      50,                       #rotation speed
      0.5                        #rotation damping
     ),
-    
+
     ("game_water_splash_2", psf_billboard_3d|psf_randomize_size|psf_randomize_rotation|psf_emit_at_water_level, "prtcl_splash_b",
      30, 0.4, 0.7, 0.5, 10.0, 0.0,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
      (0.3, 1.0), (1, 0.3),        #alpha keys
@@ -359,7 +360,7 @@ particle_systems = [
      100,
      0.2,
     ),
-    
+
      ("ladder_dust_6m", psf_billboard_3d, "prt_mesh_smoke_1",
      700, 0.9, 0, 0, 7, 7, #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
      (0, 0.25), (1, 0),          #alpha keys
@@ -527,7 +528,7 @@ particle_systems = [
      0,
      0,
     ),
-    
+
     ("pistol_smoke", psf_billboard_3d, "prtcl_dust_a",
      90, 2.5, 0.6, -0.2, 60.0, 1.5,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
      (0.0, 0.75), (1, 0),       #alpha keys
@@ -539,7 +540,7 @@ particle_systems = [
      (2, 2, 0),                 #emit velocity
      0.1                        #emit dir randomness
     ),
-    
+
 #    ("cooking_fire", psf_billboard_3d|psf_global_emit_dir|psf_always_emit, "prtcl_fire",
 #    50, 0.5, 0.2, -0.05, 30.0, 0.3,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
 #    (0.5, 1), (1, 1),          #alpha keys
@@ -592,7 +593,7 @@ particle_systems = [
      200,                       #rotation speed
      0.0                        #rotation damping
      ),
-    
+
     ("cooking_smoke", psf_billboard_3d|psf_global_emit_dir|psf_always_emit|psf_randomize_rotation|psf_randomize_size, "prt_mesh_smoke_1",
      4, 4, 0.1, 0, 3, 5, #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
      (0.2, 0.20), (1.0, 0.0),          #alpha keys
@@ -746,7 +747,7 @@ particle_systems = [
      200,                       #rotation speed
      0,                       #rotation damping
     ),
-    
+
     ("gourd_piece_2", psf_randomize_size | psf_randomize_rotation,  "prt_gourd_piece_2",
      50, 1, 2, 0.9, 10, 2,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
      (0.1, 1), (1, 1),          #alpha keys
@@ -761,7 +762,7 @@ particle_systems = [
      0,                       #rotation damping
     ),
 
-    
+
 ##    ("rat_particle", psf_global_emit_dir|psf_2d_turbulance | psf_randomize_size |psf_billboard_3d,  "rat_particle",
 ##     500, 4, 0, 0, 20, 10,      #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
 ##     (0.1, 1), (1, 1),          #alpha keys
@@ -775,7 +776,7 @@ particle_systems = [
 ##    ),
 
 #*-*-*-**** BLOOD ****-*-*-*#
-    
+
 ##("blood_hit_1", psf_billboard_3d | psf_randomize_size ,  "prt_mesh_blood_1",
 ##     5000, 0.5, 6, 0.5, 0, 0,        #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
 ##     (0.1, 1), (1, 0),          #alpha keys
@@ -815,10 +816,10 @@ particle_systems = [
 ##     250,                       #rotation speed
 ##     0,                       #rotation damping
 ##     ),
-    
+
 #*-*-*-**** BLOOD  END ****-*-*-*#
 
-#-*-*-*- Fire Fly Deneme *-*-*-*-#    
+#-*-*-*- Fire Fly Deneme *-*-*-*-#
      ("fire_fly_1", psf_billboard_3d|psf_global_emit_dir|psf_always_emit, "prt_sparks_mesh_1",
      2, 5, 1.2, 0, 50, 7,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
      (0.1, 0.8), (1, 0.2),        #alpha keys
@@ -928,7 +929,7 @@ particle_systems = [
      0.1,                       #emit dir randomness
      100,                       #rotation speed
      0.5                        #rotation damping
-    ),  
+    ),
 #-*-*-*- Fire For Fireplace -*-*-*-#
 #-*-*-*- Village Fire *-*-*-*-#
     ("village_fire_big", psf_billboard_3d|psf_global_emit_dir|psf_always_emit|psf_randomize_size|psf_randomize_rotation, "prt_mesh_fire_1",
@@ -956,7 +957,7 @@ particle_systems = [
      0.0,                       #emit dir randomness
      0,                       #rotation speed
      0.1                        #rotation damping
-    ), 
+    ),
     ("map_village_fire", psf_billboard_3d|psf_global_emit_dir|psf_always_emit|psf_randomize_size|psf_randomize_rotation, "prt_mesh_fire_1",
      20, 1.0, 0, -0.2, 3.0, 3.0,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
      (0.2, 1.0), (1, 0),        #alpha keys
@@ -982,7 +983,7 @@ particle_systems = [
      0.0,                       #emit dir randomness
      0,                         #rotation speed
      0.1                        #rotation damping
-    ), 
+    ),
     ("map_village_looted_smoke", psf_billboard_3d|psf_global_emit_dir|psf_always_emit|psf_randomize_size|psf_randomize_rotation, "prt_mesh_smoke_1",
      20, 3, 0.3, -0.11, 3.0, 2.0,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
      (0.5, 0.15), (1, 0),       #alpha keys
@@ -995,7 +996,7 @@ particle_systems = [
      0.0,                       #emit dir randomness
      0,                         #rotation speed
      0.1                        #rotation damping
-    ), 
+    ),
 ##### Dungeon Water Drops #####
     ("dungeon_water_drops", psf_billboard_2d|psf_global_emit_dir|psf_always_emit, "prtcl_rain",
      1, 1, 0.33, 0.8, 0, 0, #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
@@ -1009,7 +1010,7 @@ particle_systems = [
      0.0,                       #emit dir randomness
      0,                         #rotation speed
      0,                         #rotation damping
-     ), 
+     ),
 ##### Dungeon Water Drops  END #####
     ("wedding_rose", psf_billboard_2d | psf_always_emit, "prt_mesh_rose_a",
      50, 8, 0.02, 0.025, 1, 5,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
@@ -1051,7 +1052,7 @@ particle_systems = [
       15,                       #rotation speed
       0,                        #rotation damping
     ),
-    
+
 #sea battles chief
     #*-*-*-*-* SHIP *-*-*-*-#
    ("ship_smoke", psf_billboard_3d|psf_randomize_size,  "prt_mesh_dust_1",
@@ -1106,7 +1107,7 @@ particle_systems = [
 ##    0.1,                       #emit dir randomness
 ##    250,                       #rotation speed
 ##    0.5                        #rotation damping
-##   ), 
+##   ),
    ("wake", psf_always_emit|psf_emit_at_water_level , "prt_mesh_water_wave_1",
     4, 10.0, 0, 0.0, 10.0, 0.0,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
     (0.03, 0.2), (1, 0.0),        #alpha keys
@@ -1122,7 +1123,7 @@ particle_systems = [
    ),
 #chief acaba sea battles
 #chief anadido para decapitacion
- 
+
     ("game_blood_3", psf_billboard_3d |psf_randomize_size|psf_randomize_rotation,  "prt_mesh_blood_1",
      5000, 10.65, 2, 0.2, 10, 10,        #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
      (0, 1), (1, 1),          #alpha keys
@@ -1149,8 +1150,8 @@ particle_systems = [
      100,                         #rotation speed
      0.1,                         #rotation damping
     ),
-    #chief cambia sangre acaba    
-    #chief siege warfare 
+    #chief cambia sangre acaba
+    #chief siege warfare
 	 ("piedra_dust", psf_billboard_3d, "prtcl_dust_a",
      1, 1, 0, -0.2, 60.0, 1.5,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
      (0.5, 1), (1, 0),       #alpha keys
@@ -1202,7 +1203,7 @@ particle_systems = [
     0.3,                       #emit dir randomness
     250,                       #rotation speed
     0.3                        #rotation damping
-   ), 
+   ),
     ("greek_fire", psf_billboard_3d|psf_global_emit_dir|psf_always_emit|psf_randomize_size|psf_randomize_rotation, "prt_mesh_fire_1",#
      50, 0.2, 0.2, 0, 10.0, 0.0,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
      (0.1, 0.5), (0.9, 0),        #alpha keys
@@ -1233,7 +1234,7 @@ particle_systems = [
      50,                       #rotation speed
      0.5                        #rotation damping
     ),
-	
+
     ("heck_water", psf_randomize_size|psf_emit_at_water_level, "prtcl_splash_b",
      23, 12.0, 2, 0, 10.0, 0.0,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
      (0.1, 0.6), (1, 0.1),        #alpha keys

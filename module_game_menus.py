@@ -1,9 +1,15 @@
+from header_common import *
 from header_game_menus import *
+from header_operations import *
 from header_parties import *
+from header_skills import *
+from header_troops import *
 from header_items import *
+from header_item_modifiers import *
 from header_mission_templates import *
-from header_music import *
+from header_music import mtf_sit_town_infiltrate, mtf_sit_travel
 from header_terrain_types import *
+from ID_factions import *
 
 from module_constants import *
 
@@ -11,7 +17,7 @@ from module_constants import *
 #  (menu-id, menu-flags, menu_text, mesh-name, [<operations>], [<options>]),
 #
 #   Each game menu is a tuple that contains the following fields:
-#  
+#
 #  1) Game-menu id (string): used for referencing game-menus in other files.
 #     The prefix menu_ is automatically added before each game-menu-id
 #
@@ -25,10 +31,10 @@ from module_constants import *
 #     Each menu-option record is a tuple containing the following fields:
 #   6.1) Menu-option-id (string) used for referencing game-menus in other files.
 #        The prefix mno_ is automatically added before each menu-option.
-#   6.2) Conditions block (list). This must be a valid operation block. See header_operations.py for reference. 
+#   6.2) Conditions block (list). This must be a valid operation block. See header_operations.py for reference.
 #        The conditions are executed for each menu option to decide whether the option will be shown to the player or not.
 #   6.3) Menu-option text (string).
-#   6.4) Consequences block (list). This must be a valid operation block. See header_operations.py for reference. 
+#   6.4) Consequences block (list). This must be a valid operation block. See header_operations.py for reference.
 #        The consequences are executed for the menu option that has been selected by the player.
 #
 #
@@ -85,7 +91,7 @@ game_menus = [
 #         (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
 #         (change_screen_return),
        ]),
-       
+
       ("town_2",[(eq, "$current_startup_quest_phase", 0), (neg|is_between, "$character_nationality", 13, 22),         #NOT Pict or Briton or Irish
                  ],"I need go to Grantebrycge, in the Angle Kingdom of the East Englas",
        [
@@ -96,7 +102,7 @@ game_menus = [
 #         (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
 #         (change_screen_return),
        ]),
-       
+
       ("town_3",[(eq, "$current_startup_quest_phase", 0),(is_between, "$character_nationality", 16, 19),    #Briton
                  ],"I need go to Din Gonwy, in the Briton kingdom of Gwynedd.",
        [
@@ -107,7 +113,7 @@ game_menus = [
 #         (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
 #         (change_screen_return),
        ]),
-       
+
       ("town_4",[(eq, "$current_startup_quest_phase", 0), (neg|is_between, "$character_nationality", 13, 22),         #NOT Pict or Briton or Irish
                  ],"I need go to Cantwaraburh, in the Christian Kingdom of Centware.",
        [
@@ -118,7 +124,7 @@ game_menus = [
 #         (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
 #         (change_screen_return),
        ]),
-       
+
       ("town_5",[(eq, "$current_startup_quest_phase", 0),
                  (is_between, "$character_nationality", 19, 22),    #Irish
                  ],"I need go to Clochair, in the Irish Kingdom of Airgialla.",
@@ -130,7 +136,7 @@ game_menus = [
 #         (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
 #         (change_screen_return),
        ]),
-       
+
       ("town_6",[(eq, "$current_startup_quest_phase", 0),(is_between, "$character_nationality", 19, 22),    #Irish
                  ],"I need go to Dun Iasgach, in the Irish kingdom of Mumain.",
        [
@@ -143,7 +149,7 @@ game_menus = [
        ]),
 #chief cambiados textos de presentacion de pj acaba
 
-	   
+
       ("tutorial_cheat",[(eq,1,0)],"{!}CHEAT!",
        [
          (change_screen_return),
@@ -159,7 +165,7 @@ game_menus = [
          (party_add_members, "p_main_party", "trp_swadian_sharpshooter", 10),
          (troop_add_item, "trp_player","itm_scale_armor",0),
          (troop_add_item, "trp_player","itm_full_helm",0),
-         
+
          (troop_add_item, "trp_player","itm_hafted_blade_b",0),
          (troop_add_item, "trp_player","itm_hafted_blade_a",0),
          (troop_add_item, "trp_player","itm_morningstar",0),
@@ -197,25 +203,25 @@ game_menus = [
          (troop_add_item, "trp_player","itm_throwing_spears",0),
          (troop_add_item, "trp_player","itm_javelin",0),
          (troop_add_item, "trp_player","itm_throwing_spears",0),
-         
-         (troop_add_item, "trp_player","itm_long_axe_b",0),		 
-         
+
+         (troop_add_item, "trp_player","itm_long_axe_b",0),
+
          (set_show_messages, 1),
 
          (try_for_range, ":cur_place", scenes_begin, scenes_end),
            (scene_set_slot, ":cur_place", slot_scene_visited, 1),
          (try_end),
-         
+
          (call_script, "script_get_player_party_morale_values"),
          (party_set_morale, "p_main_party", reg0),
        ]
 	   ),
     ]
   ),
- 
 
 
- 
+
+
   (
     "start_game_3",mnf_disable_all_keys,
     "Choose your scenario:",
@@ -272,7 +278,7 @@ game_menus = [
 ##        ]
 ##       ),
       ("go_back",[],"Go back",
-       [(change_screen_quit), 
+       [(change_screen_quit),
         ]
 		),
     ]
@@ -391,7 +397,7 @@ game_menus = [
 ####           (set_jump_mission,"mt_tutorial_1"),
 ####           (jump_to_scene,"scn_tutorial_1"),(change_screen_mission)]),
 ##      ]),
-##      
+##
 ##      ("tutorial_2",[(eq,1,0),],"Tutorial #2: Fighting with a shield. {s2}",[
 ####           (modify_visitors_at_site,"scn_tutorial_2"),(reset_visitors,0),
 ####           (set_visitor,1,"trp_tutorial_maceman"),
@@ -444,7 +450,7 @@ game_menus = [
 ##           (troop_raise_proficiency_linear, "$g_player_troop", wpt_polearm, 70),
 ##           (troop_raise_proficiency_linear, "$g_player_troop", wpt_crossbow, 70),
 ##           (troop_raise_proficiency_linear, "$g_player_troop", wpt_throwing, 70),
-##     
+##
 ##        (troop_clear_inventory, "$g_player_troop"),
 ##        (troop_add_item, "$g_player_troop","itm_leather_jerkin",0),
 ##        (troop_add_item, "$g_player_troop","itm_leather_boots",0),
@@ -468,7 +474,7 @@ game_menus = [
 ##        (jump_to_scene,"scn_tutorial_training_ground"),
 ##        (change_screen_mission),
 ##      ]),
-##      
+##
 ##      ("tutorial_5",
 ##      [
 ##        (eq,1,0),
@@ -485,12 +491,12 @@ game_menus = [
 ##        (jump_to_scene,"scn_tutorial_5"),
 ##        (change_screen_mission),
 ##      ]),
-##      
+##
 ##      ("tutorial_edit_custom_battle_scenes",
 ##      [(eq,1,0),],
 ##      "(NO TRANSLATE) tutorial_edit_custom_battle_scenes",
 ##      [
-##        (jump_to_menu,"mnu_custom_battle_scene"),        
+##        (jump_to_menu,"mnu_custom_battle_scene"),
 ##      ]),
 
       ("continue",[],"Continue...",
@@ -515,7 +521,7 @@ game_menus = [
         (troop_raise_proficiency_linear, "$g_player_troop", wpt_polearm, 70),
         (troop_raise_proficiency_linear, "$g_player_troop", wpt_crossbow, 70),
         (troop_raise_proficiency_linear, "$g_player_troop", wpt_throwing, 70),
-     
+
         (troop_clear_inventory, "$g_player_troop"),
         (troop_add_item, "$g_player_troop","itm_leather_jerkin",0),
         (troop_add_item, "$g_player_troop","itm_leather_boots",0),
@@ -584,7 +590,7 @@ game_menus = [
       (str_store_date, s1, "$g_next_pay_time"),
       (str_store_string, s1, "@ Next pay day: {s1}"),
     (try_end),
-    
+
     (try_begin),
       (is_between, "$g_player_affiliated_troop", lords_begin, kingdom_ladies_end),
       (str_store_troop_name, s5, "$g_player_affiliated_troop"),
@@ -606,19 +612,19 @@ game_menus = [
        [(jump_to_menu, "mnu_party_size_report"),
         ]
        ),
-	   
+
       ## CC chief arbol tropas
 ##      ("action_view_upgrade_trees",[],"View upgrade trees.",
 ##       [(start_presentation, "prsnt_upgrade_tree_1"),
 ##        ]
 ##       ),
-#chief arbol de tropas acaba	
+#chief arbol de tropas acaba
       ("view_npc_mission_report",[],"View companion mission report.",
        [(jump_to_menu, "mnu_companion_report"),
         ]
        ),
 
-      ("view_weekly_budget_report",[	 
+      ("view_weekly_budget_report",[
           ],"View weekly budget report.",
        [
 #				(display_message, "@Next pay day: {s1}"),
@@ -626,7 +632,7 @@ game_menus = [
          (assign, "$g_apply_budget_report_to_gold", 0),
          (start_presentation, "prsnt_budget_report"),
         ]
-       ),       
+       ),
       ("view_morale_report",[],"View party morale report.",
        [(jump_to_menu, "mnu_morale_report"),
         ]
@@ -640,7 +646,7 @@ game_menus = [
 		# Moneylending duh chief
 		("view_bank_report",[],"View Financial Report",
 			[(start_presentation, "prsnt_bank_quickview"),]),
- 
+
 
 #NPC companion changes begin
       ("lord_relations",[],"View list of known lords by relation.",
@@ -653,7 +659,7 @@ game_menus = [
          # Jrider chief -
         ]
        ),
-      
+
       ("courtship_relations",[],"View courtship relations.",
        [
          # Jrider chief +
@@ -664,7 +670,7 @@ game_menus = [
          # Jrider chief -
         ]
        ),
-      
+
       ("status_check",[(eq,"$cheat_mode",1)],"{!}NPC status check.",
        [
         (try_for_range, ":npc", companions_begin, companions_end),
@@ -672,9 +678,9 @@ game_menus = [
             (str_store_troop_name, 4, ":npc"),
             (troop_get_slot, reg3, ":npc", slot_troop_morality_state),
             (troop_get_slot, reg4, ":npc", slot_troop_2ary_morality_state),
-            (troop_get_slot, reg5, ":npc", slot_troop_personalityclash_state),    
-            (troop_get_slot, reg6, ":npc", slot_troop_personalityclash2_state),    
-            (troop_get_slot, reg7, ":npc", slot_troop_personalitymatch_state),    
+            (troop_get_slot, reg5, ":npc", slot_troop_personalityclash_state),
+            (troop_get_slot, reg6, ":npc", slot_troop_personalityclash2_state),
+            (troop_get_slot, reg7, ":npc", slot_troop_personalitymatch_state),
             (display_message, "@{!}{s4}: M{reg3}, 2M{reg4}, PC{reg5}, 2PC{reg6}, PM{reg7}"),
         (try_end),
         ]
@@ -685,7 +691,7 @@ game_menus = [
      ("Companions_overview",[],"Companions overview.",
       [
 	(assign, "$jq_in_market_menu", 0), # player is not in market menu
-	#Exit if no companions 
+	#Exit if no companions
 	(assign, ":heroes_in_party", 0),
 	(try_for_range, reg3, companions_begin, companions_end),
    	(main_party_has_troop, reg3),
@@ -730,11 +736,11 @@ game_menus = [
         ]
        ),
       # Jrider -
-#chief acaba      
+#chief acaba
 #TEMPERED  chief ######################   SPY REPORT ######################################
-	   
+
 ##      ("spy_report",[],"View Spy reports.",
-##		[	
+##		[
 ##			(start_presentation, "prsnt_spy_reports"),
 ##        ]),
 
@@ -762,7 +768,7 @@ game_menus = [
   (
     "custom_battle_scene",menu_text_color(0xFF000000)|mnf_disable_all_keys,
     "(NO_TRANS)",
-	
+
     "none",
     [],
     [
@@ -770,41 +776,41 @@ game_menus = [
       ("quick_battle_scene_1",[],"{!}quick_battle_scene_1",
        [
            (set_jump_mission,"mt_ai_training"),
-           (jump_to_scene,"scn_quick_battle_scene_1"),(change_screen_mission)        
+           (jump_to_scene,"scn_quick_battle_scene_1"),(change_screen_mission)
 		]
        ),
       ("quick_battle_scene_2",[],"{!}quick_battle_scene_2",
        [
            (set_jump_mission,"mt_ai_training"),
-           (jump_to_scene,"scn_quick_battle_scene_2"),(change_screen_mission)        
+           (jump_to_scene,"scn_quick_battle_scene_2"),(change_screen_mission)
 		]
        ),
       ("quick_battle_scene_3",[],"{!}quick_battle_scene_3",
        [
            (set_jump_mission,"mt_ai_training"),
-           (jump_to_scene,"scn_quick_battle_scene_3"),(change_screen_mission)        
+           (jump_to_scene,"scn_quick_battle_scene_3"),(change_screen_mission)
 		]
        ),
       ("quick_battle_scene_4",[],"{!}quick_battle_scene_4",
        [
            (set_jump_mission,"mt_ai_training"),
-           (jump_to_scene,"scn_quick_battle_scene_4"),(change_screen_mission)        
+           (jump_to_scene,"scn_quick_battle_scene_4"),(change_screen_mission)
 		]
        ),
       ("quick_battle_scene_5",[],"{!}quick_battle_scene_5",
        [
            (set_jump_mission,"mt_ai_training"),
-           (jump_to_scene,"scn_quick_battle_scene_5"),(change_screen_mission)        
+           (jump_to_scene,"scn_quick_battle_scene_5"),(change_screen_mission)
 		]
        ),
-	   
+
       ("go_back",[],"{!}Go back",
        [(change_screen_quit),
         ]
        ),
       ]
   ),
-  
+
   #depreciated
 ##  (
 ##    "custom_battle_2",mnf_disable_all_keys,
@@ -840,7 +846,7 @@ game_menus = [
 ##       (eq, "$g_custom_battle_scenario", 0),
 ##       (assign, "$g_player_troop", "trp_knight_1_15"),
 ##       (set_player_troop, "$g_player_troop"),
-##     
+##
 ##       (assign, "$g_custom_battle_scene", "scn_quick_battle_1"),
 ##       (modify_visitors_at_site, "$g_custom_battle_scene"),
 ##       (set_visitor, 0, "$g_player_troop"),
@@ -854,14 +860,14 @@ game_menus = [
 ###       (troop_add_item, "trp_player","itm_hunter",0),
 ###       (troop_add_item, "trp_player","itm_mail_chausses",0),
 ###       (troop_equip_items, "trp_player"),
-##     
+##
 ##       (set_visitors, 1, "trp_farmer", 13),
 ##       (set_visitors, 2, "trp_swadian_sergeant", 5),
 ##       (set_visitors, 3, "trp_swadian_sharpshooter", 4),
 ##       (set_visitors, 4, "trp_swadian_man_at_arms", 8),
 ##       (set_visitors, 5, "trp_swadian_knight", 3),
 ##       (set_visitors, 6, "trp_peasant_woman", 7),
-##     
+##
 ####     Enemy
 ##       (set_visitors, 16, "trp_vaegir_infantry", 6),
 ##       (set_visitors, 17, "trp_vaegir_archer", 6),
@@ -875,11 +881,11 @@ game_menus = [
 ##       (eq, "$g_custom_battle_scenario", 1),
 ##       (assign, "$g_player_troop", "trp_knight_2_5"),
 ##       (set_player_troop, "$g_player_troop"),
-##     
+##
 ##       (assign, "$g_custom_battle_scene", "scn_quick_battle_3"),
 ##       (modify_visitors_at_site, "$g_custom_battle_scene"),
 ##       (set_visitor, 0, "$g_player_troop"),
-##     
+##
 ##       (set_visitors, 1, "trp_vaegir_archer", 4),
 ##       (set_visitors, 2, "trp_vaegir_archer", 5),
 ##       (set_visitors, 3, "trp_vaegir_veteran", 4),
@@ -887,7 +893,7 @@ game_menus = [
 ##       (set_visitors, 5, "trp_vaegir_footman", 2),
 ##       (set_visitors, 6, "trp_vaegir_knight", 4),
 #### ENEMY
-##     
+##
 ##       (set_visitors, 16, "trp_mountain_bandit", 4),
 ##       (set_visitors, 17, "trp_bandit", 8),
 ##       (set_visitors, 18, "trp_mountain_bandit", 8),
@@ -904,7 +910,7 @@ game_menus = [
 ##       (eq, "$g_custom_battle_scenario", 2),
 ##       (assign, "$g_player_troop", "trp_kingdom_5_lady_1"),
 ##       (set_player_troop, "$g_player_troop"),
-##     
+##
 ##       (troop_raise_attribute, "$g_player_troop", ca_strength, 12),
 ##       (troop_raise_attribute, "$g_player_troop", ca_agility, 9),
 ##       (troop_raise_attribute, "$g_player_troop", ca_charisma, 5),
@@ -914,18 +920,18 @@ game_menus = [
 ##       (troop_raise_skill, "$g_player_troop", skl_riding, 3),
 ##       (troop_raise_skill, "$g_player_troop", skl_power_strike, 4),
 ##       (troop_raise_skill, "$g_player_troop", skl_power_draw, 5),
-##       (troop_raise_skill, "$g_player_troop", skl_weapon_master, 4),    
+##       (troop_raise_skill, "$g_player_troop", skl_weapon_master, 4),
 ##       (troop_raise_skill, "$g_player_troop", skl_ironflesh, 6),
 ##       (troop_raise_proficiency_linear, "$g_player_troop", wpt_one_handed_weapon, 100),
 ##       (troop_raise_proficiency_linear, "$g_player_troop", wpt_two_handed_weapon, 30),
 ##       (troop_raise_proficiency_linear, "$g_player_troop", wpt_polearm, 20),
 ##       (troop_raise_proficiency_linear, "$g_player_troop", wpt_crossbow, 110),
 ##       (troop_raise_proficiency_linear, "$g_player_troop", wpt_throwing, 10),
-##     
+##
 ##       (assign, "$g_custom_battle_scene", "scn_quick_battle_4"),
 ##       (modify_visitors_at_site, "$g_custom_battle_scene"),
 ##       (set_visitor, 0, "$g_player_troop"),
-##     
+##
 ##       (troop_clear_inventory, "$g_player_troop"),
 ##       (troop_add_item, "$g_player_troop","itm_helmet_with_neckguard",0),
 ##       (troop_add_item, "$g_player_troop","itm_plate_armor",0),
@@ -936,7 +942,7 @@ game_menus = [
 ##       (troop_add_item, "$g_player_troop","itm_bolts",0),
 ##       (troop_add_item, "$g_player_troop","itm_sword_medieval_b_small",0),
 ##       (troop_equip_items, "$g_player_troop"),
-#### US     
+#### US
 ##       (set_visitors, 1, "trp_vaegir_infantry", 4),
 ##       (set_visitors, 2, "trp_vaegir_archer", 3),
 ##       (set_visitors, 3, "trp_vaegir_infantry", 4),
@@ -953,7 +959,7 @@ game_menus = [
 ##       (set_visitors, 19, "trp_swadian_sharpshooter", 8),
 ##       (set_visitors, 20, "trp_swadian_militia", 13),
 ##       (str_store_string, s16, "str_custom_battle_3"),
-##     
+##
 ####   Scene 5 START
 ##     (else_try),
 ##       (eq, "$g_custom_battle_scenario", 3),
@@ -963,14 +969,14 @@ game_menus = [
 ##       (assign, "$g_custom_battle_scene", "scn_quick_battle_5"),
 ##       (modify_visitors_at_site, "$g_custom_battle_scene"),
 ##       (set_visitor, 0, "$g_player_troop"),
-##     
-#### US     
+##
+#### US
 ##       (set_visitors, 1, "trp_swadian_knight", 3),
 ##       (set_visitors, 2, "trp_swadian_sergeant", 4),
 ##       (set_visitors, 3, "trp_swadian_sharpshooter", 8),
 ##       (set_visitors, 4, "trp_swadian_man_at_arms", 8),
 ##       (set_visitors, 5, "trp_swadian_knight", 2),
-##     
+##
 ####     enemy
 ##       (set_visitors, 16, "trp_vaegir_infantry", 8),
 ##       (set_visitors, 17, "trp_vaegir_archer", 10),
@@ -978,17 +984,17 @@ game_menus = [
 ##       (set_visitors, 19, "trp_vaegir_knight", 10),
 ##       (set_visitors, 20, "trp_vaegir_guard", 7),
 ##       (str_store_string, s16, "str_custom_battle_4"),
-##     
+##
 ##     (else_try),
 ##       (eq, "$g_custom_battle_scenario", 4),
 ##
 ####       (assign, "$g_custom_battle_scene", "scn_quick_battle_6"),
 ##       (assign, "$g_custom_battle_scene", "scn_quick_battle_7"),
-##     
+##
 ###   Player Wear
 ##       (assign, "$g_player_troop", "trp_knight_4_9"),
 ##       (set_player_troop, "$g_player_troop"),
-##     
+##
 ##       (modify_visitors_at_site, "$g_custom_battle_scene"),
 ##       (set_visitor, 0, "$g_player_troop"),
 ##
@@ -1016,7 +1022,7 @@ game_menus = [
 ##     (try_end),
 ##     (set_show_messages, 1),
 ##     ],
-##    
+##
 ##    [
 ##      ("custom_battle_go",[],"Start.",
 ##       [(try_begin),
@@ -1049,13 +1055,13 @@ game_menus = [
      (assign, reg5, "$g_custom_battle_team2_death_count"),
      (assign, reg6, "$g_custom_battle_team1_death_count"),
      (get_player_agent_kill_count, ":kill_count"),
-     (get_player_agent_kill_count, ":wound_count", 1),	      
+     (get_player_agent_kill_count, ":wound_count", 1),
      ## Dunde's Restart Custom Battle BEGIN
      ##(store_add, reg7, ":kill_count", ":wound_count"),
      # Reseting Player Kill on Report
      (store_add, reg9, ":kill_count", ":wound_count"),
      (store_sub, reg7, reg9, reg8),
-     (assign, reg8, reg9),	 
+     (assign, reg8, reg9),
      ## Dunde's Restart Custom Battle END
      (try_begin),
        (eq, "$g_battle_result", 1),
@@ -1063,7 +1069,7 @@ game_menus = [
      (else_try),
        (str_store_string, s1, "str_battle_lost"),
      (try_end),
-     
+
      (try_begin),
        (ge, "$g_custom_battle_team2_death_count", 100),
        (unlock_achievement, ACHIEVEMENT_LOOK_AT_THE_BONES),
@@ -1075,8 +1081,8 @@ game_menus = [
         ]
        ),
        ## Dunde's Restart Custom Battle BEGIN
-       ("restart",[],"Restart.",	  
-       [ 
+       ("restart",[],"Restart.",
+       [
          #Restoring Custom Battle Design
          (assign, "$g_is_quick_battle", 1),
          (assign, ":cur_scene", "$g_quick_battle_map"),
@@ -1093,22 +1099,22 @@ game_menus = [
          (else_try),
            (eq, "$g_quick_battle_game_type", 1), #siege offense
            (assign, ":cur_mission_template", "mt_quick_battle_siege"),
- 			#### edited-2 KLABAUTERMANN begin chief	  Phaiak	 
+ 			#### edited-2 KLABAUTERMANN begin chief	  Phaiak
 			(assign, ":cur_mission_template", "mt_quick_battle_battle"),
 			(assign, ":cur_scene", "scn_sea"),
 			(assign, "$coastal_assault", 0),
-			#### edited-2 KLABAUTERMANN ends		
+			#### edited-2 KLABAUTERMANN ends
           (modify_visitors_at_site, ":cur_scene"),
            (call_script, "script_spawn_quick_battle_army", 16, "$g_quick_battle_team_1_faction", "$g_presentation_obj_custom_battle_designer_6_last_value", "$g_presentation_obj_custom_battle_designer_7_last_value", "$g_presentation_obj_custom_battle_designer_8_last_value", 0, 1),
            (call_script, "script_spawn_quick_battle_army", 0, "$g_quick_battle_team_2_faction", "$g_presentation_obj_custom_battle_designer_9_last_value", "$g_presentation_obj_custom_battle_designer_10_last_value", "$g_presentation_obj_custom_battle_designer_11_last_value", 1, 0),
          (else_try),
            #siege defense
            (assign, ":cur_mission_template", "mt_quick_battle_siege"),
-			#### edited-3 KLABAUTERMANN begin chief	  Phaiak	 
+			#### edited-3 KLABAUTERMANN begin chief	  Phaiak
 			(assign, ":cur_mission_template", "mt_quick_battle_battle"),
 			(assign, ":cur_scene", "scn_sea_2"),
-			(assign, "$coastal_assault", 0),			
-			#### edited-3 KLABAUTERMANN ends		
+			(assign, "$coastal_assault", 0),
+			#### edited-3 KLABAUTERMANN ends
            (modify_visitors_at_site, ":cur_scene"),
            (call_script, "script_spawn_quick_battle_army", 0, "$g_quick_battle_team_1_faction", "$g_presentation_obj_custom_battle_designer_6_last_value", "$g_presentation_obj_custom_battle_designer_7_last_value", "$g_presentation_obj_custom_battle_designer_8_last_value", 1, 1),
            (call_script, "script_spawn_quick_battle_army", 16, "$g_quick_battle_team_2_faction", "$g_presentation_obj_custom_battle_designer_9_last_value", "$g_presentation_obj_custom_battle_designer_10_last_value", "$g_presentation_obj_custom_battle_designer_11_last_value", 0, 0),
@@ -1121,12 +1127,12 @@ game_menus = [
          (jump_to_scene, ":cur_scene"),
          (change_screen_mission),
         ]
-       ),	  
+       ),
       ## Dunde's Restart Custom Battle END
     ]
   ),
 
-  
+
 ##  (
 ##    "custom_battle_end",mnf_disable_all_keys,
 ##    "The battle is over. {s1} Your side killed {reg5} enemies and lost {reg6} troops over the battle. You personally slew {reg7} men in the fighting.",
@@ -1156,8 +1162,8 @@ game_menus = [
 ##    ]
 ##  ),
 #dunde chief cambia acaba.
-  
-#chief nueva creacion pj  
+
+#chief nueva creacion pj
 #This needs to be the first window!!! dunde
   (
     "start_game_1",menu_text_color(0xFF000000)|mnf_disable_all_keys,
@@ -1171,7 +1177,7 @@ game_menus = [
     [("start",[],"Create Character",[(start_presentation, "prsnt_player_background"),]),
      ("quit",[],"Cancel",[(change_screen_quit),]),]),
 #chief nueva creacion pj acaba
-  
+
   ("start_game_1",menu_text_color(0xFF000000)|mnf_disable_all_keys,
     "Select your character's gender.",
     "none",
@@ -1342,7 +1348,7 @@ game_menus = [
  Your body too started to harden with muscle as you grew into the life of a nomad {reg3?woman:man}."),
 	(jump_to_menu,"mnu_start_character_3"),
     ]),
-      
+
 ##      ("mummer",[],"Mummer.",[
 ##      (assign,"$background_answer_2",5),
 ##      (assign, reg3, "$character_gender"),
@@ -1604,19 +1610,19 @@ game_menus = [
 
   (
     "choose_skill",mnf_disable_all_keys,
-    "{s13}", 
+    "{s13}",
     "none",
     [(assign,"$current_string_reg",10),
 	 (assign, ":difficulty", 0),
-	 
+
 	 (try_begin),
 		(eq, "$character_gender", tf_female),
 		(str_store_string, s14, "str_woman"),
 		(val_add, ":difficulty", 1),
-	 (else_try),	
+	 (else_try),
 		(str_store_string, s14, "str_man"),
 	 (try_end),
-	
+
 	 (try_begin),
         (eq,"$background_type",cb_noble),
 		(str_store_string, s15, "str_noble"),
@@ -1624,7 +1630,7 @@ game_menus = [
 	 (else_try),
 		(str_store_string, s15, "str_common"),
 	 (try_end),
-	 
+
 	 (try_begin),
 		(eq, ":difficulty", -1),
 		(str_store_string, s16, "str_may_find_that_you_are_able_to_take_your_place_among_calradias_great_lords_relatively_quickly"),
@@ -1666,7 +1672,7 @@ game_menus = [
            (troop_raise_attribute, "trp_player",ca_strength,1),
            (troop_raise_attribute, "trp_player",ca_agility,1),
            (troop_raise_attribute, "trp_player",ca_charisma,1),
-           
+
            (troop_raise_skill, "trp_player","skl_leadership",1),
            (troop_raise_skill, "trp_player","skl_riding",1),
 ##           (try_begin),
@@ -1711,7 +1717,7 @@ game_menus = [
         (troop_set_slot, "trp_player", slot_troop_renown, 100),
         (call_script, "script_change_player_honor", 3),
 
-           
+
 ##        (troop_add_item, "trp_player","itm_red_gambeson",imod_plain),
 ##        (troop_add_item, "trp_player","itm_sword",imod_plain),
 ##        (troop_add_item, "trp_player","itm_dagger",imod_balanced),
@@ -1732,7 +1738,7 @@ game_menus = [
 
         (troop_set_slot, "trp_player", slot_troop_renown, 50),
         (troop_add_item, "trp_player","itm_tab_shield_round_a",imod_battered),
-           
+
 ##        (troop_add_item, "trp_player","itm_dress",imod_sturdy),
 ##        (troop_add_item, "trp_player","itm_dagger",imod_watered_steel),
 ##        (troop_add_item, "trp_player","itm_woolen_hose",0),
@@ -1750,7 +1756,7 @@ game_menus = [
         (troop_raise_skill, "trp_player",skl_trade,2),
         (troop_raise_skill, "trp_player",skl_inventory_management,1),
         (troop_raise_proficiency, "trp_player",wpt_two_handed_weapon,10),
-           
+
 ##        (troop_add_item, "trp_player","itm_leather_jacket",0),
 ##        (troop_add_item, "trp_player","itm_leather_boots",0),
 ##        (troop_add_item, "trp_player","itm_fur_hat",0),
@@ -1765,7 +1771,7 @@ game_menus = [
 ##        (troop_add_item, "trp_player","itm_salt",0),
 ##        (troop_add_item, "trp_player","itm_pottery",0),
 ##        (troop_add_item, "trp_player","itm_pottery",0),
-           
+
         (troop_add_gold, "trp_player", 250),
         (troop_set_slot, "trp_player", slot_troop_renown, 20),
       (else_try),
@@ -1783,7 +1789,7 @@ game_menus = [
         (troop_raise_proficiency, "trp_player",wpt_polearm,20),
         (troop_raise_proficiency, "trp_player",wpt_throwing,10),
         (troop_add_item, "trp_player","itm_tab_shield_kite_b",imod_battered),
-           
+
 ##        (troop_add_item, "trp_player","itm_leather_jerkin",imod_ragged),
 ##        (troop_add_item, "trp_player","itm_skullcap",imod_rusty),
 ##        (troop_add_item, "trp_player","itm_spear",0),
@@ -2017,7 +2023,7 @@ game_menus = [
         (troop_add_gold, "trp_player", 10),
         (troop_raise_proficiency, "trp_player",wpt_polearm,10),
         (troop_raise_proficiency, "trp_player",wpt_archery,35),
-           
+
         (troop_add_item, "trp_player","itm_axe",imod_chipped),
         (troop_add_item, "trp_player","itm_leather_vest_green",0),
         (troop_add_item, "trp_player","itm_carbatinae_1_blue",0),
@@ -2044,11 +2050,11 @@ game_menus = [
 
         (troop_add_item, "trp_player","itm_leather_boots",imod_ragged),
         (troop_add_item, "trp_player","itm_coarse_tunic",0),
-           
+
         (troop_add_item, "trp_player","itm_sword_medieval_b", imod_balanced),
         (troop_add_item, "trp_player","itm_hunting_crossbow",0),
         (troop_add_item, "trp_player","itm_bolts",0),
-           
+
         (troop_add_item, "trp_player","itm_tools",0),
         (troop_add_item, "trp_player","itm_saddle_horse",0),
         (troop_add_item, "trp_player","itm_smoked_fish",0),
@@ -2060,11 +2066,11 @@ game_menus = [
         (troop_raise_skill, "trp_player","skl_trade",1),
         (troop_raise_skill, "trp_player","skl_pathfinding",1),
         (troop_raise_skill, "trp_player","skl_inventory_management",1),
-           
+
         (troop_add_item, "trp_player","itm_leather_gloves",imod_plain),
         (troop_add_gold, "trp_player", 90),
         (troop_raise_proficiency, "trp_player",wpt_polearm,15),
-           
+
         (troop_add_item, "trp_player","itm_leather_jacket",0),
         (troop_add_item, "trp_player","itm_leather_boots",imod_ragged),
         (troop_add_item, "trp_player","itm_fur_hat",0),
@@ -2073,7 +2079,7 @@ game_menus = [
         (troop_add_item, "trp_player","itm_bolts",0),
         (troop_add_item, "trp_player","itm_saddle_horse",0),
         (troop_add_item, "trp_player","itm_sumpter_horse",0),
-           
+
         (troop_add_item, "trp_player","itm_linen",0),
         (troop_add_item, "trp_player","itm_pottery",0),
         (troop_add_item, "trp_player","itm_wool",0),
@@ -2095,12 +2101,12 @@ game_menus = [
     (else_try),
         (eq,"$background_answer_3",cb3_troubadour),
         (troop_raise_attribute, "trp_player",ca_charisma,2),
-           
+
         (troop_raise_skill, "trp_player","skl_weapon_master",1),
         (troop_raise_skill, "trp_player","skl_persuasion",1),
         (troop_raise_skill, "trp_player","skl_leadership",1),
         (troop_raise_skill, "trp_player","skl_pathfinding",1),
-           
+
         (troop_add_gold, "trp_player", 80),
         (troop_raise_proficiency, "trp_player",wpt_one_handed_weapon,25),
         (troop_raise_proficiency, "trp_player",wpt_crossbow,10),
@@ -2131,7 +2137,7 @@ game_menus = [
 
         (troop_add_item, "trp_player","itm_leather_jerkin",imod_ragged),
         (troop_add_item, "trp_player","itm_leather_boots",imod_tattered),
-           
+
         (troop_add_item, "trp_player","itm_sword_medieval_a", imod_rusty),
         (troop_add_item, "trp_player","itm_hunting_crossbow",0),
         (troop_add_item, "trp_player","itm_bolts",0),
@@ -2142,11 +2148,11 @@ game_menus = [
         (eq,"$character_gender",tf_female),
         (troop_raise_attribute, "trp_player",ca_intelligence,1),
         (troop_raise_attribute, "trp_player",ca_charisma,1),
-           
+
         (troop_raise_skill, "trp_player","skl_persuasion",2),
         (troop_raise_skill, "trp_player","skl_riding",1),
         (troop_raise_skill, "trp_player","skl_wound_treatment",1),
-           
+
         (troop_add_item, "trp_player","itm_dagger", 0),
         (troop_add_item, "trp_player","itm_hunting_crossbow",0),
         (troop_add_item, "trp_player","itm_bolts",0),
@@ -2160,12 +2166,12 @@ game_menus = [
     (else_try),
         (eq,"$background_answer_3",cb3_student),
         (troop_raise_attribute, "trp_player",ca_intelligence,2),
-           
+
         (troop_raise_skill, "trp_player","skl_weapon_master",1),
         (troop_raise_skill, "trp_player","skl_surgery",1),
         (troop_raise_skill, "trp_player","skl_wound_treatment",1),
         (troop_raise_skill, "trp_player","skl_persuasion",1),
-           
+
         (troop_add_gold, "trp_player", 80),
         (troop_raise_proficiency, "trp_player",wpt_one_handed_weapon,20),
         (troop_raise_proficiency, "trp_player",wpt_crossbow,20),
@@ -2306,7 +2312,7 @@ game_menus = [
 ##     (else_try),
 ##       (str_store_string, s4, "str_space"),
 ##     (try_end),
-## 
+##
 ##     (try_begin),
 ##       (gt, "$g_player_party_morale_modifier_debt", 0),
 ##       (assign, reg6, "$g_player_party_morale_modifier_debt"),
@@ -2314,7 +2320,7 @@ game_menus = [
 ##     (else_try),
 ##       (str_store_string, s6, "str_space"),
 ##     (try_end),
-## 
+##
 ##     (party_get_morale, reg5, "p_main_party"),
 ##     (store_sub, reg4, reg5, ":target_morale"),
 ##     (try_begin),
@@ -2323,11 +2329,11 @@ game_menus = [
 ##     (else_try),
 ##       (str_store_string, s7, "str_space"),
 ##     (try_end),
-##     
+##
 ##     (assign, reg6, 50),
-##     
+##
 ##     (str_store_string, s1, "str_current_party_morale_is_reg5_current_party_morale_modifiers_are__base_morale__50_party_size_s2reg1_leadership_s3reg2_food_variety_s4reg3s5s6_recent_events_s7reg4_total__reg5___"),
-##        
+##
 ##     (try_for_range, ":kingdom_no", npc_kingdoms_begin, npc_kingdoms_end),
 ##       (faction_get_slot, ":faction_morale", ":kingdom_no",  slot_faction_morale_of_player_troops),
 ##       (val_div, ":faction_morale", 100),
@@ -2335,7 +2341,7 @@ game_menus = [
 ##       (assign, reg6, ":faction_morale"),
 ##       (str_store_faction_name, s9, ":kingdom_no"),
 ##       (str_store_string, s1, "str_s1extra_morale_for_s9_troops__reg6_"),
-##     (try_end),        
+##     (try_end),
 ##    ],
 ##    [
 ##      ("continue",[],"Continue...",
@@ -2445,18 +2451,18 @@ game_menus = [
 		(call_script, "script_troop_get_relation_with_troop", "trp_player", ":lady"),
 		(gt, reg0, 0),
 		(assign, reg3, reg0),
-		
+
 		(str_store_troop_name, s2, ":lady"),
-		
+
 		(store_current_hours, ":hours_since_last_visit"),
 		(troop_get_slot, ":last_visit_hour", ":lady", slot_troop_last_talk_time),
 		(val_sub, ":hours_since_last_visit", ":last_visit_hour"),
 		(store_div, ":days_since_last_visit", ":hours_since_last_visit", 24),
 		(assign, reg4, ":days_since_last_visit"),
-		
+
 		(str_store_string, s1, "str_s1_s2_relation_reg3_last_visit_reg4_days_ago"),
 	(try_end),
-	
+
 	(str_store_string, s1, "str_s1__poems_known"),
 	(try_begin),
 		 (gt, "$allegoric_poem_recitations", 0),
@@ -2478,7 +2484,7 @@ game_menus = [
 		 (gt, "$mystic_poem_recitations", 0),
 		 (str_store_string, s1, "str_s1_a_hearts_desire_mystic"),
 	(try_end),
-	
+
     ],
     [
       ("continue",[],"Continue...",
@@ -2496,7 +2502,7 @@ game_menus = [
     (try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
 		(troop_set_slot, ":active_npc", slot_troop_temp_slot, 0),
 	(try_end),
-	
+
 	(str_clear, s1),
     (try_for_range, ":unused", active_npcs_begin, active_npcs_end),
 		(assign, ":score_to_beat", -100),
@@ -2505,23 +2511,23 @@ game_menus = [
 			(troop_slot_eq, ":active_npc", slot_troop_temp_slot, 0),
 			(troop_slot_eq, ":active_npc", slot_troop_occupation, slto_kingdom_hero),
 			(troop_slot_ge, ":active_npc", slot_troop_met, 1),
-	
+
 			(call_script, "script_troop_get_player_relation", ":active_npc"),
 			(assign, ":relation_with_player", reg0),
 			(ge, ":relation_with_player", ":score_to_beat"),
-			
+
 			(assign, ":score_to_beat", ":relation_with_player"),
 			(assign, ":best_relation_remaining_npc", ":active_npc"),
 		(try_end),
 		(gt, ":best_relation_remaining_npc", -1),
-		
+
 		(str_store_troop_name_link, s4, ":best_relation_remaining_npc"),
 		(assign, reg4, ":score_to_beat"),
 		(str_store_string, s1, "@{!}{s1}^{s4}: {reg4}"),
 		(troop_set_slot, ":best_relation_remaining_npc", slot_troop_temp_slot, 1),
 	(try_end),
-   
-	
+
+
     ],
     [
       ("continue",[],"Continue...",
@@ -2532,14 +2538,14 @@ game_menus = [
   ),
 
 
-  
+
   ("companion_report",0,
    "{s7}{s1}",
    "none",
    [
    (str_clear, s1),
    (str_store_string, s7, "str_no_companions_in_service"),
-   
+
    (try_begin),
 	(troop_get_slot, ":spouse_or_betrothed", "trp_player", slot_troop_spouse),
 	(try_begin),
@@ -2550,14 +2556,14 @@ game_menus = [
 	(else_try),
 		(str_store_string, s8, "str_wife"),
 	(try_end),
-	
+
 	(try_begin),
 		(le, ":spouse_or_betrothed", 0),
 		(troop_get_slot, ":spouse_or_betrothed", "trp_player", slot_troop_betrothed),
 		(str_store_string, s8, "str_betrothed"),
-	(try_end),	
-	(gt, ":spouse_or_betrothed", 0),	
-		
+	(try_end),
+	(gt, ":spouse_or_betrothed", 0),
+
 	(str_store_troop_name, s4, ":spouse_or_betrothed"),
 	(troop_get_slot, ":cur_center", ":spouse_or_betrothed", slot_troop_cur_center),
 	(try_begin),
@@ -2566,24 +2572,24 @@ game_menus = [
 	(else_try),
 		(troop_slot_eq, ":spouse_or_betrothed", slot_troop_occupation, slto_kingdom_hero),
 		(str_store_string, s5, "str_leading_party"),
-	(else_try),	
+	(else_try),
 		(str_store_string, s5, "str_whereabouts_unknown"),
     (try_end),
 	(str_store_string, s3, "str_s4_s8_s5"),
 	(str_store_string, s2, s1),
 	(str_store_string, s1, "str_s2_s3"),
-	
+
    (try_end),
-   
-   
+
+
    (try_begin),
     (ge, "$cheat_mode", 1),
 	(ge, "$npc_to_rejoin_party", 0),
     (str_store_troop_name, s5, "$npc_to_rejoin_party"),
 	(str_store_string, s1, "@{!}DEBUG -- {s1}^NPC in rejoin queue: {s5}^"),
    (try_end),
-   
-   
+
+
    (try_for_range, ":companion", companions_begin, companions_end),
 		(str_clear, s2),
 		(str_clear, s3),
@@ -2593,7 +2599,7 @@ game_menus = [
 
 			(troop_slot_eq, ":companion", slot_troop_occupation, slto_player_companion),
 
-				
+
 			(str_store_troop_name, s4, ":companion"),
 
 			(try_begin),
@@ -2602,7 +2608,7 @@ game_menus = [
 				(try_begin),
 					(eq, ":days_left", 1),
 					(str_store_string, s5, "str_expected_back_imminently"),
-				(else_try),	
+				(else_try),
 					(assign, reg3, ":days_left"),
 					(str_store_string, s5, "str_expected_back_in_approximately_reg3_days"),
 				(try_end),
@@ -2610,17 +2616,17 @@ game_menus = [
 				(troop_slot_eq, ":companion", slot_troop_current_mission, npc_mission_gather_intel),
 				(troop_get_slot, ":town_with_contacts", ":companion", slot_troop_town_with_contacts),
 				(str_store_party_name, s11, ":town_with_contacts"),
-				
+
 				(str_store_string, s8, "str_gathering_intelligence"),
 				(try_begin),
 					(eq, ":days_left", 1),
 					(str_store_string, s5, "str_expected_back_imminently"),
-				(else_try),	
+				(else_try),
 					(assign, reg3, ":days_left"),
 					(str_store_string, s5, "str_expected_back_in_approximately_reg3_days"),
 				(try_end),
 			(else_try),	#This covers most diplomatic missions
-				
+
 				(troop_slot_ge, ":companion", slot_troop_current_mission, npc_mission_peace_request),
 				##diplomacy chief begin
 				(neg|troop_slot_eq, ":companion", slot_troop_current_mission, 8),
@@ -2632,7 +2638,7 @@ game_menus = [
 				(try_begin),
 					(eq, ":days_left", 1),
 					(str_store_string, s5, "str_expected_back_imminently"),
-				(else_try),	
+				(else_try),
 					(assign, reg3, ":days_left"),
 					(str_store_string, s5, "str_expected_back_in_approximately_reg3_days"),
 				(try_end),
@@ -2643,14 +2649,14 @@ game_menus = [
 					(is_between, "$g_player_court", centers_begin, centers_end),
 					(str_store_party_name, s9, "$g_player_court"),
 					(str_store_string, s5, "str_in_your_court_at_s9"),
-				(else_try),	
+				(else_try),
 					(str_store_string, s5, "str_whereabouts_unknown"),
-				(try_end),	
+				(try_end),
 			(else_try),
 				(main_party_has_troop, ":companion"),
 				(str_store_string, s8, "str_under_arms"),
 				(str_store_string, s5, "str_in_your_party"),
-			(else_try),	
+			(else_try),
 				(troop_slot_eq, ":companion", slot_troop_current_mission, npc_mission_rejoin_when_possible),
 				(str_store_string, s8, "str_attempting_to_rejoin_party"),
 				(str_store_string, s5, "str_whereabouts_unknown"),
@@ -2663,31 +2669,31 @@ game_menus = [
                 (try_begin),
                   (check_quest_active, "qst_lend_companion"),
                   (quest_slot_eq, "qst_lend_companion", slot_quest_target_troop, ":companion"),
-                  (str_store_string, s8, "@On loan,"), 
+                  (str_store_string, s8, "@On loan,"),
                 (else_try),
                   (check_quest_active, "qst_lend_surgeon"),
                   (quest_slot_eq, "qst_lend_surgeon", slot_quest_target_troop, ":companion"),
-                  (str_store_string, s8, "@On loan,"), 
+                  (str_store_string, s8, "@On loan,"),
                 (else_try),
 				  (troop_set_slot, ":companion", slot_troop_current_mission, npc_mission_rejoin_when_possible),
-                  (str_store_string, s8, "str_attempting_to_rejoin_party"),                  
+                  (str_store_string, s8, "str_attempting_to_rejoin_party"),
                 (try_end),
-                
-	        	(str_store_string, s5, "str_whereabouts_unknown"),				
+
+	        	(str_store_string, s5, "str_whereabouts_unknown"),
 				(try_begin),
-   
+
 					(ge, "$cheat_mode", 1),
 					(troop_get_slot, reg2, ":companion", slot_troop_current_mission),
 					(troop_get_slot, reg3, ":companion", slot_troop_days_on_mission),
 					(troop_get_slot, reg4, ":companion", slot_troop_prisoner_of_party),
 					(troop_get_slot, reg4, ":companion", slot_troop_playerparty_history),
-					
+
 					(display_message, "@{!}DEBUG: {s4} current mission: {reg2}, days on mission: {reg3}, prisoner: {reg4}, pphistory: {reg5}"),
 				(try_end),
-			(try_end),	
-			
+			(try_end),
+
 			(str_store_string, s3, "str_s4_s8_s5"),
-				
+
 			(str_store_string, s2, s1),
 			(str_store_string, s1, "str_s2_s3"),
 
@@ -2699,16 +2705,16 @@ game_menus = [
 			(str_store_troop_name, s4, ":companion"),
 			(str_store_string, s8, "str_missing_after_battle"),
 			(str_store_string, s5, "str_whereabouts_unknown"),
-			
+
 			(str_store_string, s3, "str_s4_s8_s5"),
 			(str_store_string, s2, s1),
-			(str_store_string, s1, "str_s2_s3"),			
+			(str_store_string, s1, "str_s2_s3"),
 			(str_clear, s7), #"no companions in service"
-			
+
 		(try_end),
-		
+
    (try_end),
-   
+
 
     ],
     [
@@ -2718,11 +2724,11 @@ game_menus = [
        ),
       ]
   ),
-  
-  
-  
-  
-  
+
+
+
+
+
   ("faction_orders",0,
    "{!}{s9}",
    "none",
@@ -2732,9 +2738,9 @@ game_menus = [
     (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
         (faction_slot_eq, ":faction_no", slot_faction_state, sfs_active),
         (neq, ":faction_no", "fac_player_supporters_faction"),
-       
+
         (faction_get_slot, ":old_faction_ai_state", ":faction_no", slot_faction_ai_state),
-       
+
 	    (try_begin),
 			(faction_get_slot, ":faction_marshal", ":faction_no", slot_faction_marshall),
 			(gt, ":faction_marshal", -1),
@@ -2742,13 +2748,13 @@ game_menus = [
 	    (else_try),
 			(faction_get_slot, ":faction_ai_decider", ":faction_no", slot_faction_leader),
 	    (try_end),
-	 
+
 
         #(*1) these two lines moved to here from (*2)
         (call_script, "script_npc_decision_checklist_faction_ai_alt", ":faction_ai_decider"),
 	    (assign, ":new_strategy", reg0),
 	    (str_store_string, s26, s14),
-	   
+
         #(3*) these three lines moved to here from (*4)
         (faction_get_slot, ":faction_ai_state", ":faction_no", slot_faction_ai_state),
         (faction_get_slot, ":faction_ai_object", ":faction_no", slot_faction_ai_object),
@@ -2756,10 +2762,10 @@ game_menus = [
 
         (faction_get_slot, ":faction_ai_offensive_max_followers", ":faction_no", slot_faction_ai_offensive_max_followers),
         (str_store_faction_name, s10, ":faction_no"),
-	   
+
 	   (try_begin),
 			(faction_get_slot, ":faction_issue", ":faction_no", slot_faction_political_issue),
-		   
+
 			(try_begin),
 				(eq, ":faction_issue", 1),
 				(str_store_string, s11, "@Appoint next marshal"),
@@ -2767,14 +2773,14 @@ game_menus = [
 				(is_between, ":faction_issue", centers_begin, centers_end),
 				(str_store_party_name, s12, ":faction_issue"),
 				(str_store_string, s11, "@Award {s12} as fief"),
-			(else_try),	
+			(else_try),
 				(eq, ":faction_issue", 0),
 				(str_store_string, s11, "@None"),
-			(else_try),	
+			(else_try),
 				(assign, reg3, ":faction_issue"),
 				(str_store_string, s11, "@{!}Error ({reg3})"),
 			(try_end),
-			
+
 			(store_current_hours, reg4),
 			(faction_get_slot, ":faction_issue_put_on_agenda", ":faction_no", slot_faction_political_issue_time),
 			(val_sub, reg4, ":faction_issue_put_on_agenda"),
@@ -2783,10 +2789,10 @@ game_menus = [
 			(try_begin),
 				(faction_slot_ge, ":faction_no", slot_faction_political_issue, 1),
 				(str_store_string, s10, "@{!}{s10} (on agenda {reg4} hours)"),
-			(try_end),	
-	   (try_end),	   
-	   
-	   
+			(try_end),
+	   (try_end),
+
+
        (assign, reg2, ":faction_ai_offensive_max_followers"),
        (try_begin),
          (eq, ":faction_ai_state", sfai_default),
@@ -2810,7 +2816,7 @@ game_menus = [
          (eq, ":faction_ai_state", sfai_feast),
          (str_store_party_name, s11, ":faction_ai_object"),
          (str_store_string, s11, "str_holding_feast_at_s11"),
-	   (else_try), 
+	   (else_try),
          (eq, ":faction_ai_state", sfai_attacking_enemies_around_center),
          (str_store_party_name, s11, ":faction_ai_object"),
          (str_store_string, s11, "@{!}Attacking enemies around {s11}"),
@@ -2836,11 +2842,11 @@ game_menus = [
                   #MOTO end use substate to represent screening properly
 			(store_faction_of_party, ":screen_party_faction", ":screen_party"),
 			(eq, ":screen_party_faction", ":faction_no"),
-			
+
 			(str_store_party_name, s38, ":screen_party"),
 			(str_store_string, s12, "@{!}{s12}^Screening party: {s38}"),
 	   (try_end),
-	   
+
        #(*2) these two lines moved to up (look *1)
 	   #(call_script, "script_npc_decision_checklist_faction_ai", ":faction_no"),
 	   #(assign, ":new_strategy", reg0),
@@ -2848,28 +2854,28 @@ game_menus = [
        #(try_begin),
        #  (this_or_next|eq, ":new_strategy", sfai_default),
        #  (eq, ":new_strategy", sfai_feast),
-	   #		
+	   #
 	   #  (store_current_hours, ":hours"),
-	   #  (faction_set_slot, ":faction_no", slot_faction_ai_last_rest_time, ":hours"),		
+	   #  (faction_set_slot, ":faction_no", slot_faction_ai_last_rest_time, ":hours"),
 	   #(try_end),
-      (try_begin),      
+      (try_begin),
          #new condition to rest, (a faction's new strategy should be feast or default) and (":hours_at_current_state" > 20)
          (this_or_next|eq, ":new_strategy", sfai_default),
-         (eq, ":new_strategy", sfai_feast),                            
-              
+         (eq, ":new_strategy", sfai_feast),
+
          (store_current_hours, ":hours_at_current_state"),
-         (faction_get_slot, ":current_state_started", ":faction_no", slot_faction_ai_current_state_started), 
+         (faction_get_slot, ":current_state_started", ":faction_no", slot_faction_ai_current_state_started),
          (val_sub, ":hours_at_current_state", ":current_state_started"),
          (ge, ":hours_at_current_state", 18),
-              
-         (store_current_hours, ":hours"),       
-         (faction_set_slot, ":faction_no", slot_faction_ai_last_rest_time, ":hours"),		
-       (try_end),     
+
+         (store_current_hours, ":hours"),
+         (faction_set_slot, ":faction_no", slot_faction_ai_last_rest_time, ":hours"),
+       (try_end),
 
         #Change of strategy
         (try_begin),
           (neq, ":new_strategy", ":old_faction_ai_state"),
-				
+
           (store_current_hours, ":hours"),
           (faction_set_slot, ":faction_no", slot_faction_ai_current_state_started, ":hours"),
         (try_end),
@@ -2877,7 +2883,7 @@ game_menus = [
 	   (call_script, "script_evaluate_realm_stability", ":faction_no"),
 	   (assign, ":disgruntled_lords", reg0),
 	   (assign, ":restless_lords", reg1),
-	   
+
 	   (faction_get_slot, ":last_feast_ended", ":faction_no", slot_faction_last_feast_start_time),
 	   (store_sub, ":hours_since_last_feast", ":cur_hours", ":last_feast_ended"),
            (val_sub, ":last_feast_ended", 72),
@@ -2892,20 +2898,20 @@ game_menus = [
 
        (faction_get_slot, ":faction_ai_last_decisive_event", ":faction_no", slot_faction_ai_last_decisive_event),
        (store_sub, ":hours_since_last_decisive_event", ":cur_hours", ":faction_ai_last_decisive_event"),
-	   
+
 	   (assign, reg3, ":hours_at_current_state"),
 	   (assign, reg4, ":hours_since_last_offensive"),
 	   (assign, reg5, ":hours_since_last_feast"),
-	   
+
 	   (assign, reg7, ":disgruntled_lords"),
 	   (assign, reg8, ":restless_lords"),
 	   (assign, reg9, ":hours_since_last_rest"),
 	   (assign, reg10, ":hours_since_last_decisive_event"),
 	   (str_store_string, s14, s26),
-	   
-       (str_store_string, s9, "str_s9s10_current_state_s11_hours_at_current_state_reg3_current_strategic_thinking_s14_marshall_s12_since_the_last_offensive_ended_reg4_hours_since_the_decisive_event_reg10_hours_since_the_last_rest_reg9_hours_since_the_last_feast_ended_reg5_hours_percent_disgruntled_lords_reg7_percent_restless_lords_reg8__"),	   
+
+       (str_store_string, s9, "str_s9s10_current_state_s11_hours_at_current_state_reg3_current_strategic_thinking_s14_marshall_s12_since_the_last_offensive_ended_reg4_hours_since_the_decisive_event_reg10_hours_since_the_last_rest_reg9_hours_since_the_last_feast_ended_reg5_hours_percent_disgruntled_lords_reg7_percent_restless_lords_reg8__"),
      (try_end),
-	 	 	 
+
      (try_begin),
        (neg|is_between, "$g_cheat_selected_faction", kingdoms_begin, kingdoms_end),
        (call_script, "script_get_next_active_kingdom", kingdoms_end),
@@ -2922,7 +2928,7 @@ game_menus = [
          (jump_to_menu, "mnu_faction_orders"),
         ]
        ),
-	   
+
       ("faction_orders_political_collapse", [],"{!}CHEAT - Cause all lords in faction to fall out with their liege.",
        [
 	   (try_for_range, ":lord", active_npcs_begin, active_npcs_end),
@@ -2932,10 +2938,10 @@ game_menus = [
 			(faction_get_slot, ":faction_liege", ":troop_faction", slot_faction_leader),
 			(call_script, "script_troop_change_relation_with_troop", ":lord", ":faction_liege", -200),
 	   (try_end),
-	   
+
 	   ]
        ),
-	   
+
       ("faction_orders_defend", [],"{!}Force defend.",
        [
          (faction_set_slot, "$g_cheat_selected_faction", slot_faction_ai_state, sfai_default),
@@ -2958,7 +2964,7 @@ game_menus = [
 			(gt, ":location_score", ":location_high_score"),
 			(assign, ":location_high_score", ":location_score"),
 			(assign, ":location_feast", ":location"),
-		 (try_end),		 
+		 (try_end),
 
 		 (try_begin),
 			(gt, ":location_feast", centers_begin),
@@ -2968,16 +2974,16 @@ game_menus = [
 			  (eq, "$g_player_eligible_feast_center_no", ":location_feast"),
 			  (assign, "$g_player_eligible_feast_center_no", -1),
 			(try_end),
-		 
+
 			(store_current_hours, ":hours"),
 			(faction_set_slot, "$g_cheat_selected_faction", slot_faction_last_feast_start_time, ":hours"),
 		 (try_end),
-			
+
 	     (jump_to_menu, "mnu_faction_orders"),
         ]
        ),
-	   
-	   
+
+
       ("faction_orders_gather", [],"{!}Force gather army.",
        [
          (store_current_hours, ":cur_hours"),
@@ -3015,24 +3021,24 @@ game_menus = [
 	   (assign, "$g_use_alternative_ai", 1),
 	   (jump_to_menu, "mnu_faction_orders"),
        ]
-       ),	   
+       ),
 
 	   ("disable_alt_ai",[(eq, "$g_use_alternative_ai", 2)],"{!}CHEAT! - disable alternative ai",
        [
 	   (assign, "$g_use_alternative_ai", 0),
 	   (jump_to_menu, "mnu_faction_orders"),
        ]
-       ),	   
-	   
+       ),
+
       ("faction_orders_init_econ", [],"{!}Initialize economic stats.",
        [
          (call_script, "script_initialize_economic_information"),
          (jump_to_menu, "mnu_faction_orders"),
         ]
        ),
-	   
-	   
-	   
+
+
+
       ("go_back_dot",[],"{!}Go back.",
        [(jump_to_menu, "mnu_reports"),
         ]
@@ -3040,7 +3046,7 @@ game_menus = [
       ]
   ),
 
-  
+
   ("character_report",0,
    "{s9}",
    "none",
@@ -3093,7 +3099,7 @@ game_menus = [
         (val_add, ":num_enemies", 1),
       (try_end),
     (try_end),
-	
+
 	#lord recruitment changes begin
 	(str_clear, s12),
 	(try_begin),
@@ -3101,7 +3107,7 @@ game_menus = [
 		(assign, reg12, "$player_right_to_rule"),
 		(str_store_string, s12, "str__right_to_rule_reg12"),
 	(try_end),
-	
+
 	(str_clear, s15),
 	(try_begin),
 		(this_or_next|gt, "$claim_arguments_made", 0),
@@ -3109,7 +3115,7 @@ game_menus = [
 		(this_or_next|gt, "$victory_arguments_made", 0),
 		(this_or_next|gt, "$lords_arguments_made", 0),
 		(eq, 1, 0),
-		
+
 		(assign, reg3, "$claim_arguments_made"),
 		(assign, reg4, "$ruler_arguments_made"),
 		(assign, reg5, "$victory_arguments_made"),
@@ -3118,9 +3124,9 @@ game_menus = [
 
 		(str_store_string, s15, "str_political_arguments_made_legality_reg3_rights_of_lords_reg4_unificationpeace_reg5_rights_of_commons_reg6_fief_pledges_reg7"),
 	(try_end),
-	
+
 	#lord recruitment changes begin
-	
+
     (assign, reg3, "$player_honor"),
     (troop_get_slot, reg2, "trp_player", slot_troop_renown),
 
@@ -3130,7 +3136,7 @@ game_menus = [
     # (str_store_string, s9, "str_renown_reg2_honour_rating_reg3s12_friends_s8_enemies_s6_s9"),
     (str_store_string, s9, "@Renown: {reg2}.^Bardic Reputation: {reg1}.^Honour rating: {reg3}.{s12}^Friends: {s8}.^Enemies: {s6}.^{s9}"),
 #chief entretenimiento skill bardo acaba
-    
+
     (call_script, "script_get_number_of_hero_centers", "trp_player"),
     (assign, ":no_centers", reg0),
     (try_begin),
@@ -3155,17 +3161,17 @@ game_menus = [
     (try_end),
     (try_begin),
       (gt, "$players_kingdom", 0),
-              
+
       (str_store_faction_name, s8, "$players_kingdom"),
       (try_begin),
         (this_or_next|is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
         (neg|faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
         #(str_store_string, s9, "@You are a lord of {s8}.^{s9}"),
         (str_store_string, s9, "str_you_are_a_lord_lady_of_s8_s9"),
-      (else_try),  
-        (str_store_string, s9, "str_you_are_king_queen_of_s8_s9"),      
+      (else_try),
+        (str_store_string, s9, "str_you_are_king_queen_of_s8_s9"),
       (try_end),
-      
+
     (try_end),
     ],
     [
@@ -3189,7 +3195,7 @@ game_menus = [
        ]
        ),
 
-	   
+
 	("continue",[(eq,"$cheat_mode",1)],"{!}CHEAT! - increase Reputation",
        [
 	   (val_add, "$player_honor", 10),
@@ -3202,7 +3208,7 @@ game_menus = [
 	   (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
 	   (val_add, ":renown", 50),
 	   (troop_set_slot, "trp_player", slot_troop_renown, ":renown"),
-	   
+
 	   (jump_to_menu, "mnu_character_report"),
        ]
        ),
@@ -3210,11 +3216,11 @@ game_menus = [
 	("continue",[(eq,"$cheat_mode",1)],"{!}CHEAT! - increase persuasion",
        [
 	   (troop_raise_skill, "trp_player", "skl_persuasion", 1),
-	   
+
 	   (jump_to_menu, "mnu_character_report"),
        ]
        ),
-	   
+
 
 
 	("continue",[],"Continue...",
@@ -3308,7 +3314,7 @@ game_menus = [
      ]
  ),
  #motomataru chief acaba
-  
+
   ("faction_relations_report",0,
    "{s1}",
    "none",
@@ -3377,7 +3383,7 @@ game_menus = [
     (try_end),
     (str_store_string, s1, "@Your relation with the factions are:^{s2}"),
 
-	
+
 
     ],
     [
@@ -3415,7 +3421,7 @@ game_menus = [
 ##       ),
 #diplomacy chief
 	("dplmc_camp_preferences",
-		[		  
+		[
 		],
 		"Mod options.",
 		[
@@ -3425,7 +3431,7 @@ game_menus = [
 #diplomacy chief acaba
 #religion chief Sod
 	("religion_preferences",
-		[		  
+		[
 		],
 		"What religion am I?.",
 		[
@@ -3440,14 +3446,14 @@ game_menus = [
 				(display_message, "@You are Pagan and worship Germanic Gods."),
 				(else_try),
 				(display_message, "@You haven no religion yet. If you desire conversion, seek out a bishop or pagan priest."),
-           (try_end),                                                         
+           (try_end),
 		]
 	),
 #religion chief acaba
 #heridas
 
 	("heridas_actuales",
-		[		  
+		[
 		],
 		"Am I injured?.",
 		[
@@ -3477,7 +3483,7 @@ game_menus = [
                      (display_message,"@Yes. You have a broken leg. (-3 agility, -1 athletics, -1 riding)",0xFFFFAAAA),
             (else_try),
             (display_message, "@No. You are fine."),
-           (try_end),                                                         
+           (try_end),
 		]
 	),
 #heridas acaba
@@ -3516,7 +3522,7 @@ game_menus = [
            (assign, "$g_player_icon_state", pis_camping),
 		   (party_set_slot,"p_main_party",slot_party_entrenched,0), #TEMPERED chief ADDED LINE FOR NO ENTRENCHMENT
 	   (assign,"$current_camp_party",-1), #TEMPERED chief ADDED LINE FOR NO ENTRENCHMENT
-      
+
            (try_begin),
              (party_is_active, "p_main_party"),
              (party_get_current_terrain, ":cur_terrain", "p_main_party"),
@@ -3529,9 +3535,9 @@ game_menus = [
           (eq,":cur_terrain",8),
 				(assign, "$g_player_icon_state", pis_ship),
 				(party_set_flags, "p_main_party", pf_is_ship, 1), #seafare acaba
-             (try_end),  
+             (try_end),
            (try_end),
-           
+
            (rest_for_hours_interactive, 24 * 365, 5, 1), #rest while attackable
 
            (change_screen_return),
@@ -3555,7 +3561,7 @@ game_menus = [
 			(assign, "$g_player_icon_state", pis_ship),
 			(change_screen_map),
 		]),
-        
+
    #caba'drin custom name player party chief
          ("action_change_party_name",
        [(troop_slot_ge, "trp_player", slot_troop_renown, 300)], #My opinion is that it should be renown-dependent...
@@ -3584,8 +3590,8 @@ game_menus = [
        [
 			(call_script,"script_visit_camp"),
         ]
-       ),	   
-#TEMPERED chief CHANGES BEGIN  ADDED ENTRENCHMENT MENU OPTION                                	   
+       ),
+#TEMPERED chief CHANGES BEGIN  ADDED ENTRENCHMENT MENU OPTION
       ("camp_entrench",[
           (party_get_current_terrain,":terrain","p_main_party"),
          (neq,":terrain",0),
@@ -3604,15 +3610,15 @@ game_menus = [
 									(assign,":continue",1),
 									(assign,"$current_camp_party",":camp_site"),
 								(try_end),
-							(try_end),		
+							(try_end),
 							(try_begin),
 								(eq,":continue",0),
 								(call_script,"script_party_entrench_time"),
 								(str_store_string,s1,"@Spend {reg5} hours entrenching your camp site."),
 								(assign,"$current_camp_party",-1),
-							(try_end),													
+							(try_end),
 						],"{s1}",
-       [	
+       [
 			(assign,":continue",0),
 			(store_current_hours,":cur_hour"),
 			(try_begin),
@@ -3625,13 +3631,13 @@ game_menus = [
 					(lt,"$current_camp_party",0),
 					(call_script,"script_party_entrench_time"),
 					(store_add,"$entrench_time",":cur_hour",reg5),
-					(call_script,"script_change_player_party_morale",-10),					
+					(call_script,"script_change_player_party_morale",-10),
 					(party_set_slot,"p_main_party",slot_party_entrenched,-1),
 					(assign,"$g_camp_mode", 1),
 					(assign, "$g_infinite_camping", 0),
-					(assign, "$g_player_icon_state", pis_camping),												
+					(assign, "$g_player_icon_state", pis_camping),
 					(rest_for_hours_interactive, 24 * 7, 5, 1), #rest while attackable
-					(change_screen_return),					
+					(change_screen_return),
 				(else_try),
 					(gt,"$current_camp_party",0),
 					(party_set_slot,"p_main_party",slot_party_entrenched,1),
@@ -3641,8 +3647,8 @@ game_menus = [
 					(assign,"$entrench_time",0),
 					(assign,"$g_camp_mode", 1),
 					(assign, "$g_infinite_camping", 0),
-					(assign, "$g_player_icon_state", pis_camping),												
-					(jump_to_menu,"mnu_camp"),					
+					(assign, "$g_player_icon_state", pis_camping),
+					(jump_to_menu,"mnu_camp"),
 				(try_end),
 			(else_try),
 				(eq,":continue",0),
@@ -3655,7 +3661,7 @@ game_menus = [
 ##      ("wathtower_action",
 ##		[
 ##		],"Manage Watchtower.",
-##       [		
+##       [
 ##			(jump_to_menu,"mnu_camp_watchtower"),
 ##        ]
 ##       ),
@@ -3672,7 +3678,7 @@ game_menus = [
           (neq,":terrain",7),
           (neq,":terrain",8),
 		   (eq, "$ambush_set_by_player", 0),
-			], 
+			],
 		"Gather my party, and warn that we will set up an ambush",
 		   [
 		   (assign, "$ambush_set_by_player", 1),
@@ -3680,7 +3686,7 @@ game_menus = [
 		   (call_script,"script_rigale_check_ambushing_success"),
 		   (change_screen_return),
 		   (rest_for_hours_interactive, 2, 1, 1),
-		   
+
 			],
 		),
       ("camp_set_sneaking",
@@ -3693,8 +3699,8 @@ game_menus = [
           (neq,":terrain",7),
           (neq,":terrain",8),
 		   (eq, "$sneaking_set_by_player", 0),
-		   
-			], 
+
+			],
 		"Gather my party, and warn that we will sneak around",
 		   [
 #		(assign,":keep_checking",0),
@@ -3702,24 +3708,24 @@ game_menus = [
 		#(try_begin),
 #		(neq,":keep_checking",1),
 			# (party_is_active, ":party_no"),
-			# (store_distance_to_party_from_party, ":dist", "p_main_party", ":party_no"),			
+			# (store_distance_to_party_from_party, ":dist", "p_main_party", ":party_no"),
 				# (try_begin),
 					# (lt, ":dist", 3),
 					# (display_message,"@You are too close to another party",0xCC3333),
 #					(assign,":keep_checking",1),
 				# (else_try),
-				   # (ge, ":dist", 3),		
+				   # (ge, ":dist", 3),
 				   (assign, "$sneaking_set_by_player", 1),
 				   (assign, "$ambush_set_by_player", 0),
 				   (call_script,"script_rigale_check_sneaking_success"),
 				   (call_script,"script_game_get_party_speed_multiplier","p_main_party"),
 					(display_message,"@You start sneaking",0x00FF00),
-#					(assign,":keep_checking",1),				
+#					(assign,":keep_checking",1),
 				   (change_screen_return),
 				# (try_end),
 			#(try_end),
 	#	(try_end),
-	 
+
 			],
 		),
             ("camp_stop_sneaking",
@@ -3729,13 +3735,13 @@ game_menus = [
           (neq,":terrain",7),
           (neq,":terrain",8),
 		   (eq, "$sneaking_set_by_player", 1),
-			], 
+			],
 		"Gather my party, and stop the sneaking action.",
 		   [
 		   (assign, "$sneaking_set_by_player", 0),
 		   (change_screen_return),
 		],
-	  ),	   
+	  ),
 #rigales chief acaba
 ###rigale chief acaba
 
@@ -3749,7 +3755,7 @@ game_menus = [
 
                     (gt,"$wagon_attached",0),
 		],"Manage your supply wagon.",
-       [	
+       [
 			(assign,"$auto_menu","mnu_loot_wagon"),
 			(change_screen_map),
         ]
@@ -3764,7 +3770,7 @@ game_menus = [
 
                     (eq,"$owns_wagon",0),
 		],"Build a new supply wagon.",
-       [	
+       [
 			(jump_to_menu,"mnu_build_wagon"),
         ]
        ),
@@ -3779,22 +3785,22 @@ game_menus = [
                     (eq,"$owns_wagon",1),
                     (le,"$wagon_attached",0),
 		],"Disband wagon.",
-       [	
+       [
 			(call_script,"script_restore_wagon_troops"),
 			(troop_clear_inventory,"trp_loot_wagon_storage_1"),
 			(assign,"$wagon_attached",-1),
 			(assign,"$owns_wagon",0),
         ]
        ),
-#TEMPERED   DEBUG position info	   
+#TEMPERED   DEBUG position info
   ("get_position",[(eq, "$cheat_mode", 1)],"_Cheat: get last camp position.",
-   [  
+   [
 		(position_get_x,reg1,"$last_position"),
 		(position_get_y,reg2,"$last_position"),
 		(position_get_z,reg3,"$last_position"),
 		(display_message,"@  Last camp x: {reg1}  y: {reg2} z: {reg3}"),
     ]
-	),	
+	),
 #TEMPERED chief CHANGES END
       ("camp_cheat",
        [(ge, "$cheat_mode", 1)
@@ -3832,14 +3838,14 @@ game_menus = [
        [
          (jump_to_menu, "mnu_cheat_find_item"),
 	   ]
-       ),	   
+       ),
 
       ("camp_cheat_find_item",[], "Change weather..",
        [
          (jump_to_menu, "mnu_cheat_change_weather"),
 	   ]
-       ),	   
-	   
+       ),
+
       ("camp_cheat_1",[],"{!}Increase player renown.",
        [
          (str_store_string, s1, "@Player renown is increased by 100. "),
@@ -3847,8 +3853,8 @@ game_menus = [
          (jump_to_menu, "mnu_camp_cheat"),
         ]
        ),
-	   
-      ("camp_cheat_2",[],"{!}Increase player Reputation.",      
+
+      ("camp_cheat_2",[],"{!}Increase player Reputation.",
        [
          (assign, reg7, "$player_honor"),
          (val_add, reg7, 1),
@@ -3864,34 +3870,34 @@ game_menus = [
            (troop_slot_eq, ":hero", slot_troop_occupation, slto_kingdom_hero),
            (call_script, "script_update_troop_political_notes", ":hero"),
          (try_end),
-         
+
          (try_for_range, ":kingdom", kingdoms_begin, kingdoms_end),
            (call_script, "script_update_faction_political_notes", ":kingdom"),
-         (try_end),		
+         (try_end),
         ]
-       ),	   
-	   
+       ),
+
       ("camp_cheat_4",[],"{!}Update troop notes.",
        [
          (try_for_range, ":hero", active_npcs_begin, active_npcs_end),
            (troop_slot_eq, ":hero", slot_troop_occupation, slto_kingdom_hero),
            (call_script, "script_update_troop_notes", ":hero"),
          (try_end),
-         
+
          (try_for_range, ":lady", kingdom_ladies_begin, kingdom_ladies_end),
            (call_script, "script_update_troop_notes", ":lady"),
            (call_script, "script_update_troop_political_notes", ":lady"),
            (call_script, "script_update_troop_location_notes", ":lady", 0),
-         (try_end),		
+         (try_end),
         ]
-       ),	   
-	   
+       ),
+
       ("camp_cheat_5",[],"{!}Scramble minstrels.",
        [
          (call_script, "script_update_tavern_minstrels"),
         ]
-       ),	   
-	   
+       ),
+
       ("camp_cheat_6",[],"{!}Infinite camp",
        [
          (assign,"$g_camp_mode", 1),
@@ -3900,7 +3906,7 @@ game_menus = [
          (rest_for_hours_interactive, 10 * 24 * 365, 20), #10 year rest while not attackable with 20x speed
          (change_screen_return),
         ]
-       ),	   
+       ),
 
       ("cheat_faction_orders",[(ge,"$cheat_mode",1)],
 	  "{!}Cheat: Set Debug messages to All.",
@@ -3922,8 +3928,8 @@ game_menus = [
          (jump_to_menu, "mnu_camp_cheat"),
         ]
        ),
-	   
-	   
+
+
       ("back_to_camp_menu",[],"{!}Back to camp menu.",
        [
          (jump_to_menu, "mnu_camp"),
@@ -3931,7 +3937,7 @@ game_menus = [
        ),
       ]
   ),
-  
+
   ("cheat_find_item",0,
    "{!}Current item range: {reg5} to {reg6}",
    "none",
@@ -3951,7 +3957,7 @@ game_menus = [
 	    (try_end),
 	    (jump_to_menu, "mnu_cheat_find_item"),
 	   ]
-       ),	   
+       ),
 
 	   ("cheat_find_item_choose_this",[], "{!}Choose from this range.",
        [
@@ -3965,8 +3971,8 @@ game_menus = [
         (try_end),
         (change_screen_trade, "trp_find_item_cheat"),
 	   ]
-       ),	   
-	   
+       ),
+
       ("camp_action_4",[],"{!}Back to camp menu.",
        [(jump_to_menu, "mnu_camp"),
         ]
@@ -4033,7 +4039,7 @@ game_menus = [
        [(start_presentation, "prsnt_upgrade_tree_1"),
         ]
        ),
-#chief arbol de tropas acaba	
+#chief arbol de tropas acaba
       ("camp_recruit_prisoners",
        [(troops_can_join, 1),
         (store_current_hours, ":cur_time"),
@@ -4052,7 +4058,7 @@ game_menus = [
 
       ("action_read_book",[],"Select a book to read.",
        [  (try_begin), #chief anadido
-             (eq, "$sabe_leer", 1),           
+             (eq, "$sabe_leer", 1),
              (jump_to_menu, "mnu_camp_action_read_book"),
 		   (else_try), #chief anadido
              (display_message,"@You can not read. You should learn it at a monastery.",0xFFFFAAAA), #chief anadido
@@ -4067,7 +4073,7 @@ game_menus = [
           ]
       ),
 #### export/import NPCs end ####
-      
+
       ("action_rename_kingdom",
        [
          (eq, "$players_kingdom_name_set", 1),
@@ -4089,57 +4095,57 @@ game_menus = [
 			(assign,"$cheat_mode",1),
         ]
        ),
-	   
+
       ("toggle_cheat_off",[(eq, "$cheat_mode",1)],"_Toggle cheat menu off.",
        [
 			(assign,"$cheat_mode",0),
         ]
-       ),	   
-	   
-#Tempered chief changes end 	   
+       ),
+
+#Tempered chief changes end
 
         #rigale chief empieza
       ("camp_smoke_food",
        [
 		(try_begin),
 		(call_script, "script_cf_player_has_item_without_modifier", "itm_cattle_meat", imod_rotten),
-        (assign, ":player_has_smokable_food", 1),	
+        (assign, ":player_has_smokable_food", 1),
 		(else_try),
 		(call_script, "script_cf_player_has_item_without_modifier", "itm_pork", imod_rotten),
-        (assign, ":player_has_smokable_food", 1),	
+        (assign, ":player_has_smokable_food", 1),
 		(else_try),
 		(call_script, "script_cf_player_has_item_without_modifier", "itm_chicken", imod_rotten),
-        (assign, ":player_has_smokable_food", 1),	
+        (assign, ":player_has_smokable_food", 1),
 		(else_try),
 		(call_script, "script_cf_player_has_item_without_modifier", "itm_deer_meat", imod_rotten),
-        (assign, ":player_has_smokable_food", 1),	
+        (assign, ":player_has_smokable_food", 1),
 		(else_try),
 		(call_script, "script_cf_player_has_item_without_modifier", "itm_boar_meat", imod_rotten),
-        (assign, ":player_has_smokable_food", 1),	
+        (assign, ":player_has_smokable_food", 1),
 		(else_try),
 		(call_script, "script_cf_player_has_item_without_modifier", "itm_wolf_meat", imod_rotten),
-        (assign, ":player_has_smokable_food", 1),	
+        (assign, ":player_has_smokable_food", 1),
 		(else_try),
 		(call_script, "script_cf_player_has_item_without_modifier", "itm_coat_meat", imod_rotten),
-        (assign, ":player_has_smokable_food", 1),	
+        (assign, ":player_has_smokable_food", 1),
 		(else_try),
 		(call_script, "script_cf_player_has_item_without_modifier", "itm_coat_2_meat", imod_rotten),
-        (assign, ":player_has_smokable_food", 1),	
+        (assign, ":player_has_smokable_food", 1),
 		(else_try),
 		(call_script, "script_cf_player_has_item_without_modifier", "itm_wilddonkey_meat", imod_rotten),
-        (assign, ":player_has_smokable_food", 1),	
+        (assign, ":player_has_smokable_food", 1),
 		(try_end),
 
 		(eq, ":player_has_smokable_food", 1),
-	
- 	    ], 
-	
+
+ 	    ],
+
 	"Smoke some of the raw food in your inventory.",
 	   [
        (jump_to_menu, "mnu_camp_smoking_food"),
         ],
 	  ),
-  
+
 #rigale chief acaba
 
       ("action_modify_banner",[(eq, "$cheat_mode", 1)],"{!}Cheat: Modify your banner.",
@@ -4242,7 +4248,7 @@ game_menus = [
        ),
       ]
   ),
-  
+
   ("camp_no_prisoners",0,
    "You have no prisoners to recruit from.",
    "none",
@@ -4376,7 +4382,7 @@ game_menus = [
           ("export_import_next",[],"Next page", [(jump_to_menu, "mnu_export_import_npcs_2")]),
         ]
       ),
-     
+
       ("export_import_npcs_2", mnf_enable_hot_keys,
         "Please choose an NPC, then press key C to view and export/import this character.^^You choose {reg0?{s0}:none}.",
         "none",
@@ -4398,7 +4404,7 @@ game_menus = [
           ]) for x in range(13, 26)]
       ),
     #### export/import NPCs end ####
-  
+
   ("retirement_verify",0,
    "You are at day {reg0}. Your current luck is {reg1}. Are you sure you want to retire?",
    "none",
@@ -4554,7 +4560,7 @@ game_menus = [
      ("continue",[],"Continue...",
       [
         (assign, "$g_leave_encounter", 0),
-        
+
         (try_begin),
           (is_between, "$g_encountered_party", towns_begin, towns_end),
           (party_get_slot, ":duel_scene", "$g_encountered_party", slot_town_arena),
@@ -4567,10 +4573,10 @@ game_menus = [
             (lt, ":dist", ":minimum_dist"),
             (assign, ":minimum_dist", ":dist"),
             (assign, ":closest_town", ":cur_town"),
-          (try_end),           
-          (try_begin),         
+          (try_end),
+          (try_begin),
             (ge, ":closest_town", 0),
-            (party_get_slot, ":duel_scene", ":closest_town", slot_town_arena),          
+            (party_get_slot, ":duel_scene", ":closest_town", slot_town_arena),
           (try_end),
           (assign, "$g_start_arena_fight_at_nearest_town", 0),
         (else_try),
@@ -4583,7 +4589,7 @@ game_menus = [
         (else_try),
           (assign, ":duel_scene", "scn_training_ground_ranged_melee_1"),
         (try_end),
-        
+
         (modify_visitors_at_site, ":duel_scene"),
         (reset_visitors),
         (set_visitor, 0, "trp_player"),
@@ -4591,23 +4597,23 @@ game_menus = [
         (set_jump_mission, "mt_duel_with_lord"),
         (jump_to_scene, ":duel_scene"),
         (jump_to_menu, "mnu_arena_duel_conclusion"),
-        (change_screen_mission),        
+        (change_screen_mission),
       ]),
     ]
   ),
 
-  
+
   ("arena_duel_conclusion",0,
    "{!}{s11}",
    "none",
    [
-   
+
     (try_begin),
 		(eq, "$g_leave_encounter", 1),
 		(change_screen_return),
 	(try_end),
-	
-	
+
+
     (str_store_troop_name, s10, "$g_duel_troop"),
     (try_begin),
 		(quest_slot_eq, "qst_duel_for_lady", slot_quest_target_troop, "$g_duel_troop"),
@@ -4691,24 +4697,24 @@ game_menus = [
    (try_end),
 
     ],
-   
+
    [
       ("start_fight",[(eq, "$g_duel_result", 0)],"Start the duel.",
-       [(try_begin),     
-          (is_between, "$g_encountered_party", towns_begin, towns_end),     
-            (party_get_slot, ":arena_scene", "$g_encountered_party", slot_town_arena),   
-        (else_try),     
-            (assign, ":closest_dist", 100000),     
-            (assign, ":closest_town", -1),     
-            (try_for_range, ":cur_town", towns_begin, towns_end),       
-                (store_distance_to_party_from_party, ":dist", ":cur_town", "p_main_party"),       
-                (lt, ":dist", ":closest_dist"),       
-                (assign, ":closest_dist", ":dist"),       
-                (assign, ":closest_town", ":cur_town"),     
-            (try_end),     
+       [(try_begin),
+          (is_between, "$g_encountered_party", towns_begin, towns_end),
+            (party_get_slot, ":arena_scene", "$g_encountered_party", slot_town_arena),
+        (else_try),
+            (assign, ":closest_dist", 100000),
+            (assign, ":closest_town", -1),
+            (try_for_range, ":cur_town", towns_begin, towns_end),
+                (store_distance_to_party_from_party, ":dist", ":cur_town", "p_main_party"),
+                (lt, ":dist", ":closest_dist"),
+                (assign, ":closest_dist", ":dist"),
+                (assign, ":closest_town", ":cur_town"),
+            (try_end),
             (party_get_slot, ":arena_scene", ":closest_town", slot_town_arena),
-        (try_end),   
-        (modify_visitors_at_site, ":arena_scene"),   
+        (try_end),
+        (modify_visitors_at_site, ":arena_scene"),
         (reset_visitors),
     (set_visitor, "$g_duel_vis_point_opp", "$g_talk_troop"),
     (set_visitor, "$g_duel_vis_point_plyr", "trp_player"),
@@ -4731,14 +4737,14 @@ game_menus = [
       ]
  ),
 
-############################### Duel chief Mod End  ##############################        
-  
-    
+############################### Duel chief Mod End  ##############################
+
+
   (
     "simple_encounter",mnf_enable_hot_keys,
     "{s2}^^ You have {reg10} troops fit for battle against their {reg11}.^{s15}", #cambiado tempered chief
     "none",
-    [      
+    [
 #TEMPERED chief CHANGES BEGIN
 		(str_clear,s15),
 		(str_store_string,s15,"@_"),
@@ -4760,9 +4766,9 @@ game_menus = [
           (assign, "$g_encounter_is_in_village", 0),
           (assign, "$g_encounter_type", 0),
           (try_begin),
-            (party_slot_eq, "$g_enemy_party", slot_party_ai_state, spai_raiding_around_center),        
+            (party_slot_eq, "$g_enemy_party", slot_party_ai_state, spai_raiding_around_center),
             (party_get_slot, ":village_no", "$g_enemy_party", slot_party_ai_object),
-        
+
             (store_distance_to_party_from_party, ":dist", ":village_no", "$g_enemy_party"),
 
             (try_begin),
@@ -4785,7 +4791,7 @@ game_menus = [
             (display_message, "str_s1_joined_battle_friend",color_good_news),
             # Let village party join battle at your side
           (try_end),
-                    
+
                    ## CC chief commander
           (try_begin),
             (party_get_template_id, ":template_id", "$g_enemy_party"),
@@ -4820,14 +4826,14 @@ game_menus = [
 
 #rigale emboscada chief MOTO move this part to avoid dialog and add necessary rewrite
 		  (assign, ":ambush_probability", 0),
-		  
+
 		  (try_begin),
             (eq, "$g_encounter_type", 0),
 			(neq, "$ambush_set_by_player", 1),
 			(neq, "$sneaking_set_by_player", 1),
             (neg|encountered_party_is_attacker),
             (eq, "$encountered_party_hostile", 1),
-		  
+
 			(party_get_current_terrain, ":terrain_type", "p_main_party"),
 			(neq,":terrain_type",0),	#no ambushes at sea
 			(neq,":terrain_type",7),
@@ -4838,7 +4844,7 @@ game_menus = [
                   (this_or_next|eq, "$g_encountered_party_template",      "pt_deserters"),
                   (this_or_next|eq, "$g_encountered_party_template",      "pt_kingdom_hero_party"),
                   (is_between, "$g_encountered_party_template",      bandit_party_template_begin, bandit_party_template_end),
-                  
+
                   (neg|party_slot_eq, "$g_encountered_party",      slot_party_ai_state, spai_besieging_center),
                   (neg|party_slot_eq, "$g_encountered_party",      slot_party_ai_state, spai_raiding_around_center),
                   (neg|party_slot_eq, "$g_encountered_party",      slot_party_ai_state, spai_accompanying_army),
@@ -4846,7 +4852,7 @@ game_menus = [
                   #MOTO end limit parties that ambush
 ##                (party_get_template_id, ":template_id", "$g_enemy_party"),
 ##            (neq, ":template_id", "pt_kingdom_caravan_party"),
-			
+
 			(try_begin),
 			  (eq, ":terrain_type", rt_steppe),
 			  (assign, ":ambush_probability", 10),
@@ -4876,15 +4882,15 @@ game_menus = [
 ##			(try_end),
 
                             #MOTO chief tone it down
-                  (val_div, reg0, "$g_friend_fit_for_battle", 10),                 
+                  (val_div, reg0, "$g_friend_fit_for_battle", 10),
                   (val_add, ":ambush_probability", reg0),    #more      likely a group will ambush a larger one
-                  (val_div, reg0, "$g_enemy_fit_for_battle", 10),                 
+                  (val_div, reg0, "$g_enemy_fit_for_battle", 10),
                   (val_sub, ":ambush_probability", reg0),
                   #MOTO end tone it down
 		  (try_end),
 
 		  (store_random_in_range,":ambush_chance",0,101),
-		  
+
 		  (try_begin),
 			(lt,":ambush_chance",":ambush_probability"),
 			(assign,"$player_fall_in_ambush",1),
@@ -4901,7 +4907,7 @@ game_menus = [
 #            (call_script, "script_encounter_calculate_morale_change"),
 #          (try_end),
           (try_begin),
-            # We can leave battle only after some troops have been killed. 
+            # We can leave battle only after some troops have been killed.
             (eq, "$cant_leave_encounter", 1),
             (call_script, "script_party_count_members_with_full_health", "p_main_party_backup"),
             (assign, ":org_total_party_counts", reg0),
@@ -4931,7 +4937,7 @@ game_menus = [
 				(eq, "$duel_encounter",1),#TEMPERED chief ADDED FOR WILDERNESS DUEL
 				(str_store_string,s2,"@The time for talk is over. {s1} is waiting to begin the duel."), #tempered chief
 #rigale quita chief
-##			(else_try), 
+##			(else_try),
 ##            (eq, "$g_encounter_type", 0),
 ##				(neq, "$duel_encounter",1),#TEMPERED chief ADDED FOR WILDERNESS DUEL
 ##				(str_store_string, s2,"@You have encountered {s1}. You have {reg10} troops fit for battle."), #tempered chief puesto
@@ -4956,30 +4962,30 @@ game_menus = [
 			(try_begin),
 			  (eq, "$new_encounter", 1),	#don't allow player to leave and get a second attempt to spot!
 			  (call_script, "script_get_max_skill_of_player_party", "skl_spotting"),
-			  (assign, ":spotting_skill", reg0),				 
+			  (assign, ":spotting_skill", reg0),
 
 			  (store_random_in_range,":ambush_factor2",1,2),#chief anade
-			  (assign,":ambush_final2",":ambush_factor2"),#chief anade	
-			  (party_get_skill_level, ":skill_ambush12", "p_main_party", skl_tactics), #chief anade 
-			  (party_get_skill_level, ":skill_ambush22", "p_main_party", skl_tracking), #chief anade 
+			  (assign,":ambush_final2",":ambush_factor2"),#chief anade
+			  (party_get_skill_level, ":skill_ambush12", "p_main_party", skl_tactics), #chief anade
+			  (party_get_skill_level, ":skill_ambush22", "p_main_party", skl_tracking), #chief anade
 			  (val_add,":ambush_final2",":skill_ambush12"),#chief anade
-			  (val_add,":ambush_final2",":skill_ambush22"),#chief anade 
-			  (val_sub,":ambush_final2",2),#chief anade 
+			  (val_add,":ambush_final2",":skill_ambush22"),#chief anade
+			  (val_sub,":ambush_final2",2),#chief anade
 
 			  (assign,":ambushing_player_skill",":ambush_final2"), #chief cambia
 			  (val_add,":spotting_skill",":ambushing_player_skill"),
 			  (store_random_in_range,":ambush_preventing_check",1,31),
 			  (try_begin),
 			    (lt,":ambush_preventing_check",":spotting_skill"),
-			    (str_store_string, s2,"@YOU SUCCESSFULLY THWARTED AN AMBUSH !!! You have encountered {s1}. "),					
+			    (str_store_string, s2,"@YOU SUCCESSFULLY THWARTED AN AMBUSH !!! You have encountered {s1}. "),
 			    (assign, "$player_fall_in_ambush", 0),
 				(assign, "$cant_leave_encounter", 0),
 			  (else_try),
-			    (ge,":ambush_preventing_check",":spotting_skill"),				 
+			    (ge,":ambush_preventing_check",":spotting_skill"),
 			    (call_script,"script_rigale_learn_from_failure",10,30),
 			  (try_end),
 			(try_end),
-			
+
 		  (else_try),
 			(str_store_string, s2,"@You have encountered {s1}. You have {reg10} troops fit for battle."), #tempered chief puesto
 		  (try_end),
@@ -4993,28 +4999,28 @@ game_menus = [
           (assign, ":enemy_finished", 0),
           (try_begin),
             (eq, "$g_battle_result", 1), #battle won
-                        
+
             (this_or_next|le, ":num_enemy_regulars_remaining", 0), #battle won
             (le, ":num_enemy_regulars_remaining",  "$num_routed_enemies"), #replaced for above line because we do not want routed agents to spawn again in next turn of battle.
 
             (assign, ":enemy_finished",1),
           (else_try),
-            (eq, "$g_engaged_enemy", 1), 
-            
-            (this_or_next|le, ":num_enemy_regulars_remaining", 0), 
+            (eq, "$g_engaged_enemy", 1),
+
+            (this_or_next|le, ":num_enemy_regulars_remaining", 0),
             (le, "$g_enemy_fit_for_battle", "$num_routed_enemies"),  #replaced for above line because we do not want routed agents to spawn again in next turn of battle.
-            
+
             (ge, "$g_friend_fit_for_battle",1),
             (assign, ":enemy_finished",1),
           (try_end),
-                
+
           (this_or_next|eq, ":enemy_finished",1),
           (eq,"$g_enemy_surrenders",1),
           (assign, "$g_next_menu", -1),
 
           (jump_to_menu, "mnu_total_victory"),
-        (else_try),       
-          (call_script, "script_party_count_members_with_full_health", "p_main_party"),        
+        (else_try),
+          (call_script, "script_party_count_members_with_full_health", "p_main_party"),
           (assign, ":num_our_regulars_remaining", reg0),
           (assign, ":friends_finished",0),
           (try_begin),
@@ -5030,12 +5036,12 @@ game_menus = [
             (le, "$g_friend_fit_for_battle",0),
             (assign,  ":friends_finished",1),
           (try_end),
-          
+
           (this_or_next|eq,  ":friends_finished",1),
           (eq,"$g_player_surrenders",1),
           (assign, "$g_next_menu", "mnu_captivity_start_wilderness"),
 # only destroy supply wagon if he is attached to party tempered chief
-   (try_begin), 
+   (try_begin),
          (eq, "$wagon_attached", 1),
          (troop_clear_inventory,"trp_loot_wagon_storage_1"),  ## supply wagon inventory cleaned after total defeat
          (assign,"$wagon_attached",0),   # supply wagon destroyed
@@ -5046,8 +5052,8 @@ game_menus = [
           (jump_to_menu, "mnu_total_defeat"),
         (try_end),
 
-       
-#chief anadidos       
+
+#chief anadidos
         (try_begin),
           (eq, "$g_encountered_party_template", "pt_looters"),
           (set_background_mesh, "mesh_pic_bandits1"),
@@ -5169,7 +5175,7 @@ game_menus = [
             (set_background_mesh, "mesh_pic_rhodock1"),
                   (else_try),
 			(eq, ":leader_troop_faction", fac_kingdom_31), ##con este reino acaba puestos chief
-            (set_background_mesh, "mesh_pic_rhodock1"),             
+            (set_background_mesh, "mesh_pic_rhodock1"),
 		  (try_end),
         (try_end),
 	  (assign, "$new_encounter", 0),	#MOTO move to end so it can be used!
@@ -5208,24 +5214,24 @@ game_menus = [
 
 			(call_script,"script_change_player_honor",-1),
 			(call_script,"script_rigale_random_troop_death_or_wounded",15,40,"$g_encountered_party"),
-			(display_message,"@Your ambush is a critical success.{s17}",0x669933),			
+			(display_message,"@Your ambush is a critical success.{s17}",0x669933),
 		(else_try),
- 			(eq, "$type_of_ambushing_success", 2), #success       
-			
+ 			(eq, "$type_of_ambushing_success", 2), #success
+
 			(call_script,"script_rigale_random_troop_death_or_wounded",10,25,"$g_encountered_party"),
 			#ajout battle avantage ajouter directement dans le script
-			(display_message,"@Your ambush is a success.{s17}",0x669933),			
+			(display_message,"@Your ambush is a success.{s17}",0x669933),
 		(else_try),
- 			(eq, "$type_of_ambushing_success", 3), #failure   
-				
-			#ajout battle avantage ajouter directement dans le script			
+ 			(eq, "$type_of_ambushing_success", 3), #failure
+
+			#ajout battle avantage ajouter directement dans le script
 			(display_message,"@Your ambush is a failure. You will fight at a disadvantage.{s17}",0xCC3333),
 		(else_try),
- 			(eq, "$type_of_ambushing_success", 4), #crit failure   
-			(display_message,"@Your ambush is a critical failure. You will fight at a big disadvantage.{s17}",0xCC3333),				
-			#ajout battle avantage ajouter directement dans le script			
+ 			(eq, "$type_of_ambushing_success", 4), #crit failure
+			(display_message,"@Your ambush is a critical failure. You will fight at a big disadvantage.{s17}",0xCC3333),
+			#ajout battle avantage ajouter directement dans le script
         (try_end),
-		
+
          (party_get_current_terrain, ":terrain_type", "p_main_party"),
 		(try_begin),
 		  (this_or_next|eq, ":terrain_type", rt_steppe),
@@ -5234,16 +5240,16 @@ game_menus = [
 		 (eq, ":terrain_type", rt_forest),
 				(store_random_in_range, ":scene_a_usar", 1,5),
 				(try_begin),
-					(eq, ":scene_a_usar", 1),					
+					(eq, ":scene_a_usar", 1),
 		  (assign, ":scene_to_use", "scn_ambush_steppe"),
 				(else_try),
-					(eq, ":scene_a_usar", 2),					
+					(eq, ":scene_a_usar", 2),
 		  (assign, ":scene_to_use", "scn_ambush_plains"),
 				(else_try),
-					(eq, ":scene_a_usar", 3),					
+					(eq, ":scene_a_usar", 3),
 		 (assign, ":scene_to_use", "scn_ambush_steppe_forest"),
 				(else_try),
-					(eq, ":scene_a_usar", 4),					
+					(eq, ":scene_a_usar", 4),
 		 (assign, ":scene_to_use", "scn_ambush_plains_forest"),
 				(else_try),
 		 (assign, ":scene_to_use", "scn_ambush_plains_forest"),
@@ -5253,10 +5259,10 @@ game_menus = [
 			 (eq, ":terrain_type", rt_snow_forest),
 				(store_random_in_range, ":scene_a_usar", 1,3),
 				(try_begin),
-					(eq, ":scene_a_usar", 1),					
+					(eq, ":scene_a_usar", 1),
 		  (assign, ":scene_to_use", "scn_ambush_snow"),
 				(else_try),
-					(eq, ":scene_a_usar", 2),					
+					(eq, ":scene_a_usar", 2),
 		 (assign, ":scene_to_use", "scn_ambush_snow_forest"),
 				(else_try),
 		 (assign, ":scene_to_use", "scn_ambush_snow_forest"),
@@ -5264,23 +5270,23 @@ game_menus = [
 		(else_try),
 		 (eq, ":terrain_type", rt_desert),
 		 (assign, ":scene_to_use", "scn_ambush_desert"),
-		(try_end),							
-		
+		(try_end),
+
           (set_jump_mission,"mt_lead_charge_ambush"),
-          (jump_to_scene, ":scene_to_use"),		  
-		  
+          (jump_to_scene, ":scene_to_use"),
+
 		  #(jump_to_scene, "scn_ambusher_plains_player"),
           #(call_script, "script_setup_random_scene"),
-		  
+
 		(assign, "$type_of_ambushing_success", 0),#rigale
         (assign, "$g_next_menu", "mnu_simple_encounter"),
         (jump_to_menu, "mnu_battle_debrief"),
         (change_screen_mission),
-      ]),	
+      ]),
 
 
-	  
-    
+
+
       ("sneaking_attack",  #rigale sneaking script
       [
         (eq, "$encountered_party_friendly", 0),
@@ -5293,8 +5299,8 @@ game_menus = [
           (neq,":terrain",7),
           (neq,":terrain",8),
 	  (str_store_string,s1,"@ "),
-		(try_begin),(eq,is_currently_night), (str_store_string, s1, "@ Nocturnal "),(try_end),			
-		
+		(try_begin),(eq,is_currently_night), (str_store_string, s1, "@ Nocturnal "),(try_end),
+
       ],
      "Launch the{s1}sneak attack.",
      [
@@ -5310,32 +5316,32 @@ game_menus = [
        (call_script, "script_let_nearby_parties_join_current_battle", 1, 0),  #besiege mode, hopefully garrisonned troops join
 
 
-			
+
 		(try_begin),
 			(eq, "$type_of_sneaking_success", 1), #crit success
 			#ajout battle avantage ajouter directement dans le script
 
 			(call_script,"script_change_player_honor",-1),
 			(call_script,"script_rigale_random_troop_death_or_wounded",10,20,"$g_encountered_party"),
-			(display_message,"@Your {s2} sneak attack is a critical success. {s17}",0x669933),			
+			(display_message,"@Your {s2} sneak attack is a critical success. {s17}",0x669933),
 		(else_try),
- 			(eq, "$type_of_sneaking_success", 2), #success       
-		
+ 			(eq, "$type_of_sneaking_success", 2), #success
+
 			(call_script,"script_rigale_random_troop_death_or_wounded",5,10,"$g_encountered_party"),
 			#ajout battle avantage ajouter directement dans le script
-			(display_message,"@Your sneak attack is a success. {s17}",0x669933),			
+			(display_message,"@Your sneak attack is a success. {s17}",0x669933),
 		(else_try),
- 			(eq, "$type_of_sneaking_success", 3), #failure   
-				
-			#ajout battle avantage ajouter directement dans le script			
+ 			(eq, "$type_of_sneaking_success", 3), #failure
+
+			#ajout battle avantage ajouter directement dans le script
 			(display_message,"@Your sneak attack is a failure. You will fight at a disadvantage. {s17}",0xCC3333),
 		(else_try),
- 			(eq, "$type_of_sneaking_success", 4), #crit failure   
-				
-			#ajout battle avantage ajouter directement dans le script			
-			(display_message,"@Your sneak attack is a critical failure. You will fight at a big disadvantage. {s17}",0xCC3333),			
-			
-		  
+ 			(eq, "$type_of_sneaking_success", 4), #crit failure
+
+			#ajout battle avantage ajouter directement dans le script
+			(display_message,"@Your sneak attack is a critical failure. You will fight at a big disadvantage. {s17}",0xCC3333),
+
+
         (try_end),
           (set_jump_mission,"mt_lead_charge"),
           (call_script, "script_setup_random_scene"),
@@ -5349,7 +5355,7 @@ game_menus = [
 
 
 
-      ("encounter_attack",[                
+      ("encounter_attack",[
 		  (neq,"$player_fall_in_ambush",1), #rigale chief
           (this_or_next|eq, "$encountered_party_friendly", 0),#TEMPERED chief CHANGED TO ALLOW ATTACKING FOR DUEL TREACHERY
 		  (eq,"$duel_encounter",2),#TEMPERED chief ADDED FOR WILDERNESS DUEL TREACHERY
@@ -5368,7 +5374,7 @@ game_menus = [
 
 								(assign,"$duel_encounter",-1),#TEMPERED chief ADDED FOR WILDERNESS DUEL
 
-        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),
         (try_begin),
 		  (eq, ":encountered_party_template", "pt_village_farmers"),
 		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
@@ -5406,7 +5412,7 @@ game_menus = [
 ##								(try_begin),
 ##									(le, get_battle_advantage, -4),
 ##										(set_battle_advantage, -4),
-##								(try_end),								
+##								(try_end),
 ##       ###chief bos acaba
                                 (set_party_battle_mode),
                                 (try_begin),
@@ -5423,23 +5429,23 @@ game_menus = [
                                   (jump_to_scene, ":scene_to_use"),
 #caravan chief anadido
                                 (else_try),
-		  (eq, ":encountered_party_template", "pt_kingdom_caravan_party"),			
+		  (eq, ":encountered_party_template", "pt_kingdom_caravan_party"),
 		(try_begin),
                                 (store_random_in_range, ":scene_a_usar", 1,4),
 				(try_begin),
-					(eq, ":scene_a_usar", 1),					
+					(eq, ":scene_a_usar", 1),
 		  (assign, ":scene_to_use", "scn_caravanatacada"),
 				(else_try),
-					(eq, ":scene_a_usar", 2),					
+					(eq, ":scene_a_usar", 2),
 		  (assign, ":scene_to_use", "scn_of_multi_caravan_ambush2"),
 				(else_try),
-					(eq, ":scene_a_usar", 3),					
+					(eq, ":scene_a_usar", 3),
 		  (assign, ":scene_to_use", "scn_of_multi_caravan_ambush2"),
 				(else_try),
 		 (assign, ":scene_to_use", "scn_caravanatacada"),
 				(try_end),
-		(try_end),			
-									
+		(try_end),
+
 			(set_jump_mission,"mt_lead_charge"),
 			(jump_to_scene, ":scene_to_use"),
                                 #chief puentes empieza
@@ -5807,7 +5813,7 @@ game_menus = [
                                   (assign,"$battle_type",23),
                                   (set_jump_mission,"mt_lead_charge"),
                                   (jump_to_scene, ":scene_to_use"),
-                                 #chief escenas unicas acaba			
+                                 #chief escenas unicas acaba
                                 (else_try),
                                   (set_jump_mission,"mt_lead_charge"),
                                   (call_script, "script_setup_random_scene"),
@@ -5818,7 +5824,7 @@ game_menus = [
                                 ]),
 
 ####player recibe rigale emboscada chief empieza
-      ("encounter_attack",[                
+      ("encounter_attack",[
 			(eq,"$player_fall_in_ambush",1),
           (this_or_next|eq, "$encountered_party_friendly", 0),#TEMPERED chief CHANGED TO ALLOW ATTACKING FOR DUEL TREACHERY
 		  (eq,"$duel_encounter",2),#TEMPERED chief ADDED FOR WILDERNESS DUEL TREACHERY
@@ -5838,7 +5844,7 @@ game_menus = [
 
 								(assign,"$duel_encounter",-1),#TEMPERED chief ADDED FOR WILDERNESS DUEL
 
-        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),
         (try_begin),
 		  (eq, ":encountered_party_template", "pt_village_farmers"),
 		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
@@ -5854,7 +5860,7 @@ game_menus = [
 								(try_begin),
 									(le, get_battle_advantage, -4),
 										(set_battle_advantage, -4),
-								(try_end),								
+								(try_end),
        ###chief bos acaba
                                 (set_party_battle_mode),
                                 (try_begin),
@@ -5871,7 +5877,7 @@ game_menus = [
                                   (jump_to_scene, ":scene_to_use"),
 		(else_try),
 			(eq,"$player_fall_in_ambush",1),
-			
+
          (party_get_current_terrain, ":terrain_type", "p_main_party"),
 		(try_begin),
 		  (this_or_next|eq, ":terrain_type", rt_steppe),
@@ -5880,16 +5886,16 @@ game_menus = [
 		 (eq, ":terrain_type", rt_forest),
 				(store_random_in_range, ":scene_a_usar", 1,5),
 				(try_begin),
-					(eq, ":scene_a_usar", 1),					
+					(eq, ":scene_a_usar", 1),
 		  (assign, ":scene_to_use", "scn_ambush_steppe"),
 				(else_try),
-					(eq, ":scene_a_usar", 2),					
+					(eq, ":scene_a_usar", 2),
 		  (assign, ":scene_to_use", "scn_ambush_plains"),
 				(else_try),
-					(eq, ":scene_a_usar", 3),					
+					(eq, ":scene_a_usar", 3),
 		 (assign, ":scene_to_use", "scn_ambush_steppe_forest"),
 				(else_try),
-					(eq, ":scene_a_usar", 4),					
+					(eq, ":scene_a_usar", 4),
 		 (assign, ":scene_to_use", "scn_ambush_plains_forest"),
 				(else_try),
 		 (assign, ":scene_to_use", "scn_ambush_plains_forest"),
@@ -5899,10 +5905,10 @@ game_menus = [
 			 (eq, ":terrain_type", rt_snow_forest),
 				(store_random_in_range, ":scene_a_usar", 1,3),
 				(try_begin),
-					(eq, ":scene_a_usar", 1),					
+					(eq, ":scene_a_usar", 1),
 		  (assign, ":scene_to_use", "scn_ambush_snow"),
 				(else_try),
-					(eq, ":scene_a_usar", 2),					
+					(eq, ":scene_a_usar", 2),
 		 (assign, ":scene_to_use", "scn_ambush_snow_forest"),
 				(else_try),
 		 (assign, ":scene_to_use", "scn_ambush_snow_forest"),
@@ -5910,17 +5916,17 @@ game_menus = [
 		(else_try),
 		 (eq, ":terrain_type", rt_desert),
 		 (assign, ":scene_to_use", "scn_ambush_desert"),
-		(try_end),			
-			
-						
+		(try_end),
+
+
 			(set_jump_mission,"mt_lead_charge_ambushed"),
 			(jump_to_scene, ":scene_to_use"),
-			
+
 						# (assign, "$player_fall_in_ambush", 0),	MOTO now done in mnu_simple_encounter
 			(assign, "$g_next_menu", "mnu_simple_encounter"),
 			(jump_to_menu, "mnu_battle_debrief"),
-			(change_screen_mission),		
-####rigale emboscada acaba chief			
+			(change_screen_mission),
+####rigale emboscada acaba chief
                                 (else_try),
                                   (set_jump_mission,"mt_lead_charge"),
                                   (call_script, "script_setup_random_scene"),
@@ -5929,7 +5935,7 @@ game_menus = [
                                 (jump_to_menu, "mnu_battle_debrief"),
                                 (change_screen_mission),
                                 ]),
-###rigale emboscada acaba      
+###rigale emboscada acaba
 #seafare chief duh
 ##      	 	 ("access_crew", 			#Seafaring reassign crew before battle	#Floris
 ##		[	(party_get_current_terrain, ":terrain", "p_main_party"),
@@ -5938,7 +5944,7 @@ game_menus = [
 ##          (eq,":terrain",8),
 ##		],
 ##      "Reassign your crew for battle.",
-##      [ 
+##      [
 ##		(party_get_slot, ":ship_no", "p_main_party", slot_town_has_ship),
 ##		(party_get_num_companions, reg1, ":ship_no"),
 ##		(try_begin),
@@ -5965,7 +5971,7 @@ game_menus = [
                             "Close in and board the enemy.",[
                                 (assign, "$g_battle_result", 0),
                                 (assign, "$g_engaged_enemy", 1),
-        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),
         (try_begin),
 		  (eq, ":encountered_party_template", "pt_village_farmers"),
 		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
@@ -5991,7 +5997,7 @@ game_menus = [
                                 (store_random_in_range, ":scene_a_sea", 1,3),
                                  (try_begin),
                                 #Adorno
-					(eq, ":scene_a_sea", 1),					
+					(eq, ":scene_a_sea", 1),
                                   (set_jump_mission,"mt_ship_battle2"),
                                  (try_begin),
                                    (val_add,reg10,reg11),
@@ -6029,7 +6035,7 @@ game_menus = [
                                 (change_screen_mission),
                                 ]),
       #chief sea battles acaba
-      
+
       ("encounter_order_attack",[
           (eq, "$encountered_party_friendly", 0),
 		  (neq,"$duel_encounter",1),#TEMPERED  chief ADDED FOR WILDERNESS DUEL
@@ -6072,7 +6078,7 @@ game_menus = [
         ]),
 #tactical chief acaba
 
-#COOP chief Battle#############################		  
+#COOP chief Battle#############################
           #Wulf end
       ("coop_setup",[
 		  (neq,"$player_fall_in_ambush",1), #rigale chief
@@ -6087,8 +6093,8 @@ game_menus = [
         (call_script, "script_coop_get_battle_state", 1), #sets coop_battle_state
         (this_or_next|ge, "$cheat_mode", 1),
         (eq, "$coop_battle_state", coop_battle_state_none),
-      ],"Setup multiplayer battle.", 
-      [   
+      ],"Setup multiplayer battle.",
+      [
         #need to attach villagers to battle
         (try_begin),
           (eq, "$g_encounter_type", enctype_catched_during_village_raid), #if player is raiding
@@ -6109,9 +6115,9 @@ game_menus = [
         (call_script, "script_coop_copy_parties_to_file_sp"), # set coop_battle_state to 1
         (try_begin),
           (eq, "$coop_skip_menu", 1),
-          (change_screen_quit), 
+          (change_screen_quit),
         (try_end),
-      ]),	
+      ]),
 
       ("quit_juego_sin_salvar",[
 		  (neq,"$player_fall_in_ambush",1), #rigale chief
@@ -6125,10 +6131,10 @@ game_menus = [
           #Wulf end
         (this_or_next|ge, "$cheat_mode", 1),#always allow in cheat mode
         (eq, "$coop_battle_state", coop_battle_state_setup_sp),
-      ],"Quit game (will not save).", 
+      ],"Quit game (will not save).",
       [
-        (change_screen_quit), 
-      ]),		
+        (change_screen_quit),
+      ]),
 
       ("coop_use_result",[
 		  (neq,"$player_fall_in_ambush",1), #rigale chief
@@ -6142,15 +6148,15 @@ game_menus = [
           #Wulf end
          (this_or_next|ge, "$cheat_mode", 1),#always allow in cheat mode
          (eq, "$coop_battle_state", coop_battle_state_end_mp),
-      ],"Use multiplayer battle results.", 
+      ],"Use multiplayer battle results.",
       [
         (call_script, "script_calculate_renown_value"),
         (call_script, "script_coop_copy_file_to_parties_sp"),	   # set coop_battle_state to 0
         (assign, "$g_engaged_enemy", 1),
         (assign, "$g_next_menu", "mnu_simple_encounter"),
         (jump_to_menu, "mnu_battle_debrief"),
-      ]),		 
- 
+      ]),
+
 ##      ("encounter_save",[		  (neq,"$player_fall_in_ambush",1), #rigale chief
 ##          (neg|troop_is_wounded, "trp_player"),
 ##		  (neq,"$duel_encounter",1),#TEMPERED chief ADDED FOR WILDERNESS DUEL
@@ -6166,7 +6172,7 @@ game_menus = [
 ##        (leave_encounter),
 ##        (change_screen_return),
 ##       # (rest_for_hours, 1, 1, 0),#rest while not attackable
-##      ]),		  
+##      ]),
 ########################################## chief acaba
 
               ("encounter_leave",[
@@ -6228,7 +6234,7 @@ game_menus = [
 		 (neq,"$duel_encounter",1),#TEMPERED chief ADDED FOR WILDERNESS DUEL
 		 (neq,"$duel_encounter",2),#TEMPERED chief ADDED FOR WILDERNESS DUEL
           ],"Surrender.",[(assign,"$g_player_surrenders",1)]),
-#TEMPERED chief ADDED MENU ITEM TO START PRESENTATION		  
+#TEMPERED chief ADDED MENU ITEM TO START PRESENTATION
       ("force_presentation",[
 	(eq, "$encountered_party_friendly", 0),
 								(eq,"$force_presentation_shown",0),
@@ -6244,7 +6250,7 @@ game_menus = [
 			[
 				(call_script, "script_setup_random_scene"),
 				(assign, "$g_next_menu",-1),
-				(change_screen_mission),				
+				(change_screen_mission),
 			]),
 #TEMPERED chief END CHANGES
     ]
@@ -6267,7 +6273,7 @@ game_menus = [
 
      (store_div, reg4, ":enemy_party_strength", ":max_skill"),
      (val_max, reg4, 1),
-     
+
      (try_begin),
        (eq, ":max_skill_owner", "trp_player"),
        (assign, reg3, 1),
@@ -6313,7 +6319,7 @@ game_menus = [
               (store_troop_faction, ":victorious_faction", ":stack_troop"),
               (call_script, "script_add_log_entry", logent_player_retreated_from_lord_cowardly, "trp_player",  -1, ":stack_troop", ":victorious_faction"),
           (try_end),
-###Troop commentary changes end          
+###Troop commentary changes end
           (party_ignore_player, "$g_encountered_party", 1),
           (leave_encounter),
           (change_screen_return)
@@ -6326,9 +6332,9 @@ game_menus = [
     "none",
     [],
     [
-      ("order_attack_begin",[],"Order the attack to begin.", 
+      ("order_attack_begin",[],"Order the attack to begin.",
       [
-        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),		
+        (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),
         (try_begin),
 		  (eq, ":encountered_party_template", "pt_village_farmers"),
 		  (unlock_achievement, ACHIEVEMENT_HELP_HELP_IM_BEING_REPRESSED),
@@ -6354,18 +6360,18 @@ game_menus = [
       (assign, ":enemy_party_strength", reg0),
                                     (val_div, ":enemy_party_strength", 5), #chief blood
 
- #chief blood bajas reales empieza     
+ #chief blood bajas reales empieza
 ##      (party_collect_attachments_to_party, "p_main_party", "p_collective_ally"),
 ##      (call_script, "script_party_calculate_strength", "p_collective_ally", 1), #exclude player
 ##      (assign, ":total_player_and_followers_strength", reg0),
-##                                    
+##
 ##      (try_begin),
 ##        (le, ":total_player_and_followers_strength", ":enemy_party_strength"),
 ##        (assign, ":minimum_power", ":total_player_and_followers_strength"),
 ##      (else_try),
 ##        (assign, ":minimum_power", ":enemy_party_strength"),
 ##      (try_end),
-##      
+##
 ##      (try_begin),
 ##        (le, ":minimum_power", 25),
 ##        (assign, ":division_constant", 1),
@@ -6408,10 +6414,10 @@ game_menus = [
 ##      (else_try),
 ##        (le, ":minimum_power", 102400),
 ##        (assign, ":division_constant", 14),
-##      (else_try),  
+##      (else_try),
 ##        (assign, ":division_constant", 15),
-##      (try_end),  
-##                                                                        
+##      (try_end),
+##
 ##      (val_div, ":player_party_strength", ":division_constant"), #1.126, ":division_constant" was 5 before
 ##      (val_max, ":player_party_strength", 1), #1.126
 ##      (val_div, ":enemy_party_strength", ":division_constant"), #1.126, ":division_constant" was 5 before
@@ -6430,34 +6436,34 @@ game_menus = [
 ##        (ge, "$g_ally_party", 0),
 ##        (inflict_casualties_to_party_group, "$g_ally_party", ":enemy_party_strength", "p_temp_casualties"),
 ##        (str_store_string_reg, s8, s0),
-##      (try_end),  
-##                                  
+##      (try_end),
+##
 ##      (inflict_casualties_to_party_group, "$g_encountered_party", ":total_player_and_followers_strength", "p_temp_casualties"),
 
 #                                    (call_script,"script_inflict_casualties_to_party", "p_main_party", ":enemy_party_strength"),
                                     (inflict_casualties_to_party_group, "p_main_party", ":enemy_party_strength", "p_temp_casualties"),
                                     (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
                                     (str_store_string_reg, s8, s0),
-                                    
+
 ####                                    (call_script,"script_inflict_casualties_to_party", "$g_encountered_party", ":player_party_strength"),
                                     (inflict_casualties_to_party_group, "$g_encountered_party", ":player_party_strength", "p_temp_casualties"),
 
 #chief bajas reales acaba
       #ozan begin
-      (party_get_num_companion_stacks, ":num_stacks", "p_temp_casualties"), 
+      (party_get_num_companion_stacks, ":num_stacks", "p_temp_casualties"),
       (try_for_range, ":stack_no", 0, ":num_stacks"),
-        (party_stack_get_troop_id, ":stack_troop", "p_temp_casualties", ":stack_no"), 
+        (party_stack_get_troop_id, ":stack_troop", "p_temp_casualties", ":stack_no"),
         (try_begin),
           (party_stack_get_size, ":stack_size", "p_temp_casualties", ":stack_no"),
           (gt, ":stack_size", 0),
           (party_add_members, "p_total_enemy_casualties", ":stack_troop", ":stack_size"), #addition_to_p_total_enemy_casualties
-          (party_stack_get_num_wounded, ":stack_wounded_size", "p_temp_casualties", ":stack_no"),                                    
+          (party_stack_get_num_wounded, ":stack_wounded_size", "p_temp_casualties", ":stack_no"),
           (gt, ":stack_wounded_size", 0),
           (party_wound_members, "p_total_enemy_casualties", ":stack_troop", ":stack_wounded_size"),
         (try_end),
       (try_end),
       #ozan end
-                                                                        
+
       (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
       (str_store_string_reg, s9, s0),
 
@@ -6523,23 +6529,23 @@ game_menus = [
      (try_begin),
        (eq, "$g_battle_result", 1),
        (call_script, "script_change_troop_renown", "trp_player", "$battle_renown_value"),
-       (try_begin),  
+       (try_begin),
          (ge, "$g_encountered_party", 0),
          (party_is_active, "$g_encountered_party"),
          (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),
-         (eq, ":encountered_party_template", "pt_kingdom_caravan_party"),                  
-         
+         (eq, ":encountered_party_template", "pt_kingdom_caravan_party"),
+
          (get_achievement_stat, ":number_of_village_raids", ACHIEVEMENT_THE_BANDIT, 0),
          (get_achievement_stat, ":number_of_caravan_raids", ACHIEVEMENT_THE_BANDIT, 1),
          (val_add, ":number_of_caravan_raids", 1),
          (set_achievement_stat, ACHIEVEMENT_THE_BANDIT, 1, ":number_of_caravan_raids"),
-        
+
          (try_begin),
            (ge, ":number_of_village_raids", 3),
            (ge, ":number_of_caravan_raids", 3),
            (unlock_achievement, ACHIEVEMENT_THE_BANDIT),
      (try_end),
-       (try_end),  
+       (try_end),
 
        (try_begin),
          (party_get_current_terrain, ":cur_terrain", "p_main_party"),
@@ -6547,48 +6553,48 @@ game_menus = [
          (get_achievement_stat, ":number_of_victories_at_snowy_lands", ACHIEVEMENT_BEST_SERVED_COLD, 0),
          (val_add, ":number_of_victories_at_snowy_lands", 1),
          (set_achievement_stat, ACHIEVEMENT_BEST_SERVED_COLD, 0, ":number_of_victories_at_snowy_lands"),
-         
+
          (try_begin),
            (eq, ":number_of_victories_at_snowy_lands", 10),
            (unlock_achievement, ACHIEVEMENT_BEST_SERVED_COLD),
          (try_end),
-       (try_end),              
-       
+       (try_end),
+
        (try_begin),
          (ge, "$g_enemy_party", 0),
          (party_is_active, "$g_enemy_party"),
-         (party_stack_get_troop_id, ":stack_troop", "$g_enemy_party", 0),          
+         (party_stack_get_troop_id, ":stack_troop", "$g_enemy_party", 0),
          (eq, ":stack_troop", "trp_mountain_bandit"),
-          
+
          (get_achievement_stat, ":number_of_victories_aganist_mountain_bandits", ACHIEVEMENT_MOUNTAIN_BLADE, 0),
          (val_add, ":number_of_victories_aganist_mountain_bandits", 1),
          (set_achievement_stat, ACHIEVEMENT_MOUNTAIN_BLADE, 0, ":number_of_victories_aganist_mountain_bandits"),
-         
+
          (try_begin),
            (eq, ":number_of_victories_aganist_mountain_bandits", 10),
            (unlock_achievement, ACHIEVEMENT_MOUNTAIN_BLADE),
          (try_end),
-       (try_end),  
+       (try_end),
 
        (try_begin),
          (is_between, "$g_ally_party", walled_centers_begin, walled_centers_end),
          (unlock_achievement, ACHIEVEMENT_NONE_SHALL_PASS),
        (try_end),
 
-       (try_begin),  
-         (eq, "$g_joined_battle_to_help", 1), 
+       (try_begin),
+         (eq, "$g_joined_battle_to_help", 1),
          (unlock_achievement, ACHIEVEMENT_GOOD_SAMARITAN),
        (try_end),
      (try_end),
-          
+
      (assign, "$g_joined_battle_to_help", 0),
-     
+
      (call_script, "script_count_casualties_and_adjust_morale"),#new
-     (call_script, "script_encounter_calculate_fit"),               
+     (call_script, "script_encounter_calculate_fit"),
 
      (call_script, "script_party_count_fit_regulars", "p_main_party"),
      (assign, "$playerparty_postbattle_regulars", reg0),
-     
+
      (try_begin),
        (eq, "$g_battle_result", 1),
        (eq, "$g_enemy_fit_for_battle", 0),
@@ -6630,23 +6636,23 @@ game_menus = [
 #chief bajas reales blood
      (else_try),
        (eq, "$g_battle_result", -2),
-       (str_store_string, s11, "str_retreat_in_face_of_enemy"),	 
+       (str_store_string, s11, "str_retreat_in_face_of_enemy"),
 	   (assign, "$g_battle_result", 0),
      (else_try),
        (eq, "$g_battle_result", -3),
-       (str_store_string, s11, "str_retreat_not_dead"),	 
-	   (assign, "$g_battle_result", 0),	  
+       (str_store_string, s11, "str_retreat_not_dead"),
+	   (assign, "$g_battle_result", 0),
      (else_try),
        (eq, "$g_battle_result", -4),
-       (str_store_string, s11, "str_retreat_from_fortress"),	 
-	   (assign, "$g_battle_result", 0),		
+       (str_store_string, s11, "str_retreat_from_fortress"),
+	   (assign, "$g_battle_result", 0),
 #chief bajas reales blood acaba
      (try_end),
 #NPC companion changes begin
 ##check for excessive casualties, more forgiving if battle result is good
      (try_begin),
         (gt, "$playerparty_prebattle_regulars", 9),
-        (store_add, ":divisor", 3, "$g_battle_result"), 
+        (store_add, ":divisor", 3, "$g_battle_result"),
         (store_div, ":half_of_prebattle_regulars", "$playerparty_prebattle_regulars", ":divisor"),
         (lt, "$playerparty_postbattle_regulars", ":half_of_prebattle_regulars"),
         (call_script, "script_objectionable_action", tmt_egalitarian, "str_excessive_casualties"),
@@ -6674,7 +6680,7 @@ game_menus = [
   ),
 
 
-  
+
   (
     "total_victory", 0,
     "You shouldn't be reading this... {s9}",
@@ -6686,62 +6692,62 @@ game_menus = [
         (try_begin),
 			(eq, "$routed_party_added", 0), #new
 			(assign, "$routed_party_added", 1),
-          
+
 			#add new party to map (routed_warriors)
 			(call_script, "script_add_routed_party"),
         (end_try),
-        		
+
 		(try_begin),
 			(check_quest_active, "qst_track_down_bandits"),
 			(neg|check_quest_succeeded, "qst_track_down_bandits"),
 			(neg|check_quest_failed, "qst_track_down_bandits"),
-			
+
 			(quest_get_slot, ":quest_party", "qst_track_down_bandits", slot_quest_target_party),
 			(party_is_active, ":quest_party"),
-			(party_get_attached_to, ":quest_party_attached"),		
+			(party_get_attached_to, ":quest_party_attached"),
 			(this_or_next|eq, ":quest_party", "$g_enemy_party"),
 			(eq, ":quest_party_attached", "$g_enemy_party"),
-			(call_script, "script_succeed_quest", "qst_track_down_bandits"),	
+			(call_script, "script_succeed_quest", "qst_track_down_bandits"),
 		(try_end),
-        
+
 		(try_begin),
 			(gt, "$g_private_battle_with_troop", 0),
 			(troop_slot_eq, "$g_private_battle_with_troop", slot_troop_leaded_party, "$g_encountered_party"),
 			(assign, "$g_private_battle_with_troop", 0),
 			(assign, "$g_disable_condescending_comments", 1),
 		(try_end),
-		
+
 		#new - begin
-        (party_get_num_companion_stacks, ":num_stacks", "p_collective_enemy"),          
+        (party_get_num_companion_stacks, ":num_stacks", "p_collective_enemy"),
         (try_for_range, ":i_stack", 0, ":num_stacks"),
 			(party_stack_get_troop_id, ":stack_troop", "p_collective_enemy", ":i_stack"),
 			(is_between, ":stack_troop", lords_begin, lords_end),
 			(troop_is_wounded, ":stack_troop"),
 			(party_add_members, "p_total_enemy_casualties", ":stack_troop", 1),
-        (try_end),                      
+        (try_end),
         #new - end
-          
+
         (try_begin),
-          # Talk to ally leader          
+          # Talk to ally leader
 			(eq, "$thanked_by_ally_leader", 0),
 			(assign, "$thanked_by_ally_leader", 1),
 
 			(gt, "$g_ally_party", 0),
 			(party_get_template_id,":ally_party_template","$g_ally_party"), #chief tempered puesto
-          #	(store_add, ":total_str_without_player", "$g_starting_strength_ally_party", "$g_starting_strength_enemy_party"),                    
-          
+          #	(store_add, ":total_str_without_player", "$g_starting_strength_ally_party", "$g_starting_strength_enemy_party"),
+
 			(store_add, ":total_str_without_player", "$g_starting_strength_friends", "$g_starting_strength_enemy_party"),
 			(val_sub, ":total_str_without_player", "$g_starting_strength_main_party"),
 
 			(store_sub, ":ally_strength_without_player", "$g_starting_strength_friends", "$g_starting_strength_main_party"),
-        
+
 			(store_mul, ":ally_advantage", ":ally_strength_without_player", 100),
 			(val_add, ":total_str_without_player", 1),
 			(val_div, ":ally_advantage", ":total_str_without_player"),
           #Ally advantage=50  means battle was evenly matched
 
 			(store_sub, ":enemy_advantage", 100, ":ally_advantage"),
-        
+
 			(store_mul, ":faction_reln_boost", ":enemy_advantage", "$g_starting_strength_enemy_party"),
 			(val_div, ":faction_reln_boost", 3000),
 			(val_min, ":faction_reln_boost", 4),
@@ -6749,12 +6755,12 @@ game_menus = [
 			(store_mul, "$g_relation_boost", ":enemy_advantage", ":enemy_advantage"),
 			(val_div, "$g_relation_boost", 700),
 			(val_clamp, "$g_relation_boost", 0, 20),
-        
+
 			(party_get_num_companion_stacks, ":num_ally_stacks", "$g_ally_party"),
 			(gt, ":num_ally_stacks", 0),
 			(store_faction_of_party, ":ally_faction","$g_ally_party"),
 
-#TEMPERED chief CHANGES BEGIN FOR JOINING BATTLE WITH SKIRMISH PARTY 
+#TEMPERED chief CHANGES BEGIN FOR JOINING BATTLE WITH SKIRMISH PARTY
 			(try_begin),
 				(eq,"$skirmish_party_no","$g_ally_party"),
 				(assign,"$g_relation_boost",0),
@@ -6785,22 +6791,22 @@ game_menus = [
 				(try_end),
 				(call_script,"script_change_player_relation_with_troop", ":ally_leader", ":rel_boost"),
 			(try_end),
-         (neq, "$freelancer_state", 1), #+freelancer chief #prevents player in party from being thanked by allies	
+         (neq, "$freelancer_state", 1), #+freelancer chief #prevents player in party from being thanked by allies
 			(assign, "$talk_context", tc_ally_thanks),
 			(call_script, "script_setup_troop_meeting", ":ally_leader", ":ally_leader_dna"),
         (else_try),
-          # Talk to enemy leaders                                        
+          # Talk to enemy leaders
          (neq, "$freelancer_state", 1), #+freelancer chief #prevents player in party from talking to enemy leaders
 		(assign, ":break", 0),
-          
-			(party_get_num_companion_stacks, ":num_stacks", "p_total_enemy_casualties"), #p_encountered changed to total_enemy_casualties			        
+
+			(party_get_num_companion_stacks, ":num_stacks", "p_total_enemy_casualties"), #p_encountered changed to total_enemy_casualties
 			(try_for_range, ":stack_no", "$last_defeated_hero", ":num_stacks"), #May 31 bug note -- this now returns some heroes in victorious party as well as in the other party
             (eq, ":break", 0),
             (party_stack_get_troop_id, ":stack_troop", "p_total_enemy_casualties", ":stack_no"),
             (party_stack_get_troop_dna, ":stack_troop_dna", "p_total_enemy_casualties", ":stack_no"),
-            
+
             (troop_is_hero, ":stack_troop"),
-                                    
+
             (store_troop_faction, ":defeated_faction", ":stack_troop"),
             #steve post 0912 changes begin - removed, this is duplicated elsewhere in game menus
             #(call_script, "script_add_log_entry", logent_lord_defeated_by_player, "trp_player",  -1, ":stack_troop", ":defeated_faction"),
@@ -6813,44 +6819,44 @@ game_menus = [
 				(try_begin),
 					(eq, "$cheat_mode", 1),
 					(display_message, "@{!}{s4} skipped in p_total_enemy_casualties capture queue because is friendly"),
-				(try_end),			
+				(try_end),
 			(else_try),
                 (try_begin),
 					(party_stack_get_troop_id, ":party_leader", "$g_encountered_party", 0),
-					(is_between, ":party_leader", active_npcs_begin, active_npcs_end),                
+					(is_between, ":party_leader", active_npcs_begin, active_npcs_end),
 					(troop_slot_eq, ":party_leader", slot_troop_occupation, slto_kingdom_hero),
 					(store_sub, ":kingdom_hero_id", ":party_leader", active_npcs_begin),
-					(get_achievement_stat, ":was_he_defeated_player_before", ACHIEVEMENT_BARON_GOT_BACK, ":kingdom_hero_id"),                
+					(get_achievement_stat, ":was_he_defeated_player_before", ACHIEVEMENT_BARON_GOT_BACK, ":kingdom_hero_id"),
 					(eq, ":was_he_defeated_player_before", 1),
-                
+
 					(unlock_achievement, ACHIEVEMENT_BARON_GOT_BACK),
 				(try_end),
-        
-				(store_add, "$last_defeated_hero", ":stack_no", 1),                    
+
+				(store_add, "$last_defeated_hero", ":stack_no", 1),
 				(call_script, "script_remove_troop_from_prison", ":stack_troop"),
 				(troop_set_slot, ":stack_troop", slot_troop_leaded_party, -1),
 
 				(call_script, "script_cf_check_hero_can_escape_from_player", ":stack_troop"),
-                            
+
 				(str_store_troop_name, s1, ":stack_troop"),
 				(str_store_faction_name, s3, ":defeated_faction"),
 				(str_store_string, s17, "@{s1} of {s3} managed to escape."),
 				(display_log_message, "@{!}{s17}"),
 				(jump_to_menu, "mnu_enemy_slipped_away"),
-				(assign, ":break", 1),			  
+				(assign, ":break", 1),
 			(else_try),
-				(store_add, "$last_defeated_hero", ":stack_no", 1),                    
+				(store_add, "$last_defeated_hero", ":stack_no", 1),
 				(call_script, "script_remove_troop_from_prison", ":stack_troop"),
 				(troop_set_slot, ":stack_troop", slot_troop_leaded_party, -1),
 
 				(assign, "$talk_context", tc_hero_defeated),
-			  
+
 				(call_script, "script_setup_troop_meeting", ":stack_troop", ":stack_troop_dna"),
 				(assign, ":break", 1),
-            (try_end),          
-            (try_end), #tempered add chief    
-                 
-			(eq, ":break", 1),          
+            (try_end),
+            (try_end), #tempered add chief
+
+			(eq, ":break", 1),
         (else_try),
           # Talk to freed heroes
          (neq, "$freelancer_state", 1), #+freelancer chief #prevents player in party from talking to freed heroes after battle
@@ -6865,19 +6871,19 @@ game_menus = [
 				(assign, "$talk_context", tc_hero_freed),
 				(call_script, "script_setup_troop_meeting", ":stack_troop", ":stack_troop_dna"),
 				(assign, ":break", 1),
-			(try_end),          
-			(eq, ":break", 1),          
-        (else_try),                 
+			(try_end),
+			(eq, ":break", 1),
+        (else_try),
 			(eq, "$capture_screen_shown", 0),
 			(assign, "$capture_screen_shown", 1),
 			(party_clear, "p_temp_party"),
-			(assign, "$g_move_heroes", 0),          
+			(assign, "$g_move_heroes", 0),
 			#(call_script, "script_party_prisoners_add_party_companions", "p_temp_party", "p_collective_enemy"),
-        
+
 			#p_total_enemy_casualties deki yarali askerler p_temp_party'e prisoner olarak eklenecek.
 			(call_script, "script_party_add_wounded_members_as_prisoners", "p_temp_party", "p_total_enemy_casualties"),
-        
-			(call_script, "script_party_add_party_prisoners", "p_temp_party", "p_collective_enemy"),          
+
+			(call_script, "script_party_add_party_prisoners", "p_temp_party", "p_collective_enemy"),
 			(try_begin),
 				(call_script, "script_party_calculate_strength", "p_collective_friends_backup",0),
 				(assign,":total_initial_strength", reg(0)),
@@ -6897,7 +6903,7 @@ game_menus = [
 				(assign, "$pin_number", ":ally_share"), #we send this as a parameter to the script.
 				(party_clear, "p_temp_party_2"),
 				(call_script, "script_move_members_with_ratio", "p_temp_party", "p_temp_party_2"),
-        
+
 				#TODO: This doesn't handle prisoners if our allies joined battle after us.
 				(try_begin),
 					(gt, "$g_ally_party", 0),
@@ -6979,7 +6985,7 @@ game_menus = [
 			(else_try),
 				(call_script, "script_battle_political_consequences", "$g_enemy_party", "p_main_party"),
 			(try_end),
-		  
+
 			(call_script, "script_event_player_defeated_enemy_party", "$g_enemy_party"),
 			(call_script, "script_clear_party_group", "$g_enemy_party"),
 			(try_begin),
@@ -7004,7 +7010,7 @@ game_menus = [
 							(display_message, "@{!}Victory comment. Player was alone"),
 						(try_end),
 					(else_try),
-						(ge, "$g_strength_contribution_of_player", 40), 
+						(ge, "$g_strength_contribution_of_player", 40),
 						(call_script, "script_add_log_entry", logent_lord_defeated_by_player, "trp_player",  -1, ":enemy_leader", ":enemy_leader_faction"),
 						(try_begin),
 							(eq, "$cheat_mode", 1),
@@ -7036,32 +7042,32 @@ game_menus = [
 					(jump_to_menu, "$g_next_menu"),
 				(else_try),
 					##diplomacy chief end
-					#(change_screen_return),              
+					#(change_screen_return),
 					(eq, "$g_next_menu", "mnu_castle_taken"),
-              
+
 					(call_script, "script_add_log_entry", logent_castle_captured_by_player, "trp_player", "$g_encountered_party", -1, "$g_encountered_party_faction"),
 					(store_current_hours, ":hours"),
 					(faction_set_slot, "$players_kingdom", slot_faction_ai_last_decisive_event, ":hours"),
-			  
+
 				(try_begin), #player took a walled center while he is a vassal of npc kingdom.
 					(is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
 					(jump_to_menu, "$g_next_menu"),
 				(else_try), #player took a walled center while he is a vassal of rebels.
-					(eq, "$players_kingdom", "fac_player_supporters_faction"), 
-					(assign, "$g_center_taken_by_player_faction", "$g_encountered_party"),                
+					(eq, "$players_kingdom", "fac_player_supporters_faction"),
+					(assign, "$g_center_taken_by_player_faction", "$g_encountered_party"),
 					(neg|faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
 					(faction_get_slot, ":faction_leader", "fac_player_supporters_faction", slot_faction_leader),
-					(change_screen_return),              
+					(change_screen_return),
 					(start_map_conversation, ":faction_leader", -1),
 				(else_try), #player took a walled center for player's kingdom
-					(neg|is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),                
+					(neg|is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
 					(assign, "$g_center_taken_by_player_faction", "$g_encountered_party"),
 					(assign, "$talk_context", tc_give_center_to_fief),
-					(change_screen_return),              
-                
+					(change_screen_return),
+
 					(assign, ":best_troop", "trp_swadian_sharpshooter"),
 					(assign, ":maximum_troop_score", 0),
-                
+
 					(party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
 					(try_for_range, ":stack_no", 0, ":num_stacks"),
 					(party_stack_get_troop_id, ":stack_troop", "p_main_party", ":stack_no"),
@@ -7070,8 +7076,8 @@ game_menus = [
 					(party_stack_get_size, ":stack_size", "p_main_party", ":stack_no"),
 					(party_stack_get_num_wounded, ":num_wounded", "p_main_party", ":stack_no"),
 					(troop_get_slot, ":num_routed", "p_main_party", slot_troop_player_routed_agents),
-                                    
-					(assign, ":continue", 0),                  
+
+					(assign, ":continue", 0),
 					(try_begin),
 						(neg|troop_is_hero, ":stack_troop"),
 						(store_add, ":agents_which_cannot_speak", ":num_wounded", ":num_routed"),
@@ -7081,7 +7087,7 @@ game_menus = [
 						(troop_is_hero, ":stack_troop"),
 						(neg|troop_is_wounded, ":stack_troop"),
 						(assign, ":continue", 1),
-					(try_end),                  
+					(try_end),
 					(eq, ":continue", 1),
 
 					(try_begin),
@@ -7089,19 +7095,19 @@ game_menus = [
 						(troop_get_slot, ":troop_renown", ":stack_troop", slot_troop_renown),
 						(store_mul, ":troop_score", ":troop_renown", 100),
 						(val_add, ":troop_score", 1000),
-					(else_try),                  
+					(else_try),
 						(store_character_level, ":troop_level", ":stack_troop"),
 						(assign, ":troop_score", ":troop_level"),
 					(try_end),
-                                    
+
 					(try_begin),
 						(gt, ":troop_score", ":maximum_troop_score"),
 						(assign, ":maximum_troop_score", ":troop_score"),
-						(assign, ":best_troop", ":stack_troop"),                    
+						(assign, ":best_troop", ":stack_troop"),
 						(party_stack_get_troop_dna, ":best_troop_dna", "p_main_party", ":stack_no"),
 					(try_end),
-                (try_end),                                                                
-                                
+                (try_end),
+
                 (start_map_conversation, ":best_troop", ":best_troop_dna"),
             (try_end),
 		(try_end),
@@ -7145,7 +7151,7 @@ game_menus = [
 		  (else_try),
 			(call_script, "script_battle_political_consequences", "p_main_party", "$g_enemy_party"),
 		  (try_end),
-		  
+
           (call_script, "script_loot_player_items", "$g_enemy_party"),
 
           (assign, "$g_move_heroes", 0),
@@ -7153,7 +7159,7 @@ game_menus = [
           (call_script, "script_party_add_party_prisoners", "p_temp_party", "p_main_party"),
           (call_script, "script_party_prisoners_add_party_companions", "p_temp_party", "p_main_party"),
           (distribute_party_among_party_group, "p_temp_party", "$g_enemy_party"),
-        
+
           (assign, "$g_prison_heroes", 1),
           (call_script, "script_party_remove_all_companions", "p_main_party"),
           (assign, "$g_prison_heroes", 0),
@@ -7276,7 +7282,7 @@ game_menus = [
          ]),
       ]
   ),
-  
+
   (
     "pre_join",0,
     "You come across a battle between {s2} and {s1}. You decide to...",
@@ -7331,7 +7337,7 @@ game_menus = [
       ("pre_join_leave",[],"Don't get involved.",[(leave_encounter),(change_screen_return)]),
     ]
   ),
-  
+
   (
     "join_battle",0,
     "You are helping the {s2} against the {s1}. You have {reg10} troops fit for battle against the enemy's {reg11}.",
@@ -7340,7 +7346,7 @@ game_menus = [
         (str_store_party_name, 1,"$g_enemy_party"),
         (str_store_party_name, 2,"$g_ally_party"),
 
-        (call_script, "script_encounter_calculate_fit"),                
+        (call_script, "script_encounter_calculate_fit"),
 
         (try_begin),
           (eq, "$new_encounter", 1),
@@ -7364,11 +7370,11 @@ game_menus = [
           (assign, ":num_enemy_regulars_remaining", reg0),
           (assign, ":enemy_finished",0),
           (try_begin),
-            (eq, "$g_battle_result", 1), 
-            
+            (eq, "$g_battle_result", 1),
+
             (this_or_next|le, ":num_enemy_regulars_remaining", 0), #battle won
             (le, ":num_enemy_regulars_remaining",  "$num_routed_enemies"), #replaced for above line because we do not want routed agents to spawn again in next turn of battle.
-            
+
             (assign, ":enemy_finished",1),
           (else_try),
             (eq, "$g_engaged_enemy", 1),
@@ -7376,7 +7382,7 @@ game_menus = [
             (ge, "$g_friend_fit_for_battle",1),
             (assign, ":enemy_finished",1),
           (try_end),
-          
+
           (this_or_next|eq, ":enemy_finished",1),
           (eq,"$g_enemy_surrenders",1),
           (assign, "$g_next_menu", -1),
@@ -7387,13 +7393,13 @@ game_menus = [
           (assign, ":battle_lost", 0),
           (try_begin),
             (eq, "$g_battle_result", -1),
-            
+
             #(eq, ":num_ally_regulars_remaining", 0), #battle lost
             (le, ":num_ally_regulars_remaining",  "$num_routed_allies"), #replaced for above line because we do not want routed agents to spawn again in next turn of battle.
-            
+
             (assign, ":battle_lost",1),
           (try_end),
-          
+
           (this_or_next|eq, ":battle_lost",1),
           (eq,"$g_player_surrenders",1),
           (leave_encounter),
@@ -7447,7 +7453,7 @@ game_menus = [
                                 (store_random_in_range, ":scene_a_sea", 1,4),
                                  (try_begin),
                                 #Adorno
-					(eq, ":scene_a_sea", 1),					
+					(eq, ":scene_a_sea", 1),
                                   (set_jump_mission,"mt_ship_battle2"),
                                  (try_begin),
                                    (val_add,reg10,reg11),
@@ -7493,38 +7499,38 @@ game_menus = [
         (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
         (jump_to_menu,"mnu_join_order_attack"),
       ]),
-      
-#COOP chief Join battle#############################		  
+
+#COOP chief Join battle#############################
       ("coop_setup",[
 	    (neq, "$freelancer_state", 1),	#+freelancer chief
         (call_script, "script_coop_get_battle_state", 1), #sets coop_battle_state
         (this_or_next|ge, "$cheat_mode", 1),
         (eq, "$coop_battle_state", coop_battle_state_none),
-      ],"Setup multiplayer battle.", 
+      ],"Setup multiplayer battle.",
       [
         (assign, "$coop_battle_type", coop_battle_type_field_battle),
         (assign, "$coop_encountered_party", "$g_enemy_party"),
         (call_script, "script_coop_copy_parties_to_file_sp"),
         (try_begin),
           (eq, "$coop_skip_menu", 1),
-          (change_screen_quit), 
+          (change_screen_quit),
         (try_end),
-      ]),	
-	  
+      ]),
+
       ("quit_game_will_save",[
  	    (neq, "$freelancer_state", 1),	#+freelancer chief
        (this_or_next|ge, "$cheat_mode", 1),#always allow in cheat mode
         (eq, "$coop_battle_state", coop_battle_state_setup_sp),
-      ],"Quit game (will not save).", 
+      ],"Quit game (will not save).",
       [
-        (change_screen_quit), 
-      ]),		
+        (change_screen_quit),
+      ]),
 
       ("coop_use_result",[
 	    (neq, "$freelancer_state", 1),	#+freelancer chief
         (this_or_next|ge, "$cheat_mode", 1),#always allow in cheat mode
          (eq, "$coop_battle_state", coop_battle_state_end_mp),
-      ],"Use multiplayer battle results.", 
+      ],"Use multiplayer battle results.",
       [
 
         (call_script, "script_calculate_renown_value"),
@@ -7533,7 +7539,7 @@ game_menus = [
       #change these for menu
         (assign, "$g_next_menu", "mnu_join_battle"),
         (assign, "$g_joined_battle_to_help", 1),
-      ]),		 
+      ]),
 ##      ("encounter_save",[],"Give me time to save.",
 ##      [
 ##        (call_script, "script_coop_get_battle_state", 2),
@@ -7541,8 +7547,8 @@ game_menus = [
 ##        (change_screen_return),
 ##        # (rest_for_hours, 1, 1, 0),#rest while not attackable
 ##
-##      ]),		  
-          
+##      ]),
+
 ########################################## chief acaba
 
       ("join_leave",[],"Leave.",
@@ -7556,7 +7562,7 @@ game_menus = [
            (call_script, "script_add_log_entry", logent_player_retreated_from_lord, "trp_player",  -1, ":enemy_leader", -1),
            (display_message, "@Player retreats from battle."), #chief anadido
         (try_end),
-        
+
         (leave_encounter),(change_screen_return)]),
 	#+freelancer chief
 	("join_wounded",[
@@ -7578,7 +7584,7 @@ game_menus = [
       (call_script, "script_party_calculate_strength", "p_collective_friends", 0),
       (assign, ":friend_party_strength", reg0),
       (val_div, ":friend_party_strength", 5),
-                                    
+
       (call_script, "script_party_calculate_strength", "p_collective_enemy", 0),
       (assign, ":enemy_party_strength", reg0),
       (val_div, ":enemy_party_strength", 5),
@@ -7596,18 +7602,18 @@ game_menus = [
       (inflict_casualties_to_party_group, "p_main_party", ":enemy_party_strength_for_p", "p_temp_casualties"),
       (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
       (str_store_string_reg, s8, s0),
-                                    
+
       (inflict_casualties_to_party_group, "$g_enemy_party", ":friend_party_strength", "p_temp_casualties"),
-                                    
+
       #ozan begin
-      (party_get_num_companion_stacks, ":num_stacks", "p_temp_casualties"), 
+      (party_get_num_companion_stacks, ":num_stacks", "p_temp_casualties"),
       (try_for_range, ":stack_no", 0, ":num_stacks"),
-        (party_stack_get_troop_id, ":stack_troop", "p_temp_casualties", ":stack_no"), 
+        (party_stack_get_troop_id, ":stack_troop", "p_temp_casualties", ":stack_no"),
         (try_begin),
           (party_stack_get_size, ":stack_size", "p_temp_casualties", ":stack_no"),
           (gt, ":stack_size", 0),
           (party_add_members, "p_total_enemy_casualties", ":stack_troop", ":stack_size"), #addition_to_p_total_enemy_casualties
-          (party_stack_get_num_wounded, ":stack_wounded_size", "p_temp_casualties", ":stack_no"),                                    
+          (party_stack_get_num_wounded, ":stack_wounded_size", "p_temp_casualties", ":stack_no"),
           (gt, ":stack_wounded_size", 0),
           (party_wound_members, "p_total_enemy_casualties", ":stack_troop", ":stack_wounded_size"),
         (try_end),
@@ -7616,7 +7622,7 @@ game_menus = [
 
       (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
       (str_store_string_reg, s10, s0),
-                                    
+
       (call_script, "script_collect_friendly_parties"),
       #(party_collect_attachments_to_party, "$g_ally_party", "p_collective_ally"),
 
@@ -7630,10 +7636,10 @@ game_menus = [
        (try_begin),
          (call_script, "script_party_count_members_with_full_health","p_main_party"),
          (assign, ":num_our_regulars_remaining", reg0),
-                                      
+
          #(le, ":num_our_regulars_remaining", 0),
          (le, ":num_our_regulars_remaining", "$num_routed_us"), #replaced for above line because we do not want routed agents to spawn again in next turn of battle.
-                                      
+
          (assign, "$no_soldiers_left", 1),
          (str_store_string, s4, "str_join_order_attack_failure"),
        (else_try),
@@ -7658,7 +7664,7 @@ game_menus = [
     ]
   ),
 
-  
+
 # Towns
   (
     "zendar",mnf_auto_enter,
@@ -8000,7 +8006,7 @@ game_menus = [
    [
           (store_random_in_range, ":rand", 0, 8),
                                           (try_begin),
-                                            (eq, ":rand", 0), 
+                                            (eq, ":rand", 0),
        (jump_to_menu,"mnu_refugee_recruit_troops1"),
                                           (else_try),
                                             (eq, ":rand", 1),
@@ -8039,7 +8045,7 @@ game_menus = [
             ],
         [
             ("enter",[(eq,"$g_historia2",0),],"Approach.",
-             [  
+             [
                   (set_jump_mission,"mt_dungeon_romanbath"),
       (modify_visitors_at_site,"scn_hidden_valley"),
                   (reset_visitors),
@@ -8108,7 +8114,7 @@ game_menus = [
             ],
         [
             ("enter",[(eq,"$g_historia21",0),],"Approach.",
-             [  
+             [
                   (set_jump_mission,"mt_cueva_odin"),
       (modify_visitors_at_site,"scn_odin_cave"),
                   (reset_visitors),
@@ -8184,7 +8190,7 @@ game_menus = [
         ]),
     ],
   ),
-               
+
   (
     "hadrian_wall1",0,
     "You arrive at the Hadrian Wall Ruins.",
@@ -8376,7 +8382,7 @@ game_menus = [
 		(else_try),
           (eq, "$g_encountered_party", "p_monasterio8"),
       (modify_visitors_at_site,"scn_monasterio3_costa"),
-		(try_end),        
+		(try_end),
 
                   (reset_visitors),
 	  (try_begin),
@@ -8466,12 +8472,12 @@ game_menus = [
           (eq, "$g_encountered_party", "p_monasterio8"),
 	  (scene_set_slot, "scn_monasterio1_costa", slot_scene_visited, 1),
                  (jump_to_scene,"scn_monasterio3_costa"),
-		(try_end),        
+		(try_end),
                (change_screen_mission),
           (try_end),
 ]),
 
-##      ("trade_monasterio", 
+##      ("trade_monasterio",
 ##      [                  (this_or_next|eq, "$g_sod_faith", 1),
 ##							 (eq, "$g_sod_faith", 4),],
 ##	  "Trade with the monastery.",
@@ -8517,7 +8523,7 @@ game_menus = [
 		(else_try),
           (eq, "$g_encountered_party", "p_monasterio8"),
       (modify_visitors_at_site,"scn_monasterio3_normal_interior"),
-		(try_end),        
+		(try_end),
              (reset_visitors),
              (set_visitor, 43, "trp_abad"),
              (set_jump_entry, 0),
@@ -8553,7 +8559,7 @@ game_menus = [
           (eq, "$g_encountered_party", "p_monasterio8"),
 	  (scene_set_slot, "scn_monasterio1_costa", slot_scene_visited, 1),
                  (jump_to_scene,"scn_monasterio3_normal_interior"),
-		(try_end),        
+		(try_end),
              (change_screen_mission),
            (try_end),
         ],"Door to the arena."),
@@ -8568,7 +8574,7 @@ game_menus = [
    [
           (store_random_in_range, ":rand", 0, 8),
                                           (try_begin),
-                                            (eq, ":rand", 0), 
+                                            (eq, ":rand", 0),
        (jump_to_menu,"mnu_refugee_recruit_troops12"),
                                           (else_try),
                                             (eq, ":rand", 1),
@@ -8631,7 +8637,7 @@ game_menus = [
 ##           (assign, "$g_infinite_camping", 0),
 ##           (assign, "$g_player_icon_state", pis_camping),
 ##		   (party_set_slot,"p_main_party",slot_party_entrenched,0), #TEMPERED chief ADDED LINE FOR NO ENTRENCHMENT
-##	   (assign,"$current_camp_party",-1), #TEMPERED chief ADDED LINE FOR NO ENTRENCHMENT           
+##	   (assign,"$current_camp_party",-1), #TEMPERED chief ADDED LINE FOR NO ENTRENCHMENT
            (rest_for_hours_interactive, 24 * 3, 5, 1), #rest while attackable
           (assign, "$sabe_leer", 1),
 		(display_message, "@On several occasions throughout your life you have seen the strange Latin letters, and therefore quickly learn how to read. Perhaps in time you will also learn how to write!"),
@@ -8692,16 +8698,16 @@ game_menus = [
            (assign, "$g_player_icon_state", pis_camping),
 		   (party_set_slot,"p_main_party",slot_party_entrenched,0), #TEMPERED chief ADDED LINE FOR NO ENTRENCHMENT
 	   (assign,"$current_camp_party",-1), #TEMPERED chief ADDED LINE FOR NO ENTRENCHMENT
-      
+
            (try_begin),
              (party_is_active, "p_main_party"),
              (party_get_current_terrain, ":cur_terrain", "p_main_party"),
              (try_begin),
                (eq, ":cur_terrain", rt_desert),
                (unlock_achievement, ACHIEVEMENT_SARRANIDIAN_NIGHTS),
-             (try_end),  
+             (try_end),
            (try_end),
-           
+
            (rest_for_hours_interactive, 24 * 365, 5, 1), #rest while attackable
 
            (change_screen_return),
@@ -8743,10 +8749,10 @@ game_menus = [
   ####monasterios chief acaba
 
 
-  
+
   (
     "test_scene",0, #TEMPERED chief CHANGED FOR ENTRENCHMENT SCENE EDITING
-    "You enter the test scene.", 
+    "You enter the test scene.",
     "none",
     [],
     [
@@ -8775,8 +8781,8 @@ game_menus = [
       ("enter",[(eq,"$temp_presentation_shown",0)],"camp snow forest",[[set_jump_mission,"mt_ai_training"],[jump_to_scene,"scn_camp_snow_forest"],[change_screen_mission]]),
       ("enter",[(eq,"$temp_presentation_shown",0)],"camp steppe",[[set_jump_mission,"mt_ai_training"],[jump_to_scene,"scn_camp_steppe"],[change_screen_mission]]),
 	  ("enter",[(eq,"$temp_presentation_shown",0)],"camp steppe forest",[[set_jump_mission,"mt_ai_training"],[jump_to_scene,"scn_camp_steppe_forest"],[change_screen_mission]]),
-      
-      
+
+
     ]
   ),
   (
@@ -8805,7 +8811,7 @@ game_menus = [
       ("leave",[],"Leave.",[(leave_encounter),(change_screen_return)]),
     ]
   ),
-  
+
 ##  (
 ##    "center_under_attack_while_resting",0,
 ##    "{s1} has been besieged by {s2}, and the enemy seems to be preparing for an assault!\
@@ -8992,7 +8998,7 @@ game_menus = [
           (leave_encounter),
           (change_screen_return),
         (else_try),
-          (call_script, "script_party_count_members_with_full_health", "p_collective_friends"),          
+          (call_script, "script_party_count_members_with_full_health", "p_collective_friends"),
           (assign, ":ally_num_soldiers", reg0),
           (eq, "$g_battle_result", -1),
 #COOP bugfix chief ##############
@@ -9085,7 +9091,7 @@ game_menus = [
          (try_end),
          (jump_to_menu,"mnu_castle_attack_walls_with_allies_simulate")]),
 
-#COOP Join siege chief#############################		  
+#COOP Join siege chief#############################
       ("coop_setup",
        [
 	    (neq, "$freelancer_state", 1),	#+freelancer chief
@@ -9093,32 +9099,32 @@ game_menus = [
         (this_or_next|ge, "$cheat_mode", 1),
         (eq, "$coop_battle_state", coop_battle_state_none),
        ],
-       "Setup multiplayer battle.", 
+       "Setup multiplayer battle.",
        [
         (assign, "$coop_battle_type", coop_battle_type_siege_player_attack),
         (assign, "$coop_encountered_party", "$g_enemy_party"),
         (call_script, "script_coop_copy_parties_to_file_sp"),#clears registers
         (try_begin),
           (eq, "$coop_skip_menu", 1),
-          (change_screen_quit), 
+          (change_screen_quit),
         (try_end),
 
-       ]),	
-	  
+       ]),
+
       ("quit_game_will_not",[
 	    (neq, "$freelancer_state", 1),	#+freelancer chief
         (this_or_next|ge, "$cheat_mode", 1),#always allow in cheat mode
         (eq, "$coop_battle_state", coop_battle_state_setup_sp),
-      ],"Quit game (will not save).", 
+      ],"Quit game (will not save).",
       [
-        (change_screen_quit), 
-      ]),		
+        (change_screen_quit),
+      ]),
 
       ("coop_use_result",[
  	    (neq, "$freelancer_state", 1),	#+freelancer chief
        (this_or_next|ge, "$cheat_mode", 1),#always allow in cheat mode
          (eq, "$coop_battle_state", coop_battle_state_end_mp),
-      ],"Use multiplayer battle results.", 
+      ],"Use multiplayer battle results.",
       [
         (call_script, "script_calculate_renown_value"),
         (assign, "$g_siege_final_menu", "mnu_besiegers_camp_with_allies"),
@@ -9142,7 +9148,7 @@ game_menus = [
 
         (call_script, "script_coop_copy_file_to_parties_sp"),	     #remove troops from parties
         (jump_to_menu, "mnu_battle_debrief"),
-      ]),		  
+      ]),
 
 ##      ("encounter_save",[],"Give me time to save.",
 ##      [
@@ -9150,9 +9156,9 @@ game_menus = [
 ##        (leave_encounter),
 ##        (change_screen_return),
 ##       # (rest_for_hours, 1, 1, 0),#rest while not attackable
-##      ]),		  
-          
-	  
+##      ]),
+
+
 
 ################################################ chief acaba
 	#+freelancer chief
@@ -9177,7 +9183,7 @@ game_menus = [
           (try_begin),
         (party_slot_eq, "$g_encountered_party", slot_saqueo_state, 1),
           (jump_to_menu, "mnu_saqueo_loot_continue"),
-        (else_try), 
+        (else_try),
 #chief saqueo acaba
 
         (assign, "$g_enemy_party", "$g_encountered_party"),
@@ -9214,19 +9220,19 @@ game_menus = [
           (try_begin),
             (party_slot_eq, "$g_encountered_party", slot_village_infested_by_bandits, "trp_peasant_woman"),
             (assign, "$encountered_party_hostile", 1),
-            (assign,"$entry_to_town_forbidden",1),            
+            (assign,"$entry_to_town_forbidden",1),
           (try_end),
           ##diplomacy chief end
 #chief anadido blood
-		  (party_get_slot, ":lord", "$g_encountered_party", slot_town_lord),	  
+		  (party_get_slot, ":lord", "$g_encountered_party", slot_town_lord),
           (try_begin),
 			(eq, ":lord", "trp_player"),
 			(assign, "$sneaked_into_town",1),
-			(assign, "$town_entered", 1),			
+			(assign, "$town_entered", 1),
 			(assign, "$encountered_party_hostile", 0),
 			(assign,"$entry_to_town_forbidden",0),
-			(assign, "$encountered_party_friendly", 1),			
-          (try_end),		  
+			(assign, "$encountered_party_friendly", 1),
+          (try_end),
 #chief anadido blood acaba
 
           (assign,"$cant_sneak_into_town",0),
@@ -9243,7 +9249,7 @@ game_menus = [
         (try_end),
 
         (str_clear,s4),
-        (try_begin), 
+        (try_begin),
           (eq,"$entry_to_town_forbidden",1),
           (try_begin),
             (eq,"$cant_sneak_into_town",1),
@@ -9286,7 +9292,7 @@ game_menus = [
           (else_try),
 		    (is_between, ":center_faction", kingdoms_begin, kingdoms_end),
             (str_store_string,s11,"str__this_town_is_temporarily_under_royal_control"),
-		  (else_try),	
+		  (else_try),
             (str_store_string,s11,"str__the_townspeople_seem_to_have_declared_their_independence"),
           (try_end),
         (try_end),
@@ -9371,18 +9377,18 @@ game_menus = [
             (eq, "$g_player_besiege_town", "$g_encountered_party"),
             (jump_to_menu, "mnu_castle_besiege"),
           (try_end),
-        ##diplomacy chief end             
+        ##diplomacy chief end
         (else_try),
-          (party_slot_eq, "$g_encountered_party", slot_party_type, spt_castle),                    
+          (party_slot_eq, "$g_encountered_party", slot_party_type, spt_castle),
           (this_or_next|party_slot_eq, "$g_encountered_party", slot_town_lord, "trp_player"),
-          (faction_slot_eq, "$g_encountered_party_faction", slot_faction_leader, "trp_player"),          
+          (faction_slot_eq, "$g_encountered_party_faction", slot_faction_leader, "trp_player"),
           (jump_to_menu, "mnu_enter_your_own_castle"),
         (else_try),
           (party_slot_eq,"$g_encountered_party", slot_party_type,spt_castle),
           (ge, "$g_encountered_party_relation", 0),
           (this_or_next|eq,"$castle_undefended", 1),
           (this_or_next|eq, "$g_permitted_to_center", 1),
-          (eq, "$g_encountered_party_faction", "$players_kingdom"),          
+          (eq, "$g_encountered_party_faction", "$players_kingdom"),
           (jump_to_menu, "mnu_town"),
         (else_try),
           (party_slot_eq,"$g_encountered_party", slot_party_type,spt_town),
@@ -9392,7 +9398,7 @@ game_menus = [
           (eq, "$g_player_besiege_town", "$g_encountered_party"),
           (jump_to_menu, "mnu_castle_besiege"),
         (try_end),
-		
+
           ##diplomacy chief begin
           (try_begin),
             (party_slot_eq, "$g_encountered_party", slot_village_infested_by_bandits, "trp_peasant_woman"),
@@ -9437,17 +9443,17 @@ game_menus = [
 ##                                                   (assign, "$talk_context", tc_castle_gate),
 ##                                                   (change_screen_map_conversation, ":cur_guard")
                                                    ]),
-      
+
       ("town_sneak",
         [
           (try_begin),
             (party_slot_eq, "$g_encountered_party", slot_party_type,spt_town),
             (str_store_string, s7, "str_town"),
-          (else_try),  
+          (else_try),
             (str_store_string, s7, "str_castle"),
-          (try_end),  
+          (try_end),
 
-          (party_slot_eq|neg, "$g_encountered_party", slot_town_lord, "trp_player"), #chief anadido blood          
+          (party_slot_eq|neg, "$g_encountered_party", slot_town_lord, "trp_player"), #chief anadido blood
           (eq, "$entry_to_town_forbidden", 1),
           (eq, "$cant_sneak_into_town", 0)
         ],
@@ -9511,15 +9517,15 @@ game_menus = [
        "Begin negotiations.",
        [
           (jump_to_menu, "mnu_dplmc_riot_negotiate"),
-        ]),       
+        ]),
 
-     ##diplomacy chief end          
-         
+     ##diplomacy chief end
+
       ("castle_start_siege",
        [
            ##diplomacy chief begin
            (neg|party_slot_eq, "$g_encountered_party", slot_village_infested_by_bandits, "trp_peasant_woman"),
-           ##diplomacy chief  end 
+           ##diplomacy chief  end
            (this_or_next|party_slot_eq, "$g_encountered_party", slot_center_is_besieged_by, -1),
            (             party_slot_eq, "$g_encountered_party", slot_center_is_besieged_by, "p_main_party"),
 
@@ -9532,7 +9538,7 @@ game_menus = [
                       (store_relation, ":reln", "$g_encountered_party_faction", "fac_player_supporters_faction"),
                   (try_end),
                   #MOTO end add consequences as vassal
-           
+
          #  (store_relation, ":reln", "$g_encountered_party_faction", "fac_player_supporters_faction"),
                      (lt, ":reln", 1),#Tempered chief changed from 0 to allow attacking neutral castles
            (lt, "$g_encountered_party_2", 1),
@@ -9585,7 +9591,7 @@ game_menus = [
          (assign, "$g_mantlets_1", 0),
          (assign, "$g_enemigo_quema_comida", 0),
          (assign, "$g_cabezas_dentro", 0),
-       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),               
+       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),
        (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 0),
          #siege warfare acaba
          (jump_to_menu, "mnu_castle_besiege"),
@@ -9790,7 +9796,7 @@ game_menus = [
        "{s5}.",[(troop_get_slot, "$castle_meeting_selected_troop", "trp_temp_array_a", 8),(jump_to_menu,"mnu_castle_meeting_selected")]),
       ("guard_meet_s5",[(gt, "$num_castle_meeting_troops", 9),(troop_get_slot, ":troop_no", "trp_temp_array_a", 9),(str_store_troop_name, s5, ":troop_no")],
        "{s5}.",[(troop_get_slot, "$castle_meeting_selected_troop", "trp_temp_array_a", 9),(jump_to_menu,"mnu_castle_meeting_selected")]),
-      
+
       ("forget_it",[],
        "Forget it.",
        [(str_clear, s10), #fire arrow chief
@@ -9824,7 +9830,7 @@ game_menus = [
     "{reg30?You and {s11} succeeded to presure {s12} to surrender without bloodshed!:\
 You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({reg13})^Your efforts were not crowned with success.}",
     "none",
-    [ 
+    [
       (party_get_slot, ":town_lord", "$g_encountered_party", slot_town_lord),
       (gt, ":town_lord", 0),
       #(is_between, ":town_lord", companions_begin, kingdom_heroes_end),
@@ -9990,7 +9996,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
     ],
   ),
 ####fire arrow persuadir con lord chief acaba
-  
+
    (
     "castle_besiege",mnf_enable_hot_keys|mnf_scale_picture,
     "You are laying siege to {s1}. {s2} ^^{s3} ^^{s15}^^{s16}^^{s17}", #siege warfare anade
@@ -10013,7 +10019,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
           (assign, "$g_siege_method", 0),
           (assign, "$g_siege_sallied_out_once", 0),
           (assign, "$g_days_spent_starving", 0), #AJM chief THE $G MAKES IT PERSISTENT... SADLY ALSO GLOBAL BUT WHAT YA GONNA DO
-          (assign, "$g_next_sally_at", 0), #AJM chief        
+          (assign, "$g_next_sally_at", 0), #AJM chief
         (try_end),
 
         (party_get_slot, ":town_food_store", "$g_encountered_party", slot_party_food_store),
@@ -10029,7 +10035,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
         (else_try),
           (assign, reg6, 0),
         (try_end),
-        
+
         (try_begin),
           (gt, reg3, 0),
           (str_store_string, s2, "@The {reg6?town's:castle's} food stores should last for {reg3} more days."),
@@ -10077,7 +10083,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
                 (set_jump_mission,"mt_castle_attack_walls_defenders_sally"),
                 (assign, "$g_siege_battle_state", 0),
               (try_end),
-              (assign, "$cant_talk_to_enemy", 0),           
+              (assign, "$cant_talk_to_enemy", 0),
               (assign, "$g_siege_final_menu", "mnu_castle_besiege"),
               (assign, "$g_next_menu", "mnu_castle_besiege_inner_battle"),
               (assign, "$g_siege_method", 0), #reset siege timer
@@ -10123,7 +10129,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
           (try_end),
         (try_end),
 #Tempered chief added siege camp comment
-		(str_store_string,s15,"str_siege_camp_none"), 
+		(str_store_string,s15,"str_siege_camp_none"),
 		(try_begin),
 			(party_slot_eq,"p_main_party",slot_party_siege_camp,1),
 			(str_store_string,s15,"str_siege_camp_complete"),
@@ -10132,7 +10138,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
 			(str_store_string,s15,"str_siege_camp_incomplete"),
 		(try_end),
 #Tempered changes end
-####siege warfare chief        
+####siege warfare chief
         (str_store_string, s16, "str_empty_string"),
             (try_begin),
               (eq, "$g_siege_circunvalation", 1),
@@ -10175,7 +10181,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
           (change_screen_return),
           (party_collect_attachments_to_party, "$g_encountered_party", "p_collective_enemy"), #recalculate so that
           (call_script, "script_party_copy", "p_encountered_party_backup", "p_collective_enemy"), #leaving troops will not be considered as captured
-          (party_set_faction,"$g_encountered_party",":castle_faction"), 
+          (party_set_faction,"$g_encountered_party",":castle_faction"),
         (try_end),
 
         #Check for victory or defeat....
@@ -10183,7 +10189,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
         (assign, "$g_ally_party", -1),
         (str_store_party_name, 1,"$g_encountered_party"),
         (call_script, "script_encounter_calculate_fit"),
-        
+
         (assign, reg11, "$g_enemy_fit_for_battle"),
         (assign, reg10, "$g_friend_fit_for_battle"),
 
@@ -10203,10 +10209,10 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
             (le, "$g_enemy_fit_for_battle", 0),
             (ge, "$g_friend_fit_for_battle", 1),
             (assign, ":enemy_finished", 1),
-          (try_end),           
+          (try_end),
           (this_or_next|eq, ":enemy_finished", 1),
-          (eq, "$g_enemy_surrenders", 1),     
-          (assign, "$g_next_menu", "mnu_dplmc_town_riot_removed"), 
+          (eq, "$g_enemy_surrenders", 1),
+          (assign, "$g_next_menu", "mnu_dplmc_town_riot_removed"),
           (jump_to_menu, "mnu_total_victory"),
         ##diplomacy chief end
         (else_try),
@@ -10219,7 +10225,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
 #COOP bugfix chief ##############
 #            (le, "$g_enemy_fit_for_battle",0),
             (le, "$g_enemy_fit_for_battle", "$num_routed_enemies"),  #replaced for above line because we do not want routed agents to spawn again in next turn of battle.
-#########################  
+#########################
             (ge, "$g_friend_fit_for_battle", 1),
             (assign, ":enemy_finished", 1),
           (try_end),
@@ -10238,22 +10244,22 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
          (assign, "$g_mantlets_1", 0),
          (assign, "$g_enemigo_quema_comida", 0),
          (assign, "$g_cabezas_dentro", 0),
-       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),               
+       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),
        (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 0),
          #siege warfare acaba
 
-          (assign, "$g_next_menu", "mnu_castle_taken"), 
+          (assign, "$g_next_menu", "mnu_castle_taken"),
           (jump_to_menu, "mnu_total_victory"),
         (else_try),
           (call_script, "script_party_count_members_with_full_health", "p_main_party"),
           (assign, ":main_party_fit_regulars", reg0),
           (eq, "$g_battle_result", -1),
 #COOP bugfix ##############
-#          (eq, ":main_party_fit_regulars", 0), #all lost (TODO : )             
+#          (eq, ":main_party_fit_regulars", 0), #all lost (TODO : )
            (le, ":main_party_fit_regulars",  "$num_routed_allies"), #replaced for above line because we do not want routed agents to spawn again in next turn of battle.
 #########################
           (assign, "$g_next_menu", "mnu_captivity_start_castle_defeat"),
-		  (party_set_slot,"p_main_party",slot_party_siege_camp,0), #Tempered chief added for siege camp		  
+		  (party_set_slot,"p_main_party",slot_party_siege_camp,0), #Tempered chief added for siege camp
          #siege warfare chief
          (assign, "$g_empieza_asedio", 0),
          (assign, "$g_siege_circunvalation", 0),
@@ -10266,7 +10272,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
          (assign, "$g_mantlets_1", 0),
          (assign, "$g_enemigo_quema_comida", 0),
          (assign, "$g_cabezas_dentro", 0),
-       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),               
+       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),
        (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 0),
          #siege warfare acaba
           (jump_to_menu, "mnu_total_defeat"),
@@ -10287,7 +10293,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
             (call_script, "script_setup_party_meeting", "$g_encountered_party"),
           (try_end),
            ]),
-        
+
       ("wait_24_hours",[],"Wait until tomorrow.", [
           (assign,"$auto_besiege_town","$g_encountered_party"),
           (assign, "$g_siege_force_wait", 1),
@@ -10321,7 +10327,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
 						(rest_for_hours_interactive, ":time_to_wait", 5, 1), #rest while attackable
 						(party_set_slot,"p_main_party",slot_party_siege_camp,-1),
 						(assign, "$cant_talk_to_enemy", 0),
-						(change_screen_return),						
+						(change_screen_return),
 					]),
 		("siege_camp_interupted",[(party_slot_eq,"p_main_party",slot_party_siege_camp,-1),(player_has_item,"itm_tools"),],"Continue to entrench your position",
 					[	(assign,"$auto_besiege_town","$g_encountered_party"),
@@ -10335,11 +10341,11 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
 					[	(assign,"$auto_besiege_town","$g_encountered_party"),
 						(assign, "$g_siege_force_wait", 1),
 						#(set_jump_mission,"mt_siege_camp"),#Tempered todo have mt call script (call_script, "script_remove_siege_objects"),
-						#(party_get_slot,":scene_to_use","$g_encountered_party",slot_center_siege_camp_scene),						
-#Tempered begin code for using standard entrench scenes						
+						#(party_get_slot,":scene_to_use","$g_encountered_party",slot_center_siege_camp_scene),
+#Tempered begin code for using standard entrench scenes
 						(call_script,"script_visit_camp"),
-#Tempered end code for standard entrench scenes						
-#Tempered begin code for town/castle siege camp scenes						
+#Tempered end code for standard entrench scenes
+#Tempered begin code for town/castle siege camp scenes
 #						(try_begin),
 #							(party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
 #							(party_get_slot, ":battle_scene", "$g_encountered_party", slot_town_walls),
@@ -10349,12 +10355,12 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
 #Tempered end code for siege camp scenes
 
 						# (jump_to_scene,":battle_scene"),
-						# (change_screen_mission), 
-					]),	
-									
+						# (change_screen_mission),
+					]),
+
 #Tempered end changes
 
-      
+
       ("castle_lead_attack",
        [
          (eq, "$g_siege_realism", 0),
@@ -10364,7 +10370,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
          (store_current_hours, ":cur_hours"),
          (ge, ":cur_hours", "$g_siege_method_finish_hours"),
        ],
-       "Lead your soldiers in an assault.", 
+       "Lead your soldiers in an assault.",
        [
            (try_begin),
 #Tempered chief begin code for town/castle siege camp scenes
@@ -10378,7 +10384,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
              (party_get_slot, ":battle_scene", "$g_encountered_party", slot_castle_exterior),
            (try_end),
 
-           (call_script, "script_calculate_renown_value"),            
+           (call_script, "script_calculate_renown_value"),
            (call_script, "script_calculate_battle_advantage"),
            (assign, ":battle_advantage", reg0),
            (val_mul, ":battle_advantage", 2),
@@ -10404,7 +10410,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
            (else_try),
              (set_jump_mission,"mt_castle_attack_walls_ladder"),
            (try_end),
-           (assign, "$cant_talk_to_enemy", 0),           
+           (assign, "$cant_talk_to_enemy", 0),
            (assign, "$g_siege_final_menu", "mnu_castle_besiege"),
            (assign, "$g_next_menu", "mnu_castle_besiege_inner_battle"),
            (assign, "$g_siege_method", 0), #reset siege timer
@@ -10427,7 +10433,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
          ],
        "Order your soldiers to attack while you stay back...", [(assign, "$cant_talk_to_enemy", 0),(jump_to_menu,"mnu_castle_attack_walls_simulate")]),
 
-###COOP Siege attack chief#############################		  
+###COOP Siege attack chief#############################
 ##      ("coop_setup",
 ##       [
 ##        (call_script, "script_coop_get_battle_state", 1), #sets coop_battle_state
@@ -10438,14 +10444,14 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
 ##         (store_current_hours, ":cur_hours"),
 ##         (ge, ":cur_hours", "$g_siege_method_finish_hours"),
 ##       ],
-##       "Setup multiplayer battle.", 
+##       "Setup multiplayer battle.",
 ##       [
 ##        (assign, "$coop_battle_type", coop_battle_type_siege_player_attack),
 ##        (assign, "$coop_encountered_party", "$g_enemy_party"),
 ##        (call_script, "script_coop_copy_parties_to_file_sp"),#clears registers
 ##        (try_begin),
 ##          (eq, "$coop_skip_menu", 1),
-##          (change_screen_quit), 
+##          (change_screen_quit),
 ##        (try_end),
 ##
 ###TODO siege sally
@@ -10464,17 +10470,17 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
 ###             (set_jump_mission,"mt_castle_attack_walls_ladder"),
 ###           (try_end),
 ##
-##       ]),	
-##	  
+##       ]),
+##
 ##
 ##      ("quit",[
 ##        (this_or_next|ge, "$cheat_mode", 1),#always allow in cheat mode
 ##        (eq, "$coop_battle_state", coop_battle_state_setup_sp),
 ##        (ge, "$g_siege_method", 1),
-##      ],"Quit game (will not save).", 
+##      ],"Quit game (will not save).",
 ##      [
-##        (change_screen_quit), 
-##      ]),		
+##        (change_screen_quit),
+##      ]),
 ##
 ##      ("coop_use_result",[
 ##         (this_or_next|ge, "$cheat_mode", 1),#always allow in cheat mode
@@ -10483,18 +10489,18 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
 
 ##         (store_current_hours, ":cur_hours"),
 ##         (ge, ":cur_hours", "$g_siege_method_finish_hours"),
-##      ],"Use multiplayer battle results.", 
+##      ],"Use multiplayer battle results.",
 ##      [
 ##
 ##        (call_script, "script_calculate_renown_value"),
-##        (assign, "$cant_talk_to_enemy", 0),           
+##        (assign, "$cant_talk_to_enemy", 0),
 ##        (assign, "$g_siege_final_menu", "mnu_castle_besiege"),
 ##        (assign, "$g_next_menu", "mnu_castle_besiege"),
 ##        (assign, "$g_siege_method", 0), #reset siege timer
 ##
 ##        (call_script, "script_coop_copy_file_to_parties_sp"),	     #remove troops from parties
 ##        (jump_to_menu, "mnu_battle_debrief"),
-##      ]),		  
+##      ]),
 ##
 ##      ("encounter_save",[(ge, "$g_siege_method", 1)],"Give me time to save.",
 ##      [
@@ -10502,9 +10508,9 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
 ##        (leave_encounter),
 ##        (change_screen_return),
 ##       # (rest_for_hours, 1, 1, 0),#rest while not attackable
-##      ]),	
+##      ]),
 ################################################## chief acaba
-      
+
       ("build_ladders",[         (eq, "$g_siege_realism", 0),
 (party_slot_eq, "$current_town", slot_center_siege_with_belfry, 0),(party_slot_eq, "$current_town", slot_center_siege_with_ram, 0),(eq, "$g_siege_method", 0)],
        "Prepare ladders to attack the walls.", [(jump_to_menu,"mnu_construct_ladders")]),
@@ -10533,12 +10539,12 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
         (assign, "$g_next_menu", "mnu_castle_taken"),
         (jump_to_menu, "mnu_total_victory"),
        ]),
-	   
+
       ("lift_siege",[],"Abandon the siege.",
        [
          (call_script, "script_lift_siege", "$g_player_besiege_town", 0),
          (assign,"$g_player_besiege_town", -1),
-		 (party_set_slot,"p_main_party",slot_party_siege_camp,0),  #Tempered chief added for siege camp		 
+		 (party_set_slot,"p_main_party",slot_party_siege_camp,0),  #Tempered chief added for siege camp
          #siege warfare chief
          (assign, "$g_empieza_asedio", 0),
          (assign, "$g_siege_circunvalation", 0),
@@ -10551,13 +10557,13 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
          (assign, "$g_mantlets_1", 0),
          (assign, "$g_enemigo_quema_comida", 0),
          (assign, "$g_cabezas_dentro", 0),
-       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),               
+       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),
        (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 0),
          #siege warfare acaba
          (change_screen_return)]),
     ]
   ),
-  
+
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 #-#-#-#Hunting chief Mod begin#-#-#-#
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#
@@ -10663,7 +10669,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
 ##   [
 ##     ]
 ## ),
-  
+
    ("coat_herd",0,
   "You encounter a herd of goat. They belong to the flock of a pastor who swings his sling at you until you move away.",
   "none",
@@ -10922,7 +10928,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
 
   #-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 #-#-#-#Hunting chief Mod end#-#-#-#
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#  
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 ######Siege warfare Chief
     (
     "siege_plan",0,
@@ -10931,7 +10937,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
     [
         (set_background_mesh, "mesh_siegeplan"),
 #string para circunvalacion
-		(str_store_string,s15,"str_circunvalation_none"), 
+		(str_store_string,s15,"str_circunvalation_none"),
 		(try_begin),
            (eq, "$g_siege_circunvalation", 1),
 			(str_store_string,s15,"str_circunvalation_incomplete"),
@@ -10943,7 +10949,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
 #string para cerrar puerto
                                           (try_begin),
 (party_slot_eq,"$current_town",slot_town_port, 1),
-		(str_store_string,s16,"str_puerto_none"), 
+		(str_store_string,s16,"str_puerto_none"),
 		(try_begin),
            (eq, "$g_close_port", 1),
 			(str_store_string,s16,"str_puerto_incomplete"),
@@ -10954,7 +10960,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
 	(try_end),
 
         ####strings traicion
-		(str_store_string,s17,"str_empty_string"), 
+		(str_store_string,s17,"str_empty_string"),
 		(try_begin),
            (eq, "$g_traicion_interna", 2),
 			(str_store_string,s17,"@>>Your attempt to find a traitor in the settlement has failed."),
@@ -10962,9 +10968,9 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
            (eq, "$g_traicion_interna", 3),
 			(str_store_string,s17,"@>>You have found a traitor within the city that has supported your efforts to conquer."),
 		(try_end),
-       
+
 #####strings quemar campos cercanos
-		(str_store_string,s18,"str_empty_string"), 
+		(str_store_string,s18,"str_empty_string"),
 		(try_begin),
            (eq, "$g_campos_cercanos", 2),
 			(str_store_string,s18,"@>>You've burned the crops and farms nearby."),
@@ -10973,7 +10979,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
 			(str_store_string,s18,"@>>Your men are burning and attacking crops and farms close by on your command."),
 		(try_end),
          ####strings infiltrado
-		(str_store_string,s19,"str_empty_string"), 
+		(str_store_string,s19,"str_empty_string"),
 		(try_begin),
            (eq, "$g_infiltracion_interna", 2),
 			(str_store_string,s19,"@>>Your attempt to infiltrate your men in the settlement has failed."),
@@ -10982,7 +10988,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
 			(str_store_string,s19,"@>>Your men have succeeded in infiltrating and damaging the enemy."),
 		(try_end),
          ####saneamiento chief
-		(str_store_string,s20,"str_empty_string"), 
+		(str_store_string,s20,"str_empty_string"),
 		(try_begin),
            (eq, "$g_siege_saneamiento", 0),
 			(str_store_string,s20,"@>>Your camp smells horrible. The ground is muddy, your men defecate between tents, and you see rats running here and there."),
@@ -11001,11 +11007,11 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
           (try_begin),
             (party_slot_eq, "$g_encountered_party", slot_party_type,spt_town),
             (str_store_string, s7, "str_town"),
-          (else_try),  
+          (else_try),
             (str_store_string, s7, "str_castle"),
-          (try_end),  
+          (try_end),
 
-          (party_slot_eq|neg, "$g_encountered_party", slot_town_lord, "trp_player"), #chief anadido blood          
+          (party_slot_eq|neg, "$g_encountered_party", slot_town_lord, "trp_player"), #chief anadido blood
         ],
        "Infiltrate yourself and attempt starting to investigate {s7} defenses.",
        [
@@ -11038,11 +11044,11 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
        (try_begin),
             (party_slot_eq, "$g_encountered_party", slot_party_type,spt_town),
             (str_store_string, s7, "str_town"),
-          (else_try),  
+          (else_try),
             (str_store_string, s7, "str_castle"),
-          (try_end),  
+          (try_end),
 
-          (party_slot_eq|neg, "$g_encountered_party", slot_town_lord, "trp_player"), #chief anadido blood          
+          (party_slot_eq|neg, "$g_encountered_party", slot_town_lord, "trp_player"), #chief anadido blood
         ],
        "Find a traitor within {s7} defenses.",
        [
@@ -11068,7 +11074,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
        "Any news on the men sent in search of a traitor?", [
           (store_random_in_range, ":rand", 0, 5),
                                           (try_begin),
-                                            (eq, ":rand", 0), 
+                                            (eq, ":rand", 0),
        (jump_to_menu,"mnu_traicion_resultado1"),
                                           (else_try),
                                             (eq, ":rand", 1),
@@ -11110,7 +11116,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
        "Your men have worked hard and the circunvalation is done (Order close it).", [
         #Reduce prosperity of the center by 3
         (call_script, "script_change_center_prosperity", "$g_encountered_party", -3),
-      (party_set_slot,"$g_encountered_party",centro_bloqueado, 1),               
+      (party_set_slot,"$g_encountered_party",centro_bloqueado, 1),
        (assign, "$g_siege_circunvalation", 2),
            (jump_to_menu,"mnu_siege_plan")]),
 #####circunvalacion acaba
@@ -11122,11 +11128,11 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
        (try_begin),
             (party_slot_eq, "$g_encountered_party", slot_party_type,spt_town),
             (str_store_string, s7, "str_town"),
-          (else_try),  
+          (else_try),
             (str_store_string, s7, "str_castle"),
-          (try_end),  
+          (try_end),
 
-          (party_slot_eq|neg, "$g_encountered_party", slot_town_lord, "trp_player"), #chief anadido blood          
+          (party_slot_eq|neg, "$g_encountered_party", slot_town_lord, "trp_player"), #chief anadido blood
         ],
        "Infiltrate some men in the defences of {s7} to cause damage.",
        [
@@ -11151,7 +11157,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
        "Any news on the men sent to infiltrate?", [
           (store_random_in_range, ":rand", 0, 5),
                                           (try_begin),
-                                            (eq, ":rand", 0), 
+                                            (eq, ":rand", 0),
        (jump_to_menu,"mnu_infiltracion_resultado1"),
                                           (else_try),
                                             (eq, ":rand", 1),
@@ -11197,7 +11203,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
        "Many ships have been seized and your men are ready for action (Order closed port).", [
           (store_random_in_range, ":rand", 0, 8),
                                           (try_begin),
-                                            (eq, ":rand", 0), 
+                                            (eq, ":rand", 0),
        (jump_to_menu,"mnu_port_battle1"),
                                           (else_try),
                                             (eq, ":rand", 1),
@@ -11224,7 +11230,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
 #####cerrar puerto
             ]),
 
-      ("closed_port3",[     
+      ("closed_port3",[
        ],
        "Coastal Assault (attack the settlement from the sea)", [
                                           (try_begin),
@@ -11318,7 +11324,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
        [
          (call_script, "script_lift_siege", "$g_player_besiege_town", 0),
          (assign,"$g_player_besiege_town", -1),
-		 (party_set_slot,"p_main_party",slot_party_siege_camp,0),  #Tempered chief added for siege camp		 
+		 (party_set_slot,"p_main_party",slot_party_siege_camp,0),  #Tempered chief added for siege camp
          #siege warfare chief
          (assign, "$g_empieza_asedio", 0),
          (assign, "$g_siege_circunvalation", 0),
@@ -11331,7 +11337,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
          (assign, "$g_mantlets_1", 0),
          (assign, "$g_enemigo_quema_comida", 0),
          (assign, "$g_cabezas_dentro", 0),
-       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),               
+       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),
        (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 0),
          #siege warfare acaba
          (change_screen_return)]),
@@ -11348,7 +11354,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
         (set_background_mesh, "mesh_siegeassault"),
         (str_store_party_name,s4,"$current_town"),
         ####listos para asalto
-		(str_store_string,s17,"str_empty_string"), 
+		(str_store_string,s17,"str_empty_string"),
 		(try_begin),
            (neq, "$g_listos_para_asalto", 1),
            (eq, "$g_siege_method", 1),
@@ -11381,7 +11387,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 			(str_store_string,s17,"@>>It's summer and hot, maybe too hot. But at that moment, you do not feel anything. As always, before the battle, you set aside time for a few inevitable memories of the past... Then, close your mind, ready for battle, prepared, in the worst case, to face death."),
 		(try_end),
 #(eq, "$g_mantlets_1", 0),
-        		(str_store_string,s18,"str_empty_string"), 
+        		(str_store_string,s18,"str_empty_string"),
 		(try_begin),
           (eq, "$g_mantlets_1", 1),
 			(str_store_string,s18,"@>>Your men have finished building the mantlets. Now you can use them to protect your soldiers in the vanguard attack, and your main force for the final charge."),
@@ -11394,11 +11400,11 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
           (try_begin),
             (party_slot_eq, "$g_encountered_party", slot_party_type,spt_town),
             (str_store_string, s7, "str_town"),
-          (else_try),  
+          (else_try),
             (str_store_string, s7, "str_castle"),
-          (try_end),  
+          (try_end),
 
-          (party_slot_eq|neg, "$g_encountered_party", slot_town_lord, "trp_player"), #chief anadido blood          
+          (party_slot_eq|neg, "$g_encountered_party", slot_town_lord, "trp_player"), #chief anadido blood
         ],
        "Order a scout to come close to the town and provide data on the defences of {s7}.",
        [
@@ -11469,7 +11475,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
                                     (assign, ":battle_scene", "scn_castle_42_exterior2"),
            (try_end),
 
-           (call_script, "script_calculate_renown_value"),            
+           (call_script, "script_calculate_renown_value"),
            (call_script, "script_calculate_battle_advantage"),
            (assign, ":battle_advantage", reg0),
            (val_mul, ":battle_advantage", 2),
@@ -11488,7 +11494,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
              (party_slot_eq, "$current_town", slot_town_port, 1),
              (set_jump_mission,"mt_castle_attack_walls_ladder_coastal"),
            (try_end),
-           (assign, "$cant_talk_to_enemy", 0),           
+           (assign, "$cant_talk_to_enemy", 0),
            (assign, "$g_siege_final_menu", "mnu_castle_besiege"),
            (assign, "$g_next_menu", "mnu_castle_besiege_inner_battle"),
            (assign, "$g_siege_method", 0), #reset siege timer
@@ -11510,7 +11516,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
          (ge, "$g_siege_method", 1),
          (gt, "$g_friend_fit_for_battle", 3),
        ],
-       "The hour has arrived. Lead your soldiers in an assault! Blood, sweat and steel...", 
+       "The hour has arrived. Lead your soldiers in an assault! Blood, sweat and steel...",
        [
            (try_begin),
 #Tempered chief begin code for town/castle siege camp scenes
@@ -11524,7 +11530,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
              (party_get_slot, ":battle_scene", "$g_encountered_party", slot_castle_exterior),
            (try_end),
 
-           (call_script, "script_calculate_renown_value"),            
+           (call_script, "script_calculate_renown_value"),
            (call_script, "script_calculate_battle_advantage"),
            (assign, ":battle_advantage", reg0),
            (val_mul, ":battle_advantage", 2),
@@ -11550,7 +11556,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
            (else_try),
              (set_jump_mission,"mt_castle_attack_walls_ladder"),
            (try_end),
-           (assign, "$cant_talk_to_enemy", 0),           
+           (assign, "$cant_talk_to_enemy", 0),
            (assign, "$g_siege_final_menu", "mnu_castle_besiege"),
            (assign, "$g_next_menu", "mnu_castle_besiege_inner_battle"),
            (assign, "$g_siege_method", 0), #reset siege timer
@@ -11571,7 +11577,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
          ],
        "Order your soldiers to assault while you stay back...", [(assign, "$cant_talk_to_enemy", 0),(jump_to_menu,"mnu_castle_attack_walls_simulate2")]),
 
-###COOP Siege attack chief#############################		  
+###COOP Siege attack chief#############################
 ##      ("coop_setup",
 ##       [
 ##        (call_script, "script_coop_get_battle_state", 1), #sets coop_battle_state
@@ -11583,14 +11589,14 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 ##         (store_current_hours, ":cur_hours"),
 ##         (ge, ":cur_hours", "$g_siege_method_finish_hours"),
 ##       ],
-##       "Setup multiplayer battle.", 
+##       "Setup multiplayer battle.",
 ##       [
 ##        (assign, "$coop_battle_type", coop_battle_type_siege_player_attack),
 ##        (assign, "$coop_encountered_party", "$g_enemy_party"),
 ##        (call_script, "script_coop_copy_parties_to_file_sp"),#clears registers
 ##        (try_begin),
 ##          (eq, "$coop_skip_menu", 1),
-##          (change_screen_quit), 
+##          (change_screen_quit),
 ##        (try_end),
 ##
 ###TODO siege sally
@@ -11609,18 +11615,18 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 ###             (set_jump_mission,"mt_castle_attack_walls_ladder"),
 ###           (try_end),
 ##
-##       ]),	
-##	  
+##       ]),
+##
 ##
 ##      ("quit",[
 ##        (this_or_next|ge, "$cheat_mode", 1),#always allow in cheat mode
 ##        (this_or_next|eq, "$coop_battle_state", coop_battle_state_setup_sp),
 ##        (eq, "$g_listos_para_asalto", 1), #siege warfare chief
 ##        (ge, "$g_siege_method", 1),
-##      ],"Quit game (will not save).", 
+##      ],"Quit game (will not save).",
 ##      [
-##        (change_screen_quit), 
-##      ]),		
+##        (change_screen_quit),
+##      ]),
 ##
 ##      ("coop_use_result",[
 ##         (this_or_next|ge, "$cheat_mode", 1),#always allow in cheat mode
@@ -11629,11 +11635,11 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 ##         (ge, "$g_siege_method", 1),
 ##         (store_current_hours, ":cur_hours"),
 ##         (ge, ":cur_hours", "$g_siege_method_finish_hours"),
-##      ],"Use multiplayer battle results.", 
+##      ],"Use multiplayer battle results.",
 ##      [
 ##
 ##        (call_script, "script_calculate_renown_value"),
-##        (assign, "$cant_talk_to_enemy", 0),           
+##        (assign, "$cant_talk_to_enemy", 0),
 ##        (assign, "$g_siege_final_menu", "mnu_castle_besiege"),
 ##        (assign, "$g_next_menu", "mnu_castle_besiege"),
 ##        (assign, "$g_siege_method", 0), #reset siege timer
@@ -11641,7 +11647,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 ##
 ##        (call_script, "script_coop_copy_file_to_parties_sp"),	     #remove troops from parties
 ##        (jump_to_menu, "mnu_battle_debrief"),
-##      ]),		  
+##      ]),
 ##
 ##      ("encounter_save",[(eq, "$g_listos_para_asalto", 1),(ge, "$g_siege_method", 1)],"Give me time to save.",
 ##      [
@@ -11649,7 +11655,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 ##        (leave_encounter),
 ##        (change_screen_return),
 ##       # (rest_for_hours, 1, 1, 0),#rest while not attackable
-##      ]),	
+##      ]),
 ################################################## chief acaba
 
 #siege warfare ram
@@ -11688,7 +11694,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
        [
          (call_script, "script_lift_siege", "$g_player_besiege_town", 0),
          (assign,"$g_player_besiege_town", -1),
-		 (party_set_slot,"p_main_party",slot_party_siege_camp,0),  #Tempered chief added for siege camp		 
+		 (party_set_slot,"p_main_party",slot_party_siege_camp,0),  #Tempered chief added for siege camp
          #siege warfare chief
          (assign, "$g_empieza_asedio", 0),
          (assign, "$g_siege_circunvalation", 0),
@@ -11701,7 +11707,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
          (assign, "$g_mantlets_1", 0),
          (assign, "$g_enemigo_quema_comida", 0),
          (assign, "$g_cabezas_dentro", 0),
-       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),               
+       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),
        (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 0),
          #siege warfare acaba
          (change_screen_return)]),
@@ -11781,7 +11787,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
         (try_end),
         (assign, ":result", "$g_battle_result"),#will be reset at script_encounter_calculate_fit
         (call_script, "script_encounter_calculate_fit"),
-        
+
 # TODO: To use for the future:
             (str_store_string, s1, "@As a last defensive effort, you retreat to the main hall of the keep.\
  You and your remaining soldiers will put up a desperate fight here. If you are defeated, there's no other place to fall back to."),
@@ -11860,7 +11866,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
     ]
   ),
 
-  
+
   (
     "construct_ladders",0,
     "As the party member with the highest Engineer skill ({reg2}), {reg3?you estimate:{s3} estimates} that it will take\
@@ -11874,7 +11880,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
      (store_sub, reg4, 15, ":max_skill"),
      (val_mul, reg4, 6),
 #     (val_div, reg4, 3),
-     
+
      (try_begin),
        (eq, ":max_skill_owner", "trp_player"),
        (assign, reg3, 1),
@@ -11905,8 +11911,8 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 #TEMPERED chief  TO DO    MAKE ENTRENCH OPTION HERE FOR SIEGES, COSTS HALF TIME OF BUILDING SIEGE TOWER. MAKE CORRESPONDING CHANGES TO SCENES
 #TEMPERED    THIS IS MAINLY USEFUL FOR LONG SIEGES WHERE YOU ARE LIKELY TO BE ATTACKED BY OTHER PARTIES DURING SIEGE
 #TEMPERED    ADD BOMBARDMENTS TO THE WALLS FROM TREBUCHETS IN ENCAMPMENT (FLAMING ROCK HITS RANDOMLY AROUND CASTLE WALLS FOR SHORT PERIOD)
-#TEMPERED    TIME TAKEN TO BUILD WILL BE (PARTY ENGINEER SKILL X 2 = TOTAL, 24 - TOTAL = HOURS TAKEN)      
-  
+#TEMPERED    TIME TAKEN TO BUILD WILL BE (PARTY ENGINEER SKILL X 2 = TOTAL, 24 - TOTAL = HOURS TAKEN)
+
   (
     "construct_siege_tower",0,
     "As the party member with the highest Engineer skill ({reg2}), {reg3?you estimate:{s3} estimates} that building Siege Tower and other equipament for assault will take\
@@ -11919,7 +11925,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 
      (store_sub, reg4, 15, ":max_skill"),
      (val_mul, reg4, 6),
-     
+
      (try_begin),
        (eq, ":max_skill_owner", "trp_player"),
        (assign, reg3, 1),
@@ -11959,7 +11965,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 
      (store_sub, reg4, 15, ":max_skill"),
      (val_mul, reg4, 6),
-     
+
      (try_begin),
        (eq, ":max_skill_owner", "trp_player"),
        (assign, reg3, 1),
@@ -11984,8 +11990,8 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
       ("go_back",[],
        "Go back.", [(jump_to_menu,"mnu_castle_besiege")]),
         ],
-  ), 
-###siege warfare acaba ram  
+  ),
+###siege warfare acaba ram
 ###construir manteletes
   (
     "build_mantles2",0,
@@ -12000,7 +12006,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
      (store_sub, reg4, 15, ":max_skill"),
      (val_mul, reg4, 6),
      (val_div, reg4, 3),
-     
+
      (try_begin),
        (eq, ":max_skill_owner", "trp_player"),
        (assign, reg3, 1),
@@ -12036,7 +12042,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
         (try_begin),
           (set_background_mesh, "mesh_laddersassault"),
         (try_end),
-        
+
         (call_script, "script_party_calculate_strength", "p_main_party", 1), #skip player
         (assign, ":player_party_strength", reg0),
         (val_div, ":player_party_strength", 10),
@@ -12086,7 +12092,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
     ]
   ),
 
-  
+
 ####SIEGE WARFARE CHIEF menus extras
    (
     "castle_attack_walls_simulate2",mnf_disable_all_keys,
@@ -12096,7 +12102,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
         (try_begin),
           (set_background_mesh, "mesh_laddersassault"),
         (try_end),
-        
+
         (call_script, "script_party_calculate_strength", "p_main_party", 1), #skip player
         (assign, ":player_party_strength", reg0),
         (val_div, ":player_party_strength", 12),
@@ -12176,7 +12182,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
      (store_sub, reg4, 15, ":max_skill"),
      (val_mul, reg4, 6),
      (val_div, reg4, 3),
-     
+
      (try_begin),
        (eq, ":max_skill_owner", "trp_player"),
        (assign, reg3, 1),
@@ -12218,7 +12224,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 
      (store_sub, reg4, 16, ":max_skill"),
      (val_mul, reg4, 10),
-     
+
      (try_begin),
        (eq, ":max_skill_owner", "trp_player"),
        (assign, reg3, 1),
@@ -12244,7 +12250,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
        "Go back.", [(jump_to_menu,"mnu_siege_plan")]),
         ],
   ),
-     
+
   (
     "block_port",0,
     "To lock the port the requisition of as many boats of fishermen and merchants as possible is required, hire mercenary ships and make war canoes for our men. As the party member with the highest Looting skill ({reg2}), {reg3?you estimate:{s3} estimates} that it will take\
@@ -12258,7 +12264,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 
      (store_sub, reg4, 17, ":max_skill"),
      (val_mul, reg4, 6),
-     
+
      (try_begin),
        (eq, ":max_skill_owner", "trp_player"),
        (assign, reg3, 1),
@@ -12285,7 +12291,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
         ],
   ),
 
-      ("traicion_interna2",0,                                                                                    
+      ("traicion_interna2",0,
        "Your siege works begin to demoralize the defenders. Some soldiers are ready to contact the garrison or the inhabitants at {s7} and probe if someone would be willing to commit treason and facilitate the conquest. They need 500 scillingas for their troubles\
 ^^As the party member with the highest Tracking skill ({reg2}), {reg3?you estimate:{s3} estimates} that it will take to your men {reg4} hours to do.",
     "none",
@@ -12293,9 +12299,9 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
        (try_begin),
             (party_slot_eq, "$g_encountered_party", slot_party_type,spt_town),
             (str_store_string, s7, "str_town"),
-          (else_try),  
+          (else_try),
             (str_store_string, s7, "str_castle"),
-          (try_end),  
+          (try_end),
 
         (call_script, "script_get_max_skill_of_player_party", "skl_tracking"),
      (assign, ":max_skill", reg0),
@@ -12304,7 +12310,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 
      (store_sub, reg4, 15, ":max_skill"),
      (val_mul, reg4, 5),
-     
+
      (try_begin),
        (eq, ":max_skill_owner", "trp_player"),
        (assign, reg3, 1),
@@ -12339,7 +12345,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
   ),
 
 #infiltracion chief
-        ("infiltracion_interna2",0,                                                                                    
+        ("infiltracion_interna2",0,
        "Circunvallation begins to demoralize the defenders. A good way to hasten the fall of {s7} is to infiltrate a group of men to cause damage to the defences, the stores of food, water deposits or dissension among the defenders. It is a difficult and risky maneuver, almost suicidal. Those you send in have high chances of not returning, but in case of success they could cause great damage to the enemy. They need 600 scillingas for their troubles\
 ^^As the party member with the highest Tracking skill ({reg2}), {reg3?you estimate:{s3} estimates} that it will take to your men {reg4} hours to do.",
     "none",
@@ -12347,9 +12353,9 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
        (try_begin),
             (party_slot_eq, "$g_encountered_party", slot_party_type,spt_town),
             (str_store_string, s7, "str_town"),
-          (else_try),  
+          (else_try),
             (str_store_string, s7, "str_castle"),
-          (try_end),  
+          (try_end),
 
         (call_script, "script_get_max_skill_of_player_party", "skl_tracking"),
      (assign, ":max_skill", reg0),
@@ -12358,7 +12364,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 
      (store_sub, reg4, 15, ":max_skill"),
      (val_mul, reg4, 5),
-     
+
      (try_begin),
        (eq, ":max_skill_owner", "trp_player"),
        (assign, reg3, 1),
@@ -12411,7 +12417,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 
       ("port_battle2",0,
     "Advancing your ships to the harbor entrance you find a chain that cuts off the place. At that time, they are cast on the ships of the place and those who support them. The struggle is fierce, many men die and the water turns red. Finally, your men set the enemy fleeing and cut the chain. Now you can block the port. ^^Your casualties:{s8}^^Enemy casualties were: {s9}",
-    "none", [ (set_background_mesh, "mesh_portlucha"), 
+    "none", [ (set_background_mesh, "mesh_portlucha"),
 
         (call_script, "script_party_calculate_strength", "p_main_party", 1), #skip player
         (assign, ":player_party_strength", reg0),
@@ -12437,7 +12443,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
           (call_script, "script_change_center_prosperity", "$g_encountered_party", -2),
             (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 1),
           (assign, "$g_close_port", 2),
- 
+
            (jump_to_menu,"mnu_siege_plan"),
         ]),
    ],
@@ -12445,7 +12451,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 
       ("port_battle3",0,
     "Your ships advance on the settlement's port, the merchants fleeing before them. It seems that soon you will close the port. But when you least expect it a chain divides your fleet into two, and enemy men and ships ambush your army, making a carnage. Your men must be removed. You'll have to try to close the port another day.^^Your casualties:{s8}^^Enemy casualties were: {s9}",
-    "none", [ (set_background_mesh, "mesh_portlucha"), 
+    "none", [ (set_background_mesh, "mesh_portlucha"),
 
         (call_script, "script_party_calculate_strength", "p_main_party", 1), #skip player
         (assign, ":player_party_strength", reg0),
@@ -12467,20 +12473,20 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
         [("back_to_siege",[],"Run Away.",
        [
           (assign, "$g_close_port", 0),
- 
+
 ##  (store_script_param, ":chance_to_die",1),
 ##  (store_script_param, ":chance_to_be_wounded",2),
 ##  (store_script_param, ":party_no",3),
-##       (party_get_num_companion_stacks, ":num_stacks",":party_no"), 
-##	   
-##       (try_for_range, ":i_stack", 0, ":num_stacks"),   
+##       (party_get_num_companion_stacks, ":num_stacks",":party_no"),
+##
+##       (try_for_range, ":i_stack", 0, ":num_stacks"),
 ##			(party_stack_get_size, ":stack_size",":party_no",":i_stack"),
 ##			(party_stack_get_troop_id, ":troop_id", ":party_no", ":i_stack"),
 ##
 ##			(str_store_troop_name,s1,":troop_id"),
 ##			(try_for_range,":unused",0,":stack_size"),
 ##				(neg|troop_is_hero,":troop_id"),
-##				(store_random_in_range,":random_check",1,101),				
+##				(store_random_in_range,":random_check",1,101),
 ##				(try_begin),
 ##					(le,":random_check",":chance_to_die"),
 ##					(party_remove_members,":party_no",":troop_id",15),
@@ -12513,7 +12519,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 
       ("port_battle5",0,
     "The enemy displayed their boats behind a chain in the harbor entrance. One of your men were thrown into the water and broke the chain, making him a hero. The chain defense is lost, the enemy retreats. Now you can close the port entrance.",
-    "none", [ (set_background_mesh, "mesh_portlucha"), 
+    "none", [ (set_background_mesh, "mesh_portlucha"),
               ],
 
         [("back_to_siege",[],"Close port.",
@@ -12521,11 +12527,11 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
           (call_script, "script_change_center_prosperity", "$g_encountered_party", -2),
             (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 1),
           (assign, "$g_close_port", 2),
- 
+
 ##  (store_script_param, ":party_no",1),
-##       (party_get_num_companion_stacks, ":num_stacks",":party_no"), 
-##	   
-##       (try_for_range, ":i_stack", 0, ":num_stacks"),   
+##       (party_get_num_companion_stacks, ":num_stacks",":party_no"),
+##
+##       (try_for_range, ":i_stack", 0, ":num_stacks"),
 ##			(party_stack_get_size, ":stack_size",":party_no",":i_stack"),
 ##			(party_stack_get_troop_id, ":troop_id", ":party_no", ":i_stack"),
 ##
@@ -12544,7 +12550,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 
       ("port_battle6",0,
     "From the coast, you watch how your fleet is pitted against vessels defending the town. Fire and blood are the new boat owners. Although more numerous, your fleet has lost ground and is eventually beaten.^^Your casualties:{s8}^^Enemy casualties were: {s9}",
-    "none", [ (set_background_mesh, "mesh_portlucha"), 
+    "none", [ (set_background_mesh, "mesh_portlucha"),
                       (call_script, "script_party_calculate_strength", "p_main_party", 1), #skip player
         (assign, ":player_party_strength", reg0),
         (val_div, ":player_party_strength", 40),
@@ -12632,19 +12638,19 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
               ],
         [
             ("ayudar_infiltrados",[],"Order: send a group of men to their aid.",
-       [ 
+       [
            (jump_to_menu,"mnu_infiltrados_lucha"),
         ]),
         ("leave_men",[],"Leave the men to their fate. They knew what was coming.",
        [
            	(call_script, "script_change_player_honor", -15),
             (call_script, "script_change_player_party_morale", -10),
-          (assign, "$g_traicion_interna", 2), 
+          (assign, "$g_traicion_interna", 2),
            (jump_to_menu,"mnu_siege_plan"),
         ]),
    ],
   ),
-	   
+
       ("traicion_resultado3",0,
     "Your men have returned. A traitor within the settlement has set barns ablaze and will soon flee the town and join your army. With this action, the enemy will lose much of their food stock.",
     "none", [ (set_background_mesh, "mesh_infiltrado"),],
@@ -12668,10 +12674,10 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
     "none", [ (set_background_mesh, "mesh_infiltrado"),],
 
         [("atacar_emboscada",[],"Order: send a group of men with the traitor to carry out the ambush.",
-       [ 
+       [
           (store_random_in_range, ":rand", 0, 3),
                                           (try_begin),
-                                            (eq, ":rand", 0), 
+                                            (eq, ":rand", 0),
            (jump_to_menu,"mnu_emboscada_nada"),
                                           (else_try),
                                             (eq, ":rand", 1),
@@ -12683,7 +12689,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
         ]),
         ("leave_men",[],"It makes me uneasy. Forget about it.",
        [
-          (assign, "$g_traicion_interna", 2), 
+          (assign, "$g_traicion_interna", 2),
            (jump_to_menu,"mnu_siege_plan"),
         ]),
    ],
@@ -12691,7 +12697,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 
       ("traicion_resultado5",0,
     "When your men come back, they tell you they have contacted a man who is in control of rations, and he has promised to raise the price of food to his fellow citizens to sow discontent making them more likely to abandon the fortress.",
-    "none", [ (set_background_mesh, "mesh_infiltrado"), 
+    "none", [ (set_background_mesh, "mesh_infiltrado"),
               ],
 
         [("traicion_moral",[],"Perfect!",
@@ -12724,19 +12730,19 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
               ],
         [
             ("ayudar_infiltrado",[],"Order: send a group of men to their aid.",
-       [ 
+       [
            (jump_to_menu,"mnu_infiltrados_lucha2"),
         ]),
         ("leave_men",[],"Leave the men to their fate. They knew what was coming.",
        [
            	(call_script, "script_change_player_honor", -15),
             (call_script, "script_change_player_party_morale", -10),
-          (assign, "$g_infiltracion_interna", 2), 
+          (assign, "$g_infiltracion_interna", 2),
            (jump_to_menu,"mnu_siege_plan"),
         ]),
    ],
   ),
-	   
+
       ("infiltracion_resultado3",0,
     "Victory! They have managed to burn several food stores and stamping out a water well. The enemy is demoralized. Perhaps it is time to request their surrender.",
     "none", [ (set_background_mesh, "mesh_infiltrado"),],
@@ -12760,10 +12766,10 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
     "none", [ (set_background_mesh, "mesh_infiltrado"),],
 
         [("aceptar_si",[],"They are welcome.",
-       [ 
+       [
           (store_random_in_range, ":rand", 0, 3),
                                           (try_begin),
-                                            (eq, ":rand", 0), 
+                                            (eq, ":rand", 0),
                   (party_add_members, "p_main_party", "trp_townsman", 20),
                                           (else_try),
                                             (eq, ":rand", 1),
@@ -12777,7 +12783,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
         ]),
         ("leave_men",[],"It makes me uneasy. Forget about it.",
        [
-          (assign, "$g_infiltracion_interna", 2), 
+          (assign, "$g_infiltracion_interna", 2),
            (jump_to_menu,"mnu_siege_plan"),
         ]),
    ],
@@ -12785,7 +12791,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 
       ("infiltracion_resultado5",0,
     "Oh, sir. The enemies have sent a bag with the heads of your men. Some of our soldiers have seen it and fear runs through the camp.",
-    "none", [ (set_background_mesh, "mesh_infiltrado"), 
+    "none", [ (set_background_mesh, "mesh_infiltrado"),
               ],
 
         [("infiltracion_moral",[],"Cowards! How can a couple of heads sink the morale of an army? Are they cattle or men?",
@@ -12801,7 +12807,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 #traicion interna
              ("infiltrados_lucha",0,
     "Your men and the enemy fight to death at the foot of the wall, where everything is unfavorable to your troops. You watch as they fight, retreating back towards you. many bodies are left behind.^^Your casualties:{s8}^^Enemy casualties were: {s9}",
-    "none", [ (set_background_mesh, "mesh_infiltrado"), 
+    "none", [ (set_background_mesh, "mesh_infiltrado"),
 
         (call_script, "script_party_calculate_strength", "p_main_party", 1), #skip player
         (assign, ":player_party_strength", reg0),
@@ -12833,7 +12839,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 #infiltracion chief
              ("infiltrados_lucha2",0,
     "Your men and the enemy fight to death at the foot of the wall, where everything is unfavorable to your troops. You watch as they fight, retreating back towards you. many bodies are left behind.^^Your casualties:{s8}^^Enemy casualties were: {s9}",
-    "none", [ (set_background_mesh, "mesh_infiltrado"), 
+    "none", [ (set_background_mesh, "mesh_infiltrado"),
 
         (call_script, "script_party_calculate_strength", "p_main_party", 1), #skip player
         (assign, ":player_party_strength", reg0),
@@ -12876,7 +12882,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 #traicion interna
       ("emboscada_lose",0,
     "Alarm! Treason! The alleged traitor lead your men into an ambush. They are fighting desperately, leaving many men on the field.^^Your casualties:{s8}^^Enemy casualties were: {s9}",
-    "none", [ (set_background_mesh, "mesh_infiltrado"), 
+    "none", [ (set_background_mesh, "mesh_infiltrado"),
 
         (call_script, "script_party_calculate_strength", "p_main_party", 1), #skip player
         (assign, ":player_party_strength", reg0),
@@ -12905,7 +12911,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
 
       ("emboscada_victory",0,
     "The traitor lead your men through the night to a hill which controls the path to a well. Your men took up positions in the vegetation, in silence, their faces stained black. Ahead. At daybreak, a large group of enemies are spotted out to get water. ^^A battle cry thrills the valley when your soldiers are falling like a tide of death on the enemy...^^Your casualties:{s8}^^Enemy casualties were: {s9}",
-    "none", [ (set_background_mesh, "mesh_infiltrado"), 
+    "none", [ (set_background_mesh, "mesh_infiltrado"),
 
         (call_script, "script_party_calculate_strength", "p_main_party", 1), #skip player
         (assign, ":player_party_strength", reg0),
@@ -13082,7 +13088,7 @@ The thrill, terror and sweat is there, always. You noticed how your men made the
    ],
   ),
 
-#### 
+####
 #####scout reporta datos de ciudad
         (
     "informacion_ciudad",0,
@@ -13093,7 +13099,7 @@ The thrill, terror and sweat is there, always. You noticed how your men made the
 #string descripcion
 	 (call_script,"script_get_prosperity_for_spy_report","$current_town"),
 	 (party_get_slot,":town_lord","$current_town",slot_town_lord),
-	 (str_store_troop_name,s21,":town_lord"),	 
+	 (str_store_troop_name,s21,":town_lord"),
 
 					(party_get_slot, ":center_food_store", "$current_town", slot_party_food_store),
 					(call_script, "script_center_get_food_consumption", "$current_town"),
@@ -13107,7 +13113,7 @@ The thrill, terror and sweat is there, always. You noticed how your men made the
 			(str_store_party_name,s4,"$current_town"),
         #
 #informacion asedio
-		(str_store_string,s17,"str_empty_string"), 
+		(str_store_string,s17,"str_empty_string"),
 		(try_begin),
           (eq, "$current_town", "p_town_27"),
 			(str_store_string,s17,"@Commander, this town is one big rock. Many before us have fled the place before a single blow was exchanged, so we must keep morale up among the men.\
@@ -13125,14 +13131,14 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(str_store_string,s17,"@Dun Tauro, the fortress of the bull. This place seems like the work of giants, and for centuries the Picts have known its reputation."),
 		(else_try),
           (eq, "$current_town", "p_town_3"),
-			(str_store_string,s17,"@The seat of the brave Guotodin warriors. From here they launched their attack against the Bernicians, and their heroic death will never be forgotten. You can almost smell their courage from here."),        
+			(str_store_string,s17,"@The seat of the brave Guotodin warriors. From here they launched their attack against the Bernicians, and their heroic death will never be forgotten. You can almost smell their courage from here."),
 		(else_try),
           (eq, "$current_town", "p_castle_44"),
 			(str_store_string,s17,"@ (Off topic) Historical note: Iudeu or Urbs Giudi as it was known to Bede is todays the impressive site of Stirling castle. This was the seat of the kingdom of Manau, or Manau Gododdin. It was the northernmost kingdom of the Britons, highly disputed between Picts, Alt Cluit, Gododdin, Scots and later Northumbrians. The region is famous for the later battlefields of Bannockburn and Stirling bridge, a witness to its strategic importance.\
-^When Din Eydin was taken by the Bernicians, Iudeu may have became vulnerable to other ambitions. In 642 it was the likely objective of the battle of Strathcarron. The scottic forces of Domnal Brecc, king of Dal Riada, where beaten by the army of Owein of Alt Clut. Domnal was killed in the battle."),        
+^When Din Eydin was taken by the Bernicians, Iudeu may have became vulnerable to other ambitions. In 642 it was the likely objective of the battle of Strathcarron. The scottic forces of Domnal Brecc, king of Dal Riada, where beaten by the army of Owein of Alt Clut. Domnal was killed in the battle."),
 		(else_try),
-			(str_store_string,s17,"@ I am ready, my Lord."),        
-		(try_end),        
+			(str_store_string,s17,"@ I am ready, my Lord."),
+		(try_end),
 #
     ],
         [("regreso_lucha",[],"Thank you. Your information is important!",
@@ -13145,7 +13151,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 
 
 #################menus extras acaba chief
-  
+
 
    (
     "castle_attack_walls_with_allies_simulate",mnf_disable_all_keys,
@@ -13194,7 +13200,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (inflict_casualties_to_party_group, "p_main_party", ":enemy_party_strength_for_p", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s8, s0),
-                                    
+
         (inflict_casualties_to_party_group, "$g_enemy_party", ":friend_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s10, s0),
@@ -13285,7 +13291,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(neq, ":faction_no", "$g_encountered_party_faction"),
 			(call_script, "script_faction_inflict_war_damage_on_faction", ":faction_no", "$g_encountered_party_faction", ":damage"),
 		(try_end),
-		
+
         (call_script, "script_give_center_to_faction", "$g_encountered_party", ":faction_no"),
         (call_script, "script_add_log_entry", logent_player_participated_in_siege, "trp_player",  "$g_encountered_party", 0, "$g_encountered_party_faction"),
 ##        (call_script, "script_change_troop_renown", "trp_player", 1),
@@ -13305,19 +13311,19 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     [(play_sound, "snd_cow_moo"), #anadido chief Sot
         (party_clear, "$g_encountered_party"),
 
-        (try_begin),        
+        (try_begin),
           (eq, "$players_kingdom", "fac_player_supporters_faction"),
           (party_get_slot, ":new_owner", "$g_encountered_party", slot_town_lord),
           (neq, ":new_owner", "trp_player"),
-          
+
           (try_for_range, ":unused", 0, 4),
             (call_script, "script_cf_reinforce_party", "$g_encountered_party"),
-          (try_end),  
+          (try_end),
         (try_end),
-        
+
         (call_script, "script_lift_siege", "$g_encountered_party", 0),
         (assign, "$g_player_besiege_town", -1),
-                        
+
         (party_set_slot, "$g_encountered_party", slot_center_last_taken_by_troop, "trp_player"),
         ##diplomacy chief begin
         #Reduce prosperity of the center by 5
@@ -13326,15 +13332,15 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
   			 (is_between, "$g_encountered_party", towns_begin, towns_end),
   			 (store_random_in_range, ":random", 4000, 10000),
   		 (else_try),
-  		   (store_random_in_range, ":random", 1000, 8000), 
-  		 (try_end),  
+  		   (store_random_in_range, ":random", 1000, 8000),
+  		 (try_end),
   		 (val_div, ":random", 100),
   		 (val_mul, ":random", 100),
-  		 (assign, "$diplomacy_var", ":random"),  
-  		 (assign, reg3, "$diplomacy_var"),   
+  		 (assign, "$diplomacy_var", ":random"),
+  		 (assign, reg3, "$diplomacy_var"),
         ##diplomacy chief end
 
-        (call_script, "script_change_troop_renown", "trp_player", 5),		
+        (call_script, "script_change_troop_renown", "trp_player", 5),
 
 		(assign, ":damage", 20),
 		(try_begin),
@@ -13342,10 +13348,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(assign, ":damage", 40),
 		(try_end),
 		(call_script, "script_faction_inflict_war_damage_on_faction", "$players_kingdom", "$g_encountered_party_faction", ":damage"),
-		
+
 		#removed, is it duplicate (useless)? See 20 lines above.
         #(call_script, "script_add_log_entry", logent_castle_captured_by_player, "trp_player", "$g_encountered_party", -1, "$g_encountered_party_faction"),
-        
+
         (try_begin),
           (is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
           (neq, "$players_kingdom", "fac_player_supporters_faction"),
@@ -13353,15 +13359,15 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (call_script, "script_order_best_besieger_party_to_guard_center", "$g_encountered_party", "$players_kingdom"),
           (jump_to_menu, "mnu_castle_taken_2"),
         (else_try),
-          (call_script, "script_give_center_to_faction", "$g_encountered_party", "fac_player_supporters_faction"),          
+          (call_script, "script_give_center_to_faction", "$g_encountered_party", "fac_player_supporters_faction"),
           (call_script, "script_order_best_besieger_party_to_guard_center", "$g_encountered_party", "fac_player_supporters_faction"),
           (str_store_party_name, s3, "$g_encountered_party"),
           (assign, reg1, 0),
           (try_begin),
             (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
             (assign, reg1, 1),
-          (try_end),          
-		  #(party_set_slot, "$g_encountered_party", slot_town_lord, stl_unassigned),		  
+          (try_end),
+		  #(party_set_slot, "$g_encountered_party", slot_town_lord, stl_unassigned),
         (try_end),
         (assign, reg2, 0),
         (try_begin),
@@ -13372,8 +13378,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     [
 ##diplomacy chief begin
           ("dplmc_spoils_yourself",[],"Plunder it and keep the spoils all for yourself.",
-       [         
-         (call_script, "script_change_center_prosperity", "$g_encountered_party", -12),  
+       [
+         (call_script, "script_change_center_prosperity", "$g_encountered_party", -12),
 		 ##diplomacy start+
 		 (assign, ":is_kingdom_leader", 0),
 		 (try_begin),
@@ -13398,7 +13404,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		   ##diplomacy end+
            (eq, "fac_player_supporters_faction", ":troop_faction_no"),
            (call_script, "script_change_player_relation_with_troop", ":troop_no", -2),
-         (try_end),         
+         (try_end),
          (try_begin),
            (gt, "$g_player_chamberlain", 0),
            (call_script, "script_dplmc_pay_into_treasury", "$diplomacy_var"),
@@ -13406,7 +13412,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            (troop_add_gold, "trp_player", "$diplomacy_var"),
          (try_end),
          (call_script, "script_change_player_honor", -10),
-         (assign, "$auto_enter_town", "$g_encountered_party"),                  
+         (assign, "$auto_enter_town", "$g_encountered_party"),
          (change_screen_return),
         ]),
       ("dplmc_spoils_accompanying_vassals",
@@ -13419,7 +13425,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		  (this_or_next|troop_slot_eq, ":faction_leader", slot_troop_spouse, "trp_player"),
   		##nested diplomacy end+
           (eq, "$players_kingdom", "fac_player_supporters_faction"),
-         (assign, ":vassal_count", 0),       
+         (assign, ":vassal_count", 0),
          (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
            (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
            (store_troop_faction, ":troop_faction_no", ":troop_no"),
@@ -13435,8 +13441,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (try_end),
 		 (gt, ":vassal_count", 0),
       ],"Plunder it and share the spoils equally between the vassals accompanying you and yourself.",
-       [  
-         (assign, ":vassal_count", 1),       
+       [
+         (assign, ":vassal_count", 1),
          (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
            (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
            (store_troop_faction, ":troop_faction_no", ":troop_no"),
@@ -13497,10 +13503,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            (call_script, "script_dplmc_pay_into_treasury", "$diplomacy_var"),
          (else_try),
            (troop_add_gold, "trp_player", "$diplomacy_var"),
-         (try_end),         
-         (call_script, "script_change_center_prosperity", "$g_encountered_party", -8),  
+         (try_end),
+         (call_script, "script_change_center_prosperity", "$g_encountered_party", -8),
          (call_script, "script_change_player_honor", -5),
-         (assign, "$auto_enter_town", "$g_encountered_party"),                  
+         (assign, "$auto_enter_town", "$g_encountered_party"),
          (change_screen_return),
         ]),
       ("dplmc_spoils_all_vassals",
@@ -13514,7 +13520,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		  ##nested diplomacy end+
           (eq, "$players_kingdom", "fac_player_supporters_faction"),
       ],"Plunder it and share the spoils equally between your vassals and yourself.",
-       [         
+       [
          (assign, ":vassal_count", 1),
          (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
            (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
@@ -13566,17 +13572,17 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            (call_script, "script_dplmc_pay_into_treasury", "$diplomacy_var"),
          (else_try),
            (troop_add_gold, "trp_player", "$diplomacy_var"),
-         (try_end),         
-         (call_script, "script_change_center_prosperity", "$g_encountered_party", -12),           
-         (assign, "$auto_enter_town", "$g_encountered_party"),                  
+         (try_end),
+         (call_script, "script_change_center_prosperity", "$g_encountered_party", -12),
+         (assign, "$auto_enter_town", "$g_encountered_party"),
          (change_screen_return),
         ]),
 ##diplomacy chief end
       ("continue",[],"Continue...",
-       [        
+       [
          ##diplomacy chief begin
          (call_script, "script_change_center_prosperity", "$g_encountered_party", -5),
-         ##diplomacy chief end        
+         ##diplomacy chief end
           (try_begin), #fire arrow chief
             (store_distance_to_party_from_party, ":distance", "p_main_party", "$g_encountered_party"), #fire arrow chief
             (lt, ":distance", 1), #fire arrow chief
@@ -13584,7 +13590,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (try_end), #fire arrow chief
          (change_screen_return),
         ]),
-    ],        
+    ],
   ),
   (
     "castle_taken_2",mnf_disable_all_keys,
@@ -13636,9 +13642,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (assign, "$auto_enter_town", "$g_encountered_party"),
         (change_screen_return),
         ]),
-		
-		
-		
+
+
+
       ("castle_taken_no_claim",[],"Ask no rewards.",
        [
         (party_set_slot, "$g_encountered_party", slot_center_last_taken_by_troop, -1),
@@ -13657,15 +13663,15 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     "{s3} has fallen to your troops. You now have full control of the {reg2?town:castle}. You're only here for the booty. You can plunder spoils of war worth {reg3} scillingas.",# Only visible when castle is taken without being a vassal of a kingdom.
   ##diplomacy chief end
     "none",
-    [  (set_background_mesh, "mesh_pic_extra_encuentro"),	
+    [  (set_background_mesh, "mesh_pic_extra_encuentro"),
 
         (play_sound, "snd_cow_moo"), #anadido chief Sot
         (party_clear, "$g_encountered_party"),
         (str_store_party_name, s3, "$g_encountered_party"),
-        
+
          (call_script, "script_lift_siege", "$g_player_besiege_town", 0),
          (assign,"$g_player_besiege_town", -1),
-		 (party_set_slot,"p_main_party",slot_party_siege_camp,0),  #Tempered chief added for siege camp		 
+		 (party_set_slot,"p_main_party",slot_party_siege_camp,0),  #Tempered chief added for siege camp
       (party_set_slot,"$g_encountered_party",slot_saqueo_state,1), #ciudad saqueda
          #siege warfare chief
          (assign, "$g_empieza_asedio", 0),
@@ -13679,7 +13685,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (assign, "$g_mantlets_1", 0),
          (assign, "$g_enemigo_quema_comida", 0),
          (assign, "$g_cabezas_dentro", 0),
-       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),               
+       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),
        (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 0),
          #siege warfare acab
      ##diplomacy chief begin
@@ -13688,12 +13694,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
   			 (is_between, "$g_encountered_party", towns_begin, towns_end),
   			 (store_random_in_range, ":random", 10000, 17000),
   		 (else_try),
-  		   (store_random_in_range, ":random", 4000, 11000), 
-  		 (try_end),  
+  		   (store_random_in_range, ":random", 4000, 11000),
+  		 (try_end),
   		 (val_div, ":random", 100),
   		 (val_mul, ":random", 100),
-  		 (assign, "$diplomacy_var", ":random"),  
-  		 (assign, reg3, "$diplomacy_var"),   
+  		 (assign, "$diplomacy_var", ":random"),
+  		 (assign, reg3, "$diplomacy_var"),
         ##diplomacy chief end
 #pierde relacion
         (party_get_slot, ":center_lord", "$g_encountered_party", slot_town_lord),
@@ -13709,23 +13715,23 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (store_div, ":money_gained_div_300", "$diplomacy_var", 300),
         (val_add, ":morale_increase", ":money_gained_div_300"),
         (call_script, "script_change_player_party_morale", ":morale_increase"),
-            		
+
 #NPC companion changes begin
         (call_script, "script_objectionable_action", tmt_humanitarian, "str_loot_village"),
 
-        (call_script, "script_change_troop_renown", "trp_player", 5),		
+        (call_script, "script_change_troop_renown", "trp_player", 5),
 		    ],
     [
 ##diplomacy chief begin
       ("spoils_yourself",[],"Pillage the place and sell the population as slaves. Keep all spoils for yourself. Then leave center.",
-       [         
-         (call_script, "script_change_center_prosperity", "$g_encountered_party", -30),  
+       [
+         (call_script, "script_change_center_prosperity", "$g_encountered_party", -30),
          (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
            (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
            (store_troop_faction, ":troop_faction_no", ":troop_no"),
            (eq, "fac_player_supporters_faction", ":troop_faction_no"),
            (call_script, "script_change_player_relation_with_troop", ":troop_no", -4),
-         (try_end),         
+         (try_end),
            (troop_add_gold, "trp_player", "$diplomacy_var"),
          (call_script, "script_change_player_honor", -20),
          (assign, "$g_center_saqueo", 0),
@@ -13735,7 +13741,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       [
           (is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
           (eq, "$players_kingdom", "fac_player_supporters_faction"),
-         (assign, ":vassal_count", 0),       
+         (assign, ":vassal_count", 0),
          (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
            (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
            (store_troop_faction, ":troop_faction_no", ":troop_no"),
@@ -13748,8 +13754,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (try_end),
 		 (gt, ":vassal_count", 0),
       ],"Pillage the place and sell the population as slaves. Share the spoils equally between the vassals accompanying you and yourself.",
-       [  
-         (assign, ":vassal_count", 1),       
+       [
+         (assign, ":vassal_count", 1),
          (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
            (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
            (store_troop_faction, ":troop_faction_no", ":troop_no"),
@@ -13764,8 +13770,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (val_div, "$diplomacy_var", ":vassal_count"),
          (try_begin),
            (troop_add_gold, "trp_player", "$diplomacy_var"),
-         (try_end),         
-         (call_script, "script_change_center_prosperity", "$g_encountered_party", -30),  
+         (try_end),
+         (call_script, "script_change_center_prosperity", "$g_encountered_party", -30),
          (call_script, "script_change_player_honor", -20),
      (assign, "$g_center_saqueo", 0),
          (change_screen_return),
@@ -13775,7 +13781,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
           (eq, "$players_kingdom", "fac_player_supporters_faction"),
       ],"Pillage the place and sell the population as slaves. Share the spoils equally between your vassals and yourself. Then leave center.",
-       [         
+       [
          (assign, ":vassal_count", 1),
          (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
            (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
@@ -13787,14 +13793,14 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (val_div, "$diplomacy_var", ":vassal_count"),
          (try_begin),
            (troop_add_gold, "trp_player", "$diplomacy_var"),
-         (try_end),         
-         (call_script, "script_change_center_prosperity", "$g_encountered_party", -30),  
+         (try_end),
+         (call_script, "script_change_center_prosperity", "$g_encountered_party", -30),
          (call_script, "script_change_player_honor", -20),
         (assign, "$g_center_saqueo", 0),
          (change_screen_return),
         ]),
 ##diplomacy chief end
-    ],        
+    ],
   ),
 
   (
@@ -13834,7 +13840,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 ## Gender fix chief para alturas
      (troop_get_type, reg4, ":faction_leader"),
     (val_mod, reg4, 2),
-                #gender fix chief acaba	 
+                #gender fix chief acaba
    ],
     [
 		("continue",[],"Continue.",
@@ -13845,13 +13851,13 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		),
 	]
 ),
-  
+
 
 
 (
     "requested_castle_granted_to_player_husband",0,
     "You receive a message from your liege, {s3}.^^\
- {reg4?She:He} has decided to grant {s2}{reg3? and the nearby village of {s4}:} to your husband, {s7}.",	 
+ {reg4?She:He} has decided to grant {s2}{reg3? and the nearby village of {s4}:} to your husband, {s7}.",
     "none",
     [
 		(set_background_mesh, "mesh_pic_messenger1"),
@@ -13868,15 +13874,15 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		(else_try),
 			(assign, reg3, 0),
 		(try_end),
-		
+
 ## Gender fix chief para alturas
      (troop_get_type, reg4, ":faction_leader"),
     (val_mod, reg4, 2),
-#gender fix chief acaba	 
-	 
+#gender fix chief acaba
+
 		(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
-		(str_store_troop_name, s11, ":spouse"), 
-		(str_store_string, s7, "str_to_your_husband_s11"),	 
+		(str_store_troop_name, s11, ":spouse"),
+		(str_store_string, s7, "str_to_your_husband_s11"),
     ],
     [
 		("continue",[],"Continue.",
@@ -13890,10 +13896,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 
 
 
-  
-  
-  
-  
+
+
+
+
 (
     "requested_castle_granted_to_another",0,
     "You receive a message from your monarch, {s3}.^^\
@@ -13910,10 +13916,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
      (party_get_slot, ":new_owner", "$g_center_to_give_to_player", slot_town_lord),
      (str_store_troop_name, s5, ":new_owner"),
      (assign, reg6, 900),
-	 
+
 	 (assign, "$g_castle_requested_by_player", -1),
 	 (assign, "$g_castle_requested_for_troop", -1),
-	 
+
     ],
     [
       ("accept_decision",[],"Accept the decision.",
@@ -13921,7 +13927,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        (call_script, "script_troop_add_gold", "trp_player", reg6),
        (change_screen_return),
        ]),
-	   
+
        ("leave_faction",[],"You have been wronged! Renounce your oath to your liege! ",
        [
          (jump_to_menu, "mnu_leave_faction"),
@@ -13930,7 +13936,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
      ],
   ),
 
-  
+
 (
     "requested_castle_granted_to_another_female",0,
     "You receive a message from your monarch, {s3}.^^\
@@ -13951,7 +13957,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	 (assign, "$g_castle_requested_by_player", -1),
 	 (assign, "$g_castle_requested_for_troop", -1),
     ],
-	
+
     [
 		("accept_decision",[],"Accept the decision.",
         [
@@ -13960,10 +13966,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ]),
     ],
 ),
-  
-  
-  
-  
+
+
+
+
   (
     "leave_faction",0,
     "Renouncing your oath is a grave act. Your lord may condemn you and confiscate your lands and holdings.\
@@ -14019,7 +14025,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ]),
     ],
   ),
-  
+
   (
     "give_center_to_player_2",0,
     "With a brief ceremony, you are officially confirmed as the new lord of {s2}{reg3? and its bound village {s4}:}.\
@@ -14073,7 +14079,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          ]),
     ]
   ),
-  
+
 
 ##  (
 ##    "castle_garrison_stationed",0,
@@ -14136,7 +14142,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 ##         "{s5}",    [(troop_get_slot, "$selected_castellan", "trp_temp_troop", 14),(jump_to_menu,"mnu_castle_captain_chosen")]),
 ##      ("castellan_candidate",  [(troop_get_slot, ":captain", "trp_temp_troop", 15),(gt,":captain",0),(str_store_troop_name, s5,":captain")],
 ##         "{s5}",    [(troop_get_slot, "$selected_castellan", "trp_temp_troop", 15),(jump_to_menu,"mnu_castle_captain_chosen")]),
-##      
+##
 ##      ("cancel",[],
 ##         "Cancel...",
 ##         [(jump_to_menu, "mnu_town")]),
@@ -14267,9 +14273,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
               (eq, "$g_engaged_enemy", 1),
 #COOP bugfix chief ##############
 #              (le, "$g_enemy_fit_for_battle",0),
-              (this_or_next|le, ":num_enemy_regulars_remaining", 0), 
+              (this_or_next|le, ":num_enemy_regulars_remaining", 0),
               (le, "$g_enemy_fit_for_battle", "$num_routed_enemies"),  #replaced for above line because we do not want routed agents to spawn again in next turn of battle.
-#########################    
+#########################
               (ge, "$g_friend_fit_for_battle",1),
               (assign, ":enemy_finished",1),
             (try_end),
@@ -14347,10 +14353,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ],
     [
      ##diplomacy chief begin
-      ("dplmc_negotiate_with_besieger", 
+      ("dplmc_negotiate_with_besieger",
       [
  	    (neq, "$freelancer_state", 1),	#+freelancer chief
-       (party_slot_eq, "$current_town", slot_town_lord, "trp_player"), 
+       (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
         (party_slot_ge, "$current_town", slot_center_is_besieged_by, 1),
       ]
        ,"Negotiate with the besieger.",
@@ -14391,7 +14397,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
               (assign, "$g_next_menu", "mnu_siege_started_defender"),
               (jump_to_menu, "mnu_battle_debrief"),
               (change_screen_mission)]),
-      
+
       ("siege_defender_troops_join_battle",[
 	    (neq, "$freelancer_state", 1),	#+freelancer chief
           (call_script, "script_party_count_members_with_full_health", "p_main_party"),
@@ -14427,7 +14433,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (else_try),
           (assign, ":player_party_strength", 0),
         (try_end),
-        
+
         (call_script, "script_party_calculate_strength", "p_collective_ally", 0),
         (assign, ":ally_party_strength", reg0),
         (val_div, ":ally_party_strength", 5),
@@ -14490,10 +14496,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (faction_get_slot, ":faction_leader", "fac_player_supporters_faction", slot_faction_leader),
         (eq, ":faction_leader", "trp_player"),
         (str_store_string, s10, "@As you approach, you are spotted by the castle guards, who welcome you and open the gates for their {king/queen}."),
-      (else_try),  
+      (else_try),
         (str_store_string, s10, "@As you approach, you are spotted by the castle guards, who welcome you and open the gates for their {lord/lady}."),
-      (try_end),  
-      
+      (try_end),
+
       (str_store_party_name, s2, "$current_town"),
     ],
     [
@@ -14578,7 +14584,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(try_begin),
                   (this_or_next|eq, "$g_sod_faith", 2),
 							 (eq, "$g_sod_faith", 3),
-                
+
                   		(party_get_slot, ":faith", "$current_town", slot_center_sod_local_faith),
 			(try_begin),
         (neg|party_slot_ge, "$current_town", center_religion_pagana, 1), #skip villages which are pagan.
@@ -14622,18 +14628,18 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 
         (str_clear, s10),
         (str_clear, s12),
-		
+
         (try_begin),
           (neg|party_slot_eq, "$current_town", slot_village_state, svs_looted),
           (str_store_string, s60, s2),
-		  		  
+
           (party_get_slot, ":prosperity", "$current_town", slot_town_prosperity),
 		  (try_begin),
 			(eq, "$cheat_mode", 1),
 			(assign, reg4, ":prosperity",),
 			(display_message, "@{!}Prosperity: {reg4}"),
 		  (try_end),
-		  
+
 		  #(val_add, ":prosperity", 5),
           (store_div, ":str_id", ":prosperity", 10),
 		  (val_min, ":str_id", 9),
@@ -14649,8 +14655,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		  (else_try),
 			(val_add, ":str_id", "str_village_alt_prosperity_0"),
 		  (try_end),
-		  
-          (str_store_string, s12, ":str_id"),		  		 		  
+
+          (str_store_string, s12, ":str_id"),
         (try_end),
 
         (str_clear, s11),
@@ -14686,10 +14692,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (assign, reg8, "$qst_eliminate_bandits_infesting_village_num_bandits"),
           (str_store_troop_name_by_count, s35, ":bandit_troop", "$qst_eliminate_bandits_infesting_village_num_bandits"),
           (str_store_string, s6, "@ The village is infested by {reg8} {s35}."),
-          
+
           (assign, "$g_enemy_party", -1), #new, no known enemy party while saving village from bandits dfdf
           (assign, "$g_ally_party", -1), #new, no known enemy party while saving village from bandits dfdf
-          
+
           (try_begin),
             (eq, ":bandit_troop", "trp_forest_bandit"),
             (set_background_mesh, "mesh_pic_forest_bandits1"),
@@ -14761,7 +14767,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (change_screen_return),
         (try_end),
 
-        (try_begin), 
+        (try_begin),
           (store_time_of_day, ":cur_hour"),
           (ge, ":cur_hour", 5),
           (lt, ":cur_hour", 21),
@@ -14869,7 +14875,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
             (eq, ":town_lord", "trp_player"),
             (set_visitor, 9, "$g_player_chamberlain"),
           (try_end),
-            ##diplomacy end           
+            ##diplomacy end
 
            (call_script, "script_init_town_walkers"),
 
@@ -15157,7 +15163,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (change_screen_mission),
         ]),
 
-###COOP Village chief bandits#############################		  
+###COOP Village chief bandits#############################
 ##      ("coop_setup",
 ##       [
 ##        (call_script, "script_coop_get_battle_state", 1), #sets coop_battle_state
@@ -15165,7 +15171,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 ##        (eq, "$coop_battle_state", coop_battle_state_none),
 ##        (party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
 ##       ],
-##       "Setup multiplayer battle.", 
+##       "Setup multiplayer battle.",
 ##       [
 ##        (assign, "$coop_battle_type", coop_battle_type_village_player_defend),
 ##
@@ -15181,40 +15187,40 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 ##        (call_script, "script_coop_copy_parties_to_file_sp"),#clears registers
 ##        (try_begin),
 ##          (eq, "$coop_skip_menu", 1),
-##          (change_screen_quit), 
+##          (change_screen_quit),
 ##        (try_end),
-##       ]),	
-##	  
+##       ]),
+##
 ##      ("quit",[
 ##        (this_or_next|ge, "$cheat_mode", 1),#always allow in cheat mode
 ##        (eq, "$coop_battle_state", coop_battle_state_setup_sp),
 ##        (party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
-##      ],"Quit game (will not save).", 
+##      ],"Quit game (will not save).",
 ##      [
-##        (change_screen_quit), 
-##      ]),		
+##        (change_screen_quit),
+##      ]),
 ##
 ##      ("coop_use_result",[
 ##         (this_or_next|ge, "$cheat_mode", 1),#always allow in cheat mode
 ##         (eq, "$coop_battle_state", coop_battle_state_end_mp),
 ##        (party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
-##      ],"Use multiplayer battle results.", 
+##      ],"Use multiplayer battle results.",
 ##      [
 ##
 ##        (assign, "$g_next_menu", "mnu_village_infest_bandits_result"),
 ##        (call_script, "script_coop_copy_file_to_parties_sp"),	     #remove troops from parties
 ##        (jump_to_menu, "mnu_battle_debrief"),
-##      ]),		  
-## 
+##      ]),
+##
 ##      ("encounter_save",[(party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1)],"Give me time to save.",
 ##      [
 ##        (call_script, "script_coop_get_battle_state", 2),
 ##        (change_screen_return),
 ##       # (rest_for_hours, 1, 1, 0),#rest while not attackable
-##      ]),  
-##          
+##      ]),
+##
 ################################################## chief acaba
-      
+
       ("village_wait",
        [
            #(try_begin), #chief cambia y anade sot
@@ -15235,16 +15241,16 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
              (try_begin),
                (eq, ":cur_terrain", rt_desert),
                (unlock_achievement, ACHIEVEMENT_SARRANIDIAN_NIGHTS),
-             (try_end),  
+             (try_end),
            (try_end),
 
            (rest_for_hours_interactive, 24 * 7, 5, 1), #rest while attackable
 
            (change_screen_return),
           ]),
-      
+
 #TEMPERED chief ADDED REST OPTION FOR HIGH COMMONER RELATION
-      ("village_guest_wait", 
+      ("village_guest_wait",
        [
                         (neg|party_slot_eq, "$current_town", slot_village_state, svs_looted),
                          (neg|party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
@@ -15267,10 +15273,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            (assign, "$g_last_rest_center", "$current_town"),
            (rest_for_hours_interactive, 24 * 7, 5, 1), #rest while attackable
            (change_screen_return),
-          ]),      
+          ]),
 #tempered chief acaba
 
-             ##diplomacy chief begin          
+             ##diplomacy chief begin
       ("dplmc_village_counter_insurgency",[
         (party_slot_eq, "$current_town", slot_village_infested_by_bandits, "trp_peasant_woman"),
         ],
@@ -15292,7 +15298,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (jump_to_menu, "mnu_battle_debrief"),
           (change_screen_mission),
         ]),
-        
+
       ("dplmc_village_negotiate",[
         (party_slot_eq, "$current_town", slot_village_infested_by_bandits, "trp_peasant_woman"),
         ],
@@ -15300,8 +15306,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [
           (jump_to_menu, "mnu_dplmc_riot_negotiate"),
         ]),
-        ##diplomacy chief end     
-      
+        ##diplomacy chief end
+
       ("collect_taxes_qst",[(party_slot_eq, "$current_town", slot_village_state, 0),
                             (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
                             (check_quest_active, "qst_collect_taxes"),
@@ -15328,7 +15334,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 								 ], "Take a hostile action.",
        [(jump_to_menu,"mnu_village_hostile_action"),
            ]),
-      
+
       ("village_reports",[(eq, "$cheat_mode", 1),], "{!}CHEAT! Show reports.",
        [(jump_to_menu,"mnu_center_reports"),
            ]),
@@ -15338,32 +15344,32 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       [
         (neg|party_slot_eq, "$current_town", slot_village_state, svs_looted),
         (neg|party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
-        (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),      
+        (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
                              (neq, "$freelancer_state", 1), #+freelancer chief #prevents player freelancer brytenwalda
       ],"Perform some very basic work for the village (be farmer).",
       [
       (try_begin),
-          (display_message,"@ You start performing these hard peasantry basic work.",0xFF0000),      
+          (display_message,"@ You start performing these hard peasantry basic work.",0xFF0000),
 
 		(try_begin),
                 (troop_slot_ge, "trp_player", slot_troop_renown, 40), #chief anadido
-                (display_message,"@ Like farmer, you lose renown and reputation.",0xFF0000),      
+                (display_message,"@ Like farmer, you lose renown and reputation.",0xFF0000),
  		(call_script, "script_change_troop_renown", "trp_player", -2),
                 (call_script, "script_change_player_honor", -1),
 		(try_end),
 
-          (rest_for_hours_interactive, 2, 5, 1), 
+          (rest_for_hours_interactive, 2, 5, 1),
           (change_screen_map),
           (assign,"$g_work_for_village_ongoing",24),
       (try_end),#rigale
-      
+
       ]
       ),
-      
+
 ###rigale chief acaba
 
       ("village_leave",[],"Leave...",[(change_screen_return,0)]),
-      
+
     ],
   ),
 
@@ -15375,8 +15381,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     [
 		(str_clear,s1),
 		(str_clear,s2),
-		(str_clear,s3),	
-	
+		(str_clear,s3),
+
 		(try_begin),
             (eq, "$g_player_is_captive", 1), #motomataru chief repara
                   (str_store_string,s3,"@ You've been carried off as prisoner. You stop your work."),
@@ -15385,36 +15391,36 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(str_store_string,s3,"@ The village is being raided. You stop your work."),
 		(else_try),
 			(party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
-			(str_store_string,s3,"@ The village is being infested by bandits. You stop your work."),		
+			(str_store_string,s3,"@ The village is being infested by bandits. You stop your work."),
 		(else_try),
 			(store_random_in_range,reg1,10,30),
 			(add_xp_to_troop, reg1, "trp_player"),
 			(store_random_in_range,":item_to_give",1,11),
 			(try_begin),
 				(eq,":item_to_give",1),(assign,":item_to_give","itm_cheese",1),(else_try),
-				(eq,":item_to_give",2),(assign,":item_to_give","itm_sausages",1),(else_try),		
-				(eq,":item_to_give",3),(assign,":item_to_give","itm_apples",1),(else_try),		
-				(eq,":item_to_give",4),(assign,":item_to_give","itm_pork",1),(else_try),		
-				(eq,":item_to_give",5),(assign,":item_to_give","itm_grain",1),(else_try),		
-				(eq,":item_to_give",6),(assign,":item_to_give","itm_honey",1),(else_try),		
-				(eq,":item_to_give",7),(assign,":item_to_give","itm_bread",1),(else_try),		
-				(eq,":item_to_give",8),(assign,":item_to_give","itm_ale",1),(else_try),		
-				(eq,":item_to_give",9),(assign,":item_to_give","itm_mead",1),(else_try),		
-				(eq,":item_to_give",10),(assign,":item_to_give","itm_chicken",1),(else_try),		
+				(eq,":item_to_give",2),(assign,":item_to_give","itm_sausages",1),(else_try),
+				(eq,":item_to_give",3),(assign,":item_to_give","itm_apples",1),(else_try),
+				(eq,":item_to_give",4),(assign,":item_to_give","itm_pork",1),(else_try),
+				(eq,":item_to_give",5),(assign,":item_to_give","itm_grain",1),(else_try),
+				(eq,":item_to_give",6),(assign,":item_to_give","itm_honey",1),(else_try),
+				(eq,":item_to_give",7),(assign,":item_to_give","itm_bread",1),(else_try),
+				(eq,":item_to_give",8),(assign,":item_to_give","itm_ale",1),(else_try),
+				(eq,":item_to_give",9),(assign,":item_to_give","itm_mead",1),(else_try),
+				(eq,":item_to_give",10),(assign,":item_to_give","itm_chicken",1),(else_try),
 			(try_end),
 			(str_store_item_name,s1,":item_to_give"),
-			(store_random_in_range,":increase_renown",1,6),		
+			(store_random_in_range,":increase_renown",1,6),
 			(try_begin),
 				(eq,":increase_renown",1),
 				(call_script, "script_change_player_relation_with_center", "$current_town", 1),
 				(str_store_string,s2,"@ You improve your renown with this village"),
 			(else_try),
-				(str_store_string,s2,"@ Alas, you don't improve your renown with this village"),		
+				(str_store_string,s2,"@ Alas, you don't improve your renown with this village"),
 			(try_end),
-			
+
 			(troop_add_items,"trp_player",":item_to_give",1),
 			(str_store_string,s3,"@Here are the results of your hard work: You exhaust yourself, You gain {reg1} xps, you receive some {s1}. {s2}. Peasant life is hard, but you feel good."),
-		(try_end),		
+		(try_end),
 	],
     [
       ("continue",[],
@@ -15429,7 +15435,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
               (try_end),
             ]),
       ],
-  ), 
+  ),
 ###rigale chief acaba
 
 
@@ -15482,9 +15488,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 ###chief hacer exclavos acaba
       ("village_loot",[(party_slot_eq, "$current_town", slot_village_state, 0),
                        (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
-                       (store_faction_of_party, ":center_faction", "$current_town"), 
-                       (store_relation, ":reln", "fac_player_supporters_faction", ":center_faction"), 
-                       (lt, ":reln", 0), 
+                       (store_faction_of_party, ":center_faction", "$current_town"),
+                       (store_relation, ":reln", "fac_player_supporters_faction", ":center_faction"),
+                       (lt, ":reln", 0),
                        ],
        "Pillage and burn this village.",
        [
@@ -15496,7 +15502,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       "Forget it.",[(jump_to_menu,"mnu_village")]),
     ],
   ),
-  
+
   (
     "recruit_volunteers",0,
     "{s18}",
@@ -15508,14 +15514,14 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
      (assign, ":troop_no", "trp_player"),
      (store_skill_level, ":skill", "skl_persuasion", ":troop_no"),
      (val_add, ":volunteer_amount", ":skill"),
-     
+
      (val_min, ":volunteer_amount", ":free_capacity"),
 
      (store_troop_gold, ":gold", "trp_player"),
     # (store_div, ":gold_capacity", ":gold", 10),#10 denars per man cambiado chief
      (call_script, "script_cost_per_village_recruit"),    #MOTO      variable cost
            (store_div, ":gold_capacity", ":gold", reg0),#10 denars per      man MOTO variable cost
-     
+
      (assign, ":party_capacity", ":free_capacity"),
      (val_min, ":party_capacity", ":gold_capacity"),
      (try_begin),
@@ -15553,12 +15559,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       [
         (jump_to_menu,"mnu_village"),
       ]),
-       
+
       ("continue",
       [
         (eq, reg7, 0),
         (eq, reg5, 0),
-      ], #noone willing to join                   
+      ], #noone willing to join
       "Continue...",
       [
         (party_set_slot, "$current_town", slot_center_volunteer_troop_amount, -1),
@@ -15572,10 +15578,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       "Recruit them ({reg6} scillingas).",
       [
         (call_script, "script_village_recruit_volunteers_recruit"),
-                        
+
         (jump_to_menu,"mnu_village"),
       ]),
-      
+
       ("forget_it",
       [
         (eq, reg7, 0),
@@ -15654,12 +15660,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       [
         (jump_to_menu,"mnu_village"),
       ]),
-       
+
       ("continue",
       [
         (eq, reg7, 0),
         (eq, reg5, 0),
-      ], #noone willing to join                   
+      ], #noone willing to join
       "Continue...",
       [
         (party_set_slot, "$current_town", slot_center_volunteer_troop_amount, -1),
@@ -15677,10 +15683,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     (call_script, "script_change_player_party_morale", -5),
           (call_script, "script_change_player_relation_with_center", "$current_town", -10),
         (call_script, "script_village_recruit_volunteers_recruit2"),
-                        
+
         (jump_to_menu,"mnu_village"),
       ]),
-      
+
       ("forget_it",
       [
         (eq, reg7, 0),
@@ -15773,7 +15779,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
      #Add normal reward
        (call_script, "script_change_player_relation_with_center", "$g_encountered_party", 4),
      (try_end),
-   
+
      (party_get_slot, ":merchant_troop", "$current_town", slot_town_elder),
      (try_for_range, ":slot_no", num_equipment_kinds ,max_inventory_items + num_equipment_kinds),
         (store_random_in_range, ":rand", 0, 100),
@@ -15787,10 +15793,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
                                                                          (troop_sort_inventory, ":merchant_troop"),
                                                                          (change_screen_loot, ":merchant_troop"),
                                                                        ]),
-																	   
+
       ("village_bandits_defeated_cont",[],  "Refuse, stating that they need these items more than you do.",
 	  [	(call_script, "script_change_player_relation_with_center", "$g_encountered_party", 3),
-		(call_script, "script_change_player_honor", 1),	  
+		(call_script, "script_change_player_honor", 1),
 		(jump_to_menu, "mnu_village")]),
     ],
   ),
@@ -15815,7 +15821,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
      (else_try),
        (str_store_string, s17, "@castle"),
      (try_end),
-     
+
      (try_for_range, ":improvement_no", ":begin", ":end"),
        (party_slot_ge, "$g_encountered_party", ":improvement_no", 1),
        (val_add,  ":num_improvements", 1),
@@ -15827,14 +15833,14 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (str_store_string, s18, "@{!}{s18}, {s0}"),
        (try_end),
      (try_end),
-     
+
      (try_begin),
        (eq,  ":num_improvements", 0),
        (str_store_string, s19, "@The {s17} has no improvements."),
      (else_try),
        (str_store_string, s19, "@The {s17} has the following improvements:{s18}."),
      (try_end),
-     
+
      (assign, reg6, 0),
      (try_begin),
        (party_get_slot, ":cur_improvement", "$g_encountered_party", slot_center_current_improvement),
@@ -15944,21 +15950,21 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		"Build a shrine to Germanic Gods (Conversion Factor).",[(party_set_slot,"$g_encountered_party",center_religion_pagana, 1),(assign, "$g_improvement_type", slot_center_has_monastery3),
         (jump_to_menu, "mnu_center_improve"), ]),
 	("center_build_sod41",[(eq, reg6, 0),
-							 
+
                              (party_slot_eq, "$g_encountered_party", slot_party_type, spt_castle),
                              (party_slot_eq, "$g_encountered_party", slot_center_has_blacksmith, 0),
                                   ],
 		"Build a blacksmith.",[(assign, "$g_improvement_type", slot_center_has_blacksmith),
         (jump_to_menu, "mnu_center_improve"),]),
 	("center_build_sod42",[(eq, reg6, 0),
-							 
+
                              (party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
                              (party_slot_eq, "$g_encountered_party", slot_center_has_guild, 0),
                                   ],
 		"Build a guild hall.",[(assign, "$g_improvement_type", slot_center_has_guild),
         (jump_to_menu, "mnu_center_improve"),]),
 	("center_build_sod43",[(eq, reg6, 0),
-							 
+
                              (party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
                              (party_slot_eq, "$g_encountered_party", slot_center_has_university, 0),
                                   ],
@@ -15986,7 +15992,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
      (store_sub, ":multiplier", 20, ":max_skill"),
      (val_mul, ":improvement_cost", ":multiplier"),
      (val_div, ":improvement_cost", 20),
-     
+
      (store_div, ":improvement_time", ":improvement_cost", 300), #ajm chief was 100
      (val_add, ":improvement_time", 3),
 
@@ -16003,12 +16009,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     ],
     [
       ##diplomacy chief begin
-      ("dplmc_improve_cont", 
-      [    
+      ("dplmc_improve_cont",
+      [
         (gt, "$g_player_chamberlain", 0),
         (store_troop_gold, ":cur_gold", "trp_household_possessions"),
         (ge, ":cur_gold", reg5),
-      ], "Go on. (Pay from treasury)", 
+      ], "Go on. (Pay from treasury)",
         [
           (call_script, "script_dplmc_withdraw_from_treasury", reg5),
           (party_set_slot, "$g_encountered_party", slot_center_current_improvement, "$g_improvement_type"),
@@ -16102,7 +16108,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     ],
   ),
 
-  
+
    (
     "village_steal_cattle_confirm",0,
     "As the party member with the highest looting skill ({reg2}), {reg3?you reckon:{s1} reckons} that you can steal as many as {reg4} heads of village's cattle.",
@@ -16145,7 +16151,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       (call_script, "script_get_max_skill_of_player_party", "skl_looting"),
       (assign, ":skill", reg0),
       (val_add, ":random_value", ":skill"),
-###chief acaba      
+###chief acaba
       (party_set_slot, "$current_town", slot_village_player_can_not_steal_cattle, 1),
       (party_get_slot, ":lord", "$current_town", slot_town_lord),
       (try_begin),
@@ -16186,7 +16192,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          ]),
     ],
   ),
-  
+
 ###coger prisioneros chief
   #LAZERAS MODIFIED  {forced forced slaves}
 ("forced_prisoners",0,
@@ -16248,7 +16254,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
      (store_mul, ":forcedprofit",":random_prisoners",":random_profit"),
      (party_get_skill_level, ":player_looting", "p_main_party", "skl_looting"),
      (try_begin),
-      (gt,":random_prisoners", 2),   
+      (gt,":random_prisoners", 2),
       #New Edit to adjust cost by looting
       (val_div, ":player_looting", 2),
       (store_add, ":random_profit",":random_profit",":player_looting"),
@@ -16294,7 +16300,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
    (str_store_string, s18, "@You have no free prisoner capacity and thus can not forciable take prisoners "),
    (assign, reg7, 0),
    (assign,reg5,0),
-     (try_end),           
+     (try_end),
        (set_background_mesh, "mesh_pic_payment1"),
  ],
  [
@@ -16346,12 +16352,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
    (store_relation, ":relation", "$players_kingdom", ":village_faction"),
    (ge, ":relation", 0),
    (call_script, "script_diplomacy_party_attacks_neutral", "p_main_party", "$current_town"),
-  (try_end),   
+  (try_end),
   (call_script, "script_add_log_entry", logent_village_extorted, "trp_player",  "$current_town", ":lord", "$g_encountered_party_faction"),
   (party_set_slot, "$current_town", slot_village_raided_by, -1),
   (change_screen_return),
   ]),
-      
+
       ("forget_it",
       [
         (eq, reg7, 0),
@@ -16425,7 +16431,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (val_mul, ":player_party_looting", 3),
          (store_sub, ":random_chance", 70, ":player_party_looting"), #Increases the chance of looting by 3% per skill level
          (try_for_range, ":slot_no", num_equipment_kinds ,max_inventory_items + num_equipment_kinds),
-           (store_random_in_range, ":rand", 0, 100), 
+           (store_random_in_range, ":rand", 0, 100),
            (lt, ":rand", ":random_chance"),
            (troop_set_inventory_slot, ":merchant_troop", ":slot_no", -1),
          (try_end),
@@ -16437,11 +16443,11 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (call_script, "script_add_log_entry", logent_village_extorted, "trp_player",  "$current_town", -1, -1),
           (store_faction_of_party,":village_faction",  "$current_town"),
 		  (call_script, "script_faction_inflict_war_damage_on_faction", "$players_kingdom", ":village_faction", 5),
-#Troop commentary changes end          
+#Troop commentary changes end
 
          (jump_to_menu, "mnu_village"),
          (troop_sort_inventory, ":merchant_troop"),
-         (change_screen_loot, ":merchant_troop"),       
+         (change_screen_loot, ":merchant_troop"),
          ]),
       ("let_them_keep_it_2",[],"Let them keep it.",[(jump_to_menu, "mnu_village")]),
     ],
@@ -16459,7 +16465,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        (assign, ":player_party_size", reg0),
        (call_script, "script_party_count_members_with_full_health","$current_town"),
        (assign, ":villagers_party_size", reg0),
-       
+
        (try_begin),
 	     (store_random_in_range, ":random_no", 55, 120), #chief blood
          (gt, ":player_party_size", ":random_no"), #chief blood
@@ -16513,14 +16519,14 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (jump_to_menu, "mnu_battle_debrief"),
           (change_screen_mission),
           ]),
-###COOP Village attack chief#############################		  
+###COOP Village attack chief#############################
 ##      ("coop_setup",
 ##       [
 ##        (call_script, "script_coop_get_battle_state", 1), #sets coop_battle_state
 ##        (this_or_next|ge, "$cheat_mode", 1),
 ##        (eq, "$coop_battle_state", coop_battle_state_none),
 ##       ],
-##       "Setup multiplayer battle.", 
+##       "Setup multiplayer battle.",
 ##       [
 ##        (assign, "$coop_battle_type", coop_battle_type_village_player_attack),
 ##        (assign, "$coop_encountered_party", "$current_town"),
@@ -16528,23 +16534,23 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 ##        (call_script, "script_coop_copy_parties_to_file_sp"),#clears registers
 ##        (try_begin),
 ##          (eq, "$coop_skip_menu", 1),
-##          (change_screen_quit), 
+##          (change_screen_quit),
 ##        (try_end),
-##       ]),	
-##	  
+##       ]),
+##
 ##
 ##       ("quit",[
 ##        (this_or_next|ge, "$cheat_mode", 1),#always allow in cheat mode
 ##        (eq, "$coop_battle_state", coop_battle_state_setup_sp),
-##      ],"Quit game (will not save).", 
+##      ],"Quit game (will not save).",
 ##      [
-##        (change_screen_quit), 
-##      ]),		
+##        (change_screen_quit),
+##      ]),
 ##
 ##      ("coop_use_result",[
 ##         (this_or_next|ge, "$cheat_mode", 1),#always allow in cheat mode
 ##         (eq, "$coop_battle_state", coop_battle_state_end_mp),
-##      ],"Use multiplayer battle results.", 
+##      ],"Use multiplayer battle results.",
 ##      [
 ##
 ##          (store_random_in_range, ":enmity", -10, -5),
@@ -16564,15 +16570,15 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 ##        (call_script, "script_coop_copy_file_to_parties_sp"),	     #remove troops from parties
 ##        (jump_to_menu, "mnu_battle_debrief"),
 ##
-##      ]),		  
+##      ]),
 ##
 ##      ("encounter_save",[],"Give me time to save.",
 ##      [
 ##        (call_script, "script_coop_get_battle_state", 2),
 ##        (change_screen_return),
 ##       # (rest_for_hours, 1, 1, 0),#rest while not attackable
-##      ]),		
-##          
+##      ]),
+##
 ################################################## chief acaba
 
       ("village_raid_leave",[],"Leave this village alone.",[(change_screen_return)]),
@@ -16619,14 +16625,14 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (call_script, "script_village_set_state", "$current_town", svs_being_raided),
           (party_set_slot, "$current_town", slot_village_raided_by, "p_main_party"),
           (assign,"$g_player_raiding_village","$current_town"),
-		  
+
 		  (try_begin),
 		    (store_faction_of_party, ":village_faction", "$current_town"),
 			(store_relation, ":relation", "$players_kingdom", ":village_faction"),
 			(ge, ":relation", 0),
 			(call_script, "script_diplomacy_party_attacks_neutral", "p_main_party", "$current_town"),
-		  (try_end),	
-		  
+		  (try_end),
+
           (rest_for_hours, 1, 5, 1), #rest chief while attackable (3 hours will be extended by the trigger)
           (change_screen_return),
            ]),
@@ -16643,7 +16649,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (get_achievement_stat, ":number_of_caravan_raids", ACHIEVEMENT_THE_BANDIT, 1),
         (val_add, ":number_of_village_raids", 1),
         (set_achievement_stat, ACHIEVEMENT_THE_BANDIT, 0, ":number_of_village_raids"),
-                
+
         (try_begin),
           (ge, ":number_of_village_raids", 3),
           (ge, ":number_of_caravan_raids", 3),
@@ -16664,26 +16670,26 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (lt, ":relation", 0),
           (call_script, "script_change_player_relation_with_faction", ":village_faction", -3),
         (try_end),
-                
+
         (assign, ":money_gained", 50),
         (party_get_slot, ":prosperity", "$current_town", slot_town_prosperity),
         (store_mul, ":prosperity_of_village_mul_5", ":prosperity", 5),
         (val_add, ":money_gained", ":prosperity_of_village_mul_5"),
         (call_script, "script_troop_add_gold", "trp_player", ":money_gained"),
-		
+
         (assign, ":morale_increase", 3),
         (store_div, ":money_gained_div_100", ":money_gained", 100),
         (val_add, ":morale_increase", ":money_gained_div_100"),
         (call_script, "script_change_player_party_morale", ":morale_increase"),
-        
-                
+
+
         (faction_get_slot, ":faction_morale", ":village_faction",  slot_faction_morale_of_player_troops),
         (store_mul, ":morale_increase_mul_2", ":morale_increase", 200),
-        (val_sub, ":faction_morale", ":morale_increase_mul_2"),           
+        (val_sub, ":faction_morale", ":morale_increase_mul_2"),
         (faction_set_slot, ":village_faction",  slot_faction_morale_of_player_troops, ":faction_morale"),
-        
 
-		
+
+
 #NPC companion changes begin
         (call_script, "script_objectionable_action", tmt_humanitarian, "str_loot_village"),
 #NPC companion changes end
@@ -16729,7 +16735,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
             (val_mul, ":cur_probability", average_price_factor),
             (val_div, ":cur_probability", ":cur_price"),
             #first only simulation
-            #(set_item_probability_in_merchandise,":cur_goods",":cur_probability"),                          
+            #(set_item_probability_in_merchandise,":cur_goods",":cur_probability"),
             (val_add, ":total_probability", ":cur_probability"),
           (try_end),
 
@@ -16751,10 +16757,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
             (val_mul, ":cur_probability", 100),
             (val_div, ":cur_probability", ":total_probability"),
 
-            (set_item_probability_in_merchandise,":cur_goods",":cur_probability"),                          
+            (set_item_probability_in_merchandise,":cur_goods",":cur_probability"),
           (try_end),
           #end of changes
-          
+
           (troop_add_merchandise,"trp_temp_troop",itp_type_goods,30),
           (troop_sort_inventory, "trp_temp_troop"),
           (change_screen_loot, "trp_temp_troop"),
@@ -16773,7 +16779,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       ("continue",[],"Continue...",[(change_screen_return)]),
     ],
   ),
-  
+
   (
     "village_loot_continue",0,
     "Do you wish to continue looting this village?",
@@ -16789,7 +16795,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
                             (change_screen_return)]),
     ],
   ),
-  
+
   (
     "close",0,
     "Nothing.",
@@ -16799,12 +16805,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       ],
     [],
   ),
- 
+
   (
     "town",mnf_enable_hot_keys,
     "{s10} {s14}^{s11}{s12}{s13}",
     "none",
-    [    
+    [
 #chief anade saqueo
           (try_begin),
         (party_slot_eq, "$g_encountered_party", slot_saqueo_state, 1),
@@ -16816,12 +16822,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (try_begin),
 			(eq, ":lord", "trp_player"),
 			(assign, "$sneaked_into_town",1),
-			(assign, "$town_entered", 1),			
+			(assign, "$town_entered", 1),
 			(assign, "$encountered_party_hostile", 0),
 			(assign,"$entry_to_town_forbidden",0),
-			(assign, "$encountered_party_friendly", 1),		
+			(assign, "$encountered_party_friendly", 1),
 			(assign,"$g_permitted_to_center",1),
-          (try_end),	
+          (try_end),
 #chief blood anadido acaba
         (try_begin),
           (eq, "$sneaked_into_town", 1),
@@ -16862,7 +16868,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (is_between, "$g_encountered_party", towns_begin, towns_end),
           (store_sub, ":encountered_town_no", "$g_encountered_party", towns_begin),
           (set_achievement_stat, ACHIEVEMENT_MIGRATING_COCONUTS, ":encountered_town_no", 1),
-          
+
           (assign, ":there_are_villages_not_visited", 0),
           (try_for_range, ":cur_town", towns_begin, towns_end),
             (store_sub, ":encountered_town_no", ":cur_town", towns_begin),
@@ -16870,17 +16876,17 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
             (eq, ":town_is_visited", 0),
             (assign, ":there_are_villages_not_visited", 1),
           (try_end),
-          
+
           (try_begin),
             (eq, ":there_are_villages_not_visited", 0),
             (unlock_achievement, ACHIEVEMENT_MIGRATING_COCONUTS),
           (try_end),
         (try_end),
-                  
+
         #Quest menus
-        
+
         (assign, "$qst_collect_taxes_currently_collecting", 0),
-        
+
         (try_begin),
           (gt, "$quest_auto_menu", 0),
           (jump_to_menu, "$quest_auto_menu"),
@@ -16912,7 +16918,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (leave_encounter),
           (change_screen_return),
         (try_end),
-        
+
         (str_store_party_name, s2, "$current_town"),
         (party_get_slot, ":center_lord", "$current_town", slot_town_lord),
         (store_faction_of_party, ":center_faction", "$current_town"),
@@ -16956,7 +16962,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(try_begin),
                   (this_or_next|eq, "$g_sod_faith", 2),
 							 (eq, "$g_sod_faith", 3),
-                
+
                   		(party_get_slot, ":faith", "$current_town", slot_center_sod_local_faith),
 			(try_begin),
         (neg|party_slot_ge, "$current_town", center_religion_pagana, 1), #skip villages which are pagan.
@@ -16999,12 +17005,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (str_store_troop_name,s8,":center_lord"),
           (str_store_string,s7,"@{s8} of {s9}"),
         (try_end),
-        
+
         (try_begin),
           (party_slot_eq,"$current_town",slot_party_type, spt_town),
 
           (str_store_string, s60, s2),
-		  
+
 		  (party_get_slot, ":prosperity", "$current_town", slot_town_prosperity),
 		  (try_begin),
 			(ge, "$cheat_mode", 1),
@@ -17021,15 +17027,15 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (store_div, ":str_id", ":prosperity", 20),
 		  (val_min, ":str_id", 4),
 		  (val_add, ":str_id", "str_town_alt_prosperity_0"),
-		  
+
           (str_store_string, s14, ":str_id"),
 
-		  
+
         (else_try),
 		  (str_clear, s14),
           (str_store_string,s10,"@You are at {s2}."),
         (try_end),
-        
+
         (try_begin),
           (party_slot_eq,"$current_town",slot_party_type, spt_castle),
           (try_begin),
@@ -17050,7 +17056,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (try_begin),
             (eq, ":center_lord", "trp_player"),
             (str_store_string,s11,"@ Your own banner flies over the town gates. {s15}"),
-		  (else_try),	
+		  (else_try),
 			(gt, ":center_lord", -1),
 			(troop_slot_eq, ":center_lord", slot_troop_spouse, "trp_player"),
             (str_store_string,s11,"str__the_banner_of_your_wifehusband_s7_flies_over_the_town_gates"),
@@ -17073,18 +17079,18 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (try_end),
 
         (str_clear, s13),
-        (try_begin), 
+        (try_begin),
           (gt,"$entry_to_town_forbidden",0),
           (str_store_string, s13, "@ You have successfully sneaked in."),
-		(else_try),  
+		(else_try),
 		  (faction_slot_eq, ":center_faction", slot_faction_ai_state, sfai_feast),
 		  (faction_slot_eq, ":center_faction", slot_faction_ai_object, "$current_town"),
-		  
+
           (str_store_string, s13, "str__the_lord_is_currently_holding_a_feast_in_his_hall"),
         (try_end),
 
         #forbidden to enter?
-        (try_begin), 
+        (try_begin),
           (store_time_of_day,reg(12)),
           (ge,reg(12),5),
           (lt,reg(12),21),
@@ -17110,19 +17116,19 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (try_end),
 
 #chief blood
-		  (party_get_slot, ":lord", "$current_town", slot_town_lord), 
+		  (party_get_slot, ":lord", "$current_town", slot_town_lord),
           (try_begin),
 			(eq, ":lord", "trp_player"),
 			(assign, "$sneaked_into_town",0),
-			(assign, "$town_entered", 1),			
+			(assign, "$town_entered", 1),
 			(assign, "$encountered_party_hostile", 0),
 			(assign,"$entry_to_town_forbidden",0),
-			(assign, "$encountered_party_friendly", 1),		
+			(assign, "$encountered_party_friendly", 1),
 			(assign,"$g_permitted_to_center",1),
-          (try_end),			
+          (try_end),
 #chief blood acaba
 		(call_script, "script_set_town_picture"),
-		
+
 #		(str_clear, s5), #alert player that there are new rumors
 #		(try_begin),
 #			(eq, 1, 0),
@@ -17139,11 +17145,11 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ],
     [
       ("castle_castle",
-      [        
-        (party_slot_eq,"$current_town",slot_party_type, spt_castle),        
-        
+      [
+        (party_slot_eq,"$current_town",slot_party_type, spt_castle),
+
        (neq, "$current_town", "p_fort"), #para lair chief player
-        (eq, "$sneaked_into_town", 0),         
+        (eq, "$sneaked_into_town", 0),
 
       (str_clear, s1),
         (try_begin),
@@ -17153,10 +17159,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (str_store_string, s1, "str__join_the_feast"),
         (try_end),
         ],"Go to the Great Hall{s1}.", #chief sot cambia
-       [          
+       [
            (try_begin),
              (this_or_next|eq, "$all_doors_locked", 1),
-             (eq, "$sneaked_into_town", 1),           
+             (eq, "$sneaked_into_town", 1),
              (display_message,"str_door_locked",0xFFFFAAAA),
            (else_try),
 		     (this_or_next|neq, "$players_kingdom", "$g_encountered_party_faction"),
@@ -17166,19 +17172,19 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 
 			 (faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_state, sfai_feast),
 			 (faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_object, "$g_encountered_party"),
-			 
+
 			 (neg|check_quest_active, "qst_wed_betrothed"),
 			 (neg|check_quest_active, "qst_wed_betrothed_female"),
-			 
+
 			 (neg|troop_slot_ge, "trp_player", slot_troop_spouse, active_npcs_begin), #Married players always make the cut
-			 
+
 			 (jump_to_menu, "mnu_cannot_enter_court"),
 		   (else_try),
              (assign, "$town_entered", 1),
              (call_script, "script_enter_court", "$current_town"),
            (try_end),
-        ], "Door to the castle."), 
-		
+        ], "Door to the castle."),
+
       ("join_tournament", [(neg|is_currently_night),(party_slot_ge, "$current_town", slot_town_has_tournament, 1),]
        ,"Join the Competition.", #chief cambia sot
        [
@@ -17193,10 +17199,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            (jump_to_menu, "mnu_town_tournament"),
         ]),
 
-      
-      ("town_castle",[        
-          (party_slot_eq,"$current_town",slot_party_type, spt_town),        
-          (eq,"$entry_to_town_forbidden",0),        
+
+      ("town_castle",[
+          (party_slot_eq,"$current_town",slot_party_type, spt_town),
+          (eq,"$entry_to_town_forbidden",0),
           (str_clear, s1),
           (try_begin),
             (store_faction_of_party, ":center_faction", "$current_town"),
@@ -17206,40 +17212,40 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (try_end),
 
           ],"Go to the Great hall{s1}.",
-       [           
+       [
             (try_begin), #chief anadido
         (this_or_next|party_slot_eq, "$current_town", slot_town_lord, "trp_player"), #chief anadido player es lord de la ciudad
     (troop_slot_ge, "trp_player", slot_troop_renown, 30), #chief anadido
           (try_begin),
              (this_or_next|eq, "$all_doors_locked", 1),
-             (eq, "$sneaked_into_town", 1),           
+             (eq, "$sneaked_into_town", 1),
              (display_message,"str_door_locked",0xFFFFAAAA),
            (else_try),
 		     (this_or_next|neq, "$players_kingdom", "$g_encountered_party_faction"),
 		     (neg|troop_slot_ge, "trp_player", slot_troop_renown, 50),
 		     (neg|troop_slot_ge, "trp_player", slot_troop_renown, 125),
-			 (neq, "$g_player_eligible_feast_center_no", "$current_town"),			 
-			 
+			 (neq, "$g_player_eligible_feast_center_no", "$current_town"),
+
 			 (faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_state, sfai_feast),
 			 (faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_object, "$g_encountered_party"),
 
 			 (neg|check_quest_active, "qst_wed_betrothed"),
 			 (neg|check_quest_active, "qst_wed_betrothed_female"),
-			 
+
 			 (neg|troop_slot_ge, "trp_player", slot_troop_spouse, active_npcs_begin), #Married players always make the cut
-			 
+
              (jump_to_menu, "mnu_cannot_enter_court"),
 			(else_try),
-			  (assign, "$town_entered", 1),              
+			  (assign, "$town_entered", 1),
               (call_script, "script_enter_court", "$current_town"),
            (try_end),
 		   (else_try), #chief anadido
              (display_message,"@You need more renown or to ask the guard.",0xFFFFAAAA), #chief anadido
            (try_end), #chief anadido
         ], "Door to the castle."),
-      
+
       ("town_center",
-      [                        
+      [
         (party_slot_eq, "$current_town", slot_party_type, spt_town),
         (this_or_next|eq,"$entry_to_town_forbidden",0),
         (eq, "$sneaked_into_town",1)
@@ -17259,12 +17265,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            (modify_visitors_at_site, ":town_scene"),
            (reset_visitors),
            #ideally we could alarm troops at locations
-           (try_begin), 
+           (try_begin),
 	         #if guards have not gone to some other important happening at nearby villages, then spawn 4 guards. (example : fire)
-             (party_get_slot, ":last_nearby_fire_time", "$current_town", slot_town_last_nearby_fire_time),                          
+             (party_get_slot, ":last_nearby_fire_time", "$current_town", slot_town_last_nearby_fire_time),
              (store_current_hours, ":cur_time"),
              (store_add, ":fire_finish_time", ":last_nearby_fire_time", fire_duration),
-                                                    
+
              (neg|is_between, ":cur_time", ":last_nearby_fire_time", ":fire_finish_time"),
              (store_time_of_day, ":cur_day_hour"),
              (try_begin), #there are 6 guards at day time (no fire ext)
@@ -17295,7 +17301,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
                (set_visitors, 26, ":tier_2_troop", 0),
                (set_visitors, 27, ":tier_3_troop", 0),
                (set_visitors, 28, ":tier_4_troop", 0),
-             (try_end),                   
+             (try_end),
            (try_end),
            (set_jump_mission,"mt_town_center"),
            (jump_to_scene, ":town_scene"),
@@ -17311,7 +17317,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            (reset_visitors),
            (assign, "$g_mt_mode", tcm_default),
            (store_faction_of_party, ":town_faction","$current_town"),
-                      
+
            (try_begin),
              (neq, ":town_faction", "fac_player_supporters_faction"),
              (faction_get_slot, ":troop_prison_guard", "$g_encountered_party_faction", slot_faction_prison_guard_troop),
@@ -17335,7 +17341,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
              (set_visitor, 23, ":troop_castle_guard"),
            (try_end),
            (set_visitor, 24, ":troop_prison_guard"),
-           
+
            (try_begin),
              (gt,":tier_2_troop", 0),
              (assign,reg0,":tier_3_troop"),
@@ -17349,7 +17355,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
              (assign,reg3,"trp_vaegir_footman"),
            (try_end),
            (shuffle_range,0,4),
-         
+
            (try_begin),
              #if guards have not gone to some other important happening at nearby villages, then spawn 4 guards. (example : fire)
              (party_get_slot, ":last_nearby_fire_time", "$current_town", slot_town_last_nearby_fire_time),
@@ -17362,7 +17368,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
              (set_visitor,27,reg2),
              (set_visitor,28,reg3),
            (try_end),
-         
+
            (party_get_slot, ":spawned_troop", "$current_town", slot_town_armorer),
            (set_visitor, 9, ":spawned_troop"),
            (party_get_slot, ":spawned_troop", "$current_town", slot_town_weaponsmith),
@@ -17393,9 +17399,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            (try_end),
            (jump_to_scene, ":town_scene"),
            (change_screen_mission),
-         (try_end),	   
+         (try_end),
       ],"Door to the town center."),
-      
+
       ("town_tavern",[
           (party_slot_eq,"$current_town",slot_party_type, spt_town),
           (this_or_next|eq,"$entry_to_town_forbidden",0),
@@ -17429,7 +17435,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 
              (modify_visitors_at_site, ":cur_scene"),
              (reset_visitors),
-             
+
              (assign, ":cur_entry", 17),
 
 			 #this is just a cheat right now
@@ -17446,7 +17452,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			    (else_try),
 					(display_message, "str_belligerent_drunk_not_found"),
 				(try_end),
-				
+
 				(troop_get_slot, ":promoter_location", "trp_fight_promoter", slot_troop_cur_center),
 				(try_begin),
 					(eq, "$cheat_mode", 0),
@@ -17456,9 +17462,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 					(display_message, "str_roughlooking_character_in_s4"),
 			    (else_try),
 					(display_message, "str_roughlooking_character_not_found"),
-				(try_end),				
+				(try_end),
 			 (try_end),
-			 
+
 			 #this determines whether or not a lord who dislikes you will commission an assassin
 			 (try_begin),
 				(store_current_hours, ":hours"),
@@ -17468,25 +17474,25 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 					(troop_slot_eq, ":lord", slot_lord_reputation_type, lrep_debauched),
 					(troop_get_slot, ":led_party", ":lord", slot_troop_leaded_party),
 					(party_is_active, ":led_party"),
-					(party_get_attached_to, ":led_party_attached", ":led_party"), 
+					(party_get_attached_to, ":led_party_attached", ":led_party"),
 					(eq, ":led_party_attached", "$g_encountered_party"),
 					(call_script, "script_troop_get_relation_with_troop", "trp_player", ":lord"),
 					(lt, reg0, -20),
 					(assign, "$g_last_assassination_attempt_time", ":hours"),
 #					(assign, "$g_last_assassination_attempt_location", "$g_encountered_party"),
 #					(assign, "$g_last_assassination_attempt_perpetrator", ":lord"),
-					
-					(troop_set_slot, "trp_hired_assassin", slot_troop_cur_center, "$g_encountered_party"),					
+
+					(troop_set_slot, "trp_hired_assassin", slot_troop_cur_center, "$g_encountered_party"),
 				(try_end),
-			 (try_end),	
-						
+			 (try_end),
+
 			 (try_begin),
 				 (eq, ":randomize_attacker_placement", 0),
 				 (call_script, "script_setup_tavern_attacker", ":cur_entry"),
 
 				 (val_add, ":cur_entry", 1),
 			 (try_end),
-			 
+
 			 (try_begin),
 				(eq, 1, 0),
 				(troop_slot_eq, "trp_fight_promoter", slot_troop_cur_center, "$current_town"),
@@ -17494,7 +17500,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 
                 (val_add, ":cur_entry", 1),
 			 (try_end),
-			 
+
              (party_get_slot, ":mercenary_troop", "$current_town", slot_center_mercenary_troop_type),
              (party_get_slot, ":mercenary_amount", "$current_town", slot_center_mercenary_troop_amount),
              (try_begin),
@@ -17510,37 +17516,37 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 
 				 (val_add, ":cur_entry", 1),
 			 (try_end),
-             
+
              (try_for_range, ":companion_candidate", companions_begin, companions_end),
                (troop_slot_eq, ":companion_candidate", slot_troop_occupation, 0),
                (troop_slot_eq, ":companion_candidate", slot_troop_cur_center, "$current_town"),
 			   (neg|troop_slot_ge, ":companion_candidate", slot_troop_prisoner_of_party, centers_begin),
-			   
+
                (set_visitor, ":cur_entry", ":companion_candidate"),
 
                (val_add, ":cur_entry", 1),
              (try_end),
-			 
+
 			 (try_begin),
 				 (eq, ":randomize_attacker_placement", 2),
 				 (call_script, "script_setup_tavern_attacker", ":cur_entry"),
 
 				 (val_add, ":cur_entry", 1),
 			 (try_end),
-			 			 
+
              (try_begin), #this doubles the incidence of ransom brokers and (below) minstrels
                (party_get_slot, ":ransom_broker", "$current_town", slot_center_ransom_broker),
                (gt, ":ransom_broker", 0),
-               
+
                (assign, reg0, ":ransom_broker"),
                (assign, reg1, "$current_town"),
-			   
+
                (set_visitor, ":cur_entry", ":ransom_broker"),
                (val_add, ":cur_entry", 1),
 			 (else_try),
 			   (is_between, "$g_talk_troop", ransom_brokers_begin, ransom_brokers_end),
 			   (store_add, ":alternative_town", "$current_town", 9),
-			   
+
 			   (try_begin),
 				(ge, ":alternative_town", towns_end),
 				(val_sub, ":alternative_town", 22),
@@ -17550,29 +17556,29 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			    (str_store_party_name, s3, "$current_town"),
 			    (str_store_party_name, s4, ":alternative_town"),
 			    (display_message, "@{!}DEBUG - Current town is {s3}, but also checking {s4}"),
-			   (try_end),	
-			   
+			   (try_end),
+
                (party_get_slot, ":ransom_broker", ":alternative_town", slot_center_ransom_broker),
                (gt, ":ransom_broker", 0),
-			   
+
                (set_visitor, ":cur_entry", ":ransom_broker"),
                (val_add, ":cur_entry", 1),
              (try_end),
-			 
+
              (try_begin),
                (party_get_slot, ":tavern_traveler", "$current_town", slot_center_tavern_traveler),
                (gt, ":tavern_traveler", 0),
                (set_visitor, ":cur_entry", ":tavern_traveler"),
                (val_add, ":cur_entry", 1),
              (try_end),
-			 
+
              (try_begin),
                (party_get_slot, ":tavern_minstrel", "$current_town", slot_center_tavern_minstrel),
                (gt, ":tavern_minstrel", 0),
-			   
+
                (set_visitor, ":cur_entry", ":tavern_minstrel"),
                (val_add, ":cur_entry", 1),
-			 (else_try),  
+			 (else_try),
 			   (store_add, ":alternative_town", "$current_town", 9),
 			   (try_begin),
 				(ge, ":alternative_town", towns_end),
@@ -17585,9 +17591,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			   (is_between, ":alternative_town", centers_begin, centers_end),
 			   (party_slot_eq, ":alternative_town", slot_party_type, spt_town),
 			   ##diplomacy end+
-              (party_get_slot, ":tavern_minstrel", ":alternative_town", slot_center_tavern_minstrel),			   
+              (party_get_slot, ":tavern_minstrel", ":alternative_town", slot_center_tavern_minstrel),
                (gt, ":tavern_minstrel", 0),
-			   
+
                (set_visitor, ":cur_entry", ":tavern_minstrel"),
                (val_add, ":cur_entry", 1),
              (try_end),
@@ -17605,20 +17611,20 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
                (val_add, ":cur_entry", 1),
              (try_end),
 ## CC gambling end
-			 
+
              (try_begin),
                (party_get_slot, ":tavern_bookseller", "$current_town", slot_center_tavern_bookseller),
                (gt, ":tavern_bookseller", 0),
                (set_visitor, ":cur_entry", ":tavern_bookseller"),
                (val_add, ":cur_entry", 1),
              (try_end),
-			 
+
 			 (try_begin),
 				 (eq, ":randomize_attacker_placement", 3),
 				 (call_script, "script_setup_tavern_attacker", ":cur_entry"),
 				 (val_add, ":cur_entry", 1),
 			 (try_end),
-			 			 
+
              (try_begin),
                (neg|check_quest_active, "qst_eliminate_bandits_infesting_village"),
                (neg|check_quest_active, "qst_deal_with_bandits_at_lords_village"),
@@ -17632,47 +17638,47 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
                  (assign, ":end_cond", 0),
                (try_end),
              (try_end),
-             
+
              (try_begin),
                (eq, "$g_starting_town", "$current_town"),
-                              
+
                (this_or_next|neg|check_quest_finished, "qst_collect_men"),
                (this_or_next|neg|check_quest_finished, "qst_learn_where_merchant_brother_is"),
                (this_or_next|neg|check_quest_finished, "qst_save_relative_of_merchant"),
                (this_or_next|neg|check_quest_finished, "qst_save_town_from_bandits"),
                (eq,  "$g_do_one_more_meeting_with_merchant", 1),
-               
-			   (assign, ":troop_of_merchant", 0),	
+
+			   (assign, ":troop_of_merchant", 0),
 #chief mercaderes
                (try_begin),
                  (eq, "$g_encountered_party_faction", "fac_kingdom_18"),
                  (assign, ":troop_of_merchant", "trp_swadian_merchant"),
-               (else_try),  
+               (else_try),
                  (eq, "$g_encountered_party_faction", "fac_kingdom_4"),
                  (assign, ":troop_of_merchant", "trp_vaegir_merchant"),
-               (else_try),                   
+               (else_try),
                  (eq, "$g_encountered_party_faction", "fac_kingdom_1"),
                  (assign, ":troop_of_merchant", "trp_khergit_merchant"),
-               (else_try),  
+               (else_try),
                  (eq, "$g_encountered_party_faction", "fac_kingdom_23"),
                  (assign, ":troop_of_merchant", "trp_nord_merchant"),
-               (else_try),  
+               (else_try),
                  (eq, "$g_encountered_party_faction", "fac_kingdom_31"),
                  (assign, ":troop_of_merchant", "trp_rhodok_merchant"),
-               (else_try),  
+               (else_try),
                  (eq, "$g_encountered_party_faction", "fac_kingdom_28"),
                  (assign, ":troop_of_merchant", "trp_sarranid_merchant"),
                (try_end),
-			   (gt, ":troop_of_merchant", 0),	
-#chief mercaderes acaba               
+			   (gt, ":troop_of_merchant", 0),
+#chief mercaderes acaba
                (set_visitor, ":cur_entry", ":troop_of_merchant"),
                (val_add, ":cur_entry", 1),
-             (try_end),                         
-             
+             (try_end),
+
              (change_screen_mission),
            (try_end),
         ],"Door to the tavern."),
-                               
+
 #      ("town_smithy",[
 #          (eq,"$entry_to_town_forbidden",0),
 #          (eq,"$town_nighttime",0),
@@ -17684,7 +17690,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 #           (change_screen_mission,0),
 #        ]),
 
-      
+
       ("town_merchant",
        [(party_slot_eq,"$current_town",slot_party_type, spt_town),
            (eq, 1, 0),
@@ -17695,7 +17701,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 #           (scene_slot_eq, ":scene", slot_scene_visited, 1), #check if scene has been visited before to allow entry from menu. Otherwise scene will only be accessible from the town center.
            ],
        "Speak with the merchant.",
-       [           
+       [
            (try_begin),
              (this_or_next|eq,"$all_doors_locked",1),
              (eq,"$town_nighttime",1),
@@ -17713,8 +17719,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
              (scene_set_slot, ":cur_scene", slot_scene_visited, 1),
              (change_screen_mission),
            (try_end),
-        ],"Door to the shop."),       
-                
+        ],"Door to the shop."),
+
       ("town_arena",
        [(party_slot_eq,"$current_town",slot_party_type, spt_town),
         (eq, "$sneaked_into_town", 0),
@@ -17745,11 +17751,11 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       ("town_dungeon",
        [(eq, 1, 0)],
        "Never: Enter the prison.",
-       [	   
+       [
            (try_begin),
 		    (eq, "$talk_context", tc_prison_break),
 			(gt, "$g_main_attacker_agent", 0),
-			
+
 		   	(neg|agent_is_alive, "$g_main_attacker_agent"),
 
 			(agent_get_troop_id, ":agent_type", "$g_main_attacker_agent"),
@@ -17776,8 +17782,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
              (display_message,"str_door_locked",0xFFFFAAAA),
            (try_end),
         ],"Door to the dungeon."),
-		
-      ("castle_inspect", 
+
+      ("castle_inspect",
       [
          (party_slot_eq,"$current_town",slot_party_type, spt_castle),
        (neq, "$current_town", "p_fort"), #para player lair chief player
@@ -17787,19 +17793,19 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (try_begin),
            (eq, "$talk_context", tc_prison_break),
            (assign, "$talk_context", tc_escape),
-           
+
            (party_get_slot, ":cur_castle_exterior", "$current_town", slot_castle_exterior),
            (modify_visitors_at_site, ":cur_castle_exterior"),
            (reset_visitors),
-           
+
            (assign, ":guard_no", 40),
-           
+
            (party_get_num_companion_stacks, ":num_stacks", "$g_encountered_party"),
            (try_for_range, ":troop_iterator", 0, ":num_stacks"),
              #nearby fire condition start
              (party_get_slot, ":last_nearby_fire_time", "$current_town", slot_town_last_nearby_fire_time),
              (store_current_hours, ":cur_time"),
-             (store_add, ":fire_finish_time", ":last_nearby_fire_time", fire_duration),  
+             (store_add, ":fire_finish_time", ":last_nearby_fire_time", fire_duration),
              (this_or_next|eq, ":guard_no", 40),
              (neg|is_between, ":cur_time", ":last_nearby_fire_time", ":fire_finish_time"),
              #nearby fire condition end
@@ -17814,19 +17820,19 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
              (party_stack_get_troop_dna,":troop_dna", "$g_encountered_party", ":troop_iterator"),
              (set_visitor, ":guard_no", ":cur_troop_id", ":troop_dna"),
              (val_add, ":guard_no", 1),
-           (try_end),                      
-           #(set_jump_entry, 1),           
+           (try_end),
+           #(set_jump_entry, 1),
            (set_visitor, 7, "$g_player_troop"),
 
            (set_jump_mission,"mt_castle_visit"),
            (jump_to_scene, ":cur_castle_exterior"),
            (change_screen_mission),
-            #If you're already at escape, then talk context will reset            
-         (else_try),                   
+            #If you're already at escape, then talk context will reset
+         (else_try),
            (assign, "$talk_context", tc_town_talk),
-           
+
            (assign, "$g_mt_mode", tcm_default),
-           
+
            (party_get_slot, ":cur_castle_exterior", "$current_town", slot_castle_exterior),
            (modify_visitors_at_site,":cur_castle_exterior"),
            (reset_visitors),
@@ -17840,15 +17846,15 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            (try_end),
            (set_visitor, 24, ":troop_prison_guard"),
          (call_script, "script_init_town_walkers"), #chief anadido walkers a castillos
-           
+
            (assign, ":guard_no", 40),
-           
+
            (party_get_num_companion_stacks, ":num_stacks", "$g_encountered_party"),
            (try_for_range, ":troop_iterator", 0, ":num_stacks"),
              #nearby fire condition start
              (party_get_slot, ":last_nearby_fire_time", "$current_town", slot_town_last_nearby_fire_time),
              (store_current_hours, ":cur_time"),
-             (store_add, ":fire_finish_time", ":last_nearby_fire_time", fire_duration),  
+             (store_add, ":fire_finish_time", ":last_nearby_fire_time", fire_duration),
              (neg|is_between, ":cur_time", ":fire_finish_time", ":last_nearby_fire_time"),
 
              (lt, ":guard_no", 47),
@@ -17860,17 +17866,17 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
              (gt, ":stack_size", 0),
              (party_stack_get_troop_dna,":troop_dna","$g_encountered_party",":troop_iterator"),
              (set_visitor, ":guard_no", ":cur_troop_id", ":troop_dna"),
-                          
+
              (val_add, ":guard_no", 1),
            (try_end),
-           
+
            (try_begin),
              (eq, "$town_entered", 0),
              (assign, "$town_entered", 1),
            (try_end),
            (set_jump_entry, 1),
 
-           (assign, ":override_state", af_override_horse),             
+           (assign, ":override_state", af_override_horse),
            (try_begin),
              (eq, "$sneaked_into_town", 1), #setup disguise
              (assign, ":override_state", af_override_all),
@@ -17884,8 +17890,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            (mission_tpl_entry_set_override_flags, "mt_castle_visit", 4, ":override_state"),
            (mission_tpl_entry_set_override_flags, "mt_castle_visit", 5, ":override_state"),
            (mission_tpl_entry_set_override_flags, "mt_castle_visit", 6, ":override_state"),
-           (mission_tpl_entry_set_override_flags, "mt_castle_visit", 7, ":override_state"),           
-           
+           (mission_tpl_entry_set_override_flags, "mt_castle_visit", 7, ":override_state"),
+
            (jump_to_scene, ":cur_castle_exterior"),
            (change_screen_mission),
          (try_end),
@@ -17901,7 +17907,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		(str_store_string, s3, reg0),
                              (neq, "$freelancer_state", 1), #+freelancer chief #prevents player freelancer brytenwalda
 
-      ],	
+      ],
       "Visit your {s3}.",
       [
         (store_sub, ":town_order", "$current_town", towns_begin),
@@ -17943,13 +17949,13 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (set_jump_mission,"mt_town_default"),
         (jump_to_scene,":enterprise_scene"),
         (change_screen_mission),
-      ],"Door to your enterprise."), 
+      ],"Door to your enterprise."),
 
     ("visit_lady",
 	[
-	
+
 	(neg|troop_slot_ge, "trp_player", slot_troop_spouse, kingdom_ladies_begin),
-	
+
 	(assign, "$love_interest_in_town", 0),
 	(assign, "$love_interest_in_town_2", 0),
 	(assign, "$love_interest_in_town_3", 0),
@@ -17958,69 +17964,69 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	(assign, "$love_interest_in_town_6", 0),
 	(assign, "$love_interest_in_town_7", 0),
 	(assign, "$love_interest_in_town_8", 0),
-	
+
 	(try_for_range, ":lady_no", kingdom_ladies_begin, kingdom_ladies_end),
 		(troop_slot_eq, ":lady_no", slot_troop_cur_center, "$current_town"),
 		(call_script, "script_get_kingdom_lady_social_determinants", ":lady_no"),
 		(assign, ":lady_guardian", reg0),
-		
+
 		(troop_slot_eq, ":lady_no", slot_troop_spouse, -1),
 		(ge, ":lady_guardian", 0), #not sure when this would not be the case
 
-		
+
 		#must have spoken to either father or lady
 		(this_or_next|troop_slot_ge, ":lady_no", slot_troop_met, 2),
 			(troop_slot_eq, ":lady_guardian", slot_lord_granted_courtship_permission, 1),
-		
+
 		(neg|troop_slot_eq, ":lady_no", slot_troop_met, 4),
-        
+
 		#must have approached father
 #		(this_or_next|troop_slot_eq, ":lady_guardian", slot_lord_granted_courtship_permission, 1),
 #			(troop_slot_eq, ":lady_guardian", slot_lord_granted_courtship_permission, -1),
-			
-		
+
+
 		(try_begin),
 			(eq, "$love_interest_in_town", 0),
-			(assign, "$love_interest_in_town", ":lady_no"),	
+			(assign, "$love_interest_in_town", ":lady_no"),
 		(else_try),
 			(eq, "$love_interest_in_town_2", 0),
-			(assign, "$love_interest_in_town_2", ":lady_no"),	
+			(assign, "$love_interest_in_town_2", ":lady_no"),
 		(else_try),
 			(eq, "$love_interest_in_town_3", 0),
-			(assign, "$love_interest_in_town_3", ":lady_no"),	
+			(assign, "$love_interest_in_town_3", ":lady_no"),
 		(else_try),
 			(eq, "$love_interest_in_town_4", 0),
-			(assign, "$love_interest_in_town_4", ":lady_no"),	
+			(assign, "$love_interest_in_town_4", ":lady_no"),
 		(else_try),
 			(eq, "$love_interest_in_town_5", 0),
-			(assign, "$love_interest_in_town_5", ":lady_no"),	
+			(assign, "$love_interest_in_town_5", ":lady_no"),
 		(else_try),
 			(eq, "$love_interest_in_town_6", 0),
-			(assign, "$love_interest_in_town_6", ":lady_no"),		
+			(assign, "$love_interest_in_town_6", ":lady_no"),
 		(else_try),
 			(eq, "$love_interest_in_town_7", 0),
-			(assign, "$love_interest_in_town_7", ":lady_no"),		
+			(assign, "$love_interest_in_town_7", ":lady_no"),
 		(else_try),
 			(eq, "$love_interest_in_town_8", 0),
-			(assign, "$love_interest_in_town_8", ":lady_no"),		
-		(try_end),	
+			(assign, "$love_interest_in_town_8", ":lady_no"),
+		(try_end),
 	(try_end),
-	
+
 	(gt, "$love_interest_in_town", 0),
 	],
 	  "Attempt to visit a lady",
        [
         (jump_to_menu, "mnu_lady_visit"),
-        ], "Door to the garden."),										
-		
+        ], "Door to the garden."),
+
 ###player lair acaba chief
-#player lair empieza chief        
+#player lair empieza chief
 #player lair chief
             ("lair_interior",
-      [        
+      [
        (eq, "$current_town", "p_fort"), #para lair chief player
         ],"Go to Hall.", #chief sot cambia
-       [          
+       [
 ##           (try_begin),
 ##             (this_or_next|eq,"$all_doors_locked",1),
 ##             (eq,"$town_nighttime",1),
@@ -18046,9 +18052,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
              (change_screen_mission),
 #           (try_end),
         ], "Door to the castle."),
-      
+
 	("hirefort_staff",
-		[	       (eq, "$current_town", "p_fort"), #para player lair chief player	  
+		[	       (eq, "$current_town", "p_fort"), #para player lair chief player
 		],
 		"Hire Staff.",
 		[
@@ -18067,12 +18073,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
              (call_script, "script_cf_enter_center_location_bandit_check"),
            (else_try),
 			(assign, ":fort_scene", "scn_fort_exterior"),
-			 
+
              (modify_visitors_at_site, ":fort_scene"),
              (reset_visitors),
              (assign, "$g_mt_mode", tcm_default),
 			 (set_visitor, 11, "trp_fort_captain"),
-                          
+
              # Setup peasant walkers
              (try_for_range, ":visiterator", 32, 40),
                (store_random_in_range, ":sex", 0, 100),
@@ -18091,7 +18097,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
                  (set_visitor, ":visiterator", "trp_fort_walker",),
                (try_end),
              (try_end),
-             
+
 ##                 (set_visitor, ":visiterator", "trp_village_walker_1",),
 ##               (else_try),
 ##                 (set_visitor, ":visiterator", "trp_village_walker_2",),
@@ -18102,7 +18108,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	         (assign, ":infantry_id", 0),
 	         (assign, ":highest_cavalry_lvl", 0),
 	         (assign, ":cavalry_id", 0),
-	
+
 			 #(party_get_num_companions, ":castle_garrison_size", "p_collective_enemy"),
 	         (party_get_num_companion_stacks, ":num_stacks", "$g_encountered_party"),
 	         (try_for_range, ":troop_iterator", 0, ":num_stacks"),
@@ -18133,7 +18139,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		         (party_stack_get_troop_dna,":cavalry_dna","$g_encountered_party",":troop_iterator"),
 		       (try_end),
 	         (try_end),
-	         
+
 	         # Slots 40-49 are the slots I used for archers and guards inside the fort intented for use in sieges as well
 	         (try_begin),
 	           (gt, ":archer_id", 0),
@@ -18152,7 +18158,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	             (store_random_in_range, ":walker_dna", 0, 1000000),
 	             (set_visitor, ":visiterator", ":infantry_id", ":walker_dna"),
 	           (try_end),
-	           
+
 	           # these are 'patrols' that will path through specific points in the scene
 	           (call_script, "script_set_walker_to_type", "trp_fort_rider", ":cavalry_id"),
 	           (try_begin),
@@ -18218,7 +18224,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            (assign, "$g_next_menu", "mnu_town"),
            (jump_to_menu, "mnu_center_manage"),
        ]),
-		
+
       ("walled_center_move_court",
       [
         (neg|party_slot_eq, "$current_town", slot_village_state, svs_under_siege),
@@ -18232,10 +18238,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       [
         (jump_to_menu, "mnu_establish_court"),
       ]),
-								
+
 #festin de mead chief
 	("banquete_mead",
-		[		  
+		[
         (neg|party_slot_eq, "$current_town", slot_village_state, svs_under_siege),
        (neq, "$current_town", "p_fort"), #para player lair chief player
         (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
@@ -18260,18 +18266,18 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 #festin acaba chief
 
       ("castle_station_troops",
-      [	  
+      [
        (neq, "$current_town", "p_fort"), #para player lair chief player
 		(party_get_slot, ":town_lord", "$current_town", slot_town_lord),
 	    (str_clear, s10),
-		  
-	    (assign, ":player_can_draw_from_garrison", 0), 
+
+	    (assign, ":player_can_draw_from_garrison", 0),
 		(try_begin), #option 1 - player is town lord
 		  (eq, ":town_lord", "trp_player"),
 		  (assign, ":player_can_draw_from_garrison", 1),
 		(else_try), #option 2 - town is unassigned and part of the player faction
 		  (store_faction_of_party, ":faction", "$g_encountered_party"),
-		  (eq, ":faction", "fac_player_supporters_faction"),			
+		  (eq, ":faction", "fac_player_supporters_faction"),
 		  (neg|party_slot_ge, "$g_encountered_party", slot_town_lord, active_npcs_begin), #ie, zero or -1
 
 		  (assign, ":player_can_draw_from_garrison", 1),
@@ -18279,7 +18285,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		  (lt, ":town_lord", 0), #ie, unassigned
 		  (store_faction_of_party, ":castle_faction", "$g_encountered_party"),
 		  (eq, "$players_kingdom", ":castle_faction"),
-		  
+
 		  (eq, "$g_encountered_party", "$g_castle_requested_by_player"),
 
 		  (str_store_string, s10, "str_retrieve_garrison_warning"),
@@ -18288,18 +18294,18 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		  (lt, ":town_lord", 0), #ie, unassigned
 		  (store_faction_of_party, ":castle_faction", "$g_encountered_party"),
 		  (eq, "$players_kingdom", ":castle_faction"),
-		  
+
 		  (store_party_size_wo_prisoners, ":party_size", "$g_encountered_party"),
 		  (eq, ":party_size", 0),
-			
+
 		  (str_store_string, s10, "str_retrieve_garrison_warning"),
 		  (assign, ":player_can_draw_from_garrison", 1),
 		(else_try),
 		  (party_slot_ge, "$g_encountered_party", slot_town_lord, active_npcs_begin),
 		  (store_faction_of_party, ":castle_faction", "$g_encountered_party"),
 		  (eq, "$players_kingdom", ":castle_faction"),
-		  
-		  (troop_slot_eq, "trp_player", slot_troop_spouse, ":town_lord"),		    
+
+		  (troop_slot_eq, "trp_player", slot_troop_spouse, ":town_lord"),
 
 		  (assign, ":player_can_draw_from_garrison", 1),
 		(try_end),
@@ -18349,8 +18355,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (try_begin),
             (eq, ":cur_terrain", rt_desert),
             (unlock_achievement, ACHIEVEMENT_SARRANIDIAN_NIGHTS),
-          (try_end),  
-        (try_end), 
+          (try_end),
+        (try_end),
 
         (rest_for_hours_interactive, 24 * 7, 5, 0), #rest while not attackable
         (change_screen_return),
@@ -18375,7 +18381,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 ##           (rest_for_hours_interactive, reg(2)),
 ##           (change_screen_return),
 ##          ]),
-##      
+##
 ##      ("rest_until_evening",
 ##       [
 ##           (this_or_next|ge, "$g_encountered_party_relation", 0),
@@ -18405,7 +18411,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (jump_to_scene, reg11),
         (change_screen_mission),
       ]),
-      
+
 #####rigale chief beggar pedir
 ##             ("start_begging",
 ##       [
@@ -18415,8 +18421,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 ##		   (str_store_string,s7,"@You start begging (gain a few coins, lose renown or honor)"),
 ##		   (else_try),
 ##           (eq,"$begging_action_started",1),
-##		   (str_store_string,s7,"@You stop begging"),		   
-##		   
+##		   (str_store_string,s7,"@You stop begging"),
+##
 ##        ],
 ##         "{s7}",
 ##         [
@@ -18431,13 +18437,13 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 ##			 (assign,"$begging_action_started",1),
 ##			 (change_screen_return),
 ##			(rest_for_hours_interactive, 24 * 7, 3, 0),
-##			
+##
 ##           (else_try),
 ##		     (eq,"$begging_action_started",1),
 ##			 (assign,"$begging_action_started",0),
 ##           (try_end),
 ##      (try_end),
-##          ]),	
+##          ]),
 #####rigale chief acaba
 #Menu que lleva a otros para ahorrar espacio en el menu principal
       ("masopciones",
@@ -18454,7 +18460,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 
         ],
        "Visit the landlords and moneylenders.",
-       [	
+       [
 			(assign, reg10, 0),
 			(start_presentation, "prsnt_bank"),
         ]),
@@ -18471,7 +18477,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
             ],
        "Visit town port.",
        [(jump_to_menu, "mnu_port"),]),
-     
+
       ("collect_taxes_qst",
       [
         (check_quest_active, "qst_collect_taxes"),
@@ -18485,7 +18491,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       [
         (jump_to_menu, "mnu_collect_taxes"),
       ]),
-      
+
      ("town_leave",[],"Leave...",
       [
         (assign, "$g_permitted_to_center",0),
@@ -18495,7 +18501,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       ("castle_cheat_interior",
       [
         (eq, "$cheat_mode", 1),
-      ], 
+      ],
       "{!}CHEAT! Interior.",
       [
         (set_jump_mission,"mt_ai_training"),
@@ -18503,11 +18509,11 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (jump_to_scene,":castle_scene"),
         (change_screen_mission),
       ]),
-                                                       
+
       ("castle_cheat_town_exterior",
       [
         (eq, "$cheat_mode", 1),
-      ], 
+      ],
       "{!}CHEAT! Exterior.",
       [
         (try_begin),
@@ -18520,11 +18526,11 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (jump_to_scene,":scene"),
         (change_screen_mission),
       ]),
-                                                       
+
       ("castle_cheat_dungeon",
       [
         (eq, "$cheat_mode", 1),
-      ], 
+      ],
       "{!}CHEAT! Prison.",
       [
         (set_jump_mission,"mt_ai_training"),
@@ -18532,12 +18538,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (jump_to_scene,":castle_scene"),
         (change_screen_mission),
       ]),
-      
+
       ("castle_cheat_town_walls",
       [
         (eq, "$cheat_mode", 1),
         (party_slot_eq,"$current_town",slot_party_type, spt_town),
-      ], 
+      ],
       "{!}CHEAT! Town Walls.",
       [
         (party_get_slot, ":scene", "$current_town", slot_town_walls),
@@ -18569,7 +18575,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       ("center_reports",
       [
         (eq, "$cheat_mode", 1),
-      ], 
+      ],
       "{!}CHEAT! Show reports.",
       [
         (jump_to_menu,"mnu_center_reports"),
@@ -18606,15 +18612,15 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (jump_to_menu, "mnu_town"),
         ]),
 	]),
-  
-  
+
+
   (
     "lady_visit",0,
     "Whom do you wish to visit?",
     "none",
     [],
-    [		
-		
+    [
+
 	("visit_lady_1", [
 	(gt, "$love_interest_in_town", 0),
 	(str_store_troop_name, s12, "$love_interest_in_town"),
@@ -18626,7 +18632,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ]),
 
 
-		
+
 	("visit_lady_2", [
 	(gt, "$love_interest_in_town_2", 0),
 	(str_store_troop_name, s12, "$love_interest_in_town_2"),
@@ -18646,28 +18652,28 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	    (assign, "$love_interest_in_town", "$love_interest_in_town_3"),
         (jump_to_menu, "mnu_garden")], "Door to the garden."),
 
-		
+
 	("visit_lady_4", [(gt, "$love_interest_in_town_4", 0),(str_store_troop_name, s12, "$love_interest_in_town_4"),],
 	"Visit {s12}",[(assign, "$love_interest_in_town", "$love_interest_in_town_4"),(jump_to_menu, "mnu_garden"),]),
-		
+
 	("visit_lady_5", [(gt, "$love_interest_in_town_5", 0),(str_store_troop_name, s12, "$love_interest_in_town_5"),],
 	"Visit {s12}",[(assign, "$love_interest_in_town", "$love_interest_in_town_5"),(jump_to_menu, "mnu_garden"),]),
 
 	("visit_lady_6",[(gt, "$love_interest_in_town_6", 0),(str_store_troop_name, s12, "$love_interest_in_town_6"),],
 	"Visit {s12}",[(assign, "$love_interest_in_town", "$love_interest_in_town_6"),(jump_to_menu, "mnu_garden"),]),
-	
+
 	("visit_lady_7",[(gt, "$love_interest_in_town_7", 0),(str_store_troop_name, s12, "$love_interest_in_town_7"),],
 	"Visit {s12}",[(assign, "$love_interest_in_town", "$love_interest_in_town_7"),(jump_to_menu, "mnu_garden"),]),
 
 	("visit_lady_8",[(gt, "$love_interest_in_town_8", 0),(str_store_troop_name, s12, "$love_interest_in_town_8"),],
 	"Visit {s12}",[(assign, "$love_interest_in_town", "$love_interest_in_town_8"),(jump_to_menu, "mnu_garden"),]),
-	
+
 	("leave",[], "Leave",[(jump_to_menu, "mnu_town")]),
 
     ]
 	),
 
-	
+
   (
     "town_tournament_lost",0,
     "You have been eliminated from the tournament.{s8}",
@@ -18683,7 +18689,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		(faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_object, "$g_encountered_party"),
 		(str_store_string, s8, "str__however_you_have_sufficiently_distinguished_yourself_to_be_invited_to_attend_the_ongoing_feast_in_the_lords_castle"),
 	(try_end),
-	
+
         ],
     [
       ("continue", [], "Continue...",
@@ -18699,7 +18705,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     "none",
     [
    (set_background_mesh, "mesh_pic_extra_town1"),
-	
+
         ],
     [
 #reclutar en ciudades de somebody chief
@@ -18707,13 +18713,13 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [
           (this_or_next|eq,"$entry_to_town_forbidden",0),
           (eq, "$sneaked_into_town",0),
-    (party_slot_eq, "$current_town", slot_party_type, spt_town),   
+    (party_slot_eq, "$current_town", slot_party_type, spt_town),
          (eq, "$reclutar_puede", 0),
    (store_faction_of_party, "$g_current_town_faction", "$current_town"),
 (call_script,"script_cf_town_castle_recruit_volunteers_cond"),
           #	(store_faction_of_party, ":town_faction", "$current_town"),
 ##   (is_between, "$g_encountered_party_faction", kingdoms_begin, kingdoms_end),
-##   (faction_get_slot, reg11, "$g_encountered_party_faction", slot_faction_town_troop_pool_available),   
+##   (faction_get_slot, reg11, "$g_encountered_party_faction", slot_faction_town_troop_pool_available),
 ##   (ge, reg11, 1),
 ##   (eq, "$g_encountered_party_faction", "$players_kingdom"),
 ##   (hero_can_join),
@@ -18723,7 +18729,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
    [
           (store_random_in_range, ":rand", 0, 8),
                                           (try_begin),
-                                            (eq, ":rand", 0), 
+                                            (eq, ":rand", 0),
        (jump_to_menu,"mnu_town_recruit_troops"),
                                           (else_try),
                                             (eq, ":rand", 1),
@@ -18777,7 +18783,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            (try_end),
           ]),
       ## CC
-	  ##diplomacy chief end            
+	  ##diplomacy chief end
 
       ("continue", [], "Back",
        [(jump_to_menu, "mnu_town"), #dunde torneo chief cambia
@@ -18806,8 +18812,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (call_script, "script_change_troop_renown", "trp_player", 15), #chief aumentado renombre ganado en torneo a 30
           (store_random_in_range, ":rand", 0, 20),
                                           (try_begin),
-                                            (eq, ":rand", 0), 
-	(troop_add_item, "trp_player", "itm_warhorses4", 0), #chief da objeto al ganar torneo                                         
+                                            (eq, ":rand", 0),
+	(troop_add_item, "trp_player", "itm_warhorses4", 0), #chief da objeto al ganar torneo
                                             	    (display_message, "@A expensive and armoured greek horse is gift you for your victory.", 0xFF0000),
                                           (else_try),
                                             (eq, ":rand", 1),
@@ -18875,7 +18881,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ]),
     ]
   ),
-  
+
   (
     "town_tournament_won_by_another",mnf_disable_all_keys,
     "As the only {reg3?fighter:man} to remain undefeated this day, {s1} wins the lists and the glory of this tournament.",
@@ -18899,7 +18905,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
  ## Gender fix chief para alturas
         (troop_get_type, reg3, ":winner_troop"),
     (val_mod, reg3, 2),
-#gender fix chief acaba	 
+#gender fix chief acaba
       ## CC
         (try_begin),
           (set_fixed_point_multiplier, 100),
@@ -18981,7 +18987,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		     (assign, "$g_player_eligible_feast_center_no", "$current_town"),
 		   (try_end),
            (val_add, "$g_tournament_cur_tier", 1),
-		   
+
            (store_mul, "$g_tournament_num_participants_for_fight", "$g_tournament_next_num_teams", "$g_tournament_next_team_size"),
            (troop_set_slot, "trp_tournament_participants", 0, -1),#Removing trp_player from the list
            (troop_set_slot, "trp_temp_array_a", 0, "trp_player"),
@@ -19000,12 +19006,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            (assign, ":cur_slot", 0),
            (try_for_range, ":cur_team_offset", 0, "$g_tournament_next_num_teams"),
              (troop_get_slot, ":cur_team", "trp_temp_array_b", ":cur_team_offset"),
-           
+
              (try_for_range, ":slot_no", 0, 8),#shuffle entry_points
                (troop_set_slot, "trp_temp_array_c", ":slot_no", ":slot_no"),
              (try_end),
              (call_script, "script_shuffle_troop_slots", "trp_temp_array_c", 0, 8),
-           
+
              (try_for_range, ":cur_index", 0, "$g_tournament_next_team_size"),
                (store_mul, ":cur_entry_point", ":cur_team", 8),
                (troop_get_slot, ":entry_offset", "trp_temp_array_c", ":cur_index"),
@@ -19018,7 +19024,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 
            (assign, "$g_tournament_next_num_teams", 0),
            (assign, "$g_tournament_next_team_size", 0),
-           
+
            (assign, "$g_mt_mode", abm_tournament),
 
            (party_get_slot, ":town_original_faction", "$current_town", slot_center_original_faction),
@@ -19033,9 +19039,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
                (val_add, ":town_index_within_faction", 1),
              (try_end),
            (try_end),
-           
+
            (set_jump_mission, "mt_arena_melee_fight"),
-           
+
            (try_begin),
              (eq, ":town_original_faction", "fac_kingdom_1"),
              #Swadia
@@ -19238,7 +19244,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          ]),
     ]
   ),
-  
+
   (
     "tournament_participants",0,
     "You ask one of the criers for the names of the tournament participants. They are:^{s11}",
@@ -19299,7 +19305,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        (val_mul, "$qst_collect_taxes_total_hours", 20),
        (val_div, "$qst_collect_taxes_total_hours", reg0),
 
-     
+
        (quest_set_slot, "qst_collect_taxes", slot_quest_target_amount, "$qst_collect_taxes_total_hours"),
        (store_div, ":menu_begin_time", "$qst_collect_taxes_total_hours", 20),#between %5-%25
        (store_div, ":menu_end_time", "$qst_collect_taxes_total_hours", 4),
@@ -19309,7 +19315,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 
        (val_mul, ":tax_quest_expected_revenue", 2),
        (store_div, "$qst_collect_taxes_hourly_income", ":tax_quest_expected_revenue", "$qst_collect_taxes_total_hours"),
-     
+
        (store_random_in_range, "$qst_collect_taxes_menu_counter", ":menu_begin_time", ":menu_end_time"),
        (store_random_in_range, "$qst_collect_taxes_unrest_counter", ":unrest_begin_time", ":unrest_end_time"),
        (assign, "$qst_collect_taxes_halve_taxes", 0),
@@ -19357,7 +19363,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
      (quest_get_slot, reg3, "qst_collect_taxes", slot_quest_gold_reward),
      (try_begin),
        (eq, "$qst_collect_taxes_halve_taxes", 0),
-       (call_script, "script_change_player_relation_with_center", "$current_town", -2),   
+       (call_script, "script_change_player_relation_with_center", "$current_town", -2),
      (try_end),
      (call_script, "script_succeed_quest", "qst_collect_taxes"),
      ],
@@ -19507,7 +19513,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (jump_to_menu, "mnu_village"),
         ]),
     ]
-  ), 
+  ),
 
   (
     "train_peasants_against_bandits_ready",0,
@@ -19725,12 +19731,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(try_end), #Xs
 			(init_position, pos1),
 			(party_set_position, "p_temp_party", pos1), #Reset Temp Party Position
-			(eq, ":no_cliffs", 1),	  
+			(eq, ":no_cliffs", 1),
           ], "Land the ship and leave it here for now.",
        [
 		(party_get_slot, ":ship_no", "p_main_party", slot_town_has_ship),
 	    (store_party_size, ":party_size", ":ship_no"),
- 
+
 		(try_begin),
 			(ge, ":party_size", 10),
 			(assign, "$g_player_icon_state", pis_normal),
@@ -19760,9 +19766,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		(try_end),
 		(party_set_slot, "p_main_party", slot_town_has_ship, 0),
         ]),
-      
+
 ##      ("disembark_yo", [      (try_for_range, ":cur_center", centers_begin, centers_end),
-##          (party_slot_eq,":cur_center",slot_town_port, 1),     
+##          (party_slot_eq,":cur_center",slot_town_port, 1),
 ##                                  (party_get_position,pos1,"p_main_party"),
 ##                                    (party_get_position,pos2,":cur_center"),
 ##                                    (get_distance_between_positions,":cur_distance",pos1,pos2),
@@ -19799,10 +19805,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		#(display_message,"@You now own a ship and can disembark from this town."),
 		(set_encountered_party, ":ship_to_use"),
 		#(change_screen_exchange_with_party, ":ship_to_use"),
-		#(change_screen_give_members, ":ship_to_use"), 
-		(change_screen_exchange_members,0),	
+		#(change_screen_give_members, ":ship_to_use"),
+		(change_screen_exchange_members,0),
         #(party_clear, "p_temp_party"),
-        #(call_script, "script_party_copy", "p_temp_party", ":ship_to_use"),		
+        #(call_script, "script_party_copy", "p_temp_party", ":ship_to_use"),
 		#(change_screen_exchange_with_party, "p_temp_party"),
 		#(assign, "$g_next_menu", "mnu_disembark"),
 		#(jump_to_menu, "mnu_manage_crew_done"),
@@ -19813,11 +19819,11 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		[
 		],
 		"Dock at the port.",
-		
-		[	
+
+		[
 			(assign, reg1, 0),
 			(try_for_range, ":town_no", towns_begin, towns_end),
-				(party_slot_ge, ":town_no", slot_town_port, 1), 
+				(party_slot_ge, ":town_no", slot_town_port, 1),
 				(party_get_slot, ":radius", ":town_no", slot_town_port),
 				(store_distance_to_party_from_party, ":dist", ":town_no", "p_main_party"),
 				(val_add, ":radius", 4),
@@ -19838,11 +19844,11 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 				(eq, reg1, 0),
 				(display_message, "@There is no port in the surrounding area."),
 			(try_end),
-		]),		
+		]),
 
 
 		("disembark_yes_3",
-		[	
+		[
 			    #Pos0 is set as the disembark position by the engine
 			(position_get_x, ":x", pos0),
 			(position_get_y, ":y", pos0),
@@ -19878,8 +19884,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			#(party_set_position, "p_main_party", pos1),
 		],
 		"Yes, but send the ship to a port.",
-		
-		[	
+
+		[
 		    # (try_for_parties, ":ship_no"),
 				# (party_slot_eq, ":ship_no", slot_ship_center, 250),
 				# (store_party_size, ":party_size", ":ship_no"),
@@ -19887,15 +19893,15 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(try_begin),
 			    (party_get_slot, ":ship_no", "p_main_party", slot_town_has_ship),
 				(store_party_size, ":party_size", ":ship_no"),
-				(ge, ":party_size", 30),		
+				(ge, ":party_size", 30),
 				(jump_to_menu, "mnu_send_ship_to_town"),
 			(else_try),
 				(display_message, "@You need at least a 30 men crew to send the ship to a town"),
 			(try_end),
-		]), 
- 
+		]),
+
 	("disembark_no", [], "No.",
-       [	(party_get_position, pos1, "p_main_party"),	
+       [	(party_get_position, pos1, "p_main_party"),
 			(map_get_water_position_around_position, pos2, pos1, 1),
 			(party_set_position, "p_main_party", pos2),
 			(rest_for_hours_interactive, 1, 1),
@@ -19908,7 +19914,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	"Send_ship_to_town",0,
     "Send the ship to",
     "none",
-	[	
+	[
 	],
 	[
 		("p_town_1",
@@ -19939,7 +19945,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		# (try_end),
         (change_screen_return),
 		]),
- 
+
 		("p_town_17",
 		[
 			(store_faction_of_party, ":faction_1", "p_main_party"),
@@ -19997,7 +20003,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		# (try_end),
         (change_screen_return),
 		]),
- 
+
 		("p_castle_42",
 		[
 			(store_faction_of_party, ":faction_1", "p_main_party"),
@@ -20025,8 +20031,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			# (disable_party, ":ship_no"),
 		# (try_end),
 		(change_screen_return),
-		]),		
- 
+		]),
+
 		("p_town_27",
 		[
 			(store_faction_of_party, ":faction_1", "p_main_party"),
@@ -20054,8 +20060,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			# (disable_party, ":ship_no"),
 		# (try_end),
 		(change_screen_return),
-		]),				
- 
+		]),
+
 		("p_town_13",
 		[
 			(store_faction_of_party, ":faction_1", "p_main_party"),
@@ -20083,8 +20089,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			# (disable_party, ":ship_no"),
 		# (try_end),
 		(change_screen_return),
-		]),		
- 
+		]),
+
 		("p_town_15",
 		[
 			(store_faction_of_party, ":faction_1", "p_main_party"),
@@ -20112,8 +20118,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			# (disable_party, ":ship_no"),
 		# (try_end),
 		(change_screen_return),
-		]),		
- 
+		]),
+
 		("p_town_32",
 		[
 			(store_faction_of_party, ":faction_1", "p_main_party"),
@@ -20142,7 +20148,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		# (try_end),
 		(change_screen_return),
 		]),
- 
+
 		("p_town_33",
 		[
 			(store_faction_of_party, ":faction_1", "p_main_party"),
@@ -20227,18 +20233,18 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(party_set_position, "p_main_party", pos2),
 			(party_set_slot, "$g_encountered_party", slot_ship_center, ship_player_sailing), #Player uses ship
 			(party_set_slot, "p_main_party", slot_town_has_ship, "$g_encountered_party"),
-			(disable_party, "$g_encountered_party"),			
+			(disable_party, "$g_encountered_party"),
 			(change_screen_return),
 		(else_try),
 			(display_message,"@Your crew exceeds the boundaries."),
-		(try_end),		
+		(try_end),
         ]),
- 
+
 		("manage_crew", [], "Manage the crew.",
-       [	(change_screen_exchange_members,0),	
+       [	(change_screen_exchange_members,0),
 	   ]),
- 
- 
+
+
       ("reembark_no", [], "No.",
        [(change_screen_return),
         ]),
@@ -20266,7 +20272,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       ("to_price_and_productions", [], "Show prices and productions.",
        [(jump_to_menu, "mnu_price_and_production"),
         ]),
-      
+
       ("go_back_dot",[],"Go back.",
        [(try_begin),
           (party_slot_eq, "$g_encountered_party", slot_party_type, spt_village),
@@ -20277,13 +20283,13 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ]),
     ]
   ),
-    
+
   (
     "price_and_production",0,
     "Productions are:^(Note: base/modified by raw materials/modified by materials plus prosperity)^{s1}^^Price factors are:^{s2}",
     "none",
     [
-	
+
 	 (assign, ":calradian_average_urban_hardship", 0),
 	 (assign, ":calradian_average_rural_hardship", 0),
 
@@ -20295,9 +20301,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	 (try_for_range, ":center", villages_begin, villages_end),
 		(call_script, "script_center_get_goods_availability", ":center"),
 		(val_add, ":calradian_average_rural_hardship", reg0),
-	 (try_end),	
-	   
-     # MOTO replace hard-coded Calradian values chief 
+	 (try_end),
+
+     # MOTO replace hard-coded Calradian values chief
            # (val_div, ":calradian_average_rural_hardship", 110),
            # (val_div, ":calradian_average_urban_hardship", 22),
            (store_sub, reg0, villages_end, villages_begin),
@@ -20306,26 +20312,26 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            (val_div, ":calradian_average_urban_hardship", reg0),
            # MOTO replace hard-coded Calradian values end
 
-	   
+
 	 (call_script, "script_center_get_goods_availability", "$g_encountered_party"),
 
 	 (assign, reg1, ":calradian_average_urban_hardship"),
-	 (assign, reg2, ":calradian_average_rural_hardship"),	      
+	 (assign, reg2, ":calradian_average_rural_hardship"),
 
 	 (try_begin),
 		(ge, "$cheat_mode", 1),
 		(str_store_string, s1, "str___hardship_index_reg0_avg_towns_reg1_avg_villages_reg2__"),
 		(display_message, "@{!}DEBUG - {s1}"),
 	 (try_end),
-	 
-	 
+
+
      (try_for_range, ":cur_good", trade_goods_begin, trade_goods_end),
 	   (neq, ":cur_good", "itm_pork"), #tied to price of grain
 	   (neq, ":cur_good", "itm_chicken"), #tied to price of grain
 	   (neq, ":cur_good", "itm_butter"), #tied to price of cheese
 	   (neq, ":cur_good", "itm_cattle_meat"),
 	   (neq, ":cur_good", "itm_cabbages"), #possibly include later
-	 
+
 	   (call_script, "script_center_get_production", "$g_encountered_party", ":cur_good"),
 	   (assign, ":production", reg0),
 	   (assign, ":base_production", reg2),
@@ -20339,14 +20345,14 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        (store_sub, ":cur_good_price_slot", ":cur_good", trade_goods_begin),
        (val_add, ":cur_good_price_slot", slot_town_trade_good_prices_begin),
        (party_get_slot, ":price", "$g_encountered_party", ":cur_good_price_slot"),
-	   
-	   
+
+
 	   (assign, ":total_centers", 0),
 	   (assign, ":calradian_average_price", 0),
 	   (assign, ":calradian_average_production", 0),
 	   (assign, ":calradian_average_consumption", 0),
 
-	   
+
 	   (try_for_range, ":center", centers_begin, centers_end),
 		(neg|is_between, ":center", castles_begin, castles_end),
 	    (val_add, ":total_centers", 1),
@@ -20354,7 +20360,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		(assign, ":center_production", reg2),
         (call_script, "script_center_get_consumption", ":center", ":cur_good"),
 		(store_add, ":center_consumption", reg1, reg2),
-		
+
         (party_get_slot, ":center_price", ":center", ":cur_good_price_slot"),
 	    (val_add, ":calradian_average_price", ":center_price"),
 	    (val_add, ":calradian_average_production", ":center_production"),
@@ -20363,19 +20369,19 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 
 	   (assign, ":calradian_total_production", ":calradian_average_production"),
 	   (assign, ":calradian_total_consumption", ":calradian_average_consumption"),
-	   
+
 	   (val_div, ":calradian_average_price", ":total_centers"),
 	   (val_div, ":calradian_average_production", ":total_centers"),
 	   (val_div, ":calradian_average_consumption", ":total_centers"),
 
 
        (str_store_item_name, s3, ":cur_good"),
-	   
+
        (assign, reg1, ":base_production"),
        (assign, reg2, ":base_production_modded_by_raw_materials"),
        (assign, reg3, ":production"),
        (assign, reg4, ":price"),
-	   
+
 	   (assign, reg5, ":calradian_average_production"),
 	   (assign, reg6, ":calradian_average_price"),
 
@@ -20390,17 +20396,17 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	   (assign, reg11, ":production_number"),
 	   (assign, reg12, ":calradian_total_production"),
 	   (assign, reg13, ":calradian_total_consumption"),
-	   
+
 	   (item_get_slot, ":production_string", ":cur_good", slot_item_production_string),
 	   (str_store_string, s4, ":production_string"),
-	   
+
        (str_store_string, s1, "str___s3_price_=_reg4_calradian_average_reg6_capital_reg11_s4_base_reg1modified_by_raw_material_reg2modified_by_prosperity_reg3_calradian_average_production_base_reg5_total_reg12_consumed_reg7used_as_raw_material_reg8modified_total_reg9_calradian_consumption_base_reg10_total_reg13s1_"),
 
-	   
-	   
+
+
      (try_end),
-	 
-	 
+
+
      ],
     [
       ("go_back_dot",[],"Go back.",
@@ -20413,7 +20419,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ]),
     ]
   ),
-  
+
   (
     "town_trade",0,
     "You head towards the marketplace.",
@@ -20447,51 +20453,51 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        "Trade your battle trophies.",
        [
            (jump_to_menu,"mnu_trophy_trade"),
-        ]),		
+        ]),
 ########trofeos chief acaba
       ("trade_with_arms_merchant",[(party_slot_ge, "$current_town", slot_town_weaponsmith, 1)],
        "Trade with the arms merchant.",
        [
            (party_get_slot, ":merchant_troop", "$current_town", slot_town_weaponsmith),
-############## JEDEDIAH Q START ################# 
+############## JEDEDIAH Q START #################
 	    (assign, "$jq_current_town", "$current_town"),
-	    (assign, "$jq_current_shop", ":merchant_troop"),   
-############## JEDEDIAH Q END ################### 
+	    (assign, "$jq_current_shop", ":merchant_troop"),
+############## JEDEDIAH Q END ###################
            (change_screen_trade, ":merchant_troop"),
         ]),
       ("trade_with_armor_merchant",[(party_slot_ge, "$current_town", slot_town_armorer, 1)],
        "Trade with the armor merchant.",
        [
            (party_get_slot, ":merchant_troop", "$current_town", slot_town_armorer),
-############## JEDEDIAH Q START ################# 
+############## JEDEDIAH Q START #################
 	    (assign, "$jq_current_town", "$current_town"),
-	    (assign, "$jq_current_shop", ":merchant_troop"),   
-############## JEDEDIAH Q END ################### 
+	    (assign, "$jq_current_shop", ":merchant_troop"),
+############## JEDEDIAH Q END ###################
            (change_screen_trade, ":merchant_troop"),
         ]),
       ("trade_with_horse_merchant",[(party_slot_ge, "$current_town", slot_town_horse_merchant, 1)],
        "Trade with the horse merchant.",
        [
            (party_get_slot, ":merchant_troop", "$current_town", slot_town_horse_merchant),
-############## JEDEDIAH Q START ################# 
+############## JEDEDIAH Q START #################
 	    (assign, "$jq_current_town", "$current_town"),
-	    (assign, "$jq_current_shop", ":merchant_troop"),   
-############## JEDEDIAH Q END ################### 
+	    (assign, "$jq_current_shop", ":merchant_troop"),
+############## JEDEDIAH Q END ###################
            (change_screen_trade, ":merchant_troop"),
         ]),
       ("trade_with_goods_merchant",[(party_slot_ge, "$current_town", slot_town_merchant, 1)],
        "Trade with the goods merchant.",
        [
            (party_get_slot, ":merchant_troop", "$current_town", slot_town_merchant),
-############## JEDEDIAH Q START ################# 
+############## JEDEDIAH Q START #################
 	    (assign, "$jq_current_town", "$current_town"),
-	    (assign, "$jq_current_shop", ":merchant_troop"),   
-############## JEDEDIAH Q END ################### 
+	    (assign, "$jq_current_shop", ":merchant_troop"),
+############## JEDEDIAH Q END ###################
            (change_screen_trade, ":merchant_troop"),
         ]),
 
 ######### JEDEDIAH Q START ######################################################
- 
+
  	("Companions_overview",[],"Companions overview.",
         [
 	(assign, "$jq_in_market_menu", 1), # player is in market menu
@@ -20532,7 +20538,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	(troop_remove_item,"trp_player","itm_trophy_a"),
                 (call_script, "script_troop_add_gold", "trp_player", 500),
 	   (jump_to_menu,"mnu_trophy_trade"),
-        ]),		
+        ]),
 ("trade_trophy_b",[(player_has_item,"itm_trophy_b")],
        "Trade in your war trophy.",
        [
@@ -20542,7 +20548,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	(troop_remove_item,"trp_player","itm_trophy_b"),
                 (call_script, "script_troop_add_gold", "trp_player", 1000),
 	   (jump_to_menu,"mnu_trophy_trade"),
-        ]),	
+        ]),
 ("trade_trophy_c",[(player_has_item,"itm_trophy_c")],
        "Trade in your epic trophy",
        [
@@ -20552,26 +20558,26 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	(call_script,"script_change_player_honor",1),
 	(troop_remove_item,"trp_player","itm_trophy_c"),
 	   (jump_to_menu,"mnu_trophy_trade"),
-        ]),			
-		
+        ]),
+
       ("back_to_town_menu",[],"Back.",
        [
            (jump_to_menu,"mnu_town"),
         ]),
     ]
-  ),  
+  ),
 ############################trofeos chief egIII acaba
 
 
   (
-   "town_trade_assessment_begin",0, 
+   "town_trade_assessment_begin",0,
    #"You overhear the following details about the roads out of town :^(experimental feature -- this may go into dialogs)^{s42}^You also overhear several discussions about the price of trade goods across the local area.^You listen closely, trying to work out the best deals around.",
    "You overhear several discussions about the price of trade goods across the local area.^You listen closely, trying to work out the best deals around.",
     "none",
     [
 	(str_clear, s42),
 ##	(call_script, "script_merchant_road_info_to_s42", "$g_encountered_party"),
-	
+
     ],
 
     [
@@ -20635,12 +20641,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 
        (store_random_in_range, ":random_town", towns_begin, towns_end),
 
-       (party_get_slot, ":cur_merchant", ":org_encountered_party", slot_town_merchant),       
+       (party_get_slot, ":cur_merchant", ":org_encountered_party", slot_town_merchant),
 	   (assign, ":num_items_in_town_inventory", 0),
        (try_for_range, ":i_slot", num_equipment_kinds, max_inventory_items + num_equipment_kinds),
          (troop_get_inventory_slot, ":slot_item", ":cur_merchant", ":i_slot"),
          (try_begin),
-           (eq, ":slot_item", ":random_trade_good"),           
+           (eq, ":slot_item", ":random_trade_good"),
 		   (val_add, ":num_items_in_town_inventory", 1),
          (try_end),
        (try_end),
@@ -20648,7 +20654,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        (ge, ":num_items_in_town_inventory", 1),
 
        (assign, ":already_best", 0),
-       
+
 	   (try_begin),
          (eq, ":random_trade_good", ":best_result_1_item"),
          (eq, ":random_town", ":best_result_1_town"),
@@ -20805,7 +20811,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
      (assign, "$g_encountered_party", ":org_encountered_party"),
 
      (str_clear, s3),
-     
+
      (assign, reg2, ":max_skill"),
      (try_begin),
        (eq, ":max_skill_owner", "trp_player"),
@@ -20852,7 +20858,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (str_store_item_name, s4, ":best_result_1_item"),
          (str_store_party_name, s5, ":best_result_1_town"),
          (str_store_string, s3, "@^Buying {s4} here and selling it at {s5} would bring a profit of {reg6} scillingas per item.{s3}"),
-       (try_end), 
+       (try_end),
        (str_store_string, s2, "@{reg3?You find:{s1} finds} out the following:^{s3}"),
      (try_end),
      ],
@@ -20864,7 +20870,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     ]
   ),
 
-    
+
   (
     "sneak_into_town_suceeded",0,
     "Disguised in the garments of a poor pilgrim, you fool the guards and make your way into the town.",
@@ -20893,20 +20899,20 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            (party_get_slot, ":sneak_scene", "$current_town", slot_town_center), # slot_town_gate),
            (modify_visitors_at_site,":sneak_scene"),
            (reset_visitors),
-           
+
            (try_begin),
              (this_or_next|eq, "$talk_context", tc_escape),
-             (eq, "$talk_context", tc_prison_break),           
-             (set_jump_entry, 7),                      
-           (else_try),  
-             (party_slot_eq, "$current_town", slot_party_type, spt_town),             
+             (eq, "$talk_context", tc_prison_break),
+             (set_jump_entry, 7),
+           (else_try),
+             (party_slot_eq, "$current_town", slot_party_type, spt_town),
              #(set_visitor,0,"trp_player"),
-             (set_jump_entry, 0),           
-           (else_try),               
+             (set_jump_entry, 0),
+           (else_try),
              #(set_visitor,1,"trp_player"),
-             (set_jump_entry, 1),           
+             (set_jump_entry, 1),
            (try_end),
-                      
+
            #(store_faction_of_party, ":town_faction","$current_town"),
            #(faction_get_slot, ":tier_2_troop", ":town_faction", slot_faction_tier_2_troop),
            #(faction_get_slot, ":tier_3_troop", ":town_faction", slot_faction_tier_3_troop),
@@ -20929,7 +20935,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            #(set_visitor,3,reg1),
            #(set_visitor,4,reg2),
            #(set_visitor,5,reg3),
-           
+
            (set_jump_mission,"mt_sneak_caught_fight"),
            (set_passage_menu,"mnu_town"),
            (jump_to_scene,":sneak_scene"),
@@ -20955,16 +20961,16 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ]),
     ]
   ),
-  
+
   (
     "sneak_into_town_caught_ran_away",0,
     "You make your way back through the gates and quickly retreat to the safety of the countryside.{s11}",
     "none",
     [
-    
+
 	(str_clear, s11),
 	(assign, ":at_least_one_escaper_caught", 0),
-	
+
 	(assign, ":end_cond", kingdom_ladies_end),
 	(try_for_range, ":prisoner", active_npcs_begin, ":end_cond"),
 	  (try_begin),
@@ -20975,11 +20981,11 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (troop_set_slot, ":prisoner", slot_troop_mission_participation, -1),
 
         (troop_get_slot, ":prison_center", ":prisoner", slot_troop_prisoner_of_party),
-        (party_remove_prisoners, ":prison_center", ":prisoner", 1),          
+        (party_remove_prisoners, ":prison_center", ":prisoner", 1),
         (troop_set_slot, ":prisoner", slot_troop_prisoner_of_party, -1),
 
         (assign, ":end_cond", -1),
-	  (else_try),	
+	  (else_try),
 		(troop_slot_eq, ":prisoner", slot_troop_mission_participation, mp_prison_break_caught),
 		(str_store_troop_name, s12, ":prisoner"),
 		(try_begin),
@@ -20987,14 +20993,14 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(str_store_string, s11, "str_s11_unfortunately_s12_was_wounded_and_had_to_be_left_behind"),
 		(else_try),
 			(str_store_string, s11, "str_s11_also_s12_was_wounded_and_had_to_be_left_behind"),
-		(try_end),	
+		(try_end),
 		(assign, ":at_least_one_escaper_caught", 1),
 	  (try_end),
-	  
+
 	  (troop_set_slot, ":prisoner", slot_troop_mission_participation, 0), #new
 	(try_end),
 	],
-    [      
+    [
       ("continue",[],"Continue...",
        [
            (assign,"$auto_menu",-1),
@@ -21034,11 +21040,11 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (call_script, "script_remove_troop_from_prison", "$g_ransom_offer_troop"),
           (try_begin),
             (troop_get_type, ":is_female", "trp_player"),
-            (eq, ":is_female", 1),						
+            (eq, ":is_female", 1),
 
             (get_achievement_stat, ":number_of_lords_sold", ACHIEVEMENT_MAN_HANDLER, 0),
             (val_add, ":number_of_lords_sold", 1),
-            (set_achievement_stat, ACHIEVEMENT_MAN_HANDLER, 0, ":number_of_lords_sold"),			
+            (set_achievement_stat, ACHIEVEMENT_MAN_HANDLER, 0, ":number_of_lords_sold"),
 
             (eq, ":number_of_lords_sold", 3),
             (unlock_achievement, ACHIEVEMENT_MAN_HANDLER),
@@ -21428,7 +21434,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
      (else_try),
        (str_store_string, s7, "@The training went perfectly."),
      (try_end),
-     
+
      ],
     [
       ("continue",[],"Continue...",
@@ -21437,7 +21443,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        ),
       ]
    ),
-  
+
 ##  ("marshall_selection_candidate_ask",0,
 ##   "{s15} will soon select a new marshall for {s23}. Some of the lords have suggested your name as a likely candidate.",
 ##   "none",
@@ -21476,7 +21482,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 
 
 
-  
+
 ##    [
 ##      ("renew_oath",[],"Renew your oath to {s1} for another month.",[
 ##          (store_current_day, ":cur_day"),
@@ -21518,14 +21524,14 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (assign, "$g_player_is_captive", 1),
           (try_begin),
             (eq,"$g_player_surrenders",1),
-            (jump_to_menu, "mnu_captivity_start_wilderness_surrender"), 
+            (jump_to_menu, "mnu_captivity_start_wilderness_surrender"),
           (else_try),
-            (jump_to_menu, "mnu_captivity_start_wilderness_defeat"), 
+            (jump_to_menu, "mnu_captivity_start_wilderness_defeat"),
           (try_end),
       ],
     []
   ),
-  
+
   (
     "captivity_start_wilderness_surrender",0,
     "Stub",
@@ -21554,7 +21560,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (store_sub, ":kingdom_hero_id", ":party_leader", active_npcs_begin),
          (set_achievement_stat, ACHIEVEMENT_BARON_GOT_BACK, ":kingdom_hero_id", 1),
        (try_end),
-       
+
        (jump_to_menu, "mnu_captivity_wilderness_taken_prisoner"),
     ],
     []
@@ -21595,7 +21601,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     ],
     []
   ),
-  
+
   (
     "captivity_wilderness_taken_prisoner",0,
     "Your enemies take you prisoner.",
@@ -21607,8 +21613,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       ("continue",[],"Continue...",
        [
 	     # Explanation of removing below code : heros are already being removed with 50% (was 75%, I decreased it) probability in mnu_total_defeat, why here there is additionally 30% removing of heros?
-		 # See codes linked to "mnu_captivity_start_wilderness_surrender" and "mnu_captivity_start_wilderness_defeat" which is connected with here they all also enter 
-		 # "mnu_total_defeat" and inside the "mnu_total_defeat" there is script_party_remove_all_companions which removes 50% (was 75%, I decreased it) of compainons from player party.		
+		 # See codes linked to "mnu_captivity_start_wilderness_surrender" and "mnu_captivity_start_wilderness_defeat" which is connected with here they all also enter
+		 # "mnu_total_defeat" and inside the "mnu_total_defeat" there is script_party_remove_all_companions which removes 50% (was 75%, I decreased it) of compainons from player party.
 
          #(try_for_range, ":npc", companions_begin, companions_end),
          #  (main_party_has_troop, ":npc"),
@@ -21690,7 +21696,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(assign, "$g_player_icon_state", pis_normal),
 			(party_set_flags, "p_main_party", pf_is_ship, 0),
                (try_end),
-#cambia icono acaba          
+#cambia icono acaba
            (try_begin),
              (party_is_active, "$capturer_party"),
              (party_relocate_near_party, "p_main_party", "$capturer_party", 2),
@@ -21700,13 +21706,13 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
                 (this_or_next|eq,reg1,0), #terreno#water
                 (this_or_next|eq,reg1, 7 ),#water
                  (eq,reg1, 8 ),#river
-                 (assign, ":closest_dist", 100000),      
-                 (try_for_range, ":cur_town", towns_begin, towns_end),        
+                 (assign, ":closest_dist", 100000),
+                 (try_for_range, ":cur_town", towns_begin, towns_end),
                 # (party_slot_eq, ":cur_town", slot_town_port, 1),
-                (store_distance_to_party_from_party, ":dist", ":cur_town", "p_main_party"),        
-                (lt, ":dist", ":closest_dist"),        
-                (assign, ":closest_dist", ":dist"),        
-               (try_end),      
+                (store_distance_to_party_from_party, ":dist", ":cur_town", "p_main_party"),
+                (lt, ":dist", ":closest_dist"),
+                (assign, ":closest_dist", ":dist"),
+               (try_end),
              (party_relocate_near_party, "p_main_party",":cur_town",1),
              (display_message,"@Some fishermen help you in the ocean, and they leave you in the nearest town.",0xFFFFAAAA),
              (try_end),
@@ -21788,14 +21794,14 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (jump_to_menu,"mnu_captivity_end_exchanged_with_prisoner"),
 		(else_try),
           (lt, reg(7), 4),
-                              
+
           (store_character_level, ":player_level", "trp_player"),
           (store_mul, "$player_ransom_amount", ":player_level", 50),
-          (val_add, "$player_ransom_amount", 100),                    
-          (store_troop_gold, reg3, "trp_player"),          
+          (val_add, "$player_ransom_amount", 100),
+          (store_troop_gold, reg3, "trp_player"),
           (store_div, ":player_gold_div_20", reg3, 20),
-          (val_add, "$player_ransom_amount", ":player_gold_div_20"),          
-          
+          (val_add, "$player_ransom_amount", ":player_gold_div_20"),
+
           (gt, reg3, "$player_ransom_amount"),
           (jump_to_menu,"mnu_captivity_end_propose_ransom"),
         (else_try),
@@ -21848,7 +21854,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       [
         (play_cue_track, "track_escape"),
         (assign, "$g_player_is_captive", 0),
-        (troop_remove_gold, "trp_player", "$player_ransom_amount"), 
+        (troop_remove_gold, "trp_player", "$player_ransom_amount"),
         (try_begin),
           (party_is_active, "$capturer_party"),
           (party_relocate_near_party, "p_main_party", "$capturer_party", 1),
@@ -21888,7 +21894,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (store_random_in_range, ":random_hours", 24, 48), #TEMPERED chief LENGTHENED TIME cambiado
         (call_script, "script_stay_captive_for_hours", ":random_hours"),
         (assign,"$auto_menu", "mnu_captivity_castle_check"),
-        
+
     ],
     [
       ("continue",[],"Continue...",
@@ -21920,7 +21926,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
  ## Gender fix chief para alturas
      (troop_get_type, reg4, ":quest_target_troop"),
     (val_mod, reg4, 2),
-#gender fix chief acaba	 
+#gender fix chief acaba
      ],
     [
       ("continue",[],"Continue...",
@@ -22027,7 +22033,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (quest_set_slot, "qst_join_faction", slot_quest_giver_troop, "$g_invite_faction_lord"),
         (quest_set_slot, "qst_join_faction", slot_quest_expiration_days, 30),
 		(quest_set_slot, "qst_join_faction", slot_quest_failure_consequence, 0),
-		
+
         (str_store_string, s2, "@Find and speak with {s3} of {s4} to give him your oath of homage."),
         (call_script, "script_start_quest", "qst_join_faction", "$g_invite_faction_lord"),
         (call_script, "script_report_quest_troop_positions", "qst_join_faction", "$g_invite_faction_lord", 3),
@@ -22043,7 +22049,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ]),
      ]
   ),
-  
+
 
   (
     "invite_player_to_faction",0,
@@ -22084,7 +22090,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ]),
      ]
   ),
-  
+
   (
     "invite_player_to_faction_accepted",0,
     "In order to become a vassal, you must swear an oath of homage to {s3}.\
@@ -22148,7 +22154,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     [
       (str_store_faction_name, s1, "$g_notification_menu_var1"),
       (str_store_faction_name, s2, "$g_notification_menu_var2"),
-	  
+
       (set_fixed_point_multiplier, 100),
       (position_set_x, pos0, 65),
       (position_set_y, pos0, 30),
@@ -22162,7 +22168,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ]),
      ]
   ),
-  
+
   (
     "notification_feast_quest_expired",0,
     "{s10}",
@@ -22191,15 +22197,15 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       ("continue",[],"Continue",
        [
 	   #stop auto-clock
-	   
+
 	   (change_screen_return),
         ]),
      ]
   ),
-  
-  
-  
-  
+
+
+
+
   (
     "notification_casus_belli_expired",0,
     "Kingdom Fails to Respond^^The {s1} has not responded to the {s2}'s provocations, and {s3} suffers a loss of face among {reg4?her:his} more bellicose subjects...^",
@@ -22212,10 +22218,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
  ## Gender fix chief para alturas
       (troop_get_type, reg4, ":faction_leader"),
     (val_mod, reg4, 2),
-#gender fix chief acaba	 
+#gender fix chief acaba
 	   (call_script, "script_faction_follows_controversial_policy", "$g_notification_menu_var1", logent_policy_ruler_ignores_provocation),
 	   (change_screen_return),
-	  
+
 ##      (set_fixed_point_multiplier, 100),
 ##      (position_set_x, pos0, 65),
 ##      (position_set_y, pos0, 30),
@@ -22245,7 +22251,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
  ## Gender fix chief para alturas
        (troop_get_type, reg4, ":defecting_lord"),
     (val_mod, reg4, 2),
-#gender fix chief acaba	 	  
+#gender fix chief acaba
 	],
     [
       ("continue",[],"Continue",
@@ -22254,8 +22260,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ]),
      ]
 	),
-	
-	
+
+
   (
     "notification_treason_indictment",0,
     "Treason Indictment^^{s9}",
@@ -22264,21 +22270,21 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	  (assign, ":indicted_lord", "$g_notification_menu_var1"),
 	  (assign, ":former_faction", "$g_notification_menu_var2"),
 	  (faction_get_slot, ":former_faction_leader", ":former_faction", slot_faction_leader),
-	  
+
 	  #Set up string
 	  (try_begin),
 			(eq, ":indicted_lord", "trp_player"),
 			(str_store_troop_name, s7, ":former_faction_leader"),
 			(str_store_string, s9, "str_you_have_been_indicted_for_treason_to_s7_your_properties_have_been_confiscated_and_you_would_be_well_advised_to_flee_for_your_life"),
-	  (else_try),	
+	  (else_try),
 			(str_store_troop_name, s4, ":indicted_lord"),
 			(str_store_faction_name, s5, ":former_faction"),
 			(str_store_troop_name, s6, ":former_faction_leader"),
-		
+
  ## Gender fix chief para alturas
        (troop_get_type, reg4, ":indicted_lord"),
     (val_mod, reg4, 2),
-#gender fix chief acaba	 	  
+#gender fix chief acaba
 			(store_faction_of_troop, ":new_faction", ":indicted_lord"),
 			(try_begin),
 				(is_between, ":new_faction", kingdoms_begin, kingdoms_end),
@@ -22289,8 +22295,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(try_end),
 			(str_store_string, s9, "str_by_order_of_s6_s4_of_the_s5_has_been_indicted_for_treason_the_lord_has_been_stripped_of_all_reg4herhis_properties_and_has_fled_for_reg4herhis_life_he_is_rumored_to_have_gone_into_exile_s11"),
 		(try_end),
-	  
-	  
+
+
 	],
     [
       ("continue",[],"Continue",
@@ -22301,7 +22307,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	),
 
 
-#motomataru chief cambia	
+#motomataru chief cambia
   (
     "notification_border_incident",0,
     # "Border incident^^Word reaches you that {s9}. Though you don't know whether or not the rumors are true, you do know one thing -- this seemingly minor incident has raised passions among the {s4}, making it easier for them to go to war against the {s3}, if they want it...",
@@ -22311,7 +22317,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	  (assign, ":acting_village", "$g_notification_menu_var1"),
 	  (assign, ":target_village", "$g_notification_menu_var2"),
 	  (store_faction_of_party, ":acting_faction", ":acting_village"),
-	  
+
 	  (try_begin),
 			(eq, ":target_village", -1),
 			(party_get_slot, ":target_faction", ":acting_village", slot_center_original_faction),
@@ -22326,21 +22332,21 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		    (str_store_faction_name, s4, ":target_faction"),
 			(faction_get_slot, ":target_leader", ":target_faction", slot_faction_leader),
 		    (str_store_troop_name, s5, ":target_leader"),
-			
+
 			(str_store_string, s9, "str_local_notables_from_s1_a_village_claimed_by_the_s4_have_been_mistreated_by_their_overlords_from_the_s3_and_petition_s5_for_protection"),
 			(display_log_message, "@There has been an alleged border incident: {s9}"),
-			
+
 			(call_script, "script_add_log_entry", logent_border_incident_subjects_mistreated, ":acting_village", -1, -1, ":acting_faction"),
-			
-	
-      (else_try),	
+
+
+      (else_try),
 			(store_faction_of_party, ":target_faction", ":target_village"),
-		  
+
 		    (str_store_party_name, s1, ":acting_village"),
 		    (str_store_party_name, s2, ":target_village"),
 			(str_store_faction_name, s3, ":acting_faction"),	#MOTO chief move up from below
 			(str_store_faction_name, s4, ":target_faction"),	#MOTO chief move up from below
-			  
+
 			(store_random_in_range, ":random", 0, 3),
 			(try_begin),
 				(eq, ":random", 0),
@@ -22348,36 +22354,36 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 				(str_store_string, s9, "str_villagers_from_s1_stole_some_cattle_from_s2"),
 				# (display_log_message, "@There has been an alleged border incident: {s9}"), #moto chief
 				(display_log_message, "@There has been an alleged border incident: the people of {s4} are considering war against {s3}"),	#MOTO make more helpful
-				
+
 				(call_script, "script_add_log_entry", logent_border_incident_cattle_stolen, ":acting_village", ":target_village", -1,":acting_faction"),
-				
+
 			(else_try),
 				(eq, ":random", 1),
 
 				(str_store_string, s9, "str_villagers_from_s1_abducted_a_woman_from_a_prominent_family_in_s2_to_marry_one_of_their_boys"),
 				# (display_log_message, "@There has been an alleged border incident: {s9}"), #moto chief
 				(display_log_message, "@There has been an alleged border incident: the people of {s4} are considering war against {s3}"),	#MOTO make more helpful
-				
+
 				(call_script, "script_add_log_entry", logent_border_incident_bride_abducted, ":acting_village", ":target_village", -1, ":acting_faction"),
-			(else_try),	
+			(else_try),
 				(eq, ":random", 2),
-				
+
 				(str_store_string, s9, "str_villagers_from_s1_killed_some_farmers_from_s2_in_a_fight_over_the_diversion_of_a_stream"),
 				# (display_log_message, "@There has been an alleged border incident: {s9}"), #moto chief
 				(display_log_message, "@There has been an alleged border incident: the people of {s4} are considering war against {s3}"),	#MOTO make more helpful
-				
+
 			    (call_script, "script_add_log_entry", logent_border_incident_villagers_killed, ":acting_village", ":target_village", -1,":acting_faction"),
 			(try_end),
-	  
+
 	  (try_end),
-	  
+
 	  # (str_store_faction_name, s3, ":acting_faction"),	MOTO chief pointless here
 	  # (str_store_faction_name, s4, ":target_faction"),
-	  
+
 	  (store_add, ":slot_provocation_days", ":acting_faction", slot_faction_provocation_days_with_factions_begin),
 	  (val_sub, ":slot_provocation_days", kingdoms_begin),
 	  (faction_set_slot, ":target_faction", ":slot_provocation_days", 30),
-	  
+
       ],
     [
       ("continue",[],"Continue",
@@ -22386,10 +22392,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ]),
      ]
   ),
-  
-  
-  
-#chief cambia texto para quitar calradia  
+
+
+
+#chief cambia texto para quitar calradia
   (
     "notification_player_faction_active",0,
     "You now possess land in your name, without being tied to any kingdom. This makes you a monarch in your own right, with your court temporarily located at {s12}. However, the other kings in Britannia and Hibernia will at first consider you a threat, for if any upstart warlord can grab a throne, then their own legitimacy is called into question.^^You may find it desirable at this time to pledge yourself to an existing kingdom. If you want to continue as a sovereign monarch, then your first priority should be to establish an independent right to rule. You can establish your right to rule through several means -- marrying into a high-born family, recruiting new lords, governing your lands, treating with other kings, or dispatching your companions on missions.^^At any rate, your first step should be to appoint a chief minister from among your companions, to handle affairs of state. Different companions have different capabilities.^You may appoint new ministers from time to time. You may also change the location of your court, by speaking to the minister.",
@@ -22400,26 +22406,26 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       (position_set_y, pos0, 30),
       (position_set_z, pos0, 170),
       (set_game_menu_tableau_mesh, "tableau_faction_note_mesh_banner", "fac_player_supporters_faction", pos0),
-	  
+
       (unlock_achievement, ACHIEVEMENT_CALRADIAN_TEA_PARTY),
       (play_track, "track_coronation"),
 	(troop_add_item, "trp_player", "itm_sib_lombardy", 0), #chief corona al nuevo rey
-      
+
 	  (try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
 	    (lt, "$g_player_court", walled_centers_begin),
 		(store_faction_of_party, ":walled_center_faction", ":walled_center"),
 	    (eq, ":walled_center_faction", "fac_player_supporters_faction"),
 		(assign, "$g_player_court", ":walled_center"),
-		
+
 		(try_begin),
 			(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
 			(is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
 			(troop_set_slot, ":spouse", slot_troop_cur_center, "$g_player_court"),
 		(try_end),
-		
+
 		(str_store_party_name, s12, "$g_player_court"),
 	  (try_end),
-	  
+
       ],
     [
       ("appoint_spouse",[
@@ -22442,14 +22448,14 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	   (assign, "$g_player_minister", "trp_npc1"),
 	   (jump_to_menu, "mnu_minister_confirm"),
 	   ]),
-	   
+
       ("appoint_npc2",[
 	  (main_party_has_troop, "trp_npc2"),
 	  (str_store_troop_name, s10, "trp_npc2"),],"Appoint {s10}",
        [
 	   (assign, "$g_player_minister", "trp_npc2"),
 	   (jump_to_menu, "mnu_minister_confirm"),]),
-	   
+
       ("appoint_npc3",[
 	  (main_party_has_troop, "trp_npc3"),
 	  (str_store_troop_name, s10, "trp_npc3"),
@@ -22457,7 +22463,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [
 	   (assign, "$g_player_minister", "trp_npc3"),
 	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
+
       ("appoint_npc4",[
 	  (main_party_has_troop, "trp_npc4"),
 	  (str_store_troop_name, s10, "trp_npc4"),
@@ -22465,7 +22471,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [
 	   (assign, "$g_player_minister", "trp_npc4"),
 	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
+
       ("appoint_npc5",[
 	  (main_party_has_troop, "trp_npc5"),
 	  (str_store_troop_name, s10, "trp_npc5"),
@@ -22473,7 +22479,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [
 	   (assign, "$g_player_minister", "trp_npc5"),
 	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
+
       ("appoint_npc6",[
 	  (main_party_has_troop, "trp_npc6"),
 	  (str_store_troop_name, s10, "trp_npc6"),
@@ -22481,7 +22487,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [
 	   (assign, "$g_player_minister", "trp_npc6"),
 	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
+
       ("appoint_npc7",[
 	  (main_party_has_troop, "trp_npc7"),
 	  (str_store_troop_name, s10, "trp_npc7"),
@@ -22489,7 +22495,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [
 	   (assign, "$g_player_minister", "trp_npc7"),
 	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
+
       ("appoint_npc8",[
 	  (main_party_has_troop, "trp_npc8"),
 	  (str_store_troop_name, s10, "trp_npc8"),
@@ -22497,7 +22503,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [
 	   (assign, "$g_player_minister", "trp_npc8"),
 	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
+
       ("appoint_npc9",[
 	  (main_party_has_troop, "trp_npc9"),
 	  (str_store_troop_name, s10, "trp_npc9"),
@@ -22505,7 +22511,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [
 	   (assign, "$g_player_minister", "trp_npc9"),
 	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
+
       ("appoint_npc10",[ #was npc9
 	  (main_party_has_troop, "trp_npc10"),
 	  (str_store_troop_name, s10, "trp_npc10"),
@@ -22513,7 +22519,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [
 	   (assign, "$g_player_minister", "trp_npc10"),
 	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
+
       ("appoint_npc11",[
 	  (main_party_has_troop, "trp_npc11"),
 	  (str_store_troop_name, s10, "trp_npc11"),
@@ -22521,7 +22527,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [
 	   (assign, "$g_player_minister", "trp_npc11"),
 	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
+
       ("appoint_npc12",[
 	  (main_party_has_troop, "trp_npc12"),
 	  (str_store_troop_name, s10, "trp_npc12"),
@@ -22529,7 +22535,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [
 	   (assign, "$g_player_minister", "trp_npc12"),
 	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
+
       ("appoint_npc13",[
 	  (main_party_has_troop, "trp_npc13"),
 	  (str_store_troop_name, s10, "trp_npc13"),
@@ -22537,7 +22543,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [
 	   (assign, "$g_player_minister", "trp_npc13"),
 	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
+
       ("appoint_npc14",[
 	  (main_party_has_troop, "trp_npc14"),
 	  (str_store_troop_name, s10, "trp_npc14"),
@@ -22545,7 +22551,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [
 	   (assign, "$g_player_minister", "trp_npc14"),
 	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
+
       ("appoint_npc15",[
 	  (main_party_has_troop, "trp_npc15"),
 	  (str_store_troop_name, s10, "trp_npc15"),
@@ -22553,7 +22559,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [
 	   (assign, "$g_player_minister", "trp_npc15"),
 	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
+
       ("appoint_npc16",[
 	  (main_party_has_troop, "trp_npc16"),
 	  (str_store_troop_name, s10, "trp_npc16"),
@@ -22647,9 +22653,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	   (assign, "$g_player_minister", "trp_temporary_minister"),
 	   (troop_set_faction, "trp_temporary_minister", "fac_player_supporters_faction"),
 	   (jump_to_menu, "mnu_minister_confirm"),
-        ]),				
+        ]),
      ]
-  ),  
+  ),
 
   (
     "minister_confirm",0,
@@ -22660,15 +22666,15 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (eq, "$players_kingdom_name_set", 1),
         (change_screen_return),
     (try_end),
-	  
+
 	(try_begin),
 		(eq, "$g_player_minister", "trp_temporary_minister"),
 		(str_store_string, s9, "str_your_new_minister_"),
-	(else_try),	
+	(else_try),
 		(str_store_troop_name, s10, "$g_player_minister"),
 		(str_store_string, s9, "str_s10_is_your_new_minister_and_"),
 	(try_end),
-	
+
 	(try_begin),
 		(main_party_has_troop, "$g_player_minister"),
 		(remove_member_from_party, "$g_player_minister", "p_main_party"),
@@ -22680,10 +22686,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (start_presentation, "prsnt_name_kingdom"),
         ]),
      ]
-  ),  
-  
-  
-  
+  ),
+
+
+
   (
   "notification_court_lost",0,
   "{s12}",
@@ -22696,15 +22702,15 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	(else_try),
 		(str_store_string, s10, "str_your_previous_court_some_time_ago"),
 		(str_store_string, s11, "str_your_previous_court_some_time_ago"),
-	(try_end),	
-	
+	(try_end),
+
 	(assign, "$g_player_court", -1),
 	(str_store_string, s14, "str_after_to_the_fall_of_s11_your_court_has_nowhere_to_go"),
 	(try_begin),
 		(faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
 		(str_store_string, s14, "str_as_you_no_longer_maintain_an_independent_kingdom_you_no_longer_maintain_a_court"),
 	(try_end),
-	
+
 	(try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
 		(eq, "$g_player_court", -1),
   ##diplomacy chief begin
@@ -22713,7 +22719,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		(store_faction_of_party, ":walled_center_faction", ":walled_center"),
 		(eq, ":walled_center_faction", "fac_player_supporters_faction"),
 		(neg|party_slot_ge, ":walled_center", slot_town_lord, active_npcs_begin),
-		
+
 		(assign, "$g_player_court", ":walled_center"),
 		(try_begin),
 			(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
@@ -22721,18 +22727,18 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(troop_set_slot, ":spouse", slot_troop_cur_center, "$g_player_court"),
 			(str_store_party_name, s11, "$g_player_court"),
 		(try_end),
-		
+
 		(str_store_string, s14, "str_due_to_the_fall_of_s10_your_court_has_been_relocated_to_s12"),
 	(try_end),
 
 	(try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
 		(eq, "$g_player_court", -1),
-		
+
 		(store_faction_of_party, ":walled_center_faction", ":walled_center"),
 		(eq, ":walled_center_faction", "fac_player_supporters_faction"),
-		
+
 		(assign, "$g_player_court", ":walled_center"),
-		
+
 		(try_begin),
 			(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
 			(is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
@@ -22744,7 +22750,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		(str_store_troop_name, s9, ":town_lord"),
 		(str_store_string, s14, "str_after_to_the_fall_of_s10_your_faithful_vassal_s9_has_invited_your_court_to_s11_"),
 	(try_end),
-	
+
 	(try_begin),
 		(faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
 		(str_store_string, s14, "str_as_you_no_longer_maintain_an_independent_kingdom_you_no_longer_maintain_a_court"),
@@ -22757,9 +22763,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	  ]),
      ],
   ),
-  
-  
-  
+
+
+
   (
     "notification_player_faction_deactive",0,
     "Your kingdom no longer holds any land.",
@@ -22774,10 +22780,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     [
       ("continue",[],"Continue...",
        [
-	   
+
 	   (try_begin),
-	   
-	   
+
+
 	   (try_end),
 	   (assign, "$g_player_minister", -1),
 	   (change_screen_return),
@@ -22785,11 +22791,11 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
      ]
   ),
 
-  
 
-  
-  
-  
+
+
+
+
   (
     "notification_player_wedding_day",0,
     "{s8} wishes to inform you that preparations for your wedding at {s10} have been complete, and that your presence is expected imminently .",
@@ -22804,23 +22810,23 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [(change_screen_return),
         ]),
      ]
-  ),  
-  
-  
+  ),
+
+
   (
     "notification_player_kingdom_holds_feast",0,
     "{s11}",
     "none",
     [
 		(set_background_mesh, "mesh_pic_messenger1"),
-		
+
 		(str_store_troop_name, s8, "$g_notification_menu_var1"),
 		(store_faction_of_troop, ":host_faction", "$g_notification_menu_var1"),
 		(str_store_faction_name, s9, ":host_faction"),
-		
+
 #		(str_store_faction_name, s9, "$players_kingdom"),
 		(str_store_party_name, s10, "$g_notification_menu_var2"),
-		
+
 		(str_clear, s12),
 		(try_begin),
 			(check_quest_active, "qst_wed_betrothed"),
@@ -22829,9 +22835,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(eq, ":giver_troop_faction", "$players_kingdom"),
 			(str_store_string, s12, "str_feast_wedding_opportunity"),
 		(try_end),
-		
-		
-		
+
+
+
 		(str_store_string, s11, "str_s8_wishes_to_inform_you_that_the_lords_of_s9_will_be_gathering_for_a_feast_at_his_great_hall_in_s10_and_invites_you_to_be_part_of_this_august_assembly"),
 		(try_begin),
 			(eq, "$g_notification_menu_var1", 0),
@@ -22843,20 +22849,20 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(ge, "$cheat_mode", 1),
 			(store_current_hours, ":hours_since_last_feast"),
 			(faction_get_slot, ":last_feast_start_time", "$players_kingdom", slot_faction_last_feast_start_time),
-			(val_sub, ":hours_since_last_feast", ":last_feast_start_time"),		
+			(val_sub, ":hours_since_last_feast", ":last_feast_start_time"),
 			(assign, reg4, ":hours_since_last_feast"),
 			(display_message, "@{!}DEBUG -- Hours since last feast started: {reg4}"),
-		(try_end),                
-		
+		(try_end),
+
       ],
     [
       ("continue",[],"Continue...",
        [(change_screen_return),
         ]),
      ]
-  ),  
-  
-#chief anade texto presentacion sot  
+  ),
+
+#chief anade texto presentacion sot
   (
     "notification_center_under_siege",0,
     "{s1} has been besieged by {s2} of {s3}!^^The settlement is surrounded and under siege. Its warriors must cower behind the walls rather than face the enemy with blades in their hands!",
@@ -22877,7 +22883,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [(change_screen_return),
         ]),
      ]
-  ),  
+  ),
 
   (
     "notification_village_raided",0,
@@ -22899,7 +22905,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [(change_screen_return),
         ]),
      ]
-  ),  
+  ),
 
   (
     "notification_village_raid_started",0,
@@ -22951,7 +22957,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(val_mod, ":is_female", 2),	#gender fix chief moto
             (eq, ":is_female", 1),
             (unlock_achievement, ACHIEVEMENT_EMPRESS),
-        (try_end),	  
+        (try_end),
       ],
     [
       ("continue",[],"Continue...",
@@ -22959,7 +22965,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ]),
      ]
   ),
-  
+
   (
     "notification_oath_renounced_faction_defeated",0,
     "Your Old Faction was Defeated^^You won the battle against {s1}! This ends your struggle which started after you renounced your oath to them.",
@@ -23079,7 +23085,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	  (try_end),
 	  #MOTO salvage explanation end
 
-	
+
 	#to do the reason, have war_damage = 0 yield pre-war reasons Moto hace cambios chief
 #      (try_begin),
 #        (eq, "$g_notification_menu_var1", "fac_player_supporters_faction"),
@@ -23093,8 +23099,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (str_store_faction_name, s1, "$g_notification_menu_var1"),
         (str_store_faction_name, s2, "$g_notification_menu_var2"),
 #      (try_end),
-	  
-	  
+
+
       (set_fixed_point_multiplier, 100),
       (position_set_x, pos0, 65),
       (position_set_y, pos0, 30),
@@ -23133,7 +23139,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	  (else_try),
 	    (str_clear, s57),
 	  (try_end),
-	
+
 	  (str_store_faction_name, s1, "$g_notification_menu_var1"),
       (str_store_faction_name, s2, "$g_notification_menu_var2"),
       (set_fixed_point_multiplier, 100),
@@ -23153,7 +23159,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
      ]
   ),
 
-  
+
   (
     "notification_faction_defeated",0,
     "Faction Eliminated^^{s1} is no more!",
@@ -23177,7 +23183,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (try_begin),
            (is_between, "$supported_pretender", pretenders_begin, pretenders_end),
            (troop_slot_eq, "$supported_pretender", slot_troop_original_faction, "$g_notification_menu_var1"),
-		   
+
 		   #All rebels switch to kingdom
            (try_for_range, ":cur_troop", active_npcs_begin, active_npcs_end),
 		     (troop_slot_eq, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
@@ -23190,35 +23196,35 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
                (eq, "$g_notification_menu_var1", "fac_player_supporters_faction"),
                (call_script, "script_check_concilio_calradi_achievement"),
              (try_end),
-		   (else_try), #all loyal lords gain a small bonus with the player	 
+		   (else_try), #all loyal lords gain a small bonus with the player
 		     (troop_slot_eq, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
              (store_troop_faction, ":cur_faction", ":cur_troop"),
              (eq, ":cur_faction", "$g_notification_menu_var1"),
 			 (call_script, "script_troop_change_relation_with_troop", ":cur_troop", "trp_player", 5),
            (try_end),
-		   
+
            (try_for_parties, ":cur_party"),
              (store_faction_of_party, ":cur_faction", ":cur_party"),
              (eq, ":cur_faction", "fac_player_supporters_faction"),
              (party_set_faction, ":cur_party", "$g_notification_menu_var1"),
            (try_end),
-		   
+
            (assign, "$players_kingdom", "$g_notification_menu_var1"),
 		   (try_begin),
 			(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
 			(is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
 			(troop_set_faction, ":spouse", "$g_notification_menu_var1"),
 		   (try_end),
-		   
-		   
+
+
            (call_script, "script_add_notification_menu", "mnu_notification_rebels_switched_to_faction", "$g_notification_menu_var1", "$supported_pretender"),
-		   
+
            (faction_set_slot, "$g_notification_menu_var1", slot_faction_state, sfs_active),
            (faction_set_slot, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
-		   
+
            (faction_get_slot, ":old_leader", "$g_notification_menu_var1", slot_faction_leader),
            (troop_set_slot, ":old_leader", slot_troop_change_to_faction, "fac_commoners"),
-		   
+
            (faction_set_slot, "$g_notification_menu_var1", slot_faction_leader, "$supported_pretender"),
            (troop_set_faction, "$supported_pretender", "$g_notification_menu_var1"),
 
@@ -23228,14 +23234,14 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			 (troop_get_slot, ":old_marshall_party", ":old_marshall", slot_troop_leaded_party),
              (party_is_active, ":old_marshall_party"),
              (party_set_marshall, ":old_marshall_party", 0),
-           (try_end),  
+           (try_end),
 
            (faction_set_slot, "$g_notification_menu_var1", slot_faction_marshall, "trp_player"),
            (faction_set_slot, "$g_notification_menu_var1", slot_faction_ai_state, sfai_default),
            (faction_set_slot, "$g_notification_menu_var1", slot_faction_ai_object, -1),
            (troop_set_slot, "$supported_pretender", slot_troop_occupation, slto_kingdom_hero),
 		   (troop_set_slot, "$supported_pretender", slot_troop_renown, 1000),
-		   
+
            (party_remove_members, "p_main_party", "$supported_pretender", 1),
            (call_script, "script_set_player_relation_with_faction", "$g_notification_menu_var1", 0),
            (try_for_range, ":cur_kingdom", kingdoms_begin, kingdoms_end),
@@ -23254,7 +23260,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
      ]
   ),
 
-  
+
   (
     "notification_rebels_switched_to_faction",0,
     "Rebellion Success^^ Your rebellion is victorious! Your faction now has the sole claim to the title of {s11}, with {s12} as the single ruler.",
@@ -23297,11 +23303,11 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 
         (str_store_troop_name, s11, "$g_player_minister"),
         (str_store_party_name, s12, "$g_player_court"),
-	   
+
 		(str_store_string, s2, "str_consult_with_s11_at_your_court_in_s12"),
 	    (call_script, "script_start_quest", "qst_consult_with_minister", -1),
-		
-		
+
+
 		(quest_set_slot, "qst_consult_with_minister", slot_quest_expiration_days, 30),
 		(quest_set_slot, "qst_consult_with_minister", slot_quest_giver_troop, "$g_player_minister"),
 
@@ -23316,7 +23322,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 
 
 
-  
+
   (
     "notification_player_feast_in_progress",0,
     "Feast in Preparation^^Your wife has started preparations for a feast in your hall in {s11}",
@@ -23330,7 +23336,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ]),
      ]
   ),
-  
+
 
   (
     "notification_lady_requests_visit",0, #add this once around seven days after the last visit, or three weeks, or three months
@@ -23343,18 +23349,18 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 
       (str_store_troop_name, s15, ":lady_no"),
       (str_store_party_name, s10, ":center_no"),
-	  
+
 	  (store_current_hours, ":hours_since_last_visit"),
 	  (troop_get_slot, ":last_visit_hours", ":lady_no", slot_troop_last_talk_time),
 	  (val_sub, ":hours_since_last_visit", ":last_visit_hours"),
-	  
+
 	  (call_script, "script_get_kingdom_lady_social_determinants", ":lady_no"),
 	  (assign, ":lady_guardian", reg0),
-	  
+
 	  (str_store_troop_name, s16, ":lady_guardian"),
 	  (call_script, "script_troop_get_family_relation_to_troop", ":lady_guardian", ":lady_no"),
-	  
-	  (str_clear, s14), 
+
+	  (str_clear, s14),
 	  (try_begin),
 	    (lt, ":hours_since_last_visit", 336),
 		(try_begin),
@@ -23376,8 +23382,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	    (try_end),
 	  (try_end),
 
-	  
-	  (str_clear, s12), 
+
+	  (str_clear, s12),
 	  (str_clear, s18),
 	  (try_begin),
 	    (troop_slot_eq, ":lady_guardian", slot_lord_granted_courtship_permission, 0),
@@ -23393,29 +23399,29 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 
       ],
     [
-	
+
       ("continue_woman1",[],"Tell the woman to inform her mistress that you will come shortly",
        [
 
      	(assign, ":lady_to_visit", "$g_notification_menu_var1"),
 	    (str_store_troop_name_link, s3, ":lady_to_visit"),
 	    (str_store_party_name_link, s4, "$g_notification_menu_var2"),
-		
+
 		(str_store_string, s2, "str_visit_s3_who_was_last_at_s4s18"),
 	    (call_script, "script_start_quest", "qst_visit_lady", ":lady_to_visit"),
 		(quest_set_slot, "qst_visit_lady", slot_quest_giver_troop, ":lady_to_visit"), #don't know why this is necessary
-		
+
 		(try_begin),
 			(eq, "$cheat_mode", 1),
 			(quest_get_slot, ":giver_troop", "qst_visit_lady", slot_quest_giver_troop),
 			(str_store_troop_name, s2, ":giver_troop"),
 			(display_message, "str_giver_troop_=_s2"),
-		(try_end),	
-		
+		(try_end),
+
 		(quest_set_slot, "qst_visit_lady", slot_quest_expiration_days, 30),
 	    (change_screen_return),
         ]),
-	
+
       ("continue_woman2",[],"Tell the woman to inform her mistress that you are indisposed",
        [
 	    (troop_set_slot, "$g_notification_menu_var1", slot_lady_no_messages, 1),
@@ -23424,24 +23430,24 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
      ]
   ),
 
-  
-  
+
+
   ( #pre lady visit
     "garden",0,
     "{s12}",
     "none",
     [
-	
+
     (call_script, "script_get_kingdom_lady_social_determinants", "$love_interest_in_town"),
 	(assign, ":guardian_lord", reg0),
 	(str_store_troop_name, s11, "$love_interest_in_town"),
-	
+
 	(try_begin),
 		(call_script, "script_npc_decision_checklist_male_guardian_assess_suitor", ":guardian_lord", "trp_player"),
 		(lt, reg0, 0),
 		(troop_set_slot, ":guardian_lord", slot_lord_granted_courtship_permission, -1),
 	(try_end),
-	
+
 	(assign, "$nurse_assists_entry", 0),
 	(try_begin),
 		(troop_slot_eq, ":guardian_lord", slot_lord_granted_courtship_permission, 1),
@@ -23449,7 +23455,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	(else_try), #the circumstances under which the lady arranges for a surreptitious entry
 		(call_script, "script_troop_get_relation_with_troop", "trp_player", "$love_interest_in_town"),
 		(gt, reg0, 0),
-		
+
 		(assign, ":player_completed_quest", 0),
 		(try_begin),
 			(check_quest_active, "qst_visit_lady"),
@@ -23475,7 +23481,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(val_sub, ":hours_since_last_visit", ":last_visit_time"),
 			(this_or_next|ge, ":hours_since_last_visit", 96), #at least four days
 				(eq, ":player_completed_quest", 1),
-				
+
 			(try_begin),
 				(is_between, "$g_encountered_party", towns_begin, towns_end),
 				(str_store_string, s12, "str_the_guards_glare_at_you_and_you_know_better_than_to_ask_permission_to_enter_however_as_you_walk_back_towards_your_lodgings_an_elderly_lady_dressed_in_black_approaches_you_i_am_s11s_nurse_she_whispers_urgently_don_this_dress_and_throw_the_hood_over_your_face_i_will_smuggle_you_inside_the_castle_to_meet_her_in_the_guise_of_a_skullery_maid__the_guards_will_not_look_too_carefully_but_i_beg_you_for_all_of_our_sakes_be_discrete"),
@@ -23484,13 +23490,13 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 				(str_store_string, s12, "str_the_guards_glare_at_you_and_you_know_better_than_to_ask_permission_to_enter_however_as_you_walk_back_towards_your_lodgings_an_elderly_lady_dressed_in_black_approaches_you_i_am_s11s_nurse_she_whispers_urgently_wait_for_a_while_by_the_spring_outside_the_walls_i_will_smuggle_her_ladyship_out_to_meet_you_dressed_in_the_guise_of_a_shepherdess_but_i_beg_you_for_all_of_our_sakes_be_discrete"),
 				(assign, "$nurse_assists_entry", 2),
 			(try_end),
-		(else_try),	
+		(else_try),
 			(str_store_string, s12, "str_the_guards_glare_at_you_and_you_know_better_than_to_ask_permission_to_enter_however_as_you_walk_back_towards_your_lodgings_an_elderly_lady_dressed_in_black_approaches_you_i_am_s11s_nurse_she_whispers_urgently_her_ladyship_asks_me_to_say_that_yearns_to_see_you_but_that_you_should_bide_your_time_a_bit_her_ladyship_says_that_to_arrange_a_clandestine_meeting_so_soon_after_your_last_encounter_would_be_too_dangerous"),
 		(try_end),
 	(else_try),
 		(str_store_string, s12, "str_the_guards_glare_at_you_and_you_know_better_than_to_ask_permission_to_enter"),
 	(try_end),
-	
+
 	],
     [
 
@@ -23504,7 +23510,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	(call_script, "script_setup_meet_lady", "$love_interest_in_town", "$g_encountered_party"),
 	]
 	),
-     
+
 	("nurse",
 	[
     (eq, "$nurse_assists_entry", 1),
@@ -23515,7 +23521,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	]
 	),
 
-	
+
 	("nurse_1",
 	[
     (eq, "$nurse_assists_entry", 2),
@@ -23525,18 +23531,18 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	(call_script, "script_setup_meet_lady", "$love_interest_in_town", "$g_encountered_party"),
 	]
 	),
-	
+
 	("leave",
-	[], 
+	[],
 	"Leave",
 	[(jump_to_menu, "mnu_town")]),
 
     ]
- 
-	 
+
+
   ),
-  
-  
+
+
     (
     "kill_local_merchant_begin",0,
     "You spot your victim and follow him, observing as he turns a corner into a dark alley.\
@@ -23559,7 +23565,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
      ]
   ),
 
-  
+
     (
     "debug_alert_from_s65",0,
     "DEBUG ALERT: {s65}",
@@ -23575,12 +23581,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
      ]
   ),
 #Tempered  chief  ###########################################    SKIRMISHERS RETURN  ################################################
- 
+
   ("skirmish_party",mnf_disable_all_keys,
   "   The skirmishers have returned from their assignment. ^The party leader reports that {reg5} men were lost during the engagement.",
   "none",
-	[	
-		(party_get_num_companion_stacks, ":num_stacks","$skirmish_party_no"),		
+	[
+		(party_get_num_companion_stacks, ":num_stacks","$skirmish_party_no"),
 		(try_for_range, ":stack_no", 0, ":num_stacks"),
 			(party_stack_get_troop_id,":stack_troop","$skirmish_party_no",":stack_no"),
 			(eq,":stack_troop","trp_mercenary_skirmisher"),
@@ -23609,20 +23615,20 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(party_set_morale,"p_main_party",":cur_morale"),
 			(display_message,"@Your party has gained morale."),
 		(try_end),
-		
-		
+
+
 	],
-	
+
 		[
-				
+
 			("resume_travelling",[ ],"Resume travelling.",
 				[	(party_join),
 					(change_screen_map),
 				]
 			),
-		]	
+		]
   ),
-  
+
 
 #Tempered chief #######################################  SPY RETURN MENU  #########################################
 
@@ -23650,9 +23656,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 				(change_screen_return),
 				]
 			),
-		]	
+		]
   ),
-  
+
 #Tempered     #############################################  SPY REPORT MENU   NOT USED, USED PRESENTATION INSTEAD##############################################
 
 
@@ -23683,8 +23689,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 							(store_div, reg7, ":center_food_store", ":food_consumption"),
 							(str_store_string,s3,"@ and food for {reg7} days."),
 							(str_store_string,s5,"@^"),
-							(assign,":hero_prisoners",0), #Tempered start hero prisoner notes	
-							(party_get_num_prisoner_stacks, ":num_prisoner_stacks",":cur_center"), 
+							(assign,":hero_prisoners",0), #Tempered start hero prisoner notes
+							(party_get_num_prisoner_stacks, ":num_prisoner_stacks",":cur_center"),
 								(try_for_range, ":stack_no", 0, ":num_prisoner_stacks"),
 									(party_prisoner_stack_get_troop_id, ":stack_troop",":cur_center",":stack_no"),
 									(is_between,":stack_troop",kingdom_heroes_begin,kingdom_heroes_end),
@@ -23711,7 +23717,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 					(eq,":spy_days",1),
 					(str_store_party_name,s4,":cur_center"),
 					(str_store_string,s2,"@ {s2}^^Your spy in {s4} is still gathering information."),
-				(try_end),			
+				(try_end),
 		(try_end),
         (str_store_string, s1, "@Your spies have infiltrated the following areas:^{s2}"),
 	],
@@ -23729,9 +23735,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 				(jump_to_menu, "mnu_reports"),
 				]
 			),
-		]	
+		]
   ),
-  
+
 #Tempered    ##################################  SPY SABOTAGE MENU  ###############################################
 
    ("spy_sabotage",mnf_disable_all_keys,
@@ -23740,7 +23746,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	[	(str_store_party_name,s1,"$spy_target"),
 		(troop_get_type,":is_female","trp_player"),
 		(val_mod, ":is_female", 2),	#gender fix chief moto
-		(assign,"$g_enemy_party","$spy_target"),		
+		(assign,"$g_enemy_party","$spy_target"),
 		(try_begin),
 			(le,"$cur_choice",0),
 			(start_presentation,"prsnt_sabotage"),
@@ -23765,11 +23771,11 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		(else_try),
 			(ge,"$cur_choice",0),
 			(set_background_mesh,"mesh_pic_messenger1"),
-		(try_end),				
+		(try_end),
 	],
 		[
-                                                                                                                                                                                                            ####################  POISON FOOD  ################################						
-			("cancel_mission",[(this_or_next|eq,"$cur_choice",5),(eq,"$g_spy_rescue_active",-1),],"_RETURN_",							
+                                                                                                                                                                                                            ####################  POISON FOOD  ################################
+			("cancel_mission",[(this_or_next|eq,"$cur_choice",5),(eq,"$g_spy_rescue_active",-1),],"_RETURN_",
 				[	(str_clear,s1),
 					(str_clear,s4),
 					(assign,"$cur_choice",0),
@@ -23777,22 +23783,22 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 					(change_screen_map),
 				]
 			),
-                                                       
+
 #TEMPERED  PASSAGE 3, SPAWN POINT 7
 			("rescue_town_center",
 							[	(eq,"$g_spy_rescue_active",1),(neq,"$g_battle_result",1),
 							],"_",
-							
+
 				[
 						(display_message,"@You can not leave through this door."),
 				], "Door to town center"
 			),
 
-		]	
+		]
   ),
 
-  
-  
+
+
 #TEMPERED  chief    #############################   SPY RESCUE MISSION DEFEAT MENU #############
 
    ("rescue_defeat",mnf_scale_picture|mnf_disable_all_keys,
@@ -23835,17 +23841,17 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(try_end),
 		(try_end),
 	],
-	[	
+	[
 		("continue",[],"_CONTINUE_",
 			[	(str_clear,s8),
 				(str_clear,s9),
 				(change_screen_map),
 			]
-		),	
-	
+		),
+
 	]),
-	
-  
+
+
 #Tempered   chief  ######################################  SPY CONFIRMATION  ##########################################
    ("spy_confirm",mnf_disable_all_keys,
    "Your spy in {s1} sends word that he will perform the mission within the next 12 hours.",
@@ -23860,9 +23866,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 				(change_screen_map),
 				]
 			),
-		]	
+		]
   ),
-  
+
 #Tempered     chief  #########  WILDERNESS TRADE  ##########################################
    ("wilderness_trade",mnf_disable_all_keys,
    "Your messenger is ready to trade with {s7}.",
@@ -23874,7 +23880,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	],
 		[
 			("trade_with_party",[],"Trade",
-				[		
+				[
 					(assign,":party_no","$target"),
 					(party_stack_get_troop_id, ":leader", ":party_no", 0),
 					(assign,"$g_encountered_party",":party_no"),
@@ -23899,8 +23905,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 					(change_screen_map),
 				]
 			),
-		]	
-  ),  
+		]
+  ),
 #TEMPERED MNU_WILDERNESS_DUEL_WIN
 #CALLED FROM MT_WILDERNESS_DUEL
   (
@@ -23940,7 +23946,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ]),
      ]
   ),
-  
+
 #TEMPERED MNU_WILDERNESS_DUEL_LOSE
 #CALLED FROM MT_WILDERNESS_DUEL
   (
@@ -23990,7 +23996,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
   ),
 #TEMPERED  MNU_MESSENGER_RETURN
 #CALLED FROM SCRIPT GAME_EVENT_PARTY_ENCOUNTER
- 
+
   (
     "messenger_return",mnf_disable_all_keys,
     "stub",
@@ -24005,15 +24011,15 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	],
     []
   ),
-  
+
 #TEMPERED  MNU_LOOT_WAGON
-# 
- 
+#
+
   (
     "loot_wagon",mnf_disable_all_keys,
     "stub",
     "none",
-    [ 
+    [
 		(try_begin),
 			(le,"$next_screen",0),
 			(start_presentation,"prsnt_manage_loot_wagon"),
@@ -24044,17 +24050,17 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(change_screen_map),
 		(try_end),
 	],
-    [		  
+    [
 	]
   ),
-  
+
 #TEMPERED  BUILD NEW SUPPLY WAGON
 #CALLED FROM CAMP MENU
   (
     "build_wagon",mnf_disable_all_keys,
     "Your men will spend time building a new supply wagon while you are in camp, as long as you have tools to build it and 2 ponies to pull it. ^It will take one or two days to complete the wagon.",
     "none",
-    [ 		
+    [
       ],
     [
       ("start_building",	[ 	(eq,"$owns_wagon",0),
@@ -24067,8 +24073,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(troop_clear_inventory,"trp_loot_wagon_storage_1"),
 			(display_message,"@ Your troops will build the wagon while you camp."),
 			(change_screen_return),
-        ]),	
-	
+        ]),
+
       ("continue_wg",	[ 	(try_begin),
 							(gt,"$building_wagon",0),
 							(str_store_string,s3,"@ The men are still building the"),
@@ -24078,14 +24084,14 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 							(str_store_string,s3,"@ Wagon! I don't need no stinking"),
 						(try_end),
 					]," {s3} wagon.",
-       [	
+       [
 			(change_screen_return),
         ]),
      ]
   ),
- 
- 
-#TEMPERED chief END 
+
+
+#TEMPERED chief END
 ####banquete moral mead chief
      (
     "banquete_moral",0,
@@ -24152,12 +24158,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           ],"Forget it.",
        [
            (jump_to_menu,"mnu_village"),
-          ]),      
+          ]),
     ],
   ),
 #cattle acaba chief
 
-#EXPORT NPC'S  
+#EXPORT NPC'S
       ("export_import_npcs", mnf_enable_hot_keys,
        "Please choose an NPC, then press key C to view and export/import this character.^^You choose {reg0?{s0}:none}.",
        "none",
@@ -24186,7 +24192,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           ("export_import_next",[],"Next page", [(jump_to_menu, "mnu_export_import_npcs_2")]),
         ]
       ),
-     
+
       ("export_import_npcs_2", mnf_enable_hot_keys,
         "Please choose an NPC, then press key C to view and export/import this character.^^You choose {reg0?{s0}:none}.",
         "none",
@@ -24208,7 +24214,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           ]) for x in range(8, 16)]
       ),
 # chief CHANGES END######################
-      
+
   (
     "auto_return_to_map",0,
     "stub",
@@ -24224,28 +24230,28 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     [
       (try_begin),
         (eq, "$loot_screen_shown", 1),
-		
+
         (try_for_range, ":bandit_template", "pt_steppe_bandits", "pt_deserters"),
           (party_template_slot_eq, ":bandit_template", slot_party_template_lair_party, "$g_encountered_party"),
           (party_template_set_slot, ":bandit_template", slot_party_template_lair_party, 0),
         (try_end),
-        
+
         (try_begin),
           (ge, "$g_encountered_party", 0),
           (party_is_active, "$g_encountered_party"),
-          (party_get_template_id, ":template", "$g_encountered_party"),	    
+          (party_get_template_id, ":template", "$g_encountered_party"),
 	      (neq, ":template", "pt_looter_lair"),
           (remove_party, "$g_encountered_party"),
-        (try_end),  
-		
+        (try_end),
+
         (assign, "$g_leave_encounter", 0),
         (change_screen_return),
-		
-      (else_try),        
+
+      (else_try),
         (party_stack_get_troop_id, ":bandit_type", "$g_encountered_party", 0),
         (str_store_troop_name_plural, s4, ":bandit_type"),
         (str_store_string, s5, "str_bandit_approach_defile"),
-		
+
         (try_begin),
           (eq, ":bandit_type", "trp_desert_bandit"),
           (str_store_string, s5, "str_bandit_approach_defile"),
@@ -24268,12 +24274,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (eq, ":bandit_type", "trp_black_khergit_horseman"),
           (str_store_string, s5, "str_bandit_approach_cove"),
         (try_end),
-      
+
         (try_begin),
           (party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 0), #used in place of global variable
           (str_store_string, s3, "str_bandit_hideout_preattack"),
         (else_try),
-          (party_get_template_id, ":template", "$g_encountered_party"),	    
+          (party_get_template_id, ":template", "$g_encountered_party"),
 	      (eq, ":template", "pt_looter_lair"),
           (party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 1), #used in place of global variable
           (str_store_string, s3, "str_lost_startup_hideout_attack"),
@@ -24283,8 +24289,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (else_try),
           (party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 2), #used in place of global variable
           (str_store_string, s3, "str_bandit_hideout_success"),
-        (try_end),	
-      (try_end),      
+        (try_end),
+      (try_end),
     ],
     [
       ("continue_1",
@@ -24292,12 +24298,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 0), #used in place of global variable
 	  ],
 	  "Attack the hideout...",
-	  
+
 	  [
 	    (party_set_slot, "$g_encountered_party", slot_party_ai_substate, 1),
 	    (party_get_template_id, ":template", "$g_encountered_party"),
 	    (assign, "$g_enemy_party", "$g_encountered_party"),
-	    	    
+
 	    (try_begin),
 	      (eq, ":template", "pt_sea_raider_lair"),
 	      (assign, ":bandit_troop", "trp_sea_raider"),
@@ -24306,7 +24312,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	      (eq, ":template", "pt_sea_raider_lair2"),
 	      (assign, ":bandit_troop", "trp_black_khergit_horseman"),
 	      (assign, ":scene_to_use", "scn_lair_sea_raiders2"),
-	    (else_try),	
+	    (else_try),
 	      (eq, ":template", "pt_forest_bandit_lair"),
 	      (assign, ":bandit_troop", "trp_forest_bandit"),
 	      (assign, ":scene_to_use", "scn_lair_forest_bandits"),
@@ -24329,19 +24335,19 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	    (else_try),
 	      (eq, ":template", "pt_looter_lair"),
 	      (assign, ":bandit_troop", "trp_looter"),
-	      
+
 	      (store_faction_of_party, ":starting_town_faction", "$g_starting_town"),
-	      
-#cambiadas facciones abajo chief	      
+
+#cambiadas facciones abajo chief
 	      (try_begin),
 	        (eq, ":starting_town_faction", "fac_kingdom_18"), #player selected swadian city as starting town.
-	        (assign, ":scene_to_use", "scn_lair_forest_bandits"),	    
+	        (assign, ":scene_to_use", "scn_lair_forest_bandits"),
 	      (else_try),
 	        (eq, ":starting_town_faction", "fac_kingdom_4"), #player selected Vaegir city as starting town.
-	        (assign, ":scene_to_use", "scn_lair_taiga_bandits"),	    
+	        (assign, ":scene_to_use", "scn_lair_taiga_bandits"),
 	      (else_try),
 	        (eq, ":starting_town_faction", "fac_kingdom_23"), #player selected Khergit city as starting town.
-	        (assign, ":scene_to_use", "scn_lair_steppe_bandits"),	    
+	        (assign, ":scene_to_use", "scn_lair_steppe_bandits"),
 	      (else_try),
 	        (eq, ":starting_town_faction", "fac_kingdom_1"), #player selected Nord city as starting town.
 	        (assign, ":scene_to_use", "scn_lair_sea_raiders"),
@@ -24350,34 +24356,34 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	        (assign, ":scene_to_use", "scn_lair_mountain_bandits"),
 	      (else_try),
 	        (eq, ":starting_town_faction", "fac_kingdom_28"), #player selected Sarranid city as starting town.
-	        (assign, ":scene_to_use", "scn_lair_desert_bandits"),	    
-	      (try_end),  
+	        (assign, ":scene_to_use", "scn_lair_desert_bandits"),
+	      (try_end),
 	    (try_end),
-	    
-	    (modify_visitors_at_site,":scene_to_use"),
-	    (reset_visitors),	    
 
-        (store_character_level, ":player_level", "trp_player"),                   
+	    (modify_visitors_at_site,":scene_to_use"),
+	    (reset_visitors),
+
+        (store_character_level, ":player_level", "trp_player"),
         (store_add, ":number_of_bandits_will_be_spawned_at_each_period", 5, ":player_level"),
         (val_div, ":number_of_bandits_will_be_spawned_at_each_period", 3),
-	    
+
 	    (try_for_range, ":unused", 0, ":number_of_bandits_will_be_spawned_at_each_period"),
-	      (store_random_in_range, ":random_entry_point", 2, 11),	      
-	      (set_visitor, ":random_entry_point", ":bandit_troop", 1),	      
+	      (store_random_in_range, ":random_entry_point", 2, 11),
+	      (set_visitor, ":random_entry_point", ":bandit_troop", 1),
 	    (try_end),
-	    
+
 	    (party_clear, "p_temp_casualties"),
-	    
+
 	    (set_party_battle_mode),
         (set_battle_advantage, 0),
         (assign, "$g_battle_result", 0),
         (set_jump_mission,"mt_bandit_lair"),
-        
-        (jump_to_scene, ":scene_to_use"),        
-        (change_screen_mission),        
+
+        (jump_to_scene, ":scene_to_use"),
+        (change_screen_mission),
 	  ]),
-		
-#COOP Bandit lair chief #############################		  
+
+#COOP Bandit lair chief #############################
 ##      ("coop_setup",
 ##       [
 ##        (call_script, "script_coop_get_battle_state", 1), #sets coop_battle_state
@@ -24387,12 +24393,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 ##        (party_stack_get_troop_id, ":bandit_type", "$g_encountered_party", 0),
 ##		    (is_between, ":bandit_type", bandits_begin, bandits_end),     #dont include looter lair
 ##       ],
-##       "Setup multiplayer battle.", 
+##       "Setup multiplayer battle.",
 ##       [
 ##        (assign, "$coop_battle_type", coop_battle_type_bandit_lair),
 ##        (assign, "$coop_encountered_party", "$g_encountered_party"),
 ##
-##        (store_character_level, ":player_level", "trp_player"),        
+##        (store_character_level, ":player_level", "trp_player"),
 ##        (store_add, ":number_of_bandits_will_be_spawned", 5, ":player_level"),
 ##
 ##        (party_stack_get_troop_id, ":bandit_type", "$g_encountered_party", 0),
@@ -24403,18 +24409,18 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 ##        (call_script, "script_coop_copy_parties_to_file_sp"),#clears registers
 ##        (try_begin),
 ##          (eq, "$coop_skip_menu", 1),
-##          (change_screen_quit), 
+##          (change_screen_quit),
 ##        (try_end),
-##       ]),	
-##	  
+##       ]),
+##
 ##
 ##      ("quit",[
 ##        (this_or_next|ge, "$cheat_mode", 1),#always allow in cheat mode
 ##        (eq, "$coop_battle_state", coop_battle_state_setup_sp),
-##      ],"Quit game (will not save).", 
+##      ],"Quit game (will not save).",
 ##      [
-##        (change_screen_quit), 
-##      ]),		
+##        (change_screen_quit),
+##      ]),
 ##
 ##      ("coop_use_result",[
 ##         (this_or_next|ge, "$cheat_mode", 1),#always allow in cheat mode
@@ -24422,7 +24428,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 ##
 ##        (party_stack_get_troop_id, ":bandit_type", "$g_encountered_party", 0),
 ##		    (is_between, ":bandit_type", bandits_begin, bandits_end),     #dont include looter lair
-##      ],"Use multiplayer battle results.", 
+##      ],"Use multiplayer battle results.",
 ##      [
 ##      (party_stack_get_troop_id, ":bandit_type", "$g_encountered_party", 0),
 ##	    (assign, "$g_enemy_party", "$g_encountered_party"),
@@ -24437,10 +24443,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 ##        (eq, "$g_battle_result", -1), #enemy won
 ##        (party_set_slot, "$g_encountered_party", slot_party_ai_substate, 1),
 ##	    (try_end),
-##      ]),		  
+##      ]),
 ##
 ##      ("encounter_save",[
-##        (party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 0), 
+##        (party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 0),
 ##        (party_stack_get_troop_id, ":bandit_type", "$g_encountered_party", 0),
 ##		    (is_between, ":bandit_type", bandits_begin, bandits_end),     #dont include looter lair
 ##        ],"Give me time to save.",
@@ -24449,8 +24455,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 ##        (leave_encounter),
 ##        (change_screen_return),
 ##       # (rest_for_hours, 1, 1, 0),#rest while not attackable
-##      ]),		  	  
-##          
+##      ]),
+##
 ################################################ chief acaba
 ###rigale chief
       ("trade_hideout", #rigale
@@ -24471,19 +24477,19 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	  "Leave...",
       [
         (change_screen_return),
-      ]),            
-		
+      ]),
+
 	  ("leave_victory",
 	  [
 	    (party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 2),
 	  ],
 	  "Continue...",
-      [      
+      [
         (try_for_range, ":bandit_template", "pt_steppe_bandits", "pt_deserters"),
           (party_template_slot_eq, ":bandit_template", slot_party_template_lair_party, "$g_encountered_party"),
           (party_template_set_slot, ":bandit_template", slot_party_template_lair_party, 0),
         (try_end),
-         
+
         (party_get_template_id, ":template", "$g_encountered_party"),
         (try_begin),
           (neq, ":template", "pt_looter_lair"),
@@ -24491,7 +24497,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (quest_slot_eq, "qst_destroy_bandit_lair", slot_quest_target_party, "$g_encountered_party"),
           (call_script, "script_succeed_quest", "qst_destroy_bandit_lair"),
         (try_end),
-                 
+
         (assign, "$g_leave_encounter", 0),
         (change_screen_return),
 
@@ -24510,36 +24516,36 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
             (call_script,"script_cf_fix_party_size", ":helper_party",0),##NNY somebody chief patrullas
           (try_end),
           (troop_clear_inventory, "trp_temp_troop"),
-          
-          (party_get_num_companion_stacks, ":num_stacks", "p_temp_casualties"), 
+
+          (party_get_num_companion_stacks, ":num_stacks", "p_temp_casualties"),
           (try_for_range, ":stack_no", 0, ":num_stacks"),
-            (party_stack_get_troop_id, ":stack_troop", "p_temp_casualties", ":stack_no"), 
-            (try_begin),              
+            (party_stack_get_troop_id, ":stack_troop", "p_temp_casualties", ":stack_no"),
+            (try_begin),
               (party_stack_get_size, ":stack_size", "p_temp_casualties", ":stack_no"),
               (party_stack_get_troop_id, ":stack_troop", "p_temp_casualties", ":stack_no"),
-              (gt, ":stack_size", 0),              
+              (gt, ":stack_size", 0),
               (party_add_members, "p_total_enemy_casualties", ":stack_troop", ":stack_size"), #addition_to_p_total_enemy_casualties
               (party_stack_get_num_wounded, ":stack_wounded_size", "p_temp_casualties", ":stack_no"),
               (gt, ":stack_wounded_size", 0),
               (party_wound_members, "p_total_enemy_casualties", ":stack_troop", ":stack_wounded_size"),
             (try_end),
           (try_end),
-                    
-          (call_script, "script_party_calculate_loot", "p_total_enemy_casualties"), #p_encountered_party_backup changed to total_enemy_casualties          
-          (gt, reg0, 0),          
+
+          (call_script, "script_party_calculate_loot", "p_total_enemy_casualties"), #p_encountered_party_backup changed to total_enemy_casualties
+          (gt, reg0, 0),
           (troop_sort_inventory, "trp_temp_troop"),
           (change_screen_loot, "trp_temp_troop"),
         (try_end),
-        
+
         (try_begin),
           (ge, "$g_encountered_party", 0),
           (party_is_active, "$g_encountered_party"),
-          (party_get_template_id, ":template", "$g_encountered_party"),	    
+          (party_get_template_id, ":template", "$g_encountered_party"),
 	      (eq, ":template", "pt_looter_lair"),
           (remove_party, "$g_encountered_party"),
-        (try_end),          
+        (try_end),
       ]),
-		
+
 	  ("leave_defeat",
 	  [
 	    (party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 1),
@@ -24550,7 +24556,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (party_template_slot_eq, ":bandit_template", slot_party_template_lair_party, "$g_encountered_party"),
           (party_template_set_slot, ":bandit_template", slot_party_template_lair_party, 0),
         (try_end),
-        
+
         (try_begin),
           (party_get_template_id, ":template", "$g_encountered_party"),
           (neq, ":template", "pt_looter_lair"),
@@ -24558,25 +24564,25 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (quest_slot_eq, "qst_destroy_bandit_lair", slot_quest_target_party, "$g_encountered_party"),
           (call_script, "script_fail_quest", "qst_destroy_bandit_lair"),
         (try_end),
-        
+
         (try_begin),
           (ge, "$g_encountered_party", 0),
           (party_is_active, "$g_encountered_party"),
-          (party_get_template_id, ":template", "$g_encountered_party"),	    
+          (party_get_template_id, ":template", "$g_encountered_party"),
 	      (neq, ":template", "pt_looter_lair"),
           (remove_party, "$g_encountered_party"),
-        (try_end),  
+        (try_end),
 
         (assign, "$g_leave_encounter", 0),
-        
+
 		(try_begin),
 			(party_is_active, "$g_encountered_party"),
 			(party_set_slot, "$g_encountered_party", slot_party_ai_substate, 0),
         (try_end),
-		
+
         (change_screen_return),
         ]),
-		
+
      ]
   ),
 
@@ -24604,12 +24610,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	   [],"Continue...",
        [
         (change_screen_return),
-        ]),		
-	
-	
+        ]),
+
+
 	]
   ),
-  
+
   (
     "notification_player_faction_political_issue_resolved_for_player",0,
     "After consulting with the peers of the realm, {s10} has decided to confer {s11} on you. You may decline the honor, but it will probably mean that you will not receive other awards for a little while.{s12}",
@@ -24625,23 +24631,23 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	(else_try),
 		(str_clear, s12),
 		(str_store_party_name, s11, ":issue"),
-	(try_end),	
+	(try_end),
 	],
     [
 	   ("accept",
 	   [],"Accept the honor",
        [
 	    (faction_get_slot, ":issue", "$players_kingdom", slot_faction_political_issue),
-		
+
 		(try_begin),
 			(eq, ":issue", 1),
-		    (call_script, "script_check_and_finish_active_army_quests_for_faction", "$players_kingdom"),       
-			(call_script, "script_appoint_faction_marshall", "$players_kingdom", "trp_player"),   
+		    (call_script, "script_check_and_finish_active_army_quests_for_faction", "$players_kingdom"),
+			(call_script, "script_appoint_faction_marshall", "$players_kingdom", "trp_player"),
 			(unlock_achievement, ACHIEVEMENT_AUTONOMOUS_COLLECTIVE),
             (else_try),
 			(call_script, "script_give_center_to_lord", ":issue", "trp_player", 0), #Zero means don't add garrison
 		(try_end),
-				
+
 		(faction_set_slot, "$players_kingdom", slot_faction_political_issue, 0),
 		(try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
 			(store_faction_of_troop, ":active_npc_faction", ":active_npc"),
@@ -24649,7 +24655,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(troop_set_slot, ":active_npc", slot_troop_stance_on_faction_issue, -1),
 		(try_end),
         (change_screen_return),
-        ]),	
+        ]),
 
 	   ("decline",
 	   [],"Decline the honor",
@@ -24661,17 +24667,17 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		(else_try),
 			(assign, "$g_dont_give_marshalship_to_player_days", 30),
 		(try_end),
-		
+
 		(try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
 			(store_faction_of_troop, ":active_npc_faction", ":active_npc"),
 			(eq, ":active_npc_faction", "$players_kingdom"),
 			(troop_set_slot, ":active_npc", slot_troop_stance_on_faction_issue, -1),
 		(try_end),
         (change_screen_return),
-        ]),			
+        ]),
 	]
   ),
-  
+
   ("start_phase_2_5",mnf_disable_all_keys,
     "{!}{s16}",
     "none",
@@ -24689,41 +24695,41 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     ]
   ),
 
-  
+
   ("start_phase_3",mnf_disable_all_keys,
     "{s16}^^You are exhausted by the time you find the inn in {s1}, and fall asleep quickly. However, you awake before dawn and are eager to explore your surroundings. You venture out onto the streets, which are still deserted. All of a sudden, you hear a sound that stands the hairs of your neck on end -- the rasp of a blade sliding from its scabbard...",
     "none",
-    [     (set_background_mesh, "mesh_pic_extra_malvado"), 
+    [     (set_background_mesh, "mesh_pic_extra_malvado"),
       (assign, ":continue", 1),
       (try_begin),
         (eq, "$current_startup_quest_phase", 1),
         (try_begin),
           (eq, "$g_killed_first_bandit", 1),
-          (str_store_string, s11, "str_killed_bandit_at_alley_fight"),                    
+          (str_store_string, s11, "str_killed_bandit_at_alley_fight"),
         (else_try),
           (str_store_string, s11, "str_wounded_by_bandit_at_alley_fight"),
         (try_end),
         (jump_to_menu, "mnu_start_phase_4"),
         (assign, ":continue", 0),
-      (else_try),  
+      (else_try),
         (eq, "$current_startup_quest_phase", 3),
         (try_begin),
           (eq, "$g_killed_first_bandit", 1),
-          (str_store_string, s11, "str_killed_bandit_at_alley_fight"),                    
+          (str_store_string, s11, "str_killed_bandit_at_alley_fight"),
         (else_try),
           (str_store_string, s11, "str_wounded_by_bandit_at_alley_fight"),
         (try_end),
         (jump_to_menu, "mnu_start_phase_4"),
-        (assign, ":continue", 0),      
-      (try_end),  
-      
+        (assign, ":continue", 0),
+      (try_end),
+
       (str_store_party_name, s1, "$g_starting_town"),
       (str_clear, s16),
       (eq, ":continue", 1),
     ],
     [
       ("continue",[], "Continue...",
-       [         
+       [
          (assign, "$g_starting_town", "$current_town"),
          (call_script, "script_player_arrived"),
          (party_set_morale, "p_main_party", 100),
@@ -24736,11 +24742,11 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
   ("start_phase_4",mnf_disable_all_keys,
     "{s11}",
     "none",
-    [      
+    [
       (assign, ":continue", 1),
-      (try_begin),  
+      (try_begin),
         (eq, "$current_startup_quest_phase", 2),
-        (change_screen_return),       
+        (change_screen_return),
         (assign, ":continue", 0),
       (else_try),
         (eq, "$current_startup_quest_phase", 3),
@@ -24750,11 +24756,11 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (try_begin),
           (eq, "$g_killed_first_bandit", 1),
           (str_store_string, s11, "str_town_fight_ended_you_and_citizens_cleaned_town_from_bandits"),
-        (else_try),  
+        (else_try),
           (str_store_string, s11, "str_town_fight_ended_you_and_citizens_cleaned_town_from_bandits_you_wounded"),
         (try_end),
-      (try_end),            
-          
+      (try_end),
+
       (eq, ":continue", 1),
     ],
     [
@@ -24764,62 +24770,62 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (eq, "$current_startup_quest_phase", 4),
       ],
       "Continue...",
-      [         
+      [
         (assign, "$town_entered", 1),
-         
-#cambiadas ciudades abajo chief mercaderes         
+
+#cambiadas ciudades abajo chief mercaderes
         (try_begin),
           (eq, "$current_town", "p_town_1"),
           (assign, ":town_merchant", "trp_khergit_merchant"),
           (assign, ":town_room_scene", "scn_town_1_room"),
-        (else_try), 
+        (else_try),
           (eq, "$current_town", "p_town_13"),
           (assign, ":town_merchant", "trp_nord_merchant"),
           (assign, ":town_room_scene", "scn_town_5_room"),
-        (else_try),  
+        (else_try),
           (eq, "$current_town", "p_town_6"),
           (assign, ":town_merchant", "trp_swadian_merchant"),
           (assign, ":town_room_scene", "scn_town_6_room"),
-        (else_try),  
+        (else_try),
           (eq, "$current_town", "p_town_8"),
           (assign, ":town_merchant", "trp_vaegir_merchant"),
           (assign, ":town_room_scene", "scn_town_8_room"),
-        (else_try),  
+        (else_try),
           (eq, "$current_town", "p_town_35"),
           (assign, ":town_merchant", "trp_sarranid_merchant"),
           (assign, ":town_room_scene", "scn_town_10_room"),
-        (else_try),  
+        (else_try),
           (eq, "$current_town", "p_town_40"),
           (assign, ":town_merchant", "trp_rhodok_merchant"),
           (assign, ":town_room_scene", "scn_town_19_room"),
-        (try_end),        
-#chief acaba          
-        (modify_visitors_at_site, ":town_room_scene"),     
+        (try_end),
+#chief acaba
+        (modify_visitors_at_site, ":town_room_scene"),
         (reset_visitors),
-        (set_visitor, 0, "trp_player"),                    
+        (set_visitor, 0, "trp_player"),
         (set_visitor, 9, ":town_merchant"),
-        
+
         (assign, "$talk_context", tc_merchants_house),
-                  
-        (assign, "$dialog_with_merchant_ended", 0),                  
-                  
+
+        (assign, "$dialog_with_merchant_ended", 0),
+
         (set_jump_mission, "mt_meeting_merchant"),
 
         (jump_to_scene, ":town_room_scene"),
-        (change_screen_mission),         
-      ]),       
+        (change_screen_mission),
+      ]),
 
       ("continue",
       [
         (eq, "$current_startup_quest_phase", 3),
       ],
       "Continue...",
-      [         
+      [
         (call_script, "script_prepare_town_to_fight"),
-      ]),              
+      ]),
     ]
   ),
- 
+
 
   ("lost_tavern_duel",mnf_disable_all_keys,
     "{s11}",
@@ -24838,9 +24844,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ],
     [
       ("continue",[],"Continue...",
-       [         
-         (jump_to_menu, "mnu_town"),         
-       ]),       
+       [
+         (jump_to_menu, "mnu_town"),
+       ]),
     ]
   ),
 
@@ -24851,24 +24857,24 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     [
 	(str_store_party_name, s4, "$g_encountered_party"),
 	],
-	
+
     [
       ("establish",[
 	  (player_has_item, "itm_tools"),
 	  (player_has_item, "itm_velvet"),
 	  ],"Establish {s4} as your court",
-       [         
+       [
 		(assign, "$g_player_court", "$current_town"),
 	    (troop_remove_item, "trp_player", "itm_tools"),
 	    (troop_remove_item, "trp_player", "itm_velvet"),
-        (jump_to_menu, "mnu_town"),         
-       ]),       
-	
-	
+        (jump_to_menu, "mnu_town"),
+       ]),
+
+
       ("continue",[],"Hold off...",
-       [         
-         (jump_to_menu, "mnu_town"),         
-       ]),       
+       [
+         (jump_to_menu, "mnu_town"),
+       ]),
     ]
   ),
 
@@ -24877,9 +24883,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     "none",
     [
 	(assign, reg4, "$g_player_days_as_marshal"),
-	
 
-	
+
+
 	(store_div, ":renown_gain", "$g_player_days_as_marshal",4),
 	(val_min, ":renown_gain", 20),
 	(store_mul, ":denar_gain", "$g_player_days_as_marshal", 50),
@@ -24890,21 +24896,21 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	(assign, "$g_player_days_as_marshal", 0),
 	(assign, "$g_dont_give_marshalship_to_player_days", 15),
 	(assign, reg5, ":denar_gain"),
-	
+
 	(faction_get_slot, ":faction_leader", "$players_kingdom", slot_faction_leader),
 	(str_store_troop_name, s4, ":faction_leader"),
-	
+
  ## Gender fix chief para alturas
        (troop_get_type, reg8, ":faction_leader"),
     (val_mod, reg8, 2),
-#gender fix chief acaba	 	  
+#gender fix chief acaba
 	],
-	
+
 	 [
       ("continue",[],"Continue",
-       [         
-         (change_screen_return),         
-       ]),         
+       [
+         (change_screen_return),
+       ]),
     ]
   ),
 
@@ -24946,7 +24952,7 @@ Ravens are calling, wolves are howling, spears clash and shields answer.",
 
     (
     "introduccion_2",0,
-    "                              BRYTENWALDA PRESENTS:", 
+    "                              BRYTENWALDA PRESENTS:",
     "none",
     [ (set_background_mesh, "mesh_pic_extra_intro1"),],
     [
@@ -24998,7 +25004,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
        ),
 
       ("spy_report",[],"View Spy reports.",
-		[	
+		[
 			(start_presentation, "prsnt_spy_reports"),
         ]),
 
@@ -25012,7 +25018,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
            (jump_to_menu, "mnu_reports"),
         ]
        ),
-#chief arbol de tropas acaba	
+#chief arbol de tropas acaba
 
 
 	]),
@@ -25035,7 +25041,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 
        (this_or_next|eq, ":faction", 0),
        (faction_slot_eq, ":faction", slot_faction_state, sfs_active),
-       
+
        (try_begin),
           (eq, ":faction", 0),
           (str_store_string, s1, "@Total"),
@@ -25058,7 +25064,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
        (assign, ":q_2", 0),
        (assign, ":q_1", 0),
        (assign, ":num", 0),
-       
+
        (try_for_range, ":center_no", towns_begin, towns_end),
           (store_faction_of_party, reg0, ":center_no"),
           (this_or_next|eq, ":faction", 0),
@@ -25082,7 +25088,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
              (val_add, ":q_5", 1),
           (try_end),
        (try_end),
-       
+
        (assign, reg0, ":num"),
        (val_max, reg0, 1),
        (store_div, reg0, ":sum", reg0),
@@ -25117,7 +25123,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
           (gt, reg0, 0),
           (str_store_string, s0, "@{s0}^{s1} towns with prosperity 0-19: {reg0}"),
        (try_end),
-       
+
        (str_store_string, s0, "@{!}{s0}^"),
 
        ##(2) Faction Prosperity, villages
@@ -25128,7 +25134,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
        (assign, ":q_2", 0),
        (assign, ":q_1", 0),
        (assign, ":num", 0),
-       
+
        (try_for_range, ":center_no", villages_begin, villages_end),
           (store_faction_of_party, reg0, ":center_no"),
           (this_or_next|eq, ":faction", 0),
@@ -25152,7 +25158,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
              (val_add, ":q_5", 1),
           (try_end),
        (try_end),
-       
+
        (assign, reg0, ":num"),
        (val_max, reg0, 1),
        (store_div, reg0, ":sum", reg0),
@@ -25210,13 +25216,13 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
  He looks at you and says:^What do you want lad? Don't ya see that I am busy?",
     "none",
     [
-	(set_background_mesh,"mesh_pic_extra_barco"), 
+	(set_background_mesh,"mesh_pic_extra_barco"),
     (str_store_party_name,s1,"$current_town"),
 	(try_begin),
 		(eq, "$crew_screen_state", 1),
 		(change_screen_exchange_members, 0, "$ship"),
 		(assign, "$crew_screen_state", 2),
-	(else_try),	
+	(else_try),
 		(eq, "$crew_screen_state", 2),
 		(assign, "$crew_screen_state", 0),
 		(start_presentation, "prsnt_manage_ships"),
@@ -25229,7 +25235,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
     ],
 [
 ("town_port",[(party_slot_eq,"$current_town",slot_party_type, spt_town),
-                         (party_slot_eq,"$current_town",slot_town_port, 1),       
+                         (party_slot_eq,"$current_town",slot_town_port, 1),
               ],
        "Visit town port",
        [
@@ -25264,8 +25270,8 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 			(assign, ":port_scene", "scn_port4"),
 		(else_try),
 			(assign, ":port_scene", "scn_port"),
-		(try_end),        
-			 
+		(try_end),
+
              (modify_visitors_at_site, ":port_scene"),
              (reset_visitors),
              (assign, "$g_mt_mode", tcm_default),
@@ -25295,10 +25301,10 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
            (change_screen_mission,0),
            (try_end),
         ]),
-#Exa's OSP    
-#Chief buy ship sea battles con script de control de precio, si no tienes dinero no te da el barco     
+#Exa's OSP
+#Chief buy ship sea battles con script de control de precio, si no tienes dinero no te da el barco
      ("buy_ships",[#(party_slot_eq,"$current_town",slot_party_type, spt_town),
-                         (party_slot_eq,"$current_town",slot_town_port, 1),                        
+                         (party_slot_eq,"$current_town",slot_town_port, 1),
                         ], "Buy a ship (20000 scillingas)",
      [
          (try_begin),
@@ -25307,7 +25313,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
       (store_troop_gold,":money","trp_player"),
         (gt,":money",19999),
               (troop_remove_gold,"trp_player",20000),
-		(val_add, ":num_ships", 1),		
+		(val_add, ":num_ships", 1),
 		(party_set_slot, "$current_town", slot_town_has_ship, ":num_ships"),
 		(try_begin),
 			(set_spawn_radius, 0),
@@ -25322,7 +25328,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 	(else_try),
 		(party_slot_ge, "$current_town", slot_town_has_ship, 5),
 		(display_message, "@There is no room for any further ships in this harbor."),
-	(else_try),		
+	(else_try),
 		(display_message,"@You don't have enough money to buy a ship."),
 	(try_end),
         ]),
@@ -25344,8 +25350,8 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 			(party_set_slot, ":ship_no", slot_ship_center, ship_player_sailing), #Represents the player
 			(party_set_slot, "p_main_party", slot_town_has_ship, ":ship_no"), #Records that the Player Party has this ship
 			(assign, ":break", 1),
-		(try_end),	
-        (eq, ":break", 1),			
+		(try_end),
+        (eq, ":break", 1),
 		(party_set_slot, "$current_town", slot_town_has_ship, 0),
 		(assign, "$g_player_icon_state", pis_ship),
 		(party_set_flags, "p_main_party", pf_is_ship, 1),
@@ -25363,7 +25369,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		(display_message,"@You don't own a ship or your crew exceeds the boundaries. You need hire a ship (advance over sea)."),
 	(try_end),
     ]),
- 
+
 	("manage_ships",
 	[],
 	"Manage ships.",
@@ -25374,13 +25380,13 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		(str_clear, s14),
 		(start_presentation, "prsnt_manage_ships"),
 	]),
- 
+
 	("View_notes",
 	[],
 	"View the ship registry.",
 	[(jump_to_menu, "mnu_ship_notes"),
 	]),
- 
+
     ("back_to_town_menu",
 	[],
 	"Head back.",
@@ -25406,7 +25412,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 			(str_store_party_name, s2, ":town_no"),
 			(str_store_string, s3, "@{s3}^You have {reg1} ships in {s2}."),
 		(try_end),
-	(set_background_mesh,"mesh_pic_extra_barco2"), 
+	(set_background_mesh,"mesh_pic_extra_barco2"),
 	],
 	[
 	   ("back_to_town_menu",[],"Head back.",
@@ -25414,11 +25420,11 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
        (jump_to_menu,"mnu_port"),
        ]),
 	]),
- 
+
 (
 	"choose_ship",0,
     "The following list contains all the ships anchored in this town. Select one to set sail, but make sure your crew meets the requirements.",
- 
+
 	"none",
 	[	(assign, reg1, 0),
 		(assign, reg2, 0),
@@ -25444,7 +25450,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 				(eq, reg5, 0),
 				(assign, reg5, ":ship_no"),
 			(try_end),
-		(try_end),	
+		(try_end),
 	],
 	[
 		("ship_1",[
@@ -25456,7 +25462,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		(assign, ":ship_no", reg1),
 		(try_begin),
 			(party_get_num_companions, reg6, "p_main_party"),
-			(is_between, reg6, 30, 91),				
+			(is_between, reg6, 30, 91),
 			(party_get_num_companions, reg7, ":ship_no"),
 			(val_add, reg7, reg6),
 			(is_between, reg7, 30, 91),
@@ -25474,9 +25480,9 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 			(change_screen_return),
 		(else_try),
 			(display_message,"@Your crew is either too small or too large."),
-		(try_end),	
+		(try_end),
 		]),
- 
+
 		("ship_2",[
 		    (neq, reg2, 0),
 		    (str_store_party_name, s1, reg2),
@@ -25486,7 +25492,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		(assign, ":ship_no", reg2),
 		(try_begin),
 			(party_get_num_companions, reg6, "p_main_party"),
-			(is_between, reg6, 30, 91),				
+			(is_between, reg6, 30, 91),
 			(party_get_num_companions, reg7, ":ship_no"),
 			(val_add, reg7, reg6),
 			(is_between, reg7, 30, 91),
@@ -25504,9 +25510,9 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 			(change_screen_return),
 		(else_try),
 			(display_message,"@Your crew is either too small or too large."),
-		(try_end),		
+		(try_end),
 		]),
- 
+
 		("ship_3",[
 		    (neq, reg3, 0),
 		    (str_store_party_name, s1, reg3),
@@ -25516,7 +25522,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		(assign, ":ship_no", reg3),
 		(try_begin),
 			(party_get_num_companions, reg6, "p_main_party"),
-			(is_between, reg6, 30, 91),				
+			(is_between, reg6, 30, 91),
 			(party_get_num_companions, reg7, ":ship_no"),
 			(val_add, reg7, reg6),
 			(is_between, reg7, 30, 91),
@@ -25534,9 +25540,9 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 			(change_screen_return),
 		(else_try),
 			(display_message,"@Your crew is either too small or too large."),
-		(try_end),	
+		(try_end),
 		]),
- 
+
 		("ship_4",[
 		    (neq, reg4, 0),
 		    (str_store_party_name, s1, reg4),
@@ -25546,7 +25552,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		(assign, ":ship_no", reg4),
 		(try_begin),
 			(party_get_num_companions, reg6, "p_main_party"),
-			(is_between, reg6, 30, 91),				
+			(is_between, reg6, 30, 91),
 			(party_get_num_companions, reg7, ":ship_no"),
 			(val_add, reg7, reg6),
 			(is_between, reg7, 30, 91),
@@ -25564,9 +25570,9 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 			(change_screen_return),
 		(else_try),
 			(display_message,"@Your crew is either too small or too large."),
-		(try_end),	
+		(try_end),
 		]),
- 
+
 		("ship_5",[
 		    (neq, reg5, 0),
 		    (str_store_party_name, s1, reg5),
@@ -25576,7 +25582,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		(assign, ":ship_no", reg5),
 		(try_begin),
 			(party_get_num_companions, reg6, "p_main_party"),
-			(is_between, reg6, 30, 91),				
+			(is_between, reg6, 30, 91),
 			(party_get_num_companions, reg7, ":ship_no"),
 			(val_add, reg7, reg6),
 			(is_between, reg7, 30, 91),
@@ -25594,29 +25600,29 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 			(change_screen_return),
 		(else_try),
 			(display_message,"@Your crew is either too small or too large."),
-		(try_end),		
-		]),	
- 
+		(try_end),
+		]),
+
 	   ("back_to_town_menu",[],"Head back.",
        [
        (jump_to_menu,"mnu_port"),
        ]),
-	]),	
- 
-#chief acaba 
+	]),
+
+#chief acaba
 
 
-  
-  #rigale smoking food 
+
+  #rigale smoking food
       ("camp_smoking_food",0,
    "What food will you smoke ? Some of it may get lost in the process, and it will take some time.",
    "none",
    [],
     [
       ("smoke_fish",
-		  [	
+		  [
 			(call_script, "script_cf_player_has_item_without_modifier", "itm_wilddonkey_meat", imod_rotten),
-			(assign, ":player_has_smokable_fish", 1),	
+			(assign, ":player_has_smokable_fish", 1),
 			(eq, ":player_has_smokable_fish", 1),
 		  ],
 		  "I will smoke my meat.",
@@ -25625,9 +25631,9 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		  ]
       ),
       ("smoke_boar_meat",
-		  [	
+		  [
 			(call_script, "script_cf_player_has_item_without_modifier", "itm_boar_meat", imod_rotten),
-			(assign, ":player_has_smokable_boar_meat", 1),	
+			(assign, ":player_has_smokable_boar_meat", 1),
 			(eq, ":player_has_smokable_boar_meat", 1),
 		  ],
 		  "I will smoke my boar meat.",
@@ -25636,9 +25642,9 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		  ]
       ),
       ("smoke_wolf_meat",
-		  [	
+		  [
 			(call_script, "script_cf_player_has_item_without_modifier", "itm_wolf_meat", imod_rotten),
-			(assign, ":player_has_smokable_wolf_meat", 1),	
+			(assign, ":player_has_smokable_wolf_meat", 1),
 			(eq, ":player_has_smokable_wolf_meat", 1),
 		  ],
 		  "I will smoke my wolf meat.",
@@ -25647,9 +25653,9 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		  ]
       ),
       ("smoke_coat_meat",
-		  [	
+		  [
 			(call_script, "script_cf_player_has_item_without_modifier", "itm_coat_meat", imod_rotten),
-			(assign, ":player_has_smokable_coat_meat", 1),	
+			(assign, ":player_has_smokable_coat_meat", 1),
 			(eq, ":player_has_smokable_coat_meat", 1),
 		  ],
 		  "I will smoke my goat meat.",
@@ -25658,9 +25664,9 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		  ]
       ),
       ("smoke_coat_2_meat",
-		  [	
+		  [
 			(call_script, "script_cf_player_has_item_without_modifier", "itm_coat_2_meat", imod_rotten),
-			(assign, ":player_has_smokable_coat_2_meat", 1),	
+			(assign, ":player_has_smokable_coat_2_meat", 1),
 			(eq, ":player_has_smokable_coat_2_meat", 1),
 		  ],
 		  "I will smoke my goat meat.",
@@ -25669,59 +25675,59 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		  ]
       ),
        ("smoke_cattle_meat",
-		  [	
+		  [
 			(call_script, "script_cf_player_has_item_without_modifier", "itm_cattle_meat", imod_rotten),
-			(assign, ":player_has_smokable_beef", 1),	
+			(assign, ":player_has_smokable_beef", 1),
 			(eq, ":player_has_smokable_beef", 1),
 		  ],
 		  "I will smoke my beef.",
 		  [
 			(call_script,"script_rigale_smoke_food","itm_cattle_meat","itm_dried_meat"),
 		  ]
-      ),     
+      ),
       ("smoke_venison",
-		  [	
+		  [
 			(call_script, "script_cf_player_has_item_without_modifier", "itm_deer_meat", imod_rotten),
-			(assign, ":player_has_smokable_venison", 1),	
+			(assign, ":player_has_smokable_venison", 1),
 			(eq, ":player_has_smokable_venison", 1),
 		  ],
 		  "I will smoke my venison.",
 		  [
 			(call_script,"script_rigale_smoke_food","itm_deer_meat","itm_dried_meat"),
 		  ]
-      ),	  
+      ),
       ("smoke_pork",
-		  [	
+		  [
 			(call_script, "script_cf_player_has_item_without_modifier", "itm_pork", imod_rotten),
-			(assign, ":player_has_smokable_pork", 1),	
+			(assign, ":player_has_smokable_pork", 1),
 			(eq, ":player_has_smokable_pork", 1),
 		  ],
 		  "I will smoke my pork.",
 		  [
 			(call_script,"script_rigale_smoke_food","itm_pork","itm_sausages"),
 		  ]
-      ),	  
+      ),
       ("smoke_pollo",
-		  [	
+		  [
 			(call_script, "script_cf_player_has_item_without_modifier", "itm_pork", imod_rotten),
-			(assign, ":player_has_smokable_pollo", 1),	
+			(assign, ":player_has_smokable_pollo", 1),
 			(eq, ":player_has_smokable_pollo", 1),
 		  ],
 		  "I will smoke my chicken.",
 		  [
 			(call_script,"script_rigale_smoke_food","itm_chicken","itm_sausages"),
 		  ]
-      ),	  
+      ),
       ("leave",
 		  [	],
 		  "Leave",
 		  [
 			(jump_to_menu, "mnu_camp"),
 		  ]
-      ),	  
-	  
+      ),
+
 	]
- ),  
+ ),
 #rigale smoking food acaba
 ##  #freelancer empieza
 #+freelancer start
@@ -25739,9 +25745,9 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 			(gt, ":commander_opponent", 0),
 		],"Follow the commander into battle.",[
 		    (party_set_slot, "p_freelancer_party_backup", slot_party_last_in_combat, 1), #needed to catch post-battle and detach any attached parties
-			
+
 			(try_begin),
-				(neg|troop_is_guarantee_horse, "$player_cur_troop"), 
+				(neg|troop_is_guarantee_horse, "$player_cur_troop"),
 				(troop_get_inventory_slot, ":horse", "trp_player", ek_horse),
 				(gt, ":horse", 0),
 				(troop_get_inventory_slot_modifier, ":horse_imod", "trp_player", ek_horse),
@@ -25753,23 +25759,23 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 			(start_encounter, "$enlisted_party"),
 			(change_screen_map),
 		]),
-		
+
         ("enter_town",[(party_is_in_any_town,"$enlisted_party"),] ,"Enter stationed town.",
         [(party_get_cur_town, ":town_no", "$enlisted_party"),(start_encounter, ":town_no"),(change_screen_map),]),
-	 
+
 		("commander",[(party_get_battle_opponent, ":commander_opponent", "$enlisted_party"),(lt, ":commander_opponent", 0),],
 		   "Request audience with your commander.",
         [(jump_to_menu, "mnu_commander_aud"),]),
-		
+
 #		("revolt",[],"Revolt against the commander!", #off hasta que este reparado
 #        [(jump_to_menu, "mnu_ask_revolt"),]),
-		
+
 		("desert",[],"Desert the army.(keep equipment but lose relations)",
         [(jump_to_menu, "mnu_ask_desert"),]),
-		
+
 		("report",[],"Commander's Report",
 		[(start_presentation, "prsnt_taragoth_lords_report"),]),
-		
+
 		("return_to_duty",[
 			(party_get_battle_opponent, ":commander_opponent", "$enlisted_party"),
 			(this_or_next|lt, ":commander_opponent", 0),
@@ -25780,8 +25786,8 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
         (rest_for_hours_interactive, 24 * 365, 5, 1),
 		]),
     ]),
-  
-#menu_aud_with_commander 
+
+#menu_aud_with_commander
   (
     "commander_aud",0,
     "Your request for a meeting is relayed to your commander's camp, and finally {s6} appears from his tent to speak with you.",
@@ -25810,7 +25816,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
         [(change_screen_map),]),
     ]
   ),
- 
+
     #menu_ask_revolt
     ("ask_revolt",0,
     "Are you sure you want to revolt?",
@@ -25818,11 +25824,11 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
     [(set_background_mesh, "mesh_pic_extra_intro2"),(str_store_troop_name, s6, "$enlisted_lord")],[
 		("confirm_revolt",[],"Yes, {s6} will be the death of us all, it is time to act!",
         [(jump_to_menu, "mnu_revolt"),]),
-		
+
 		("reject_revolt",[],"No, I am loyal to {s6}.",
         [(change_screen_return),]),
     ]),
-	 
+
     #menu_revolt
     ("revolt",0,
     "Do you want to release the prisoners to help your men?",
@@ -25836,10 +25842,10 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		(call_script, "script_event_player_deserts"),
 		#adds other troops to join player revolt
         (call_script, "script_get_desert_troops"),
-		
+
         #decreases player relation to his commander and faction
         (call_script, "script_change_player_relation_with_troop", "$enlisted_lord", -10),
-		
+
 		(store_troop_faction, ":commander_faction", "$enlisted_lord"),
         (try_begin),
             (party_get_battle_opponent, ":commander_enemy", "$enlisted_party"),
@@ -25874,10 +25880,10 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 			(start_encounter, "$enlisted_party"),
             (change_screen_map),
         ]),
-		
+
     ]),
-	
- 
+
+
     #menu_ask_desert
     ("ask_desert",0,
     "Do you want to desert?",
@@ -25889,14 +25895,14 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
         ("reject_desert",[],"No, I am loyal to my commander.",
         [(change_screen_return),]),
     ]),
-  
+
     #menu_desert
     ("desert",0,
     "While in the army you've made some good friends. Some could possibly follow you.",
     "none",
     [
         (set_background_mesh, "mesh_pic_extra_viejo"),
-		
+
 		(call_script, "script_freelancer_detach_party"),
 		(call_script, "script_event_player_deserts"),
 	],
@@ -25910,7 +25916,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		        (jump_to_menu, "mnu_captivity_start_wilderness"),
             (else_try),
                 (call_script, "script_get_desert_troops"),
-				(call_script, "script_party_restore"),	
+				(call_script, "script_party_restore"),
                 (call_script, "script_set_parties_around_player_ignore_player", 2, 4),
             (try_end),
             (change_screen_map),(display_message, "@You have deserted, and are now wanted!"), ]),
@@ -25929,9 +25935,9 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
             (change_screen_map),
 			(display_message, "@You have deserted, and are now wanted!"), ]),
     ]
-			
+
 		),
-  
+
     #menu_upgrade_path
    ("upgrade_path",0,
     "In recognition of your excellent service, you have been promoted.",
@@ -25970,7 +25976,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
     ]),
 #+freelancer end
   #+freelancer end chief acaba
-  
+
 #-## Outposts chief empieza
 #-## Outposts player lair chief
      ("encontrar_guarida", 0, "The Lair Management Menu. ^^ Choose an action:", "none", [],
@@ -26021,7 +26027,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		    ]),
 		 ("camp_end_watchtower", [], "Return to your camp.",
 		    [(jump_to_menu, "mnu_camp")])]),
-     
+
 
      ("contratar_personal", 0, "The Lair Hire Staff Menu. ^^ Hire to:", "none", [],
          [
@@ -26311,7 +26317,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
       ]),
   ###chief acaba
 
-  
+
 #LAZERAS MODIFIED  {Top Tier Troops Recruit} chief
 ###########################################################################
   ("upgrade_to_hero",0,
@@ -26326,7 +26332,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
      ],
     [
       ("hero_1",
-      [         
+      [
          (assign, ":limit", reg10),
          (assign, ":found", 0),
          (try_for_range, ":hero_id", ":limit", additional_heroes_end),
@@ -26353,10 +26359,10 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
         ]
        ),
       ("hero_2",
-      [         
+      [
          (ge, reg11, reg10),
          (store_add, ":limit", reg11, 1),
-         (assign, ":found", 0),         
+         (assign, ":found", 0),
          (try_for_range, ":hero_id", ":limit", additional_heroes_end),
             (eq, ":found", 0),
             (troop_get_slot, ":hero_ocu", ":hero_id", slot_troop_occupation),
@@ -26381,10 +26387,10 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
         ]
        ),
       ("hero_3",
-      [         
+      [
          (gt, reg12, reg11),
          (store_add, ":limit", reg12, 1),
-         (assign, ":found", 0),         
+         (assign, ":found", 0),
          (try_for_range, ":hero_id", ":limit", additional_heroes_end),
             (eq, ":found", 0),
             (troop_get_slot, ":hero_ocu", ":hero_id", slot_troop_occupation),
@@ -26409,12 +26415,12 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
         ]
        ),
       ("hero_4",
-      [         
+      [
          (gt, reg13, reg12),
          (store_add, ":limit", reg13, 1),
-         (assign, ":found", 0),         
+         (assign, ":found", 0),
          (try_for_range, ":hero_id", ":limit", additional_heroes_end),
-            (eq, ":found", 0),         
+            (eq, ":found", 0),
             (troop_get_slot, ":hero_ocu", ":hero_id", slot_troop_occupation),
             (gt, ":hero_ocu", 0),
             (neq, ":hero_ocu",slto_kingdom_hero),
@@ -26440,9 +26446,9 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
       [
           (gt, reg10, additional_heroes_begin),
           (assign, ":limit", reg10),
-          (assign, ":found", 0),         
+          (assign, ":found", 0),
           (try_for_range_backwards, ":hero_id", ":limit", additional_heroes_begin),
-             (lt, ":found", 4),         
+             (lt, ":found", 4),
              (troop_get_slot, ":hero_ocu", ":hero_id", slot_troop_occupation),
              (gt, ":hero_ocu", 0),
              (neq, ":hero_ocu",slto_kingdom_hero),
@@ -26451,7 +26457,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
              (assign, reg15, ":hero_id"),
              (val_add, ":found", 1),
          (try_end),
-         (gt, ":found", 0),         
+         (gt, ":found", 0),
       ],"go to the previous lines",
        [
           (assign, reg10, reg15),
@@ -26462,9 +26468,9 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
       [
           (gt, reg14, reg13),
           (store_add, ":limit", reg14, 1),
-          (assign, ":found", 0),         
+          (assign, ":found", 0),
           (try_for_range, ":hero_id", ":limit", additional_heroes_end),
-             (eq, ":found", 0),         
+             (eq, ":found", 0),
              (troop_get_slot, ":hero_ocu", ":hero_id", slot_troop_occupation),
              (gt, ":hero_ocu", 0),
              (neq, ":hero_ocu",slto_kingdom_hero),
@@ -26472,7 +26478,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
              (main_party_has_troop, ":hero_ocu"),
              (assign, ":found", 1),
          (try_end),
-         (eq, ":found", 1),         
+         (eq, ":found", 1),
       ],"go to the next lines",
        [
            (store_add, reg10, reg14, 1),
@@ -26502,24 +26508,24 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
         (play_sound, "snd_cow_moo"), #anadido chief Sot
         (party_clear, "$g_encountered_party"),
         (str_store_party_name, s3, "$g_encountered_party"),
-        
+
       (party_set_slot,"$g_encountered_party",slot_saqueo_state,1), #ciudad saqueda
         #Reduce prosperity of the center by 5
   		 (try_begin),
-  		   (store_random_in_range, ":random", 2000, 8000), 
-  		 (try_end),  
+  		   (store_random_in_range, ":random", 2000, 8000),
+  		 (try_end),
   		 (val_div, ":random", 100),
   		 (val_mul, ":random", 100),
-  		 (assign, "$diplomacy_var2", ":random"),  
+  		 (assign, "$diplomacy_var2", ":random"),
                  (call_script, "script_troop_add_gold", "trp_player", "$diplomacy_var2"),
-  		 (assign, reg3, "$diplomacy_var2"),   
+  		 (assign, reg3, "$diplomacy_var2"),
         ##diplomacy chief end
 #gana moral
         (assign, ":morale_increase", 3),
         (store_div, ":money_gained_div_300", "$diplomacy_var", 300),
         (val_add, ":morale_increase", ":money_gained_div_300"),
         (call_script, "script_change_player_party_morale", ":morale_increase"),
-            		
+
 #penalizadores
             (call_script, "script_change_player_relation_with_faction", "fac_kingdom_1", -7), #la q designemos
           (call_script, "script_change_player_relation_with_faction", "fac_kingdom_13", -7), #la q designemos
@@ -26533,9 +26539,9 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
     [
 ##diplomacy chief begin
       ("spoils_woden",[(eq, "$g_sod_faith", 3),],"Sacrifice some monks in honor of Woden and keep the booty.",
-       [         
+       [
           (call_script, "script_change_player_relation_with_faction", "fac_christians", -20), #la q designemos
-          (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos		  
+          (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
   (neg|party_slot_ge, ":center", center_religion_pagana, 1),
@@ -26546,9 +26552,9 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
       ("spoils_old_gods",
       [(eq, "$g_sod_faith", 2),
       ],"Sacrifice some monks in honor of the old gods and goddesses and keep the booty.",
-       [         
+       [
           (call_script, "script_change_player_relation_with_faction", "fac_christians", -20), #la q designemos
-          (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos		  
+          (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
   (neg|party_slot_ge, ":center", center_religion_pagana, 1),
@@ -26559,9 +26565,9 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
       ("spoils_alls",
       [
       ],"Sacrifice some monks and keep the booty.",
-       [         
+       [
           (call_script, "script_change_player_relation_with_faction", "fac_christians", -20), #la q designemos
-          (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos		  
+          (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
   (neg|party_slot_ge, ":center", center_religion_pagana, 1),
@@ -26569,10 +26575,10 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
       (try_end),
          (change_screen_return),
         ]),
-      ("attack",[  
+      ("attack",[
 ],"I want to help my people personally in the looting.",[
           (call_script, "script_change_player_relation_with_faction", "fac_christians", -20), #la q designemos
-          (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos		  
+          (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
   (neg|party_slot_ge, ":center", center_religion_pagana, 1),
@@ -26644,7 +26650,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		         (else_try),
                          (modify_visitors_at_site,"scn_monasterio3_costa"),
                            (try_end),
-		(try_end),        
+		(try_end),
         (reset_visitors),
         (assign, ":num_monks", 15),
         (store_character_level, ":level", "trp_player"),
@@ -26729,11 +26735,11 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
                   (set_jump_mission,"mt_monasterio_atacado"),
                  (jump_to_scene,"scn_monasterio3_costa"),
                            (try_end),
-		(try_end),        
+		(try_end),
                (change_screen_mission),
 ]),
 
-    ],        
+    ],
   ),
 ####saquear monasterio acaba chief
 #panel comandante chief
@@ -26743,7 +26749,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
     "none",
     [
    (set_background_mesh, "mesh_pic_extra_viejo"),
-	
+
 	],
     [
       ("choice_1",[
@@ -26753,7 +26759,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
        [
           (store_random_in_range, ":rand", 0, 16),
                                           (try_begin),
-                                            (eq, ":rand", 0), 
+                                            (eq, ":rand", 0),
 		(party_get_skill_level, ":lider", "p_main_party", skl_leadership),
 		(ge, ":lider", 8),
         (jump_to_menu,"mnu_discurso_1"),
@@ -26768,7 +26774,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		(ge, ":lider", 4),
        (jump_to_menu,"mnu_discurso_3"),
                                           (else_try),
-                                            (eq, ":rand", 3), 
+                                            (eq, ":rand", 3),
 		(party_get_skill_level, ":lider", "p_main_party", skl_leadership),
 		(ge, ":lider", 4),
        (jump_to_menu,"mnu_discurso_4"),
@@ -26781,7 +26787,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		(ge, ":lider", 4),
        (jump_to_menu,"mnu_discurso_6"),
                                           (else_try),
-                                            (eq, ":rand", 6), 
+                                            (eq, ":rand", 6),
        (jump_to_menu,"mnu_discurso_7"),
                                           (else_try),
                                             (eq, ":rand", 7),
@@ -26794,7 +26800,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		(ge, ":lider", 4),
        (jump_to_menu,"mnu_discurso_9"),
                                           (else_try),
-                                            (eq, ":rand", 9), 
+                                            (eq, ":rand", 9),
 		(party_get_skill_level, ":lider", "p_main_party", skl_leadership),
 		(ge, ":lider", 4),
        (jump_to_menu,"mnu_discurso_10"),
@@ -26814,7 +26820,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
        [
           (store_random_in_range, ":rand", 0, 5),
                                           (try_begin),
-                                            (eq, ":rand", 0), 
+                                            (eq, ":rand", 0),
 		(party_get_skill_level, ":lider", "p_main_party", skl_leadership),
 		(ge, ":lider", 4),
         (jump_to_menu,"mnu_lucha_1_p"),
@@ -26829,7 +26835,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		(ge, ":lider", 2),
        (jump_to_menu,"mnu_lucha_2_v"),
                                           (else_try),
-                                            (eq, ":rand", 3), 
+                                            (eq, ":rand", 3),
        (jump_to_menu,"mnu_lucha_2_no"),
                                           (else_try),
        (jump_to_menu,"mnu_lucha_2_no"),
@@ -26905,7 +26911,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
                   (party_get_skill_level, ":lider", "p_main_party",      skl_tactics),
                   (store_skill_level, ":lider2", skl_tactics,      "$g_talk_troop"),
                   (store_sub, reg0, ":lider", ":lider2"),
-                  
+
                   (try_begin),
                       (lt, reg0, -1),    #AI better than player?
                       (assign, ":g_escaramuza_result2", 1),
@@ -26915,18 +26921,18 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
                   (try_end),
               (try_end),
               #MOTO rewrite end
-                
+
               (store_random_in_range, ":rand", 0, 4),
-                                                 (try_begin),                                          
+                                                 (try_begin),
                                                 (eq, ":rand", 0),
         (eq, ":g_escaramuza_result2", 1),    #MOTO chief rewrite
        (jump_to_menu,"mnu_escaramuza_1"),
                                               (else_try),
-                                                (eq, ":rand", 1), 
+                                                (eq, ":rand", 1),
         (eq, ":g_escaramuza_result2", 2),    #MOTO rewrite
        (jump_to_menu,"mnu_escaramuza_2"),
                                               (else_try),
-                                                (eq, ":rand", 2), 
+                                                (eq, ":rand", 2),
            (jump_to_menu,"mnu_escaramuza_2"),
                                               (else_try),
            (jump_to_menu,"mnu_escaramuza_3"),
@@ -26941,7 +26947,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
        [
           (store_random_in_range, ":rand", 0, 5),
                                           (try_begin),
-                                            (eq, ":rand", 0), 
+                                            (eq, ":rand", 0),
 		(party_get_skill_level, ":lider", "p_main_party", skl_leadership),
 		(ge, ":lider", 3),
         (jump_to_menu,"mnu_sacrificio_1"),
@@ -26956,7 +26962,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 		(ge, ":lider", 3),
        (jump_to_menu,"mnu_sacrificio_3"),
                                           (else_try),
-                                            (eq, ":rand", 3), 
+                                            (eq, ":rand", 3),
 		(party_get_skill_level, ":lider", "p_main_party", skl_leadership),
 		(ge, ":lider", 5),
        (jump_to_menu,"mnu_sacrificio_4"),
@@ -27032,15 +27038,15 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
       (else_try),
         (le, ":minimum_power", 102400),
         (assign, ":division_constant", 40),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant", 40),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
                (val_add, ":division_constant", ":tactics"),
-   (val_div, ":enemy_party_strength", ":division_constant"), 
-      (val_max, ":enemy_party_strength", 1), 
+   (val_div, ":enemy_party_strength", ":division_constant"),
+      (val_max, ":enemy_party_strength", 1),
 #chief dano aplicado acaba
    #(val_div, ":enemy_party_strength", 40),
 
@@ -27110,13 +27116,13 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
       (else_try),
         (le, ":minimum_power2", 102400),
         (assign, ":division_constant2", 40),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant2", 40),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":player_party_strength", ":division_constant2"), 
-      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":player_party_strength", ":division_constant2"),
+      (val_max, ":player_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":player_party_strength", 40),
 
@@ -27191,7 +27197,7 @@ You lost the duel.",
        ),
       ]
   ),
-  
+
        (
     "lucha_2_v",menu_text_color(0xFF000000)|mnf_disable_all_keys,
     "One of your men breaks away from the ranks and walks towards the enemy, pulling his coat halfway up to show his ass. A champion enemy runs towards him, wounded, and tosses a javelin that falls a few feet from your warrior. He then draws his sword and charges with a war cry.^\
@@ -27574,7 +27580,7 @@ You have won the duel.",
        (try_end),
        (set_background_mesh, "mesh_pic_recruits"),
      (try_end),
-    ],     
+    ],
     [
       ("continue_not_enough_gold",
       [
@@ -27585,19 +27591,19 @@ You have won the duel.",
   (assign, "$reclutar_puede", 1),
  (jump_to_menu, "mnu_town"),
       ]),
-       
+
       ("continue",
       [
         (eq, reg7, 0),
         (eq, reg5, 0),
-      ], #noone willing to join                   
+      ], #noone willing to join
       "Continue...",
       [
         (party_set_slot, "$current_town", slot_center_volunteer_troop_amount, -1),
   (assign, "$reclutar_puede", 1),
   (jump_to_menu, "mnu_town"),
       ]),
-       
+
       ("recruit_them",
       [
         (eq, reg7, 0),
@@ -27608,13 +27614,13 @@ You have won the duel.",
       (try_begin),
     (troop_slot_ge, "trp_player", slot_troop_renown, 400), #chief anadido
         (call_script, "script_town_recruit_nobles_recruit"),
-     (assign, "$reclutar_puede", 1),                       
+     (assign, "$reclutar_puede", 1),
      (jump_to_menu, "mnu_town"),
       (else_try),
         (display_message,"@They laugh at you because they think you're a starving beggar. Come back when you're someone important (you need more renown).",0xFFFFAAAA),
       (try_end),
       ]),
-     
+
       ("forget_it",
       [
         (eq, reg7, 0),
@@ -27631,7 +27637,7 @@ You have won the duel.",
 ##    "It must be a special day because there are a large group of young noblemen gathered in the main square. You have {reg15} scillingas to try to hire them with.",
 ##    "none", [ (set_background_mesh, "mesh_pic_extra_guerreroelite"),
 ##          (store_troop_gold, reg15, "trp_player"),],
-##    
+##
 #do some python hackery (still the same amount of compiled code)
 ##   [("recruit_troop_"+str(x+1),
 ##      [
@@ -27643,7 +27649,7 @@ You have won the duel.",
 ##      (faction_get_slot, ":recruit_troop", "$g_current_town_faction", x + slot_faction_town_troop_1),
 ##      (troop_get_slot, ":troop_cost", ":recruit_troop", slot_troop_recruit_price),
 ##      (ge, reg15, ":troop_cost"),#player can afford
-##      
+##
 ##      (str_store_troop_name, s11, ":recruit_troop"),
 ##      (assign, reg1, ":troop_cost"),
 ##      (str_store_string, s11, "str_recruit_town"),
@@ -27860,7 +27866,7 @@ You have won the duel.",
           (str_store_faction_name, s12, "$g_notification_menu_var2"),
           (str_store_faction_name, s13, ":original_faction"),
           (str_store_troop_name, s14, ":original_king"),
-         
+
           (set_fixed_point_multiplier, 100),
           (position_set_x, pos0, 65),
           (position_set_y, pos0, 30),
@@ -27892,7 +27898,7 @@ You have won the duel.",
       ),
       ## restoration end chief
 
-  ##diplomacy chief begin  
+  ##diplomacy chief begin
   (
     "dplmc_notification_alliance_declared",0,
     "Alliance Agreement^^{s1} and {s2} have formed an alliance!^{s57}",
@@ -27900,7 +27906,7 @@ You have won the duel.",
     [
 
 	  (str_clear, s57),
-	
+
 	  (str_store_faction_name, s1, "$g_notification_menu_var1"),
       (str_store_faction_name, s2, "$g_notification_menu_var2"),
       (set_fixed_point_multiplier, 100),
@@ -27919,7 +27925,7 @@ You have won the duel.",
         ]),
      ]
   ),
-  
+
   (
     "dplmc_notification_defensive_declared",0,
     "Defensive Pact^^{s1} and {s2} have agreed to a defensive pact!^{s57}",
@@ -27927,7 +27933,7 @@ You have won the duel.",
     [
 
 	  (str_clear, s57),
-	
+
 	  (str_store_faction_name, s1, "$g_notification_menu_var1"),
       (str_store_faction_name, s2, "$g_notification_menu_var2"),
       (set_fixed_point_multiplier, 100),
@@ -27946,7 +27952,7 @@ You have won the duel.",
         ]),
      ]
   ),
-  
+
   (
     "dplmc_notification_trade_declared",0,
     "Trade Agreement^^{s1} and {s2} have signed a trade agreement!^{s57}",
@@ -27954,7 +27960,7 @@ You have won the duel.",
     [
 
 	  (str_clear, s57),
-	
+
 	  (str_store_faction_name, s1, "$g_notification_menu_var1"),
       (str_store_faction_name, s2, "$g_notification_menu_var2"),
       (set_fixed_point_multiplier, 100),
@@ -27973,14 +27979,14 @@ You have won the duel.",
         ]),
      ]
   ),
-  
+
   (
     "dplmc_notification_nonaggression_declared",0,
     "Non-aggression Treaty^^{s1} and {s2} have concluded a non-aggression treaty!^{s57}",
     "none",
     [
 	  (str_clear, s57),
-	
+
 	  (str_store_faction_name, s1, "$g_notification_menu_var1"),
       (str_store_faction_name, s2, "$g_notification_menu_var2"),
       (set_fixed_point_multiplier, 100),
@@ -27999,7 +28005,7 @@ You have won the duel.",
         ]),
      ]
   ),
-  
+
   (
     "dplmc_question_alliance_offer",0,
     "You Receive an Alliance Offer^^The {s1} wants to form an alliance with you. What is your answer?",
@@ -28025,7 +28031,7 @@ You have won the duel.",
         ]),
      ]
   ),
-  
+
   (
     "dplmc_question_defensive_offer",0,
     "You Receive a Pact Offer^^The {s1} offers you a defensive pact. What is your answer?",
@@ -28051,7 +28057,7 @@ You have won the duel.",
         ]),
      ]
   ),
-  
+
   (
     "dplmc_question_trade_offer",0,
     "You Receive a Pact Offer^^The {s1} offers you a trade pact. What is your answer?",
@@ -28077,7 +28083,7 @@ You have won the duel.",
         ]),
      ]
   ),
-  
+
   (
     "dplmc_question_nonaggression_offer",0,
     "You Receive a Pact Offer^^The {s1} offers you a non-aggression treaty. What is your answer?",
@@ -28103,7 +28109,7 @@ You have won the duel.",
         ]),
      ]
   ),
-  
+
   (
     "dplmc_notification_alliance_expired",0,
     "Alliance Has Expired^^The alliance between {s1} and {s2} has expired and was degraded to a defensive pact.",
@@ -28111,7 +28117,7 @@ You have won the duel.",
     [
       (str_store_faction_name, s1, "$g_notification_menu_var1"),
       (str_store_faction_name, s2, "$g_notification_menu_var2"),
-	  
+
       (set_fixed_point_multiplier, 100),
       (position_set_x, pos0, 65),
       (position_set_y, pos0, 30),
@@ -28125,7 +28131,7 @@ You have won the duel.",
         ]),
      ]
   ),
-  
+
   (
     "dplmc_notification_defensive_expired",0,
     "Defensive Pact Has Expired^^The defensive pact between {s1} and {s2} has expired and was degraded to a trade agreement.",
@@ -28133,7 +28139,7 @@ You have won the duel.",
     [
       (str_store_faction_name, s1, "$g_notification_menu_var1"),
       (str_store_faction_name, s2, "$g_notification_menu_var2"),
-	  
+
       (set_fixed_point_multiplier, 100),
       (position_set_x, pos0, 65),
       (position_set_y, pos0, 30),
@@ -28147,8 +28153,8 @@ You have won the duel.",
         ]),
      ]
   ),
-  
-  
+
+
   (
     "dplmc_notification_trade_expired",0,
     "Trade Agreement Has Expired^^The trade agreement between {s1} and {s2} has expired and was degraded to a non-aggression treaty.",
@@ -28156,7 +28162,7 @@ You have won the duel.",
     [
       (str_store_faction_name, s1, "$g_notification_menu_var1"),
       (str_store_faction_name, s2, "$g_notification_menu_var2"),
-	  
+
       (set_fixed_point_multiplier, 100),
       (position_set_x, pos0, 65),
       (position_set_y, pos0, 30),
@@ -28179,10 +28185,10 @@ You have won the duel.",
       ("dplmc_demand_4000",[(gt, "$g_player_chamberlain", 0),],"Demand 4000 scillingas",
       [
         (call_script, "script_npc_decision_checklist_peace_or_war", "$g_notification_menu_var1", "fac_player_supporters_faction", -1),
-        (assign, ":goodwill", reg0),      
+        (assign, ":goodwill", reg0),
         (store_random_in_range, ":random", 0, 4),
-        
-        (call_script, "script_change_player_relation_with_faction", "$g_notification_menu_var1", -3),   
+
+        (call_script, "script_change_player_relation_with_faction", "$g_notification_menu_var1", -3),
         (try_begin),
           (le, ":random", ":goodwill"),
           (call_script, "script_dplmc_pay_into_treasury", 4000),
@@ -28190,16 +28196,16 @@ You have won the duel.",
           (change_screen_return),
         (else_try),
           (jump_to_menu,"mnu_dplmc_deny_terms"),
-        (try_end),                
+        (try_end),
       ]),
       ("dplmc_demand_8000",[(gt, "$g_player_chamberlain", 0),],"Demand 8000 scillingas",
-       [  
+       [
          (call_script, "script_npc_decision_checklist_peace_or_war", "$g_notification_menu_var1", "fac_player_supporters_faction", -1),
-         (assign, ":goodwill", reg0), 
-         (val_mul, ":goodwill", 2),      
+         (assign, ":goodwill", reg0),
+         (val_mul, ":goodwill", 2),
 				 (store_random_in_range, ":random", 0, 10),
-         
-         (call_script, "script_change_player_relation_with_faction", "$g_notification_menu_var1", -5), 
+
+         (call_script, "script_change_player_relation_with_faction", "$g_notification_menu_var1", -5),
 				 (try_begin),
 				   (le, ":random", ":goodwill"),
            (call_script, "script_dplmc_pay_into_treasury", 8000),
@@ -28230,10 +28236,10 @@ You have won the duel.",
       ],"Demand {s2}.",
        [
         (call_script, "script_npc_decision_checklist_peace_or_war", "$g_notification_menu_var1", "fac_player_supporters_faction", -1),
-        (assign, ":goodwill", reg0), 
-        (val_mul, ":goodwill", 2),     
+        (assign, ":goodwill", reg0),
+        (val_mul, ":goodwill", 2),
         (store_random_in_range, ":random", 0, 12),
-          
+
         (call_script, "script_change_player_relation_with_faction", "$g_notification_menu_var1", -6),
         (try_begin),
           (le, ":random", ":goodwill"),
@@ -28243,8 +28249,8 @@ You have won the duel.",
 			 (try_begin),
 					 (party_get_slot, ":castle_lord", "$demanded_castle", slot_town_lord),
 					 (ge, ":castle_lord", 1),
-					 (neg|troop_slot_ge, ":castle_lord", slot_troop_prisoner_of_party, 0),					 
-					 (try_begin),			
+					 (neg|troop_slot_ge, ":castle_lord", slot_troop_prisoner_of_party, 0),
+					 (try_begin),
 								(troop_get_slot, ":castle_lord_original_faction", ":castle_lord", slot_troop_original_faction),
 								(party_slot_eq, "$demanded_castle", slot_center_original_faction, ":castle_lord_original_faction"),
 								(store_random_in_range, ":random", 0, 12),
@@ -28259,29 +28265,29 @@ You have won the duel.",
           (call_script, "script_diplomacy_start_peace_between_kingdoms", "$g_notification_menu_var1", ":player_kingdom", 1),
 		  ##diplomacy end+
           (change_screen_return),
-        (else_try),       
+        (else_try),
           (jump_to_menu,"mnu_dplmc_deny_terms"),
         (try_end),        ]
-       ),       
+       ),
 	  ("dplmc_go_back",[],"Go back",
        [
 	     (jump_to_menu,"mnu_question_peace_offer"),
        ]),
     ]
   ),
-  
+
   ("dplmc_deny_terms",menu_text_color(0xFF000000)|mnf_disable_all_keys,
     "The {s1} refuses your terms and is breaking off of negotiations.",
     "none",
     [(set_game_menu_tableau_mesh, "tableau_faction_note_mesh_banner", "$g_notification_menu_var1", pos0),],
-    [      
+    [
 	  ("dplmc_continue",[],"Continue",
        [
        (change_screen_return),
        ]),
     ]
   ),
-  
+
   (
     "dplmc_village_riot_result",mnf_scale_picture,
     "{s9}",
@@ -28300,7 +28306,7 @@ You have won the duel.",
         (jump_to_menu, "mnu_village"),]),
     ],
   ),
-  
+
   (
     "dplmc_village_riot_removed",mnf_disable_all_keys,
     "In bloody battle you and your men slaughter the rebels and regain control over the village. But there is not much left you can control.",
@@ -28312,12 +28318,12 @@ You have won the duel.",
     ],
     [
       ("dplmc_continue",[],"Continue...",
-       [     
+       [
          (jump_to_menu, "mnu_village"),
        ]),
     ],
   ),
-  
+
   (
     "dplmc_town_riot_removed",mnf_disable_all_keys,
     "In bloody battle you and your men slaughter the rebels and regain control over the town.",
@@ -28325,22 +28331,22 @@ You have won the duel.",
     [],
     [
       ("dplmc_continue",[],"Continue...",
-       [     
+       [
         (party_set_slot, "$g_encountered_party", slot_village_infested_by_bandits, 0),
         (assign, "$new_encounter", 1),
-        (try_begin),   
+        (try_begin),
           (party_get_slot, ":town_lord","$g_encountered_party", slot_town_lord),
           (troop_get_slot, ":cur_banner", ":town_lord", slot_troop_banner_scene_prop),
           (gt, ":cur_banner", 0),
           (val_sub, ":cur_banner", banner_scene_props_begin),
           (val_add, ":cur_banner", banner_map_icons_begin),
-          (party_set_banner_icon, "$g_encountered_party", ":cur_banner"),   
-        (try_end),    
+          (party_set_banner_icon, "$g_encountered_party", ":cur_banner"),
+        (try_end),
         (jump_to_menu, "mnu_castle_outside"),
        ]),
     ],
   ),
-  
+
   (
     "dplmc_riot_negotiate",mnf_disable_all_keys,
     "You approach the angry crowd and begin negotiations. The leader of the riot demands {reg0} scillingas. He agrees to lay down arms if you are willing to pay.",
@@ -28356,7 +28362,7 @@ You have won the duel.",
         (val_sub, ":center_relation", 50),
         (set_background_mesh, "mesh_pic_villageriot"),
       (try_end),
-      
+
       (store_skill_level, ":persuasion_level", "skl_persuasion", "trp_player"),
       (val_add, ":center_relation", ":persuasion_level"),
       (val_mul, ":center_relation", ":center_relation"),
@@ -28369,7 +28375,7 @@ You have won the duel.",
         (store_troop_gold, ":gold", "trp_household_possessions"),
         (ge, ":gold", reg0),
       ],"Induce your chamberlain to pay the money from the treasury.",
-       [     
+       [
         (call_script, "script_dplmc_withdraw_from_treasury", reg0),
         (party_set_slot, "$g_encountered_party", slot_village_infested_by_bandits, 0),
         (try_begin),
@@ -28377,7 +28383,7 @@ You have won the duel.",
           (jump_to_menu, "mnu_castle_outside"),
         (else_try),
           (jump_to_menu, "mnu_village"),
-        (try_end),         
+        (try_end),
 
        ]),
        ("dplmc_pay_riot_cash",
@@ -28385,7 +28391,7 @@ You have won the duel.",
         (store_troop_gold, ":gold", "trp_player"),
         (ge, ":gold", reg0),
       ],"Pay cash.",
-       [     
+       [
         (troop_remove_gold, "trp_player", reg0),
         (party_set_slot, "$g_encountered_party", slot_village_infested_by_bandits, 0),
         (try_begin),
@@ -28393,12 +28399,12 @@ You have won the duel.",
           (jump_to_menu, "mnu_castle_outside"),
         (else_try),
           (jump_to_menu, "mnu_village"),
-        (try_end),         
+        (try_end),
 
-       ]),      
+       ]),
 
       ("dplmc_back",[],"Back...",
-       [     
+       [
         (try_begin),
           (party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
           (jump_to_menu, "mnu_castle_outside"),
@@ -28408,7 +28414,7 @@ You have won the duel.",
        ]),
     ],
   ),
-  
+
   (
     "dplmc_notification_riot",0,
     "The peasants of {s1} launched a riot against you! In a surprise attack, men loyal to you have been slain. The remainder joined the angry crowd.",
@@ -28428,7 +28434,7 @@ You have won the duel.",
         ]),
      ]
   ),
-  
+
   (
     "dplmc_notification_appoint_chamberlain",0,
     "As a lord of a fief you can now appoint a chamberlain who resides at you court for a weekly salary of 15 scillingas. He will handle all financial affairs like collecting and determining taxes, paying wages and managing your estate. In addition he supervises money transfers between kingdoms giving you more diplomatic options.",
@@ -28440,15 +28446,15 @@ You have won the duel.",
        [
         (call_script, "script_dplmc_appoint_chamberlain"),
         (jump_to_menu, "mnu_dplmc_chamberlain_confirm"),
-        ]),	
+        ]),
       ("dplmc_continue",[],"Proceed without chamberlain.",
        [
          (assign, "$g_player_chamberlain", -1), #denied
          (change_screen_return),
-        ]),        			
+        ]),
      ]
-  ), 
-  
+  ),
+
   (
     "dplmc_chamberlain_confirm",0,
     "Your chamberlain can be found at your court. You should consult him if you want to give him any financial advice or you need greater amounts of money. You should always make sure that there is enough money in the treasury to pay for political affairs.",
@@ -28460,8 +28466,8 @@ You have won the duel.",
          (change_screen_return),
         ]),
      ]
-  ),  
-  
+  ),
+
   (
     "dplmc_notification_appoint_constable",0,
     "As a lord of a fief you can now appoint a constable who resides at you court for a weekly salary of 15 scillingas. He will recruit new troops and provide information about your army.",
@@ -28473,16 +28479,16 @@ You have won the duel.",
        [
         (call_script, "script_dplmc_appoint_constable"),
         (jump_to_menu, "mnu_dplmc_constable_confirm"),
-        ]),	
+        ]),
       ("dplmc_continue",[],"Proceed without constable.",
        [
          (assign, "$g_player_constable", -1), #denied
          (assign, "$g_constable_training_center", -1),
          (change_screen_return),
-        ]),        			
+        ]),
      ]
-  ), 
-  
+  ),
+
   (
     "dplmc_constable_confirm",0,
     "Your constable can be found at your court. You should consult him if you want to recruit new troops or get detailed information about your standing  army.",
@@ -28494,8 +28500,8 @@ You have won the duel.",
          (change_screen_return),
         ]),
      ]
-  ),  
-  
+  ),
+
 
 
   (
@@ -28509,15 +28515,15 @@ You have won the duel.",
        [
         (call_script, "script_dplmc_appoint_chancellor"),
         (jump_to_menu, "mnu_dplmc_chancellor_confirm"),
-        ]),	
+        ]),
       ("dplmc_continue",[],"Proceed without chancellor.",
        [
          (assign, "$g_player_chancellor", -1), #denied
          (change_screen_return),
-        ]),        			
+        ]),
      ]
-  ), 
-  
+  ),
+
   (
     "dplmc_chancellor_confirm",0,
     "Your chancellor can be found at your court. You should consult him if you want to send messages or gifts.",
@@ -28529,7 +28535,7 @@ You have won the duel.",
          (change_screen_return),
         ]),
      ]
-  ), 
+  ),
 
 
   (
@@ -28548,8 +28554,8 @@ You have won the duel.",
          (change_screen_return),
         ]),
      ]
-  ),  
-  
+  ),
+
   (
     "dplmc_negotiate_besieger",0,
     "You appear with a white flag at the top of the wall. After a while a negotiator of {s11} approaches you. He demands {s6} and all associated villages as well as {reg0} scillingas for safe conduct.",
@@ -28566,17 +28572,17 @@ You have won the duel.",
         (eq, ":lord_faction", ":besieger_faction"),
         (troop_get_slot, ":led_party", ":lord", slot_troop_leaded_party),
         (party_is_active, ":led_party"),
-        
+
         (party_slot_eq, ":led_party", slot_party_ai_state, spai_accompanying_army),
         (party_slot_eq, ":led_party", slot_party_ai_object, ":besieger"),
-        
+
         (party_is_active, ":besieger"),
         (store_distance_to_party_from_party, ":distance_to_marshal", ":led_party", ":besieger"),
         (lt, ":distance_to_marshal", 25),
         (party_get_num_companions, ":party_size", ":led_party"),
         (val_add, ":besieger_size", ":party_size"),
       (try_end),
-         
+
       (assign, ":garrison_size", 0),
       (party_get_num_companion_stacks, ":num_stacks", "$current_town"),
       (try_for_range, ":i_stack", 0, ":num_stacks"),
@@ -28585,7 +28591,7 @@ You have won the duel.",
       (try_end),
       (val_sub, ":besieger_size", ":garrison_size"),
 
-      (store_skill_level, ":player_persuasion_skill", "skl_persuasion", "trp_player"),      
+      (store_skill_level, ":player_persuasion_skill", "skl_persuasion", "trp_player"),
       (val_mul, ":player_persuasion_skill", 10),
       (store_sub, "$diplomacy_var", ":besieger_size", ":player_persuasion_skill"),
       (val_mul, "$diplomacy_var", 4),
@@ -28597,15 +28603,15 @@ You have won the duel.",
       (val_div, "$diplomacy_var", 100),
       (val_mul, "$diplomacy_var", 100),
       (assign, reg0, "$diplomacy_var"),
-      
+
       (str_store_party_name, s6, "$current_town"),
-      
+
     ],
       [
       ("dplmc_comply_treasury",
       [
-        (store_troop_gold, ":gold", "trp_household_possessions"), 
-        (ge, ":gold", "$diplomacy_var"),      
+        (store_troop_gold, ":gold", "trp_household_possessions"),
+        (ge, ":gold", "$diplomacy_var"),
       ],"Comply and induce your chamberlain to pay the money from the treasury.",
       [
         (call_script, "script_dplmc_withdraw_from_treasury", "$diplomacy_var"),
@@ -28617,10 +28623,10 @@ You have won the duel.",
         (call_script, "script_dplmc_player_center_surrender", "$current_town"),
         (change_screen_return),
       ]),
-        
+
       ("dplmc_comply",
       [
-        (store_troop_gold, ":gold", "trp_player"), 
+        (store_troop_gold, ":gold", "trp_player"),
         (ge, ":gold", "$diplomacy_var"),
       ],"Comply and pay the money cash.",
       [
@@ -28633,14 +28639,14 @@ You have won the duel.",
        (call_script, "script_dplmc_player_center_surrender", "$current_town"),
         (change_screen_return),
       ]),
-        
+
       ("dplmc_break_off",[],"Break off negotiations.",
        [
           (jump_to_menu, "mnu_town"),
         ]),
      ]
-  ),  
-  
+  ),
+
 
   (
     "dplmc_messenger",0,
@@ -28662,7 +28668,7 @@ You have won the duel.",
          (change_screen_return),
         ]),
      ]
-  ), 
+  ),
 
   (
     "dplmc_scout",0,
@@ -28671,7 +28677,7 @@ You have won the duel.",
     [
     (set_background_mesh, "mesh_pic_messenger1"),
     (str_store_party_name, s10, "$g_notification_menu_var1"),
-    
+
     (call_script, "script_game_get_center_note", "$g_notification_menu_var1", 0),
     (str_store_string, s11, "@{!}{s0}"),
     (try_begin),
@@ -28684,7 +28690,7 @@ You have won the duel.",
       (store_party_size, reg5, "$g_notification_menu_var1"),
       (str_store_string, s11, "@{s11}^^ The current garrison consists of {reg5} men.^The food stock lasts for {reg6} days."),
     (try_end),
-    
+
     (str_clear, s12),
     (party_get_num_attached_parties, ":num_attached_parties", "$g_notification_menu_var1"),
     (try_begin),
@@ -28709,7 +28715,7 @@ You have won the duel.",
          (change_screen_return),
         ]),
      ]
-  ), 
+  ),
 
   (
     "dplmc_domestic_policy",0,
@@ -28719,7 +28725,7 @@ You have won the duel.",
       (try_begin),
           (eq, "$g_players_policy_set", 1),
           (change_screen_return),
-      (try_end),    
+      (try_end),
 
       (set_fixed_point_multiplier, 100),
       (position_set_x, pos0, 65),
@@ -28736,9 +28742,9 @@ You have won the duel.",
        [
          (change_screen_return),
 
-        ]),  
+        ]),
      ]
-  ), 
+  ),
 
   (
     "dplmc_affiliate_end",0,
@@ -28763,7 +28769,7 @@ You have won the duel.",
          (change_screen_return),
         ]),
      ]
-  ), 
+  ),
 
   (
     "torneo_opciones",menu_text_color(0xFF000000)|mnf_disable_all_keys,
@@ -28782,7 +28788,7 @@ You have won the duel.",
        [
            (assign, "$g_avdificultad", 1),
            (jump_to_menu, "mnu_torneo_opciones"),
-        ]),             
+        ]),
       ("tonero_back",[],"Back...",
        [
            (jump_to_menu, "mnu_town_tournament"),
@@ -28808,7 +28814,7 @@ You have won the duel.",
        [
            (assign, "$g_realism_upgrade", 0),
            (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),                
+        ]),
       ("dplmc_disable_battle_continuation",[ (eq, "$g_dplmc_battle_continuation", 0),],"Click to Disable battle continuation.",
        [
            (assign, "$g_dplmc_battle_continuation", 1),
@@ -28818,7 +28824,7 @@ You have won the duel.",
        [
            (assign, "$g_dplmc_battle_continuation", 0),
            (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),                
+        ]),
       ("disable_siege_realism",[ (eq, "$g_siege_realism", 1),],"Click to Disable Siege Warfare Realism (Native mode).",
        [
            (assign, "$g_siege_realism", 0),
@@ -28828,7 +28834,7 @@ You have won the duel.",
        [
            (assign, "$g_siege_realism", 1),
            (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),             
+        ]),
 ###combate avanzado
 ##      ("action_tactics_on2",[(eq, "$g_realistic_casualties", 0)],"Click to Disable Advance Warfare (Realistic Casualties+ Weapon Breaking+ shield bash+ Armor Penalty).",
 ##       [
@@ -28848,7 +28854,7 @@ You have won the duel.",
 ##        (display_message, "@ Shield bash enabled. Key: Right Click + Left Click. Remember: Shield bash consumes energy and you can not make two consecutive bashes."),
 ##           (jump_to_menu,"mnu_dplmc_preferences"),
 ##        ]
-##       ),	
+##       ),
 ##
 ###combate realista
 ##      ("action_tactics_on3",[(eq, "$g_realistic_casualties", 0)],"Click to Disable Realistic Warfare (Advance+ AI shield bash+ Walk Backwards Fall+ Battle Wounds+ Special Hits and Bleeding).",
@@ -28877,13 +28883,13 @@ You have won the duel.",
 ##           (assign, "$sp_criticos", 1),
 ##           (jump_to_menu,"mnu_dplmc_preferences"),
 ##        ]
-##       ),	
+##       ),
 
       ("enable_alturas",[ (eq, "$sp_alturas", 0),],"Click to Enable different heights for the troops in battle (You remember that is change physics when Ragdolls on).",
        [
            (assign, "$sp_alturas", 1),
            (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),                
+        ]),
       ("alturas_disable",[(eq, "$sp_alturas", 1),],"Click to Disable different heights for the troops in battle.",
        [
            (assign, "$sp_alturas", 0),
@@ -28898,7 +28904,7 @@ You have won the duel.",
 ##       [
 ##           (assign, "$g_realistic_casualties",0),(jump_to_menu,"mnu_dplmc_preferences"),
 ##        ]
-##       ),	
+##       ),
       ("weapon_breaking_disable",[(eq, "$g_weapon_breaking", 0),],"Click to Disable Weapon Breaking.",
        [
            (assign, "$g_weapon_breaking", 1),
@@ -28908,14 +28914,14 @@ You have won the duel.",
        [
            (assign, "$g_weapon_breaking", 0),
            (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),                
+        ]),
       ("enable_shield_bash",[ (eq, "$sp_shield_bash", 0),],"Click to Enable Shield Bash.",
        [
            (assign, "$sp_shield_bash_ai", 1),
            (assign, "$sp_shield_bash", 1),
         (display_message, "@ Shield bash enabled. Key: Right Click + Left Click. Remember: Shield bash consumes energy and you can not make two consecutive bashes."),
            (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),                
+        ]),
       ("shield_bash_disable",[(eq, "$sp_shield_bash", 1),],"Click to Disable Shield Bash.",
        [
            (assign, "$sp_shield_bash", 0),
@@ -28941,7 +28947,7 @@ You have won the duel.",
        [
            (assign, "$g_armor_penalties", 0),
            (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),                
+        ]),
       ("diseble_moral_rest",[(eq, "$g_moral_rest", 0),],"Click to Disable realism morale impact of resting/not resting.",
        [
            (assign, "$g_moral_rest", 1),
@@ -28951,12 +28957,12 @@ You have won the duel.",
        [
            (assign, "$g_moral_rest", 0),
            (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),                
+        ]),
       ("enable_decapitation",[ (eq, "$sp_decapitation", 0),],"Click to Enable Gore.",
        [
            (assign, "$sp_decapitation", 1),
            (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),                
+        ]),
       ("decapitation_disable",[(eq, "$sp_decapitation", 1),],"Click to Disable Gore.",
        [
            (assign, "$sp_decapitation", 0),
@@ -28966,7 +28972,7 @@ You have won the duel.",
        [
            (assign, "$sp_fatigas", 1),
            (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),                
+        ]),
       ("fatigas_disable",[(eq, "$sp_fatigas", 1),],"Click to Disable Fatigue/stamine system.",
        [
            (assign, "$sp_fatigas", 0),
@@ -28976,7 +28982,7 @@ You have won the duel.",
 ##       [
 ##           (assign, "$g_heridas_chel", 1),
 ##           (jump_to_menu, "mnu_dplmc_preferences"),
-##        ]),                
+##        ]),
 ##      ("disable_heridas",[(eq, "$g_heridas_chel", 1),],"Click to Disable Battle Wounds.",
 ##       [
 ##           (assign, "$g_heridas_chel", 0),
@@ -28986,7 +28992,7 @@ You have won the duel.",
        [
            (assign, "$sp_caer_andar", 1),
            (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),                
+        ]),
       ("disable_caeratras",[(eq, "$sp_caer_andar", 1),],"Click to Disable Walk Backwards Fall.",
        [
            (assign, "$sp_caer_andar", 0),
@@ -28997,7 +29003,7 @@ You have won the duel.",
            (assign, "$g_heridas_chel", 1),
            (assign, "$sp_criticos", 1),
            (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),                
+        ]),
       ("disable_sp_criticos",[(eq, "$sp_criticos", 1),],"Click to Disable Battle Wounds, Special Hits and Bleeding.",
        [
            (assign, "$sp_criticos", 0),
@@ -29018,18 +29024,18 @@ You have won the duel.",
            (jump_to_menu, "mnu_dplmc_preferences"),
         ]
        ),
-			
+
 ##			("jump_to_scene",[(eq,"$cheat_mode",1)],"debug: test scene menu",
 ##				[
 ##					(jump_to_menu,"mnu_test_scene"),
 ##				]),
-##				
+##
 ##			("toggle_cheat_on",[(eq, "$cheat_mode", 0)],"_Toggle cheat menu on.",
 ##				[
 ##					(assign,"$cheat_mode",1),
 ##					(jump_to_menu,"mnu_dplmc_preferences"),
 ##				]),
-##		   
+##
 ##			("toggle_cheat_off",[(eq, "$cheat_mode",1)],"_Toggle cheat menu off.",
 ##				[
 ##					(assign,"$cheat_mode",0),
@@ -29041,23 +29047,23 @@ You have won the duel.",
 ##					(assign, "$disable_npc_complaints", 1),
 ##					(jump_to_menu,"mnu_dplmc_preferences"),
 ##				]),
-##			
+##
 ##			("toggle_companion_complaint_on",[(eq, "$disable_npc_complaints", 1)],"_Toggle companion complaints on.",
 ##				[
 ##					(assign, "$disable_npc_complaints", 0),
 ##					(jump_to_menu,"mnu_dplmc_preferences"),
 ##				]),
-##			
+##
 ##			("camp_cheat",[(ge, "$cheat_mode", 1)], "CHEAT MENU!",
 ##				[
 ##					(jump_to_menu, "mnu_camp_cheat"),
 ##				]),
-##		
+##
 ##			("continue",[],"Back to camp menu",
-##				[         
-##					(jump_to_menu,"mnu_camp"),         
-##				]),		
-#TEMPERED chief CHANGES END	   
+##				[
+##					(jump_to_menu,"mnu_camp"),
+##				]),
+#TEMPERED chief CHANGES END
 
 ##            ("disable_esconder_defensores",[ (eq, "$g_esconder_defensores", 0),],"Disable Hide Defenders.",
 ##       [
@@ -29072,12 +29078,12 @@ You have won the duel.",
 ##	 (try_for_range,":cur_center",centers_begin,centers_end),
 ##		(party_set_flags,":cur_center",pf_hide_defenders,0),
 ##           (jump_to_menu, "mnu_dplmc_preferences"),
-##        ]),                
+##        ]),
 ##      ("shield_bash_enable",[ (eq, "$g_shield_bash", 1),],"Enable Shield Bash (Alpha version).",
 ##       [
 ##           (assign, "$g_shield_bash", 0),
 ##           (jump_to_menu, "mnu_dplmc_preferences"),
-##        ]),                
+##        ]),
 ##      ("shield_bash_disable",[(eq, "$g_shield_bash", 0),],"Disable Shield Bash.",
 ##       [
 ##           (assign, "$g_shield_bash", 1),
@@ -29097,7 +29103,7 @@ You have won the duel.",
     "A bard composed a song about your noble deeds.",
     "none",
     [
-	
+
 	],
     [
       ("choice_01_1",[],"Excellent!",
@@ -29128,14 +29134,14 @@ You have won the duel.",
        ),
       ]
   ),
-  
+
 
   (
     "event_02",menu_text_color(0xFF000000)|mnf_disable_all_keys,
     "Tales of your honor spread around the country. Everywhere you go, your procession is surrounded by beggars.",
     "none",
     [
-	
+
 	],
     [
       ("choice_02_1",[],"Allocate 200 denars for an alms fund.",
@@ -29174,7 +29180,7 @@ You have won the duel.",
     "A young noble spreads rumors about your mother. Accusations of working in the world's oldest profession are the most delicate ones.",
     "none",
     [
-	
+
 	],
     [
       ("choice_03_1",[],"I challenge him to a duel!",
@@ -29206,7 +29212,7 @@ You have won the duel.",
     "You encounter one of your soldiers wives. She begs you to release her husband from his contract. The harvest was poor this year and his wages can't feed the whole family. If he could come back and work on the field they might survive.",
     "none",
     [
-	
+
 	],
     [
       ("choice_04_1",[],"This can't be! Here take 200 scillingas.",
@@ -29242,7 +29248,7 @@ You have won the duel.",
     "A local naysayer is spreading false rumors about you. While most of the stories are just pure nonsense, sooner or later people will believe those stories.",
     "none",
     [
-	
+
 	],
     [
       ("choice_05_1",[],"Let him speak what he wants. Every man has his rights.",
@@ -29481,18 +29487,18 @@ You have won the duel.",
        ),
       ]
   ),
-#fine   
+#fine
     (
     "event_09",menu_text_color(0xFF000000)|mnf_disable_all_keys,
     "You are travelling through the forest and you suddenly spot a wild hare, trapped in the snare. What do you do?",
     "none",
     [
-	
+
 	],
     [
       ("choice_09_1",[],"Free the animal.",
        [
-		  
+
                   (change_screen_return),
         ]
        ),
@@ -29503,7 +29509,7 @@ You have won the duel.",
         ]
        ),
       ("choice_09_3",[],"Pass by the animal and ignore it.",
-       [ 
+       [
 	   (change_screen_return),
         ]
        ),
@@ -29515,7 +29521,7 @@ You have won the duel.",
     "You are travelling through the forest and you spot a peasant tied up a tree, probably by a bandit. What do you do?",
     "none",
     [
-	
+
 	],
     [
       ("choice_10_1",[],"Free the peasant.",
@@ -29532,7 +29538,7 @@ You have won the duel.",
        ),
       ("choice_10_3",[],"Kill the peasant",
        [
-	   (call_script, "script_change_player_honor", -1), 
+	   (call_script, "script_change_player_honor", -1),
 	   (change_screen_return),
         ]
        ),
@@ -29546,7 +29552,7 @@ You have won the duel.",
     "You are a famous leader, and you received news that a group of young nobles wishes to join you. But They want more pay than the rest of your troops for their condition.",
     "none",
     [
-	
+
 	],
     [
       ("choice_101_1",[],"They are welcome.",
@@ -29562,7 +29568,7 @@ You have won the duel.",
        ),
       ("choice_101_3",[],"Kill them. Sure they give good loot.",
        [
-	   (call_script, "script_change_player_honor", -20), 
+	   (call_script, "script_change_player_honor", -20),
 	   (troop_add_gold, "trp_player", 10000),
 		(call_script, "script_change_troop_renown", "trp_player", -100),
 	   (change_screen_return),
@@ -29576,7 +29582,7 @@ You have won the duel.",
     "You are a famous leader, and you received news that a group of women expresses interest in becoming camp followers.",
     "none",
     [
-	
+
 	],
     [
       ("choice_102_1",[],"They are welcome.",
@@ -29598,7 +29604,7 @@ You have won the duel.",
     "You are a famous leader, and you received news that a group of street musicians wishes to join you, and make the path more merry.",
     "none",
     [
-	
+
 	],
     [
       ("choice_103_1",[],"They are welcome.",
@@ -29623,7 +29629,7 @@ You have won the duel.",
     "The kin of a Geoguth (a regular freeman) slain in one of your battles brings a suit against you requesting wergild (compensation) of 200 scillingas. What do you do?",
     "none",
     [
-	
+
 	],
     [
       ("choice_11_1",[],"Pay the Wergild",
@@ -29665,7 +29671,7 @@ You have won the duel.",
     "The kin of the Mierce pagan priest slain by your men in the fight brings a suit against you requesting wergild (compensation) of 500 scillingas. What do you do?",
     "none",
     [
-	
+
 	],
     [
       ("choice_12_1",[],"Pay the Wergild",
@@ -29707,7 +29713,7 @@ You have won the duel.",
     "You see a crane circling above your party.",
     "none",
     [
-	
+
 	],
     [
       ("choice_13_1",[],"Tell to your men that the crane symbolizes the gods of war, and the next battle you fight shall leave you victorious!",
@@ -29739,7 +29745,7 @@ You have won the duel.",
     "A country farmer stands before you on the road, a weeping girl behind him. He points his finger accusingly at one of your men, saying that he raped his daughter and demands justice.",
     "none",
     [
-	
+
 	],
     [
       ("choice_14_1",[],"You will not tolerate indecency amongst your men! Brand the man and cast him out of your party.",
@@ -29767,12 +29773,12 @@ You have won the duel.",
     "You are travelling through the forest and you suddenly spot a lot of mushrooms called 'the porcini'. What do you do?",
     "none",
     [
-	
+
 	],
     [
       ("choice_15_1",[],"Pick them up and eat.",
        [
-		  
+
                   (change_screen_return),
                   (display_message, "@The mushrooms were really tasty!"),
         ]
@@ -29786,7 +29792,7 @@ You have won the duel.",
         ]
        ),
       ("choice_15_3",[],"Pass by them.",
-       [ 
+       [
 	   (change_screen_return),
         ]
        ),
@@ -29798,7 +29804,7 @@ You have won the duel.",
     "You are travelling through the forest and you suddenly spot a lot of mushrooms called 'the beautiful clavaria'. What do you do?",
     "none",
     [
-	
+
 	],
     [
       ("choice_16_1",[],"Pick them up and eat.",
@@ -29807,7 +29813,7 @@ You have won the duel.",
                 (troop_raise_attribute, "trp_player",ca_strength,-1),
                    (troop_raise_attribute, "trp_player",ca_agility,-1),
                   (change_screen_return),
-                 
+
         ]
        ),
       ("choice_16_2",[],"Pick them up and give to your men.",
@@ -29819,7 +29825,7 @@ You have won the duel.",
         ]
        ),
       ("choice_16_3",[],"Pass by them.",
-       [ 
+       [
 	   (change_screen_return),
         ]
        ),
@@ -29831,7 +29837,7 @@ You have won the duel.",
     "You are travelling through the forest and you suddenly spot a lot of mushrooms called 'the destroying angel'. What do you do?",
     "none",
     [
-	
+
 	],
     [
       ("choice_17_1",[],"Pick them up and eat.",
@@ -29840,7 +29846,7 @@ You have won the duel.",
                 (troop_raise_attribute, "trp_player",ca_strength,-2),
                    (troop_raise_attribute, "trp_player",ca_agility,-2),
                   (change_screen_return),
-                 
+
         ]
        ),
       ("choice_17_2",[],"Pick them up and give to your men.",
@@ -29852,7 +29858,7 @@ You have won the duel.",
         ]
        ),
       ("choice_17_3",[],"Pass by them.",
-       [ 
+       [
 	   (change_screen_return),
         ]
        ),
@@ -29864,7 +29870,7 @@ You have won the duel.",
     "In one of the rest of the day near a village, the priest's wife wants to see you (alone) while her husband is away.",
     "none",
     [
-	
+
 	],
     [
       ("choice_18_1",[],"You agree.",
@@ -29895,7 +29901,7 @@ You have won the duel.",
     "You stumble over a group of christian priests that are being attacked by a group of bandits.",
     "none",
     [
-	
+
 	],
     [
       ("choice_19_1",[],"Rush to the aid of the priests to teach those bloody pagan bandits not to disturb the business of the holy church.",
@@ -29926,7 +29932,7 @@ You have won the duel.",
     "You happen to find a purse filled with coins.",
     "none",
     [
-	
+
 	],
     [
       ("choice_20_1",[],"You gift the purse to a hospice for abandoned children.",
@@ -29949,7 +29955,7 @@ You have won the duel.",
     "You come across some runaway slaves.",
     "none",
     [
-	
+
 	],
     [
       ("choice_21_1",[],"Help them on their way.",
@@ -29973,7 +29979,7 @@ You have won the duel.",
     "You come upon Bandits Ambushing some Merchants.",
     "none",
     [
-	
+
 	],
     [
       ("choice_22_1",[],"Chase the Bandits away.",
@@ -29999,7 +30005,7 @@ You have won the duel.",
     "Your fame and popularity has attracted young noblemen to your cause.",
     "none",
     [
-	
+
 	],
     [
       ("choice_23_1",[],"Accept them.",
@@ -30021,7 +30027,7 @@ You have won the duel.",
     "You spot a poor man on the road, he looks tired. You send one of your men to ask him why he is in the wilderness alone. He says that men robbed him and of he doesnt get some money soon to buy food, he will starve. He says he served in the army once, and will make a loyal warrior.",
     "none",
     [
-	
+
 	],
     [
       ("choice_24_1",[],"Lifes not fair, give him nothing.",
@@ -30099,7 +30105,7 @@ You have won the duel.",
     "You encounter a small child dressed in rags and looking very hungry. He walks up to you and begs for some food; his family's crops produced no yields and they have no money.",
     "none",
     [
-	
+
 	],
     [
       ("choice_25_1",[],"Lifes not fair, give him nothing.",
@@ -30191,7 +30197,7 @@ You have won the duel.",
     "A religous fanatic (christianity cult) follow your army. While he gains some converts he also creates some unrest.",
     "none",
     [
-	
+
 	],
     [
       ("choice_27_1",[],"Thank to God. Let him be!.",
@@ -30236,7 +30242,7 @@ You have won the duel.",
     "A religous fanatic (pagan cult) follow your army. While he gains some converts he also creates some unrest.",
     "none",
     [
-	
+
 	],
     [
       ("choice_28_1",[],"Thank to Woden. Let him be!.",
@@ -30281,7 +30287,7 @@ You have won the duel.",
     "You come upon a Pagan Temple. The priest are busy working or praying, none of them is armed. You see gold treasures and silver tributes glistening inside...",
     "none",
     [
-	
+
 	],
     [
       ("choice_29_1",[],"Pass by the temple!.",
@@ -30330,7 +30336,7 @@ You have won the duel.",
     "You come upon a Christian Monastery. The monks are busy working or praying, none of them is armed. You see gold treasures and silver tributes glistening inside...",
     "none",
     [
-	
+
 	],
     [
       ("choice_30_1",[],"Pass by the monastery!.",
@@ -30382,7 +30388,7 @@ You have won the duel.",
     "Some of your enemies have taken refuge in a nearby church after being defeated in battle and the rural priest have given them SANCTUARY.",
     "none",
     [
-	
+
 	],
     [
       ("choice_31_1",[],"Bah! They can go to the devil for all you care! You have enough prisoners and loot to satisfy yourself!.",
@@ -30431,7 +30437,7 @@ You have won the duel.",
     "You come across the grave of an old forgotten warlord.",
     "none",
     [
-	
+
 	],
     [
       ("choice_32_1",[],"Loot and pillage!.",
@@ -30443,7 +30449,7 @@ You have won the duel.",
           (call_script, "script_change_player_relation_with_faction", "fac_pagans", -5), #la q designemos
     (call_script, "script_troop_add_gold", "trp_player", 100),
             (troop_add_item, "trp_player","itm_arming_sword",0),
-            (troop_add_item, "trp_player","itm_lorika",0),                
+            (troop_add_item, "trp_player","itm_lorika",0),
                 (display_message, "@ Among the remains of the corpse are the sword and armor of a king. Magnificent weapons to take away the iron oxide to discover a high quality. Now they are yours if you do not mind the bad luck that belonged to a dead."),
 	    (change_screen_return),
         ]
@@ -30480,7 +30486,7 @@ You have won the duel.",
 He offers for a small fee to to convince his master to overlook your notoriety for incessant raping pillaging and general debauchery and instead depict you as a something closer to a virtuous saint  or a crusader for the poor and oppressed or a heroic champion - whichever you prefer.",
     "none",
     [
-	
+
 	],
     [
       ("choice_33_1",[],"You decide to ignore him muttering that you are content to let history be the judge.",
@@ -30534,7 +30540,7 @@ He offers for a small fee to to convince his master to overlook your notoriety f
 To give the town a boost you announce that you will sponsor a sewing and embroidery contest for the gentle ladyfolk of the town and will reward handsomely the one who can produce the brightest, most fashionable yet suitably manly new tunic.",
     "none",
     [
-	
+
 	],
     [
       ("choice_34_1",[],"Reward the town well for their efforts and declare the prettiest girl in town to be the winner instructing her where is your tent.",
@@ -30585,7 +30591,7 @@ To give the town a boost you announce that you will sponsor a sewing and embroid
 To which one of the more smart alec lieutenants retorts that this was hardly likely as your body odour was legendary forcing them to pay double to each lady of the night you took a fancy to and it well known that you thought that food  was made by shops and grew in boxes and urns.",
     "none",
     [
-	
+
 	],
     [
       ("choice_35_1",[],"Laugh heartily with his witty comment, while secretly making a mental note that you must send him deep into enemy territory on an 'important mission'.",
@@ -30617,7 +30623,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "You come across what are evidently stray cattle from a Nearby village",
     "none",
     [
-	
+
 	],
     [
       ("choice_36_1",[],"Return the animals to the village and ask for no reward.",
@@ -30653,7 +30659,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "A traveler tells you where to find a band of ANGLE settlers recently arrived in Britannia.",
     "none",
     [
-   (set_background_mesh, "mesh_pic_extra_barco"),	
+   (set_background_mesh, "mesh_pic_extra_barco"),
 	],
     [
       ("choice_37_1",[],"You attack the small caravan, easily slaughtering the hapless immigrants from an ambush, leaving few survivors.",
@@ -30724,7 +30730,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "A traveler tells you where to find a band of SAXON settlers recently arrived in Britannia.",
     "none",
     [
-   (set_background_mesh, "mesh_pic_extra_barco"),		
+   (set_background_mesh, "mesh_pic_extra_barco"),
 	],
     [
       ("choice_38_1",[],"You attack the small caravan, easily slaughtering the hapless immigrants from an ambush, leaving few survivors.",
@@ -30792,7 +30798,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "A traveler tells you where to find a band of JUTE settlers recently arrived in Britannia.",
     "none",
     [
-   (set_background_mesh, "mesh_pic_extra_barco"),		
+   (set_background_mesh, "mesh_pic_extra_barco"),
 	],
     [
       ("choice_39_1",[],"You attack the small caravan, easily slaughtering the hapless immigrants from an ambush, leaving few survivors.",
@@ -30854,7 +30860,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "One of your soldiers rapes the daughter of a local elder.",
     "none",
     [
-	
+
 	],
     [
       ("choice_40_1",[],"Ignore the situation.",
@@ -30904,7 +30910,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "One of your soldiers succumbs to his wounds from a previous battle.",
     "none",
     [
-	
+
 	],
     [
       ("choice_41_1",[],"Take his kit and his gold, he was afterall just a soldier, a mere pawn, and all he owns belongs to you.",
@@ -30949,7 +30955,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "One of your new recruits dies from an illness. He carries both Woden's simbol and a cross. No one knows what he preferred most.",
     "none",
     [
-	
+
 	],
     [
       ("choice_42_1",[],"Do you put his sword in his hand and burn him? (PAGAN)",
@@ -31009,7 +31015,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
 ##    "Your Wife desires to reconcile with her estranged Father.",
 ##    "none",
 ##    [
-##	
+##
 ##	],
 ##    [
 ##      ("choice_43_1",[],"Accede to her wishes and beg forgiveness of her father. (She need money for travel)",
@@ -31055,7 +31061,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
 ##    "A sworn man of your spouse's father comes up to you and demands that you return his daughter or face the consequences.",
 ##    "none",
 ##    [
-##	
+##
 ##	],
 ##    [
 ##      ("choice_44_1",[],"You propose to settle the threats man to man, to the death.",
@@ -31099,20 +31105,20 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "One of your advisers tells you that he has found rats in the provisions that your men are eating.",
     "none",
     [
-	
+
 	],
     [
       ("choice_01_1a",[],"That is terrible! Destroy contaminated supplies.",
        [
     (try_begin),
       (assign, ":number_of_foods_player_has", 0),
-      (try_for_range, ":cur_edible", food_begin, food_end),      
+      (try_for_range, ":cur_edible", food_begin, food_end),
         (call_script, "script_cf_player_has_item_without_modifier", ":cur_edible", imod_rotten),
         (val_add, ":number_of_foods_player_has", 1),
       (try_end),
       (try_begin),
         (ge, ":number_of_foods_player_has", 6),
-        (unlock_achievement, ACHIEVEMENT_ABUNDANT_FEAST),        
+        (unlock_achievement, ACHIEVEMENT_ABUNDANT_FEAST),
       (try_end),
     (try_end),
     (assign, ":consumption_amount", 10),
@@ -31153,11 +31159,11 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
        ),
       ]
   ),
-  
+
 ###matar ratas submenu
       ("ratas_siege",0,
     "Before all the rats are exterminated, many of your men are sick and dying. ^^Your casualties:{s8}",
-    "none", [  
+    "none", [
 
           (call_script, "script_party_calculate_strength", "p_main_party", 1), #skip player
         (assign, ":player_party_strength", reg0),
@@ -31183,7 +31189,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
 #bajas enfermedad
         ("enfermedad_siege",0,
     "You don't have enough gold. How embarrassing! Death governs your camp. Many of your men are sick and dying. ^^Your casualties:{s8}",
-    "none", [  
+    "none", [
 
         (call_script, "script_party_calculate_strength", "p_main_party", 1), #skip player
         (assign, ":player_party_strength", reg0),
@@ -31208,7 +31214,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
   ),
         ("enfermedad2_siege",0,
     "Death governs your camp. Many of your men are sick and dying. ^^Your casualties:{s8}",
-    "none", [  
+    "none", [
 
         (call_script, "script_party_calculate_strength", "p_main_party", 1), #skip player
         (assign, ":player_party_strength", reg0),
@@ -31233,7 +31239,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
   ),
         ("enfermedad3_siege",0,
     "Death governs your camp. Many of your men are sick and dying. But perhaps your god has saved some lives. ^^Your casualties:{s8}",
-    "none", [  
+    "none", [
 
         (call_script, "script_party_calculate_strength", "p_main_party", 1), #skip player
         (assign, ":player_party_strength", reg0),
@@ -31258,7 +31264,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
   ),
         ("enfermedad4_siege",0,
     "Thanks to the healing abilities you manage to save many men. But some die^^Your casualties:{s8}",
-    "none", [  
+    "none", [
 
         (call_script, "script_party_calculate_strength", "p_main_party", 1), #skip player
         (assign, ":player_party_strength", reg0),
@@ -31286,7 +31292,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "Poor hygiene in your camp causes dysentery. The men start dying all around you.",
     "none",
     [
-	
+
 	],
     [
       ("choice_02_1b",[],"Pay the high price of a physician to try to help your people from contracting disease (1000 scillingas).",
@@ -31330,7 +31336,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "The plague has spread across your camp because of rats. Men die before your eyes (1000 scillingas).",
     "none",
     [
-	
+
 	],
     [
       ("choice_03_1c",[],"Pay the high price of a physician to try to help your people from contracting disease.",
@@ -31379,13 +31385,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     [
     (try_begin),
       (assign, ":number_of_foods_player_has", 0),
-      (try_for_range, ":cur_edible", food_begin, food_end),      
+      (try_for_range, ":cur_edible", food_begin, food_end),
         (call_script, "script_cf_player_has_item_without_modifier", ":cur_edible", imod_rotten),
         (val_add, ":number_of_foods_player_has", 1),
       (try_end),
       (try_begin),
         (ge, ":number_of_foods_player_has", 6),
-        (unlock_achievement, ACHIEVEMENT_ABUNDANT_FEAST),        
+        (unlock_achievement, ACHIEVEMENT_ABUNDANT_FEAST),
       (try_end),
     (try_end),
     (assign, ":consumption_amount", 10),
@@ -31414,7 +31420,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
             (call_script, "script_objectionable_action", tmt_egalitarian, "str_men_hungry"),
         (try_end),
       (try_end),
-    (try_end),	
+    (try_end),
 	],
     [
       ("choice_04_1d",[],"To set an example punish the men who were on duty that night.",
@@ -31437,7 +31443,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "During the night, your men captured and executed a group of enemies who tried to infiltrate and burn supplies.",
     "none",
     [
-	
+
 	],
     [
       ("choice_05_1e",[],"Congratulate them for doing their job well.",
@@ -31508,13 +31514,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
 		(call_script, "script_change_troop_renown", "trp_player", -5),
     (try_begin),
       (assign, ":number_of_foods_player_has", 0),
-      (try_for_range, ":cur_edible", food_begin, food_end),      
+      (try_for_range, ":cur_edible", food_begin, food_end),
         (call_script, "script_cf_player_has_item_without_modifier", ":cur_edible", imod_rotten),
         (val_add, ":number_of_foods_player_has", 1),
       (try_end),
       (try_begin),
         (ge, ":number_of_foods_player_has", 6),
-        (unlock_achievement, ACHIEVEMENT_ABUNDANT_FEAST),        
+        (unlock_achievement, ACHIEVEMENT_ABUNDANT_FEAST),
       (try_end),
     (try_end),
     (assign, ":consumption_amount", 10),
@@ -31553,13 +31559,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
 	   (call_script, "script_change_player_honor", -5),
     (try_begin),
       (assign, ":number_of_foods_player_has", 0),
-      (try_for_range, ":cur_edible", food_begin, food_end),      
+      (try_for_range, ":cur_edible", food_begin, food_end),
         (call_script, "script_cf_player_has_item_without_modifier", ":cur_edible", imod_rotten),
         (val_add, ":number_of_foods_player_has", 1),
       (try_end),
       (try_begin),
         (ge, ":number_of_foods_player_has", 6),
-        (unlock_achievement, ACHIEVEMENT_ABUNDANT_FEAST),        
+        (unlock_achievement, ACHIEVEMENT_ABUNDANT_FEAST),
       (try_end),
     (try_end),
     (assign, ":consumption_amount", 10),
@@ -31646,13 +31652,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power2", 102400),
         (assign, ":division_constant2", 40),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant2", 40),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":player_party_strength", ":division_constant2"), 
-      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":player_party_strength", ":division_constant2"),
+      (val_max, ":player_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":player_party_strength", 40),
 
@@ -31702,15 +31708,15 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power", 102400),
         (assign, ":division_constant", 20),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant", 20),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
                (val_add, ":division_constant", ":tactics"),
-      (val_div, ":enemy_party_strength", ":division_constant"), 
-      (val_max, ":enemy_party_strength", 1), 
+      (val_div, ":enemy_party_strength", ":division_constant"),
+      (val_max, ":enemy_party_strength", 1),
 #chief dano aplicado acaba
      #   (val_div, ":enemy_party_strength", 20),
 
@@ -31721,7 +31727,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
         (inflict_casualties_to_party_group, "$g_encountered_party", ":player_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s9, s0),
-   (set_background_mesh, "mesh_pic_extra_encuentro"),	
+   (set_background_mesh, "mesh_pic_extra_encuentro"),
 
 
               ],
@@ -31765,7 +31771,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
        [
          (call_script, "script_lift_siege", "$g_player_besiege_town", 0),
          (assign,"$g_player_besiege_town", -1),
-		 (party_set_slot,"p_main_party",slot_party_siege_camp,0),  #Tempered chief added for siege camp		 
+		 (party_set_slot,"p_main_party",slot_party_siege_camp,0),  #Tempered chief added for siege camp
          #siege warfare chief
          (assign, "$g_empieza_asedio", 0),
          (assign, "$g_siege_circunvalation", 0),
@@ -31778,7 +31784,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
          (assign, "$g_mantlets_1", 0),
          (assign, "$g_enemigo_quema_comida", 0),
          (assign, "$g_cabezas_dentro", 0),
-       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),               
+       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),
        (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 0),
          #siege warfare acaba
 	   (change_screen_return),
@@ -31790,7 +31796,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
 ###perdidas por sed mientras cavan pozos
         ("sed_siege",0,
     "Water is running out, and your men are weakened. Driven by the madness of thirst, some of them drink poisoned water and die. Finally, a well is completed and you get water for the time being. You can continue the siege.^^Your casualties by poisoned water:{s8}",
-    "none", [  
+    "none", [
 
         (call_script, "script_party_calculate_strength", "p_main_party", 1), #skip player
         (assign, ":player_party_strength", reg0),
@@ -31814,7 +31820,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
    ],
   ),
 ####sed acaba
-  
+
 (
     "event_siege_08",menu_text_color(0xFF000000)|mnf_disable_all_keys,
     "Sir, bad news: One of our men has deserted to the enemy. It may be because of his low morale or because they have offered him money. Whatever it is, the enemy will know our plans.",
@@ -31843,7 +31849,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
         ]
        ),
       ]
-  ),   
+  ),
     (
     "event_siege_09",menu_text_color(0xFF000000)|mnf_disable_all_keys,
     "Lord, a deserter from the enemy has joined our ranks. He has informed us that {s2}.",
@@ -31862,13 +31868,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
 		(else_try),
 		(ge, ":rand_no", 0),
 		(str_store_string , s2, "@ the enemy's morale is low and we should attack."),
-		(try_end),	
+		(try_end),
 	],
     [
       ("choice_09_1i",[],"He is welcome to our ranks.",
        [
                   (party_add_members, "p_main_party", "trp_watchman", 1),
-        (call_script, "script_change_player_party_morale", -1),		  
+        (call_script, "script_change_player_party_morale", -1),
                   (change_screen_return),
         ]
        ),
@@ -31879,7 +31885,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
         ]
        ),
       ("choice_09_3i",[],"I'm sure he's a spy. Return him to the enemy.",
-       [ 
+       [
 	   (change_screen_return),
         ]
        ),
@@ -31891,13 +31897,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "Sir, our men and the enemy do not insult each other as much anymore, and sometimes talk to each other. This can affect their fighting spirit when we attack. What shall we do?",
     "none",
     [
-	
+
 	],
     [
       ("choice_10_1j",[],"Allow it. The enemy's fighting spirit is also affected.",
        [
 		  (call_script, "script_change_player_honor", 1),
-        (call_script, "script_change_player_party_morale", -5),		  
+        (call_script, "script_change_player_party_morale", -5),
                   (change_screen_return),
         ]
        ),
@@ -31926,7 +31932,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
 
         (inflict_casualties_to_party_group, "p_main_party", ":enemy_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
-        (str_store_string_reg, s8, s0),	
+        (str_store_string_reg, s8, s0),
 	],
     [
       ("choice_11_1j",[],"Requiescat in pace.",
@@ -31942,7 +31948,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "A farmer comes to you and says that one of your men have raped his daughter, who lives in a village near your siege camp. The farmer wishes payment wergild (compensation) of 50 scillingas. What do you do?",
     "none",
     [
-	
+
 	],
     [
       ("choice_12_1j",[],"Pay the Wergild.",
@@ -32026,13 +32032,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power2", 102400),
         (assign, ":division_constant2", 40),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant2", 40),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":player_party_strength", ":division_constant2"), 
-      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":player_party_strength", ":division_constant2"),
+      (val_max, ":player_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":player_party_strength", 40),
 
@@ -32082,15 +32088,15 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power", 102400),
         (assign, ":division_constant", 20),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant", 20),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
                (val_add, ":division_constant", ":tactics"),
-      (val_div, ":enemy_party_strength", ":division_constant"), 
-      (val_max, ":enemy_party_strength", 1), 
+      (val_div, ":enemy_party_strength", ":division_constant"),
+      (val_max, ":enemy_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":enemy_party_strength", 30),
 
@@ -32101,7 +32107,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
         (inflict_casualties_to_party_group, "$g_encountered_party", ":player_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s9, s0),
-   (set_background_mesh, "mesh_pic_extra_encuentro"),	
+   (set_background_mesh, "mesh_pic_extra_encuentro"),
 	],
     [
       ("choice_13_1b",[],"This is common. Be cautious. (If you build circunvallation the problem will stop immediately).",
@@ -32163,13 +32169,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power2", 102400),
         (assign, ":division_constant2", 40),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant2", 40),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":player_party_strength", ":division_constant2"), 
-      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":player_party_strength", ":division_constant2"),
+      (val_max, ":player_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":player_party_strength", 40),
 
@@ -32219,15 +32225,15 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power", 102400),
         (assign, ":division_constant", 20),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant", 20),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
                (val_add, ":division_constant", ":tactics"),
-      (val_div, ":enemy_party_strength", ":division_constant"), 
-      (val_max, ":enemy_party_strength", 1), 
+      (val_div, ":enemy_party_strength", ":division_constant"),
+      (val_max, ":enemy_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":enemy_party_strength", 30),
 
@@ -32238,7 +32244,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
         (inflict_casualties_to_party_group, "$g_encountered_party", ":player_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s9, s0),
-   (set_background_mesh, "mesh_pic_extra_encuentro"),	
+   (set_background_mesh, "mesh_pic_extra_encuentro"),
 	],
     [
       ("choice_14_1b",[],"This is common. Be cautious. (If you build circunvallation the problem will stop immediately).",
@@ -32300,13 +32306,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power2", 102400),
         (assign, ":division_constant2", 30),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant2", 30),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":player_party_strength", ":division_constant2"), 
-      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":player_party_strength", ":division_constant2"),
+      (val_max, ":player_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":player_party_strength", 40),
 
@@ -32356,15 +32362,15 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power", 102400),
         (assign, ":division_constant", 10),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant", 10),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
                (val_add, ":division_constant", ":tactics"),
-      (val_div, ":enemy_party_strength", ":division_constant"), 
-      (val_max, ":enemy_party_strength", 1), 
+      (val_div, ":enemy_party_strength", ":division_constant"),
+      (val_max, ":enemy_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":enemy_party_strength", 30),
 
@@ -32375,7 +32381,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
         (inflict_casualties_to_party_group, "$g_encountered_party", ":player_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s9, s0),
-   (set_background_mesh, "mesh_pic_extra_encuentro"),	
+   (set_background_mesh, "mesh_pic_extra_encuentro"),
 	],
     [
       ("choice_15_1b",[],"This is common. Be cautious. (If you build circunvallation the problem will stop immediately).",
@@ -32437,13 +32443,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power2", 102400),
         (assign, ":division_constant2", 30),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant2", 30),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":player_party_strength", ":division_constant2"), 
-      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":player_party_strength", ":division_constant2"),
+      (val_max, ":player_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":player_party_strength", 40),
 
@@ -32493,13 +32499,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power", 102400),
         (assign, ":division_constant", 20),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant", 20),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":enemy_party_strength", ":division_constant"), 
-      (val_max, ":enemy_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":enemy_party_strength", ":division_constant"),
+      (val_max, ":enemy_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":enemy_party_strength", 30),
 
@@ -32510,7 +32516,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
         (inflict_casualties_to_party_group, "$g_encountered_party", ":player_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s9, s0),
-   (set_background_mesh, "mesh_pic_extra_encuentro"),	
+   (set_background_mesh, "mesh_pic_extra_encuentro"),
 	],
     [
       ("choice_16_1b",[],"This is common. Be cautious. (If you build circunvallation the problem will stop immediately).",
@@ -32572,13 +32578,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power2", 102400),
         (assign, ":division_constant2", 30),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant2", 30),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":player_party_strength", ":division_constant2"), 
-      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":player_party_strength", ":division_constant2"),
+      (val_max, ":player_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":player_party_strength", 30),
 
@@ -32628,16 +32634,16 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power", 102400),
         (assign, ":division_constant", 20),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant", 20),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":enemy_party_strength", ":division_constant"), 
-      (val_max, ":enemy_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":enemy_party_strength", ":division_constant"),
+      (val_max, ":enemy_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":enemy_party_strength", 20),
-        
+
         (inflict_casualties_to_party_group, "p_main_party", ":enemy_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s8, s0),
@@ -32645,7 +32651,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
         (inflict_casualties_to_party_group, "$g_encountered_party", ":player_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s9, s0),
-   (set_background_mesh, "mesh_pic_extra_encuentro"),	
+   (set_background_mesh, "mesh_pic_extra_encuentro"),
 	],
     [
       ("choice_17_1b",[],"This is common. Be cautious. (If you build circunvallation the problem will stop immediately).",
@@ -32661,7 +32667,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "Some of your men have abducted women from the surrounding villages, and brought them to the siege camp for fun.",
     "none",
     [
-	
+
 	],
     [
       ("choice_18_1b",[],"You accept it, and you ask the most beautiful woman.",
@@ -32733,13 +32739,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power2", 102400),
         (assign, ":division_constant2", 20),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant2", 20),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":player_party_strength", ":division_constant2"), 
-      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":player_party_strength", ":division_constant2"),
+      (val_max, ":player_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":player_party_strength", 30),
 
@@ -32789,18 +32795,18 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power", 102400),
         (assign, ":division_constant", 30),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant", 30),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
                (val_add, ":division_constant", ":tactics"),
-      (val_div, ":enemy_party_strength", ":division_constant"), 
-      (val_max, ":enemy_party_strength", 1), 
+      (val_div, ":enemy_party_strength", ":division_constant"),
+      (val_max, ":enemy_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":enemy_party_strength", 40),
-        
+
         (inflict_casualties_to_party_group, "p_main_party", ":enemy_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s8, s0),
@@ -32808,14 +32814,14 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
         (inflict_casualties_to_party_group, "$g_encountered_party", ":player_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s9, s0),
-   (set_background_mesh, "mesh_pic_extra_encuentro"),	
+   (set_background_mesh, "mesh_pic_extra_encuentro"),
 	],
     [
       ("choice_19_1b",[],"Quickly, I want to send a detachment of men to reinforce the wall, while I make a threat of assault, forcing them to withdraw.",
        [
           (store_random_in_range, ":rand", 0, 7),
                                           (try_begin),
-                                            (eq, ":rand", 0), 
+                                            (eq, ":rand", 0),
        (jump_to_menu,"mnu_no_defendiendo"),
                                           (else_try),
                                             (eq, ":rand", 1),
@@ -32841,7 +32847,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
        [
           (store_random_in_range, ":rand", 0, 7),
                                           (try_begin),
-                                            (eq, ":rand", 0), 
+                                            (eq, ":rand", 0),
        (jump_to_menu,"mnu_defendiendo_mal"),
                                           (else_try),
                                             (eq, ":rand", 1),
@@ -32923,13 +32929,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power2", 102400),
         (assign, ":division_constant2", 20),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant2", 20),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":player_party_strength", ":division_constant2"), 
-      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":player_party_strength", ":division_constant2"),
+      (val_max, ":player_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":player_party_strength", 40),
 
@@ -32979,16 +32985,16 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power", 102400),
         (assign, ":division_constant", 30),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant", 30),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":enemy_party_strength", ":division_constant"), 
-      (val_max, ":enemy_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":enemy_party_strength", ":division_constant"),
+      (val_max, ":enemy_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":enemy_party_strength", 30),
-        
+
         (inflict_casualties_to_party_group, "p_main_party", ":enemy_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s8, s0),
@@ -32996,7 +33002,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
         (inflict_casualties_to_party_group, "$g_encountered_party", ":player_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s9, s0),
-   (set_background_mesh, "mesh_pic_extra_encuentro"),	
+   (set_background_mesh, "mesh_pic_extra_encuentro"),
 	],
     [
       ("defendiendo_1b",[],"We must begin to build another circunvallation.",
@@ -33058,13 +33064,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power2", 102400),
         (assign, ":division_constant2", 20),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant2", 20),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":player_party_strength", ":division_constant2"), 
-      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":player_party_strength", ":division_constant2"),
+      (val_max, ":player_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":player_party_strength", 40),
 
@@ -33114,18 +33120,18 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power", 102400),
         (assign, ":division_constant", 40),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant", 40),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
                (val_add, ":division_constant", ":tactics"),
-      (val_div, ":enemy_party_strength", ":division_constant"), 
-      (val_max, ":enemy_party_strength", 1), 
+      (val_div, ":enemy_party_strength", ":division_constant"),
+      (val_max, ":enemy_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":enemy_party_strength", 30),
-        
+
         (inflict_casualties_to_party_group, "p_main_party", ":enemy_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s8, s0),
@@ -33133,7 +33139,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
         (inflict_casualties_to_party_group, "$g_encountered_party", ":player_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s9, s0),
-   (set_background_mesh, "mesh_pic_extra_encuentro"),	
+   (set_background_mesh, "mesh_pic_extra_encuentro"),
 	],
     [
       ("defendiendo_1",[],"Well done.",
@@ -33194,13 +33200,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power2", 102400),
         (assign, ":division_constant2", 20),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant2", 20),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":player_party_strength", ":division_constant2"), 
-      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":player_party_strength", ":division_constant2"),
+      (val_max, ":player_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":player_party_strength", 40),
 
@@ -33250,18 +33256,18 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power", 102400),
         (assign, ":division_constant", 30),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant", 30),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
                (val_add, ":division_constant", ":tactics"),
-      (val_div, ":enemy_party_strength", ":division_constant"), 
-      (val_max, ":enemy_party_strength", 1), 
+      (val_div, ":enemy_party_strength", ":division_constant"),
+      (val_max, ":enemy_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":enemy_party_strength", 30),
-        
+
         (inflict_casualties_to_party_group, "p_main_party", ":enemy_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s8, s0),
@@ -33269,7 +33275,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
         (inflict_casualties_to_party_group, "$g_encountered_party", ":player_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s9, s0),
-   (set_background_mesh, "mesh_pic_extra_encuentro"),	
+   (set_background_mesh, "mesh_pic_extra_encuentro"),
 	],
     [
       ("defendiendo_1",[],"Scit!",
@@ -33282,7 +33288,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
   ),
 #####ataque a circunvallation acaba
 
- ###ataque a maquinas de asedio 
+ ###ataque a maquinas de asedio
    (
     "event_siege_20",menu_text_color(0xFF000000)|mnf_disable_all_keys,
     "The enemy is trying to burn down our assault equipment.^^Your casualties:{s8}^^Enemy casualties were: {s9}",
@@ -33334,13 +33340,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power2", 102400),
         (assign, ":division_constant2", 50),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant2", 50),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":player_party_strength", ":division_constant2"), 
-      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":player_party_strength", ":division_constant2"),
+      (val_max, ":player_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":player_party_strength", 50),
 
@@ -33390,15 +33396,15 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power", 102400),
         (assign, ":division_constant", 30),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant", 30),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
                (val_add, ":division_constant", ":tactics"),
-      (val_div, ":enemy_party_strength", ":division_constant"), 
-      (val_max, ":enemy_party_strength", 1), 
+      (val_div, ":enemy_party_strength", ":division_constant"),
+      (val_max, ":enemy_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":enemy_party_strength", 30),
 
@@ -33409,14 +33415,14 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
         (inflict_casualties_to_party_group, "$g_encountered_party", ":player_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s9, s0),
-   (set_background_mesh, "mesh_pic_extra_encuentro"),	
+   (set_background_mesh, "mesh_pic_extra_encuentro"),
 	],
     [
       ("choice_20_1b",[],"Make hast. I want to send a detachment of men to reinforce the equipment zone, and meanwhile making a threat of assault, forcing them to withdraw.",
        [
           (store_random_in_range, ":rand", 0, 7),
                                           (try_begin),
-                                            (eq, ":rand", 0), 
+                                            (eq, ":rand", 0),
        (jump_to_menu,"mnu_defendiendo_mal_equip"),
                                           (else_try),
                                             (eq, ":rand", 1),
@@ -33442,7 +33448,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
        [
           (store_random_in_range, ":rand", 0, 7),
                                           (try_begin),
-                                            (eq, ":rand", 0), 
+                                            (eq, ":rand", 0),
        (jump_to_menu,"mnu_defendiendo_mal_equip"),
                                           (else_try),
                                             (eq, ":rand", 1),
@@ -33523,13 +33529,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power2", 102400),
         (assign, ":division_constant2", 30),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant2", 30),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":player_party_strength", ":division_constant2"), 
-      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":player_party_strength", ":division_constant2"),
+      (val_max, ":player_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":player_party_strength", 50),
 
@@ -33579,16 +33585,16 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power", 102400),
         (assign, ":division_constant", 30),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant", 30),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":enemy_party_strength", ":division_constant"), 
-      (val_max, ":enemy_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":enemy_party_strength", ":division_constant"),
+      (val_max, ":enemy_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":enemy_party_strength", 30),
-        
+
         (inflict_casualties_to_party_group, "p_main_party", ":enemy_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s8, s0),
@@ -33596,7 +33602,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
         (inflict_casualties_to_party_group, "$g_encountered_party", ":player_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s9, s0),
-   (set_background_mesh, "mesh_pic_extra_encuentro"),	
+   (set_background_mesh, "mesh_pic_extra_encuentro"),
 	],
     [
       ("defendiendo_1b",[],"We must begin construction of a new one.",
@@ -33658,13 +33664,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power2", 102400),
         (assign, ":division_constant2", 30),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant2", 30),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":player_party_strength", ":division_constant2"), 
-      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":player_party_strength", ":division_constant2"),
+      (val_max, ":player_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":player_party_strength", 30),
 
@@ -33714,18 +33720,18 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power", 102400),
         (assign, ":division_constant", 30),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant", 30),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
                (val_add, ":division_constant", ":tactics"),
-      (val_div, ":enemy_party_strength", ":division_constant"), 
-      (val_max, ":enemy_party_strength", 1), 
+      (val_div, ":enemy_party_strength", ":division_constant"),
+      (val_max, ":enemy_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":enemy_party_strength", 30),
-        
+
         (inflict_casualties_to_party_group, "p_main_party", ":enemy_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s8, s0),
@@ -33733,7 +33739,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
         (inflict_casualties_to_party_group, "$g_encountered_party", ":player_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s9, s0),
-   (set_background_mesh, "mesh_pic_extra_encuentro"),	
+   (set_background_mesh, "mesh_pic_extra_encuentro"),
 	],
     [
       ("defendiendo_1h",[],"Well done.",
@@ -33794,13 +33800,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power2", 102400),
         (assign, ":division_constant2", 40),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant2", 40),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":player_party_strength", ":division_constant2"), 
-      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":player_party_strength", ":division_constant2"),
+      (val_max, ":player_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":player_party_strength", 40),
 
@@ -33850,16 +33856,16 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power", 102400),
         (assign, ":division_constant", 20),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant", 20),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":enemy_party_strength", ":division_constant"), 
-      (val_max, ":enemy_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":enemy_party_strength", ":division_constant"),
+      (val_max, ":enemy_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":enemy_party_strength", 20),
-          
+
         (inflict_casualties_to_party_group, "p_main_party", ":enemy_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s8, s0),
@@ -33867,7 +33873,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
         (inflict_casualties_to_party_group, "$g_encountered_party", ":player_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s9, s0),
-   (set_background_mesh, "mesh_pic_extra_encuentro"),	
+   (set_background_mesh, "mesh_pic_extra_encuentro"),
 	],
     [
       ("defendiendo_1v",[],"Scit!",
@@ -33887,7 +33893,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "Your guards discovered several men trying to sneak out at night to escape your circunvallation.",
     "none",
     [
-	
+
 	],
     [
       ("choice_21_1b",[],"Allow them to escape.",
@@ -33912,14 +33918,14 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "At night, your guards let you know that they have seen a group of enemies dressed in sheep's clothing. Right now enemies are filling bottles along the river to bring water to the settlement.",
     "none",
     [
-	
+
 	],
     [
       ("choice_22_1b",[],"Ambush the enemy in sheep's clothing.",
        [
           (store_random_in_range, ":rand", 0, 3),
                                           (try_begin),
-                                            (eq, ":rand", 0), 
+                                            (eq, ":rand", 0),
        (jump_to_menu,"mnu_victoria_ovejas"),
                                           (else_try),
                                             (eq, ":rand", 1),
@@ -33992,13 +33998,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power2", 102400),
         (assign, ":division_constant2", 20),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant2", 2),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":player_party_strength", ":division_constant2"), 
-      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":player_party_strength", ":division_constant2"),
+      (val_max, ":player_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":player_party_strength", 20),
 
@@ -34048,18 +34054,18 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power", 102400),
         (assign, ":division_constant", 40),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant", 40),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
 		(party_get_skill_level, ":tactics", "p_main_party", skl_tactics),
                (val_add, ":division_constant", ":tactics"),
-      (val_div, ":enemy_party_strength", ":division_constant"), 
-      (val_max, ":enemy_party_strength", 1), 
+      (val_div, ":enemy_party_strength", ":division_constant"),
+      (val_max, ":enemy_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":enemy_party_strength", 40),
-        
+
         (inflict_casualties_to_party_group, "p_main_party", ":enemy_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s8, s0),
@@ -34067,7 +34073,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
         (inflict_casualties_to_party_group, "$g_encountered_party", ":player_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s9, s0),
-   (set_background_mesh, "mesh_pic_extra_encuentro"),	
+   (set_background_mesh, "mesh_pic_extra_encuentro"),
 	],
     [
       ("defendiendo_1l",[],"Perfect!",
@@ -34128,13 +34134,13 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power2", 102400),
         (assign, ":division_constant2", 50),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant2", 50),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":player_party_strength", ":division_constant2"), 
-      (val_max, ":player_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":player_party_strength", ":division_constant2"),
+      (val_max, ":player_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":player_party_strength", 50),
 
@@ -34184,16 +34190,16 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
       (else_try),
         (le, ":minimum_power", 102400),
         (assign, ":division_constant", 10),
-      (else_try),  
+      (else_try),
         (assign, ":division_constant", 10),
-      (try_end),  
-##      (val_div, ":player_party_strength", ":division_constant"), 
-##      (val_max, ":player_party_strength", 1), 
-      (val_div, ":enemy_party_strength", ":division_constant"), 
-      (val_max, ":enemy_party_strength", 1), 
+      (try_end),
+##      (val_div, ":player_party_strength", ":division_constant"),
+##      (val_max, ":player_party_strength", 1),
+      (val_div, ":enemy_party_strength", ":division_constant"),
+      (val_max, ":enemy_party_strength", 1),
 #chief dano aplicado acaba
 #        (val_div, ":enemy_party_strength", 10),
-        
+
         (inflict_casualties_to_party_group, "p_main_party", ":enemy_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s8, s0),
@@ -34201,7 +34207,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
         (inflict_casualties_to_party_group, "$g_encountered_party", ":player_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
         (str_store_string_reg, s9, s0),
-   (set_background_mesh, "mesh_pic_extra_encuentro"),	
+   (set_background_mesh, "mesh_pic_extra_encuentro"),
 	],
     [
       ("defendiendo_1p",[],"It is terrible.",
@@ -34215,7 +34221,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "tablas_ovejas",menu_text_color(0xFF000000)|mnf_disable_all_keys,
     "Your soldiers were deployed to surround the enemy, but they were too slow and noisy, and men in sheep's clothing find what you offer and return to the settlement quickly.",
     "none",
-    [	
+    [
 	],
     [
       ("defendiendo_1o",[],"Scit.",
@@ -34254,7 +34260,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "Sir, we have accumulated heads of enemies and dead peasants. Do you want to use it to undermine the morale of the enemy and cause disease by throwing them over the walls?",
     "none",
     [
-	
+
 	],
     [
       ("choice_24_1b",[],"What? You're a crazy maniac. Do not do that!",
@@ -34278,7 +34284,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "cabezas_moral",menu_text_color(0xFF000000)|mnf_disable_all_keys,
     "The heads are thrown into the settlement. From the outside you hear cries and tears of citizens when they recognize a loved one. War is merciless, and you're willing to prove you're the most terrible of foes.",
     "none",
-    [	
+    [
 	],
     [
       ("defendiendo_1q",[],"This will help them give up ... or die...",
@@ -34296,7 +34302,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "A merchant offers a group of dancers to entertain your men during the night.",
     "none",
     [
-	
+
 	],
     [
       ("choice_25_1b",[],"I need my men ready for action, not distracted or tired.",
@@ -34344,7 +34350,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "A group of bandits approaches your camp. As your men reach for their arms, the bandits put down their weapons and say they come in peace. The leader of the bandits steps forward and asks if they may join you.",
     "none",
     [
-   (set_background_mesh, "mesh_pic_extra_guerreros"),	
+   (set_background_mesh, "mesh_pic_extra_guerreros"),
 	],
     [
       ("choice_26_1b",[],"Of course! My warband always welcomes bloodthirsty men!",
@@ -34388,7 +34394,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "Several merchants approach you wanting to sell their goods in the camp that has formed close to yours with the wives of the soldiers, prostitutes, refugees, children and other followers of the army.",
     "none",
     [
-	
+
 	],
     [
       ("choice_27_1b",[],"They (and their money) are welcome.",
@@ -34418,7 +34424,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "To make the food last longer, the defenders threw away their wives, children and the elderly. You can see them moving towards your circunvallation begging for food.",
     "none",
     [
-	
+
 	],
     [
       ("choice_28_1b",[],"Send a party of soldiers, killing children and the elderly, and taking the women to your men.",
@@ -34462,7 +34468,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     "One of your soldiers, angered by the long siege, rapes the wife of one of your officers.",
     "none",
     [
-	
+
 	],
     [
       ("choice_29_1b",[],"Ignore the situation.",
@@ -34519,7 +34525,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
 
         (inflict_casualties_to_party_group, "p_main_party", ":enemy_party_strength", "p_temp_casualties"),
         (call_script, "script_print_casualties_to_s0", "p_temp_casualties", 0),
-        (str_store_string_reg, s8, s0),	
+        (str_store_string_reg, s8, s0),
    (set_background_mesh, "mesh_pic_extra_encuentro"),
         ],
     [
@@ -34541,7 +34547,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
 The stocky farmer said the calf was his because it was his cow giving birth. The tall farmer claimed the calf to be his, being the offspring of his best bull, or at least financial compensation.",
     "none",
     [
-	
+
 	],
     [
       ("choice_01_1n",[],"The owner of the cow's right. The calf is yours, just like the cow is.",
@@ -34576,7 +34582,7 @@ The stocky farmer said the calf was his because it was his cow giving birth. The
        ),
       ]
   ),
-  
+
 
   (
     "event_02_juicio",menu_text_color(0xFF000000)|mnf_disable_all_keys,
@@ -34584,7 +34590,7 @@ The stocky farmer said the calf was his because it was his cow giving birth. The
 Prisioner talk: My lord I would have never thought of attacking your messenger but... That man wished to sleep with my young daughter for the night, of course this offer was refused, we are not barbarians! However he never accepted the answer, entered my house with his three friends, and robbed my dear daughter, laughing that my king will never believe a commoner's word. I tried what I could think of, and I regret that I seriously injured him while he was under your personal protection, but a father must protect his only child! Please be reasonable to your humble servant!",
     "none",
     [
-	
+
 	],
     [
       ("choice_02_1n",[],"The messenger was under my protection. You and your family will be executed at dawn, all your belongings confiscated!",
@@ -34624,7 +34630,7 @@ Prisioner talk: My lord I would have never thought of attacking your messenger b
     "You summon two men to decide a dispute between two men. One is a lord, while the other is a man sworn to the lord. It seems what happened is that the Lord didn't have enough tribute to pay his man, so the oath-man took his Lord's daughter to his own bed and had his way with her.",
     "none",
     [
-	
+
 	],
     [
       ("choice_03_1n",[],"Punish the oath-man, he violated his Lord's honor.",
@@ -34671,7 +34677,7 @@ Prisioner talk: My lord I would have never thought of attacking your messenger b
     "One of your sworn men approachs you. He states his fears that among the men, there is much dissatiafaction. Pertaining that you are too placid and that there is too little gold and honour to be won under your service.",
     "none",
     [
-	
+
 	],
     [
       ("choice_04_1n",[],"Pay the men and give rings to them.",
@@ -34715,7 +34721,7 @@ Prisioner talk: My lord I would have never thought of attacking your messenger b
     "Gluttony. One of the 7 deadly sins your majesty. After having feasted your lords repeatedly for the last 4 months, it appears your tunic no longer slips over your head. You have begun wearing open chest tunics and generally snacking on delicious fruits from the east. Dinner is of course a spiced pig roasted to perfection. Your wife abhors you but she is barren anyway and you have no lack of ladies/men willing to satisfy your flesh. Your physician however feels you have reached some sort of tipping point, and has suggested fresh air and a general course of exercise and a limited diet.",
     "none",
     [
-	
+
 	],
     [
       ("choice_05_1n",[],"Eat more food and change your physician.",
@@ -34794,13 +34800,13 @@ Prisioner talk: My lord I would have never thought of attacking your messenger b
        [
     (try_begin),
       (assign, ":number_of_foods_player_has", 0),
-      (try_for_range, ":cur_edible", food_begin, food_end),      
+      (try_for_range, ":cur_edible", food_begin, food_end),
         (call_script, "script_cf_player_has_item_without_modifier", ":cur_edible", imod_rotten),
         (val_add, ":number_of_foods_player_has", 1),
       (try_end),
       (try_begin),
         (ge, ":number_of_foods_player_has", 6),
-        (unlock_achievement, ACHIEVEMENT_ABUNDANT_FEAST),        
+        (unlock_achievement, ACHIEVEMENT_ABUNDANT_FEAST),
       (try_end),
     (try_end),
     (assign, ":consumption_amount", 10),
@@ -34887,14 +34893,14 @@ Prisioner talk: My lord I would have never thought of attacking your messenger b
        ),
       ]
   ),
-#fine   
+#fine
     (
     "event_09_juicio",menu_text_color(0xFF000000)|mnf_disable_all_keys,
     "Two proposals come before you one day. One is a scholarly young lisping monk called Brother Gilrchrist who proposes the building of more monastries and a fund to be set aside to buy and maintain books of knowledge, although his case is eloquent, the delivery is less so.\
 Another man comes forward. A hulking great bearded warrior of a man who makes gilchrist visibly wince in his shadow, he suggests the funds be better allocated in purchasing weapons, horses and shields, things that can be used today and are not merely fantasies.",
     "none",
     [
-	
+
 	],
     [
       ("choice_09_1n",[],"Choose Gilchrist stating that a wise king has need of books far more than the sword.",
@@ -34903,7 +34909,7 @@ Another man comes forward. A hulking great bearded warrior of a man who makes gi
 	   (try_begin),
 		(ge, ":gold", 600),
 		(troop_remove_gold, "trp_player", 600),
-                  (troop_raise_attribute, "trp_player",ca_intelligence,1),		  
+                  (troop_raise_attribute, "trp_player",ca_intelligence,1),
 		(else_try),
 		(display_message, "@You don't have enough gold. How embarassing!"),
 		(call_script, "script_change_troop_renown", "trp_player", -10),
@@ -34917,7 +34923,7 @@ Another man comes forward. A hulking great bearded warrior of a man who makes gi
 	   (try_begin),
 		(ge, ":gold", 600),
 		(troop_remove_gold, "trp_player", 600),
-                  (troop_raise_proficiency, "trp_player",wpt_one_handed_weapon,15),		  
+                  (troop_raise_proficiency, "trp_player",wpt_one_handed_weapon,15),
 		(else_try),
 		(display_message, "@You don't have enough gold. How embarassing!"),
 		(call_script, "script_change_troop_renown", "trp_player", -10),
@@ -34926,13 +34932,13 @@ Another man comes forward. A hulking great bearded warrior of a man who makes gi
         ]
        ),
       ("choice_09_3n",[],"State a kingdom needs both men of knowledge and men of war (expensive).",
-       [ 
+       [
 		(store_troop_gold, ":gold", "trp_player"),
 	   (try_begin),
 		(ge, ":gold", 2000),
 		(troop_remove_gold, "trp_player", 2000),
-                  (troop_raise_attribute, "trp_player",ca_intelligence,1),		  
-                  (troop_raise_proficiency, "trp_player",wpt_one_handed_weapon,15),		  
+                  (troop_raise_attribute, "trp_player",ca_intelligence,1),
+                  (troop_raise_proficiency, "trp_player",wpt_one_handed_weapon,15),
 		(else_try),
 		(display_message, "@You don't have enough gold. How embarassing!"),
 		(call_script, "script_change_troop_renown", "trp_player", -20),
@@ -34983,7 +34989,7 @@ Another man comes forward. A hulking great bearded warrior of a man who makes gi
        ),
       ("choice_10_3n",[],"This is no affair of yours.",
        [
-	   (call_script, "script_change_player_honor", -10), 
+	   (call_script, "script_change_player_honor", -10),
 	   (change_screen_return),
         ]
        ),
@@ -34995,7 +35001,7 @@ Another man comes forward. A hulking great bearded warrior of a man who makes gi
     "The sound of a galloping horse pierces the cold morning, and you run outside to find a scout. He tells you a strange ship carrying men who speak a strange language has been shipwrecked near your coast. What do you do?",
     "none",
     [
-	
+
 	],
     [
       ("choice_11_1n",[],"Immediately send a warband to investigate and search for valuables; if there are any survivors, kill them.",
@@ -35026,7 +35032,7 @@ Another man comes forward. A hulking great bearded warrior of a man who makes gi
     "The runner arrives at the courtroom, and after you allow, starts to tell dire news: My lord, a village is in great danger! The populace has some kind of strange sickness, they can hardly move, sweat and vomit, and the local wise-woman has no cure for it. The lord of the village doesn't let anyone out for the moment, and is expecting your orders!",
     "none",
     [
-	
+
 	],
     [
       ("choice_12_1n",[],"Dire news indeed! The quarantine should stay, but I will send in my best galeno to help!",
@@ -35056,7 +35062,7 @@ Another man comes forward. A hulking great bearded warrior of a man who makes gi
     "The nuns approach you: My lord, the childbirth is not going well! We tried everything we could, but it seems that the young lady is simply not suited for pregnancy. All what is left is to pray for our dear Virgin Mary to help!.",
     "none",
     [
-	
+
 	],
     [
       ("choice_13_1n",[],"Everybody, kneel down and start praying!",
@@ -35081,7 +35087,7 @@ Another man comes forward. A hulking great bearded warrior of a man who makes gi
     "One day, a loyal noble warrior comes to you with a strange request. 'My lord, I am in a very bad situation. I spent all my money on proper equipment and troops, so that I can serve you well. However, my first daughter is about to marry, and I cannot give a proper present with her to the husband'.",
     "none",
     [
-	
+
 	],
     [
       ("choice_14_1n",[],"Take this small amount of gold for your faithful service (expensive).",
@@ -35128,13 +35134,13 @@ Another man comes forward. A hulking great bearded warrior of a man who makes gi
     "One day, your chaplain arrives at your doorstep, he seems very enthusiastic! My lord, I have splendid news! There is a marchant from Jerusalem in the city now, and he is willing to sell us a piece of the Holy Cross! I cannot believe that our kingdom has the opportunity to have such a famous relic!",
     "none",
     [
-	
+
 	],
     [
       ("choice_15_1n",[],"I have seen so many parts of the Holy Cross, that it must have been at least a size of a castle! We don't pay for fake relics!",
        [
           (call_script, "script_change_player_relation_with_faction", "fac_christians", -20), #la q designemos
-          (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos		  
+          (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
   (neg|party_slot_ge, ":center", center_religion_pagana, 1),
@@ -35146,7 +35152,7 @@ Another man comes forward. A hulking great bearded warrior of a man who makes gi
       ("choice_15_2n",[],"This is a very good offer indeed, but sadly we don't have that much in the coffers.",
        [
           (call_script, "script_change_player_relation_with_faction", "fac_christians", -20), #la q designemos
-          (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos		  
+          (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
   (neg|party_slot_ge, ":center", center_religion_pagana, 1),
@@ -35156,13 +35162,13 @@ Another man comes forward. A hulking great bearded warrior of a man who makes gi
         ]
        ),
       ("choice_15_3n",[],"We cannot let this opportunity slip! BUY (expensive).",
-       [ 
+       [
  (store_troop_gold, ":gold", "trp_player"),
 	   (try_begin),
 		(ge, ":gold", 5000),
 		(troop_remove_gold, "trp_player", 5000),
           (call_script, "script_change_player_relation_with_faction", "fac_christians", 10), #la q designemos
-          (call_script, "script_change_player_relation_with_faction", "fac_pagans", -10), #la q designemos		  
+          (call_script, "script_change_player_relation_with_faction", "fac_pagans", -10), #la q designemos
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
   (neg|party_slot_ge, ":center", center_religion_pagana, 1),
@@ -35186,7 +35192,7 @@ You say to the crowd 'Let their faces be know and let this forgo'. Two women sho
 Then the woman in rags scream and says 'No please my great king, let the other women have the child then. You stare at her and say: 'Your are the rightfull mother and this child belongs to you', and the other woman:",
     "none",
     [
-	
+
 	],
     [
       ("choice_16_1n",[],"Imprison her for lying, for it is the greatest sin.",
@@ -35194,7 +35200,7 @@ Then the woman in rags scream and says 'No please my great king, let the other w
 	   (call_script, "script_change_player_honor", 5),
 		(call_script, "script_change_troop_renown", "trp_player", -5),
                   (change_screen_return),
-                 
+
         ]
        ),
       ("choice_16_2n",[],"Cut her down with your mighty sword, to show that is no mercy for liars.",
@@ -35205,7 +35211,7 @@ Then the woman in rags scream and says 'No please my great king, let the other w
         ]
        ),
       ("choice_16_3n",[],"Give her and the crowd a speech about honesty and honor and let her live.",
-       [ 
+       [
 	   (change_screen_return),
         ]
        ),
@@ -35217,14 +35223,14 @@ Then the woman in rags scream and says 'No please my great king, let the other w
     "Your advisor, streaked with dirt and sunburned, arrives after inspecting the harvest. 'My Lord, the harvest is poor this year. If you do not reduce taxes there will be starvation this winter.'",
     "none",
     [
-	
+
 	],
     [
       ("choice_17_1n",[],"And if I reduce taxes I will have to release men from their oaths, and our enemies would overrun us. Better a empty gut than a cut throat.",
        [
 		(call_script, "script_change_troop_renown", "trp_player", -25),
                   (change_screen_return),
-                 
+
         ]
        ),
       ("choice_17_2n",[],"Then reduce the tax (I will compensate it for my treasure).",
@@ -35249,7 +35255,7 @@ Then the woman in rags scream and says 'No please my great king, let the other w
     "A peasant from a nearby village comes to you as a supplicant. He breathlessly reports that armed men from a nearby kingdom have raided your holdings, carrying off women, cattle and grain. He is spattered with blood and stinks of burned thatch.",
     "none",
     [
-	
+
 	],
     [
       ("choice_18_1n",[],"Gather my men! We'll avenge this insult in their blood! (Raid is expensive).",
@@ -35311,7 +35317,7 @@ Then the woman in rags scream and says 'No please my great king, let the other w
     "A quastuosa is accused of witchcraft, after several oathmen sworn to your vassal report pain while relieving themselves. Your vassal backs their claim, and you suspect they have the same complaint but know better than to air it publicly.",
     "none",
     [
-	
+
 	],
     [
       ("choice_19_1n",[],"Banish the quasosta, exiling her to your enemy's lands.",
@@ -35326,7 +35332,7 @@ Then the woman in rags scream and says 'No please my great king, let the other w
       ("choice_19_2n",[],"Pay a retainer to the witch and have her cooperate with your pagan priests to counteract the spread of Christianity.",
        [
           (call_script, "script_change_player_relation_with_faction", "fac_christians", -10), #la q designemos
-          (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos		  
+          (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
   (neg|party_slot_ge, ":center", center_religion_pagana, 1),
@@ -35341,7 +35347,7 @@ Then the woman in rags scream and says 'No please my great king, let the other w
       ("choice_19_3n",[],"Witches! Where there's one there's many! Kill the witch and ensure the sanctity of your God-given holdings by killing anyone else reported for witchcraft.",
        [
           (call_script, "script_change_player_relation_with_faction", "fac_christians", 8), #la q designemos
-          (call_script, "script_change_player_relation_with_faction", "fac_pagans", -10), #la q designemos		  
+          (call_script, "script_change_player_relation_with_faction", "fac_pagans", -10), #la q designemos
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
   (neg|party_slot_ge, ":center", center_religion_pagana, 1),
@@ -35358,13 +35364,13 @@ Then the woman in rags scream and says 'No please my great king, let the other w
     "An abbot comes upon you and tells you that most inhabitants of one of your villages where he was introducing God grace has taken arms and kicked him and his followers when they wanted to slaughter a tree which they worshiped as pagan fools.",
     "none",
     [
-	
+
 	],
     [
       ("choice_20_1n",[],"This abbot is right : cut this heretic tree in pikes and show on them those pagan heads.",
        [
           (call_script, "script_change_player_relation_with_faction", "fac_christians", 8), #la q designemos
-          (call_script, "script_change_player_relation_with_faction", "fac_pagans", -10), #la q designemos		  
+          (call_script, "script_change_player_relation_with_faction", "fac_pagans", -10), #la q designemos
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
   (neg|party_slot_ge, ":center", center_religion_pagana, 1),
@@ -35376,7 +35382,7 @@ Then the woman in rags scream and says 'No please my great king, let the other w
       ("choice_20_2n",[],"This abbot is wrong : make him and his followers burn for the old Gods.",
        [
           (call_script, "script_change_player_relation_with_faction", "fac_christians", -18), #la q designemos
-          (call_script, "script_change_player_relation_with_faction", "fac_pagans", 8), #la q designemos		  
+          (call_script, "script_change_player_relation_with_faction", "fac_pagans", 8), #la q designemos
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
   (neg|party_slot_ge, ":center", center_religion_pagana, 1),
@@ -35388,7 +35394,7 @@ Then the woman in rags scream and says 'No please my great king, let the other w
       ("choice_20_3",[],"This abbot is wrong : make those christans leave this village and let the village in peace.",
        [
           (call_script, "script_change_player_relation_with_faction", "fac_christians", -8), #la q designemos
-          (call_script, "script_change_player_relation_with_faction", "fac_pagans", 4), #la q designemos		  
+          (call_script, "script_change_player_relation_with_faction", "fac_pagans", 4), #la q designemos
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
   (neg|party_slot_ge, ":center", center_religion_pagana, 1),
@@ -35412,7 +35418,7 @@ Then the woman in rags scream and says 'No please my great king, let the other w
 The other clan chief a wily old man however had a suprise for the young man. Having picked his bride, all seemed to be set. It was to the young man's horror that he was presented with the younger sister of his chosen bride, the young man being a romantic at heart and as stubborn as one who believes in true love is refused outright. He then with his chosen men and brothers carried off his chosen bride in the night. The other clan chief then annexed his lands on claims of rape and theft. The young clan chief requests the return of his land and to live with his bride there.",
     "none",
     [
-	
+
 	],
     [
       ("choice_21_1n",[],"Grant the man's request.",
@@ -35446,7 +35452,7 @@ The other clan chief a wily old man however had a suprise for the young man. Hav
     "A woman from a nearby village comes to you claiming that one of your men who has died recently was her husband, she asks for assistance to take care of her deceased husband.",
     "none",
     [
-	
+
 	],
     [
       ("choice_22_1n",[],"Give her Monetary assistance and send for a priest.",
@@ -35477,7 +35483,7 @@ The other clan chief a wily old man however had a suprise for the young man. Hav
     "Your wife and queen approaches you with a request, 'My lord, would it not show your great mercy and honor by providing for those who have suffered while serving under you? We have dozens of maimed, lamed and aged soldiers begging for coin in the streets, and many families who have lost fathers and husbands in your battles. We need to reward and protect your loyal supporters or else men might be hesitant in the future to be in your shieldwall.",
     "none",
     [
-	
+
 	],
     [
       ("choice_23_1n",[],"Bah! Let the orphans and my warriors who were unskilled enough to defend themselves properly rot.",
@@ -35529,7 +35535,7 @@ The other clan chief a wily old man however had a suprise for the young man. Hav
     "A seemingly straightforward case is brought before you: Yesterday, the accused man broke into the victim's house and removed large amounts of wealth. Many people saw him and the missing items were discovered in his house. But the victim was a influential supporter of the previous lord, had actually served as a councillor and was known to be of doubtful loyalties, while the accused was one of your most vocal supporters and had donated much money to your cause.",
     "none",
     [
-	
+
 	],
     [
       ("choice_24_1n",[],"Ignoring the evidence, You settle in your man's favor, actually saying that he was acting on your orders.",
@@ -35576,26 +35582,26 @@ The other clan chief a wily old man however had a suprise for the young man. Hav
 	("entrenched_camp",mnf_scale_picture,
 	"  Your fortifications are complete.    ",
 	"none",
-		[	
+		[
 			(set_background_mesh, "mesh_pic_camp"),
 		],
 		[
       ("camp_wait_here",[],"Wait here for some time.",
        [
-           (assign, "$g_infinite_camping", 0),             
+           (assign, "$g_infinite_camping", 0),
            (try_begin),
              (party_is_active, "p_main_party"),
              (party_get_current_terrain, ":cur_terrain", "p_main_party"),
              (try_begin),
                (eq, ":cur_terrain", rt_desert),
                (unlock_achievement, ACHIEVEMENT_SARRANIDIAN_NIGHTS),
-             (try_end),  
-           (try_end),  
-           (rest_for_hours_interactive, 24 * 365, 5, 1), #rest while attackable                      
+             (try_end),
+           (try_end),
+           (rest_for_hours_interactive, 24 * 365, 5, 1), #rest while attackable
            (change_screen_map),
         ]
        ),
-	   
+
       ("camp_inspect",[
           (party_get_current_terrain,":terrain","p_main_party"),
          (neq,":terrain",0),
@@ -35610,16 +35616,16 @@ The other clan chief a wily old man however had a suprise for the young man. Hav
       ("resume_travelling",[],"Resume travelling.",
        [   (assign, "$g_player_icon_state", pis_normal),
 		   #(party_set_slot,"p_main_party",slot_party_entrenched,0), #TEMPERED ADDED LINE FOR NO ENTRENCHMENT
-		   #(assign,"$current_camp_party",-1), #TEMPERED ADDED LINE FOR NO ENTRENCHMENT 
+		   #(assign,"$current_camp_party",-1), #TEMPERED ADDED LINE FOR NO ENTRENCHMENT
 		   (assign, "$g_camp_mode", 0),
            (change_screen_map),
         ]
        ),
-	   
+
 		]
 	),
-  
+
 ##################grueso chief acaba
-  
-  
+
+
  ]

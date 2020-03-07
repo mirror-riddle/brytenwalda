@@ -1,21 +1,22 @@
-import string
-from process_common import *
-from module_info import *
-from module_skins import *
+# import string
+# import string
 
-import string
+from module_info import export_dir
+from module_skins import skins
+
+from process_common import convert_to_identifier
 
 # WARNING: The following should be the same as the number in face_generator.h
 num_voice_types = 2
 #####################
 
 
-def replace_spaces(s0):
-  return string.replace(s0," ","_")
+def replace_spaces_with_dash(s0):
+  return s0.replace(" ", "_")
 
 
 def write_face_tex(ofile,tex_set):
-  ofile.write(" %d "%len(tex_set)) 
+  ofile.write(" %d "%len(tex_set))
   for tex in tex_set:
     color = tex[1]
     hair_mats = tex[2]
@@ -24,13 +25,13 @@ def write_face_tex(ofile,tex_set):
       hair_colors = tex[3]
     ofile.write(" %s %d %d %d "%(tex[0],color, len(hair_mats), len(hair_colors)))
     for hair_mat in hair_mats:
-      ofile.write(" %s "%(replace_spaces(hair_mat)))
+      ofile.write(" %s "%(replace_spaces_with_dash(hair_mat)))
     for hair_color in hair_colors:
       ofile.write(" %d "%(hair_color))
   ofile.write("\n")
 
 def write_textures(ofile,tex_set):
-  ofile.write(" %d "%len(tex_set)) 
+  ofile.write(" %d "%len(tex_set))
   for tex in tex_set:
     ofile.write(" %s "%tex)
   ofile.write("\n")
@@ -40,7 +41,7 @@ def write_voices(ofile, voices):
   for voice_rec in voices:
     ofile.write(" %d %s "%(voice_rec[0],voice_rec[1]))
   ofile.write("\n")
-    
+
 def export_skins(skins):
   ofile = open(export_dir + "skins.txt","w")
   ofile.write("skins_file version 1\n")
@@ -74,15 +75,23 @@ def export_skins(skins):
       blood_particles_2 = skin[16]
     if len(skin) > 17:
       constraints = skin[17]
-    
+
     ofile.write("%s %d\n %s %s %s\n"%(skin_name, skin_flags, body_name, calf_name, hand_name))
     ofile.write(" %s %d "%(head_mesh,len(face_keys)))
     for face_key in face_keys:
-      ofile.write("skinkey_%s %d %d %f %f %s "%(convert_to_identifier(face_key[4]), face_key[0],face_key[1],face_key[2],face_key[3],replace_spaces(face_key[4])))
+      skin_info = (
+        convert_to_identifier(face_key[4]),
+        face_key[0],
+        face_key[1],
+        face_key[2],
+        face_key[3],
+        replace_spaces_with_dash(face_key[4])
+      )
+      ofile.write("skinkey_%s %d %d %f %f %s "%skin_info)
     ofile.write("\n%d\n"%len(hair_meshes))
     for mesh_name in hair_meshes:
       ofile.write(" %s "%mesh_name)
-    ofile.write("\n %d\n"%len(beard_meshes)) 
+    ofile.write("\n %d\n"%len(beard_meshes))
     for bmn in beard_meshes:
       ofile.write("  %s\n"%bmn)
     ofile.write("\n")
@@ -95,11 +104,11 @@ def export_skins(skins):
     ofile.write("%d\n"%(len(constraints)))
     for constraint in constraints:
       ofile.write("\n%f %d %d "%(constraint[0], constraint[1], (len(constraint) - 2)))
-      for i_pair in xrange(len(constraint)):
+      for i_pair in range(len(constraint)):
         if i_pair > 1:
           ofile.write(" %f %d"%(constraint[i_pair][0], constraint[i_pair][1]))
     ofile.write("\n")
   ofile.close()
 
-print "Exporting skins..."
+print("Exporting skins...")
 export_skins(skins)

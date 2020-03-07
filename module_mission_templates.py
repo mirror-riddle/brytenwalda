@@ -1,11 +1,15 @@
 from header_common import *
 from header_operations import *
 from header_mission_templates import *
+from header_mission_types import charge
 from header_animations import *
 from header_sounds import *
 from header_music import *
 from header_items import *
+from header_item_modifiers import *
+from header_troops import *
 from module_constants import *
+from ID_items import *
 #COOP chief#####################################
 from module_coop_mission_templates import *
 ############################################

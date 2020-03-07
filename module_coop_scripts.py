@@ -1,16 +1,19 @@
 from header_common import *
 from header_operations import *
-from header_presentations import *
+from header_presentations import tf_scrollable_style_2
 from module_constants import *
-from header_parties import *
 from header_skills import *
 from header_mission_templates import *
 from header_items import *
-from header_triggers import *
+from header_item_modifiers import *
 from header_terrain_types import *
-from header_music import *
-from ID_animations import *
-from module_items import *
+from header_troops import *
+
+# from header_parties import *
+# from header_triggers import *
+# from header_music import *
+# from ID_animations import *
+# from module_items import *
 
 ####################################################################################################################
 # scripts is a list of script records.
@@ -23,7 +26,7 @@ coop_scripts = [
 
    ("coop_troop_can_use_item",
    [
-    (try_begin), 
+    (try_begin),
       (neg|is_vanilla_warband),
       (store_script_param, ":troop", 1),
       (store_script_param, ":item", 2),
@@ -43,15 +46,15 @@ coop_scripts = [
       (else_try),
         (eq, ":item_modifier", imod_heavy),
         (neq, ":type", itp_type_horse),
-        (val_add, ":difficulty", 1),	  
+        (val_add, ":difficulty", 1),
       (else_try),
         (eq, ":item_modifier", imod_strong),
-        (val_add, ":difficulty", 2),	  
+        (val_add, ":difficulty", 2),
       (else_try),
         (eq, ":item_modifier", imod_masterwork),
-        (val_add, ":difficulty", 4),	  
+        (val_add, ":difficulty", 4),
       (try_end),
-	  	  
+
       (try_begin),
         (eq, ":type", itp_type_horse),
         (store_skill_level, ":skill", skl_riding, ":troop"),
@@ -67,7 +70,7 @@ coop_scripts = [
       (else_try),
         (store_attribute_level, ":skill", ":troop", ca_strength),
       (try_end),
-      
+
       (try_begin),
         (lt, ":skill", ":difficulty"),
         (assign, reg0, 0),
@@ -83,7 +86,7 @@ coop_scripts = [
  # script_coop_on_admin_panel_load
   ("coop_on_admin_panel_load",
     [
-      (try_begin), 
+      (try_begin),
         (neg|is_vanilla_warband),
         (dict_create, "$coop_dict"),
         (dict_load_file, "$coop_dict", "@coop_battle", 2),
@@ -115,26 +118,26 @@ coop_scripts = [
         (else_try),
           (eq, "$coop_battle_type", coop_battle_type_village_player_attack), #village battle
           (assign, ":coop_game_type", multiplayer_game_type_coop_battle),
-          (store_add, "$coop_garrison_commander_party", coop_temp_party_enemy_begin, ":garrison_commander_party"), 
+          (store_add, "$coop_garrison_commander_party", coop_temp_party_enemy_begin, ":garrison_commander_party"),
           (store_add, "$coop_garrison_party", coop_temp_party_enemy_begin, ":garrison_party"), #garrison is first enemy party
         (else_try),
           (eq, "$coop_battle_type", coop_battle_type_village_player_defend), #village battle
           (assign, ":coop_game_type", multiplayer_game_type_coop_battle),
-          (store_add, "$coop_garrison_commander_party", coop_temp_party_ally_begin, ":garrison_commander_party"), 
+          (store_add, "$coop_garrison_commander_party", coop_temp_party_ally_begin, ":garrison_commander_party"),
           (store_add, "$coop_garrison_party", coop_temp_party_ally_begin, ":garrison_party"), #garrison is first ally party
         (else_try),
           (eq, "$coop_battle_type", coop_battle_type_siege_player_attack),#player attacking siege
           (assign, ":coop_game_type", multiplayer_game_type_coop_siege),
           (assign, "$defender_team", 0),
           (assign, "$attacker_team", 1),
-          (store_add, "$coop_garrison_commander_party", coop_temp_party_enemy_begin, ":garrison_commander_party"), 
+          (store_add, "$coop_garrison_commander_party", coop_temp_party_enemy_begin, ":garrison_commander_party"),
           (store_add, "$coop_garrison_party", coop_temp_party_enemy_begin, ":garrison_party"), #garrison is first enemy party
         (else_try),
           (eq, "$coop_battle_type", coop_battle_type_siege_player_defend), #player defending siege
-          (assign, ":coop_game_type", multiplayer_game_type_coop_siege), 
+          (assign, ":coop_game_type", multiplayer_game_type_coop_siege),
           (assign, "$attacker_team", 0),
           (assign, "$defender_team", 1),
-          (store_add, "$coop_garrison_commander_party", coop_temp_party_ally_begin, ":garrison_commander_party"), 
+          (store_add, "$coop_garrison_commander_party", coop_temp_party_ally_begin, ":garrison_commander_party"),
           (store_add, "$coop_garrison_party", coop_temp_party_ally_begin, ":garrison_party"), #garrison is first ally party
         (else_try),
           (eq, "$coop_battle_type", coop_battle_type_bandit_lair), #bandit lair battle
@@ -199,11 +202,11 @@ coop_scripts = [
         (class_set_name, reg1, s1),
       (try_end),
 
-        (assign, "$g_multiplayer_respawn_period", 0), 
+        (assign, "$g_multiplayer_respawn_period", 0),
         (assign, "$g_multiplayer_factions_voteable", 0), #dont allow these
         (assign, "$g_multiplayer_maps_voteable", 0),    #dont allow these
         (assign, "$g_multiplayer_auto_team_balance_limit", 1000), #set for some scripts but dont show in admin panel
-        (assign, "$g_multiplayer_num_bots_voteable", -1), 
+        (assign, "$g_multiplayer_num_bots_voteable", -1),
 
         (multiplayer_send_int_to_server, multiplayer_event_admin_set_add_to_servers_list, "$coop_set_add_to_servers_list"),
         # (multiplayer_send_int_to_server, multiplayer_event_admin_set_anti_cheat, "$coop_set_anti_cheat"),
@@ -227,15 +230,15 @@ coop_scripts = [
         (display_message, "@Admin panel set."),
 
       (try_end),
-     ]),	
-  
+     ]),
+
 
   # script_coop_copy_settings_to_file
   ("coop_copy_settings_to_file",
    [
 #SP: setup battle
 #MP: at battle end
-    (try_begin), 
+    (try_begin),
       (neg|is_vanilla_warband),
       (try_begin),
         (game_in_multiplayer_mode),#copy setting at end of battle (only ones that use native variables that may be changed in other modes)
@@ -271,7 +274,7 @@ coop_scripts = [
       (dict_set_int, "$coop_dict", "@srvr_set17", "$coop_disable_inventory"),
       (dict_set_int, "$coop_dict", "@srvr_set18", "$coop_reduce_damage"),
     (try_end),
-     ]),	
+     ]),
 
 
   # script_coop_copy_file_to_settings
@@ -279,7 +282,7 @@ coop_scripts = [
    [
 #MP: before admin panel
 #SP: when use results
-    (try_begin), 
+    (try_begin),
       (neg|is_vanilla_warband),
       (dict_get_int, "$coop_set_add_to_servers_list", "$coop_dict", "@srvr_set0"),
       # (dict_get_int, "$coop_set_anti_cheat", "$coop_dict", "@srvr_set1"),
@@ -302,7 +305,7 @@ coop_scripts = [
       (dict_get_int, "$coop_reduce_damage", "$coop_dict", "@srvr_set18"),
     (try_end),
 
-     ]),	
+     ]),
 
 
 
@@ -314,7 +317,7 @@ coop_scripts = [
       (assign, "$coop_set_add_to_servers_list", 1),
       # (assign, "$coop_set_anti_cheat", 0),
       (assign, "$coop_set_max_num_players", 20),
-      (assign, "$coop_battle_size", 100), 
+      (assign, "$coop_battle_size", 100),
 
       (assign, "$coop_set_melee_friendly_fire", 0),
       (assign, "$coop_set_friendly_fire", 1),
@@ -333,7 +336,7 @@ coop_scripts = [
       (assign, "$g_multiplayer_valid_vote_ratio", 50),#more than 50 percent
       (assign, "$g_multiplayer_player_respawn_as_bot", 1),
     (try_end),
-     ]),	
+     ]),
 
 
 
@@ -345,7 +348,7 @@ coop_scripts = [
       (neg|is_vanilla_warband),
       (dict_create, ":dict"),
       (dict_load_file, ":dict", "@coop_battle", 2),
-      (try_begin), 
+      (try_begin),
         (eq, ":option", 1),
         (dict_get_int, "$coop_battle_state", ":dict", "@battle_state"), # 0 = no battle 1 = is setup 2 = is done
       (else_try),
@@ -364,7 +367,7 @@ coop_scripts = [
 #      (display_message, "@Remember: Warband Script Enhancer 'WSE' is needed in order to play single player battles in multiplayer."), #chief cambia
       (display_message, "@ "), #chief cambia
     (try_end),
-     ]),	
+     ]),
 
 
 
@@ -395,7 +398,7 @@ coop_scripts = [
       (try_end),
     (try_end),
 
-     ]),	
+     ]),
 
 
 	#script_coop_get_scene_name
@@ -439,7 +442,7 @@ coop_scripts = [
             (assign, ":scene_party", ":town_no"),
             (assign, ":end", 0),
           (try_end),
-            
+
           (gt, ":end", 0),
           (assign, ":end", villages_end),
           (try_for_range, ":village_no", villages_begin, ":end"),
@@ -478,19 +481,19 @@ coop_scripts = [
           (try_end),
         (try_end),
 
-      (try_end),  
+      (try_end),
 
-   ]),	
+   ]),
 
 
-######## 
+########
  #set_trigger_result tells game to add one to option_index and call script again
 	#script_coop_server_send_data_before_join
   # INPUT: arg1 = option_index
   ("coop_server_send_data_before_join",
     [
      (store_script_param, ":option_index", 1),
-    
+
      (try_begin),
        (eq, ":option_index", 0),
        (assign, reg0, "$coop_team_1_faction"),
@@ -529,7 +532,7 @@ coop_scripts = [
        (set_trigger_result, 1),
      (else_try),
        (eq, ":option_index", 9),
-       (server_get_control_block_dir, reg0),       
+       (server_get_control_block_dir, reg0),
        (set_trigger_result, 1),
      (else_try),
        (eq, ":option_index", 10),
@@ -559,11 +562,11 @@ coop_scripts = [
        (eq, ":option_index", 16),
        (assign, reg0, "$coop_castle_banner"),
        (set_trigger_result, 1),
-     (try_end),     
+     (try_end),
        # (assign, reg1, ":option_index"),
        # (display_message, "@server send {reg1} {reg0}"),
 
-   ]),	
+   ]),
 
 	#script_coop_client_receive_data_before_join
   # INPUT: arg1 = option_index, arg2 = option_value
@@ -703,15 +706,15 @@ coop_scripts = [
        (eq, ":option_index", 16),
        (assign, "$coop_castle_banner", ":option_value"),
        (display_message, "@Recieved Scene Data."),
-     (try_end),  
+     (try_end),
 
-   ]),	
+   ]),
 
 
-######## 
-	
+########
+
   # script_coop_server_player_joined_common
-  # Input: arg1 
+  # Input: arg1
   # Output: none
   ("coop_server_player_joined_common",
    [
@@ -725,7 +728,7 @@ coop_scripts = [
 
       #send names of main party troop classes
       (try_for_range, ":class", 0, 9),
-        (str_store_class_name, s0, ":class"), 
+        (str_store_class_name, s0, ":class"),
         (multiplayer_send_string_to_player, ":player_no", multiplayer_event_coop_send_to_player_string, s0),
       (try_end),
 
@@ -741,7 +744,7 @@ coop_scripts = [
       #send list of heroes in battle (since client cannot upgrade character, only send fighting skills)
       (party_get_num_companion_stacks, ":num_heroes", coop_temp_party_enemy_heroes),
       (try_for_range, ":stack", 0, ":num_heroes"),
-        (party_stack_get_troop_id, ":hero_troop", coop_temp_party_enemy_heroes, ":stack"),	
+        (party_stack_get_troop_id, ":hero_troop", coop_temp_party_enemy_heroes, ":stack"),
         (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_coop_send_to_player, coop_event_store_hero_troops, ":hero_troop", coop_temp_party_enemy_heroes),
 #NEW
         (try_begin),
@@ -772,7 +775,7 @@ coop_scripts = [
 
       (party_get_num_companion_stacks, ":num_heroes", coop_temp_party_ally_heroes),
       (try_for_range, ":stack", 0, ":num_heroes"),
-        (party_stack_get_troop_id, ":hero_troop", coop_temp_party_ally_heroes, ":stack"),	
+        (party_stack_get_troop_id, ":hero_troop", coop_temp_party_ally_heroes, ":stack"),
         (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_coop_send_to_player, coop_event_store_hero_troops, ":hero_troop", coop_temp_party_ally_heroes),
 #NEW
         (try_begin),
@@ -804,10 +807,10 @@ coop_scripts = [
     (try_end),
     #do send this to server
     (multiplayer_send_3_int_to_player, ":player_no", multiplayer_event_coop_send_to_player, coop_event_round, "$coop_round", "$coop_battle_started"), #start welcome message after getting team data
-   ]),	
+   ]),
 
 
-######## 
+########
 	#script_coop_receive_network_message
   # This script is called from the game engine when a new network message is received.
   # INPUT: arg1 = player_no, arg2 = event_type, arg3 = value, arg4 = value_2, arg5 = value_3, arg6 = value_4
@@ -861,7 +864,7 @@ coop_scripts = [
           (else_try),
             #only tell other players before spawn, after spawn other players check agents if troop is in use
             (get_max_players, ":num_players"),
-            (try_for_range, ":all_player_no", 0, ":num_players"), 
+            (try_for_range, ":all_player_no", 0, ":num_players"),
               (player_is_active, ":all_player_no"),
               (multiplayer_send_4_int_to_player, ":all_player_no", multiplayer_event_coop_send_to_player, coop_event_player_set_slot, ":troop", ":player_no", slot_player_coop_selected_troop),
             (try_end),
@@ -881,7 +884,7 @@ coop_scripts = [
             (player_get_slot,  ":player_troop", ":player_no", slot_player_coop_selected_troop),
             (gt, ":player_troop", 0),
             (get_max_players, ":num_players"),
-            (try_for_range, ":all_player_no", 0, ":num_players"), 
+            (try_for_range, ":all_player_no", 0, ":num_players"),
               (player_is_active, ":all_player_no"),
               (multiplayer_send_4_int_to_player, ":all_player_no", multiplayer_event_coop_send_to_player, coop_event_player_set_slot, 0, ":player_no", slot_player_coop_selected_troop),
             (try_end),
@@ -900,7 +903,7 @@ coop_scripts = [
           (player_set_slot, ":player_no", ":slot_no", ":value"),
         (try_end),
       (else_try),
-        (eq, ":event_type", multiplayer_event_open_admin_panel), 
+        (eq, ":event_type", multiplayer_event_open_admin_panel),
         (try_begin),
           (call_script, "script_coop_get_battle_state", 1), #sets coop_battle_state
           (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_coop_send_to_player, coop_event_return_battle_state, "$coop_battle_state"),
@@ -922,7 +925,7 @@ coop_scripts = [
             (this_or_next|eq, "$g_multiplayer_game_type", multiplayer_game_type_coop_battle),
             (eq, "$g_multiplayer_game_type", multiplayer_game_type_coop_siege),
             (get_max_players, ":num_players"),
-            (try_for_range, ":all_player_no", 0, ":num_players"), 
+            (try_for_range, ":all_player_no", 0, ":num_players"),
               (player_is_active, ":all_player_no"),
               (multiplayer_send_4_int_to_player, ":all_player_no", multiplayer_event_coop_send_to_player, coop_event_set_scene_1, "$coop_time_of_day"),
               (multiplayer_send_4_int_to_player, ":all_player_no", multiplayer_event_coop_send_to_player, coop_event_set_scene_2, "$coop_rain"),
@@ -952,7 +955,7 @@ coop_scripts = [
             (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_coop_send_to_player, coop_event_return_skip_menu, "$coop_skip_menu"),
           (try_end),
         (else_try),
-          (eq, ":event_subtype", coop_event_start_battle), 
+          (eq, ":event_subtype", coop_event_start_battle),
           (try_begin),
             (eq, "$coop_battle_started", 0),
             (assign, "$g_multiplayer_ready_for_spawning_agent", 1),
@@ -1034,11 +1037,11 @@ coop_scripts = [
             (player_get_agent_id, ":player_agent", ":player_no"),
             (ge, ":player_agent", 0),
             (agent_get_troop_id, ":player_troop", ":player_agent"),
-          (try_end),     
+          (try_end),
           (troop_is_hero, ":player_troop"),
 
           (troop_get_inventory_capacity, ":end", "trp_temp_troop"),
-          (val_add,":end", 1), 
+          (val_add,":end", 1),
           (try_for_range, ":slot", 10, ":end"),
             (troop_get_inventory_slot, ":item", "trp_temp_troop", ":slot"), #inventory troop
             (troop_get_inventory_slot_modifier, ":imod", "trp_temp_troop", ":slot"),
@@ -1059,7 +1062,7 @@ coop_scripts = [
             (call_script, "script_coop_troop_can_use_item",":player_troop", ":item", ":imod"),
             (eq, reg0, 1),
             (multiplayer_send_4_int_to_player, ":player_no", multiplayer_event_coop_send_to_player, coop_event_send_inventory, ":slot", ":item", ":imod"),
-          # (assign, reg1, ":slot"), 
+          # (assign, reg1, ":slot"),
           # (str_store_item_name, s40, ":item"),
           # (display_message, "@sending inv slot {reg1}  = {reg0} {s40} "),
           (try_end),
@@ -1075,7 +1078,7 @@ coop_scripts = [
             (player_get_agent_id, ":player_agent", ":player_no"),
             (ge, ":player_agent", 0),
             (agent_get_troop_id, ":player_troop", ":player_agent"),
-          (try_end),     
+          (try_end),
           (troop_is_hero, ":player_troop"),
 
           (try_begin),
@@ -1115,13 +1118,13 @@ coop_scripts = [
             (multiplayer_send_int_to_player, ":player_no", multiplayer_event_coop_send_to_player, coop_event_prsnt_coop_item_select), #done
 
 
-            (try_begin), 
+            (try_begin),
               (gt, ":new_item", 0),
               (str_store_item_name, s40, ":new_item"),
             (else_try),
               (str_store_string, s40, "@none"),
             (try_end),
-            (try_begin), 
+            (try_begin),
               (gt, ":cur_item", 0),
               (str_store_item_name, s42, ":cur_item"),
             (else_try),
@@ -1141,7 +1144,7 @@ coop_scripts = [
             (player_get_agent_id, ":player_agent", ":player_no"),
             (ge, ":player_agent", 0),
             (agent_get_troop_id, ":player_troop", ":player_agent"),
-          (try_end),     
+          (try_end),
           (troop_is_hero, ":player_troop"),
 
           (try_begin),
@@ -1151,7 +1154,7 @@ coop_scripts = [
             (eq, ":item_remove", ":cur_item"),
 
             (troop_get_inventory_capacity, ":end", "trp_temp_troop"),
-            (val_add,":end", 1), 
+            (val_add,":end", 1),
             (try_for_range, ":party_inv_slot", 10, ":end"),
               (troop_get_inventory_slot, ":party_inv_item", "trp_temp_troop", ":party_inv_slot"),
               (lt, ":party_inv_item", 1),
@@ -1184,31 +1187,31 @@ coop_scripts = [
       (eq, ":event_type", multiplayer_event_coop_send_to_player_string),
 
       (try_begin),
-        (eq, "$coop_string_received", 0), 
+        (eq, "$coop_string_received", 0),
         (faction_set_name, "fac_player_supporters_faction", s0),
-        (assign, "$coop_string_received", 1), 
+        (assign, "$coop_string_received", 1),
       (else_try),
-        (eq, "$coop_string_received", 1), 
+        (eq, "$coop_string_received", 1),
         (class_set_name, "$coop_class_string_received", s0), #store 8 strings for troop class names
         (val_add, "$coop_class_string_received", 1),
 
         (try_begin),
           (eq, "$coop_class_string_received", 9), # 8 strings, add one after each = 9
-          (assign, "$coop_string_received", 2), 
+          (assign, "$coop_string_received", 2),
         (try_end),
       (else_try),
 #NEW
-        (eq, "$coop_string_received", 2), 
+        (eq, "$coop_string_received", 2),
         (troop_set_name, "$coop_last_hero_received", s0),
-        (assign, "$coop_string_received", 3), 
+        (assign, "$coop_string_received", 3),
       (else_try),
-        (eq, "$coop_string_received", 3), 
+        (eq, "$coop_string_received", 3),
         (try_begin),
           (neg|is_vanilla_warband),
           (face_keys_store_string, reg1, s0),
           (troop_set_face_keys, "$coop_last_hero_received", reg1),
         (try_end),
-        (assign, "$coop_string_received", 2), 
+        (assign, "$coop_string_received", 2),
 
       (else_try),
         (eq, "$coop_string_received", 4), #set by coop_event_round
@@ -1216,11 +1219,11 @@ coop_scripts = [
       (try_end),
 
     (else_try),
-      (eq, ":event_type", multiplayer_event_coop_send_to_player), 
+      (eq, ":event_type", multiplayer_event_coop_send_to_player),
       (store_script_param, ":event_subtype", 3),
 
       (try_begin),
-        (eq, ":event_subtype", coop_event_store_hero_troops), 
+        (eq, ":event_subtype", coop_event_store_hero_troops),
         (store_script_param, ":hero_troop", 4),
         (store_script_param, ":party_no", 5),
         (try_begin),
@@ -1229,7 +1232,7 @@ coop_scripts = [
         (try_end),
         (assign, "$coop_last_hero_received", ":hero_troop"), #remember troop to receive name
       (else_try),
-        (eq, ":event_subtype", coop_event_round), 
+        (eq, ":event_subtype", coop_event_round),
         (store_script_param, ":value", 4),
         (store_script_param, ":value2", 5),
         (assign, "$coop_battle_started", ":value2"),
@@ -1253,9 +1256,9 @@ coop_scripts = [
           (multiplayer_send_2_int_to_server, multiplayer_event_set_bot_selection, slot_player_coop_class_7_wanted, "$coop_class_7_wanted"),
           (multiplayer_send_2_int_to_server, multiplayer_event_set_bot_selection, slot_player_coop_class_8_wanted, "$coop_class_8_wanted"),
 
-        (try_begin), 
+        (try_begin),
           (eq, "$coop_round", coop_round_battle),
-          (assign, "$coop_my_team", multi_team_unassigned),  
+          (assign, "$coop_my_team", multi_team_unassigned),
           (start_presentation, "prsnt_coop_welcome_message"), #start welcome message after getting team data
         (else_try),
           (multiplayer_get_my_player, ":my_player_no"), #change my team in later rounds
@@ -1265,7 +1268,7 @@ coop_scripts = [
           (multiplayer_send_int_to_server, multiplayer_event_change_troop_id, "$coop_my_troop_no"),
         (try_end),
       (else_try),
-        (eq, ":event_subtype", coop_event_troop_banner), 
+        (eq, ":event_subtype", coop_event_troop_banner),
         (store_script_param, ":value", 4),
         (assign, "$coop_agent_banner", ":value"), #assign spawning troops banner
       (else_try),
@@ -1310,8 +1313,8 @@ coop_scripts = [
             (str_store_player_username, s40, ":selected_player"),
             (str_store_troop_name, s41, ":value"),
             (display_message, "@{s40} has picked {s41}. "), #tell server when player picks troop
-          (try_end), 
-        (try_end), 
+          (try_end),
+        (try_end),
       (else_try),
         (eq, ":event_subtype", coop_event_inv_troop_set_slot),
         (store_script_param, ":slot", 4),
@@ -1361,7 +1364,7 @@ coop_scripts = [
         (eq, ":event_subtype", coop_event_return_team_faction),
         (store_script_param, ":team", 4),
         (store_script_param, ":value", 5),
-        (try_begin), 
+        (try_begin),
           (eq, ":team", 1),
           (assign, "$coop_team_1_faction", ":value"),
         (else_try),
@@ -1409,12 +1412,12 @@ coop_scripts = [
       (else_try),
         (eq, ":event_subtype", coop_event_receive_next_string),
         (store_script_param, ":value", 4),
-        (assign, "$coop_string_received", ":value"), 
+        (assign, "$coop_string_received", ":value"),
       (else_try),
         (eq, ":event_subtype", coop_event_return_num_reserves),
         (store_script_param, ":team", 4),
         (store_script_param, ":value", 5),
-        (try_begin), 
+        (try_begin),
           (eq, ":team", 1),
           (assign, "$coop_num_bots_team_1", ":value"),
         (else_try),
@@ -1424,19 +1427,19 @@ coop_scripts = [
       (else_try),
         (eq, ":event_subtype", coop_event_return_battle_state),
         (store_script_param, ":value", 4),
-        (assign, "$coop_battle_state", ":value"), 
+        (assign, "$coop_battle_state", ":value"),
       (else_try),
         (eq, ":event_subtype", coop_event_result_saved),
         (assign, "$coop_battle_started", -1),
         (display_message, "@Battle result saved."),
-      (try_end), 
+      (try_end),
 
 
 
 
 
-    (try_end),  
-  (try_end),  
+    (try_end),
+  (try_end),
 
       ]),
 
@@ -1501,7 +1504,7 @@ coop_scripts = [
           (agent_get_slot, ":player_agent_party",":player_agent", slot_agent_coop_spawn_party), #SP party
           (eq, ":player_agent_party", "$coop_main_party_spawn"),
           (troop_is_hero, ":player_troop"),
-          
+
           #first add agent items to troop
           (call_script, "script_coop_player_agent_save_items", ":player_agent"),
 
@@ -1525,10 +1528,10 @@ coop_scripts = [
      (store_script_param, ":player_agent", 1),
       (agent_get_troop_id, ":agent_troop_id", ":player_agent"),
       #store items from agents
-      (try_begin), 
+      (try_begin),
         (neg|is_vanilla_warband),
         (try_for_range, ":slot", 0, 4), #only check weapons
-          (agent_get_item_slot, ":agent_item_id", ":player_agent", ":slot"), 
+          (agent_get_item_slot, ":agent_item_id", ":player_agent", ":slot"),
           (agent_get_item_slot_modifier, ":agent_imod", ":player_agent", ":slot"),
           (troop_set_inventory_slot, ":agent_troop_id", ":slot", ":agent_item_id"),
           (troop_set_inventory_slot_modifier, ":agent_troop_id", ":slot", ":agent_imod"),
@@ -1549,15 +1552,15 @@ coop_scripts = [
         (try_begin),
           (agent_get_troop_id,":cur_troop", ":player_agent"),
           (troop_is_hero, ":cur_troop"),
-          (troop_slot_eq, ":cur_troop", 19, 1), 
+          (troop_slot_eq, ":cur_troop", 19, 1),
 
           (try_for_range, ":slot", 0, 4), #only check weapons
             (store_add, ":itm_slot", ":slot", 20),
-            (troop_get_slot, ":item", ":cur_troop", ":itm_slot"), 
+            (troop_get_slot, ":item", ":cur_troop", ":itm_slot"),
             (troop_set_inventory_slot, ":cur_troop", ":slot", ":item"),
 
             (store_add, ":imod_slot", ":slot", 30),
-            (troop_get_slot, ":imod", ":cur_troop", ":imod_slot"), 
+            (troop_get_slot, ":imod", ":cur_troop", ":imod_slot"),
             (troop_set_inventory_slot_modifier, ":cur_troop", ":slot", ":imod"),
             (agent_set_item_slot, ":player_agent", ":slot", ":item", ":imod"),#NEW
           (try_end),
@@ -1570,7 +1573,7 @@ coop_scripts = [
       (try_begin),
         (troop_is_hero, ":troop_id"),
         (try_for_range, ":slot", 19, 34), #clear slots here
-          (troop_set_slot, ":troop_id", ":slot", 0), 
+          (troop_set_slot, ":troop_id", ":slot", 0),
         (try_end),
         (assign, ":has_throw",0),
         (assign, ":has_ranged",0),
@@ -1581,8 +1584,8 @@ coop_scripts = [
           (gt, ":item", 0),
           (store_add, ":itm_slot", ":slot", 20),
           (store_add, ":imod_slot", ":slot", 30),
-          (troop_set_slot, ":troop_id", ":itm_slot", ":item"), 
-          (troop_set_slot, ":troop_id", ":imod_slot", ":imod"), 
+          (troop_set_slot, ":troop_id", ":itm_slot", ":item"),
+          (troop_set_slot, ":troop_id", ":imod_slot", ":imod"),
           (item_get_type, ":type", ":item"),
           (try_begin),
             (eq, ":type", itp_type_thrown),
@@ -1709,12 +1712,12 @@ coop_scripts = [
   ("coop_move_belfries_to_their_first_entry_point",
    [
     (store_script_param, ":belfry_body_scene_prop", 1),
-     
-    (set_fixed_point_multiplier, 100),    
+
+    (set_fixed_point_multiplier, 100),
     (scene_prop_get_num_instances, ":num_belfries", ":belfry_body_scene_prop"),
-    
+
     (try_for_range, ":belfry_no", 0, ":num_belfries"),
-      #belfry 
+      #belfry
       (scene_prop_get_instance, ":belfry_scene_prop_id", ":belfry_body_scene_prop", ":belfry_no"),
       (prop_instance_get_position, pos0, ":belfry_scene_prop_id"),
 
@@ -1728,15 +1731,15 @@ coop_scripts = [
         #belfry platform_a
         (scene_prop_get_instance, ":belfry_platform_a_scene_prop_id", "spr_belfry_b_platform_a", ":belfry_no"),
       (try_end),
-    
+
       #belfry wheel_1
       (store_mul, ":wheel_no", ":belfry_no", 3),
       (try_begin),
         (eq, ":belfry_body_scene_prop", "spr_belfry_b"),
-        (scene_prop_get_num_instances, ":number_of_belfry_a", "spr_belfry_a"),    
+        (scene_prop_get_num_instances, ":number_of_belfry_a", "spr_belfry_a"),
         (store_mul, ":number_of_belfry_a_wheels", ":number_of_belfry_a", 3),
         (val_add, ":wheel_no", ":number_of_belfry_a_wheels"),
-      (try_end),    
+      (try_end),
       (scene_prop_get_instance, ":belfry_wheel_1_scene_prop_id", "spr_belfry_wheel", ":wheel_no"),
       #belfry wheel_2
       (val_add, ":wheel_no", 1),
@@ -1754,7 +1757,7 @@ coop_scripts = [
         (eq, ":belfry_body_scene_prop", "spr_belfry_b"),
         (scene_prop_get_num_instances, ":number_of_belfry_a", "spr_belfry_a"),
         (val_add, ":belfry_first_entry_point_id", ":number_of_belfry_a"),
-      (try_end),    
+      (try_end),
       (val_mul, ":belfry_first_entry_point_id", 10),
       (entry_point_get_position, pos1, ":belfry_first_entry_point_id"),
 
@@ -1763,20 +1766,20 @@ coop_scripts = [
       (init_position, pos9),
       (position_set_y, pos9, -500), #go 5.0 meters back
       (position_set_x, pos9, -300), #go 3.0 meters left
-      (position_transform_position_to_parent, pos10, pos1, pos9), 
+      (position_transform_position_to_parent, pos10, pos1, pos9),
       (position_get_distance_to_terrain, ":height_to_terrain_1", pos10), #learn distance between 5 meters back of entry point(pos10) and ground level at left part of belfry
 
       (init_position, pos9),
       (position_set_y, pos9, -500), #go 5.0 meters back
       (position_set_x, pos9, 300), #go 3.0 meters right
-      (position_transform_position_to_parent, pos10, pos1, pos9), 
+      (position_transform_position_to_parent, pos10, pos1, pos9),
       (position_get_distance_to_terrain, ":height_to_terrain_2", pos10), #learn distance between 5 meters back of entry point(pos10) and ground level at right part of belfry
 
       (store_add, ":height_to_terrain", ":height_to_terrain_1", ":height_to_terrain_2"),
       (val_mul, ":height_to_terrain", 100), #because of fixed point multiplier
 
       (store_div, ":rotate_angle_of_next_entry_point", ":height_to_terrain", 24), #if there is 1 meters of distance (100cm) then next target position will rotate by 2 degrees. #ac sonra
-      (init_position, pos20),    
+      (init_position, pos20),
       (position_rotate_x_floating, pos20, ":rotate_angle_of_next_entry_point"),
       (position_transform_position_to_parent, pos23, pos1, pos20),
 
@@ -1803,9 +1806,9 @@ coop_scripts = [
       (position_get_distance_to_terrain, ":height_to_terrain_at_right", pos10), #learn distance between 3.0 meters right of entry point(pos10) and ground level
       (store_sub, ":height_to_terrain_2", ":height_to_terrain_at_left", ":height_to_terrain_at_right"),
 
-      (store_add, ":height_to_terrain", ":height_to_terrain_1", ":height_to_terrain_2"),    
+      (store_add, ":height_to_terrain", ":height_to_terrain_1", ":height_to_terrain_2"),
       (val_mul, ":height_to_terrain", 100), #100 is because of fixed_point_multiplier
-      (store_div, ":rotate_angle_of_next_entry_point", ":height_to_terrain", 24), #if there is 1 meters of distance (100cm) then next target position will rotate by 25 degrees. 
+      (store_div, ":rotate_angle_of_next_entry_point", ":height_to_terrain", 24), #if there is 1 meters of distance (100cm) then next target position will rotate by 25 degrees.
       (val_mul, ":rotate_angle_of_next_entry_point", -1),
 
       (init_position, pos20),
@@ -1815,11 +1818,11 @@ coop_scripts = [
       (copy_position, pos1, pos22),
       #end of code block
 
-      #belfry 
+      #belfry
       (prop_instance_stop_animating, ":belfry_scene_prop_id"),
       (prop_instance_set_position, ":belfry_scene_prop_id", pos1),
       # (prop_instance_animate_to_position, ":belfry_scene_prop_id", pos1,1), #NEW
-    
+
       #belfry platforms
       (try_begin),
         (eq, ":belfry_body_scene_prop", "spr_belfry_a"),
@@ -1830,13 +1833,13 @@ coop_scripts = [
         (position_transform_position_to_parent, pos8, pos1, pos7),
         (try_begin),
           (neg|scene_prop_slot_eq, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 0),
-     
+
           (init_position, pos20),
           (position_rotate_x, pos20, 90),
           (position_transform_position_to_parent, pos8, pos8, pos20),
         (try_end),
         (prop_instance_stop_animating, ":belfry_platform_a_scene_prop_id"),
-        # (prop_instance_set_position, ":belfry_platform_a_scene_prop_id", pos8),  
+        # (prop_instance_set_position, ":belfry_platform_a_scene_prop_id", pos8),
         (prop_instance_animate_to_position, ":belfry_platform_a_scene_prop_id", pos8,1), #NEW
         #belfry platform_b
         (prop_instance_get_position, pos6, ":belfry_platform_b_scene_prop_id"),
@@ -1852,21 +1855,21 @@ coop_scripts = [
         (position_transform_position_to_parent, pos8, pos1, pos7),
         (try_begin),
           (neg|scene_prop_slot_eq, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 0),
-     
+
           (init_position, pos20),
           (position_rotate_x, pos20, 50),
           (position_transform_position_to_parent, pos8, pos8, pos20),
         (try_end),
         (prop_instance_stop_animating, ":belfry_platform_a_scene_prop_id"),
-        # (prop_instance_set_position, ":belfry_platform_a_scene_prop_id", pos8),    
+        # (prop_instance_set_position, ":belfry_platform_a_scene_prop_id", pos8),
       (prop_instance_animate_to_position, ":belfry_platform_a_scene_prop_id", pos8,1), #NEW
       (try_end),
-    
+
       #belfry wheel_1
       (store_mul, ":wheel_no", ":belfry_no", 3),
       (try_begin),
         (eq, ":belfry_body_scene_prop", "spr_belfry_b"),
-        (scene_prop_get_num_instances, ":number_of_belfry_a", "spr_belfry_a"),    
+        (scene_prop_get_num_instances, ":number_of_belfry_a", "spr_belfry_a"),
         (store_mul, ":number_of_belfry_a_wheels", ":number_of_belfry_a", 3),
         (val_add, ":wheel_no", ":number_of_belfry_a_wheels"),
       (try_end),
@@ -1943,7 +1946,7 @@ coop_scripts = [
         (try_end),
 
       (try_begin),
-        (lt, ":belfry_num_men", 20), 
+        (lt, ":belfry_num_men", 20),
           (try_for_agents, ":cur_agent"), #add more troops if low
             (lt, ":belfry_num_men", 20), #stop adding when max number to push
             (agent_is_alive, ":cur_agent"),
@@ -1974,7 +1977,7 @@ coop_scripts = [
 
   ]),
 
-######## 	
+########
   # script_coop_spawn_formation
   # Input: arg1 = agent_no
   # Output: none
@@ -1985,7 +1988,7 @@ coop_scripts = [
 
         (try_begin),
           (agent_is_human, ":agent_no"), #horse spawns after rider
-          (assign, ":human_agent", ":agent_no"), 
+          (assign, ":human_agent", ":agent_no"),
         (else_try),
           (agent_get_rider, ":human_agent", ":agent_no"),
         (try_end),
@@ -1999,38 +2002,38 @@ coop_scripts = [
         (else_try),
           (eq, ":agent_team", 0),
           (try_begin),
-            (eq, ":agent_class", grc_archers),   
+            (eq, ":agent_class", grc_archers),
             (assign, ":pos", pos25),
             (try_begin),
-              (eq, "$coop_form_line_grp_1", 1),  
-              (assign, "$coop_form_line_grp_1", 0),    
+              (eq, "$coop_form_line_grp_1", 1),
+              (assign, "$coop_form_line_grp_1", 0),
               (position_move_y, ":pos", -200),
             (else_try),
-              (assign, "$coop_form_line_grp_1", 1),   
+              (assign, "$coop_form_line_grp_1", 1),
               (position_move_y, ":pos", 200),
               (position_move_x, ":pos", 100),
             (try_end),
           (else_try),
-            (eq, ":agent_class", grc_infantry), 
-            (assign, ":pos", pos26), 
+            (eq, ":agent_class", grc_infantry),
+            (assign, ":pos", pos26),
             (try_begin),
-              (eq, "$coop_form_line_grp_2", 1),  
-              (assign, "$coop_form_line_grp_2", 0),    
+              (eq, "$coop_form_line_grp_2", 1),
+              (assign, "$coop_form_line_grp_2", 0),
               (position_move_y, ":pos", -200),
             (else_try),
-              (assign, "$coop_form_line_grp_2", 1),   
+              (assign, "$coop_form_line_grp_2", 1),
               (position_move_y, ":pos", 200),
               (position_move_x, ":pos", 100),
             (try_end),
           (else_try),
-            (eq, ":agent_class", grc_cavalry),   
+            (eq, ":agent_class", grc_cavalry),
             (assign, ":pos", pos27),
             (try_begin),
-              (eq, "$coop_form_line_grp_3", 1),  
-              (assign, "$coop_form_line_grp_3", 0),    
+              (eq, "$coop_form_line_grp_3", 1),
+              (assign, "$coop_form_line_grp_3", 0),
               (position_move_y, ":pos", -300),
             (else_try),
-              (assign, "$coop_form_line_grp_3", 1),   
+              (assign, "$coop_form_line_grp_3", 1),
               (position_move_y, ":pos", 300),
               (position_move_x, ":pos", 100),
             (try_end),
@@ -2039,38 +2042,38 @@ coop_scripts = [
         (else_try),
           (eq, ":agent_team", 1),
           (try_begin),
-            (eq, ":agent_class", grc_archers),   
+            (eq, ":agent_class", grc_archers),
             (assign, ":pos", pos30),
             (try_begin),
-              (eq, "$coop_form_line_grp_4", 1),  
-              (assign, "$coop_form_line_grp_4", 0),    
+              (eq, "$coop_form_line_grp_4", 1),
+              (assign, "$coop_form_line_grp_4", 0),
               (position_move_y, ":pos", -200),
             (else_try),
-              (assign, "$coop_form_line_grp_4", 1),   
+              (assign, "$coop_form_line_grp_4", 1),
               (position_move_y, ":pos", 200),
               (position_move_x, ":pos", 100),
             (try_end),
           (else_try),
-            (eq, ":agent_class", grc_infantry), 
-            (assign, ":pos", pos31), 
+            (eq, ":agent_class", grc_infantry),
+            (assign, ":pos", pos31),
             (try_begin),
-              (eq, "$coop_form_line_grp_5", 1),  
-              (assign, "$coop_form_line_grp_5", 0),    
+              (eq, "$coop_form_line_grp_5", 1),
+              (assign, "$coop_form_line_grp_5", 0),
               (position_move_y, ":pos", -200),
             (else_try),
-              (assign, "$coop_form_line_grp_5", 1),   
+              (assign, "$coop_form_line_grp_5", 1),
               (position_move_y, ":pos", 200),
               (position_move_x, ":pos", 100),
             (try_end),
           (else_try),
-            (eq, ":agent_class", grc_cavalry),  
+            (eq, ":agent_class", grc_cavalry),
             (assign, ":pos", pos32),
             (try_begin),
-              (eq, "$coop_form_line_grp_6", 1),  
-              (assign, "$coop_form_line_grp_6", 0),    
+              (eq, "$coop_form_line_grp_6", 1),
+              (assign, "$coop_form_line_grp_6", 0),
               (position_move_y, ":pos", -300),
             (else_try),
-              (assign, "$coop_form_line_grp_6", 1),   
+              (assign, "$coop_form_line_grp_6", 1),
               (position_move_y, ":pos", 300),
               (position_move_x, ":pos", 100),
             (try_end),
@@ -2089,7 +2092,7 @@ coop_scripts = [
 
       ]),
 
-######## 	
+########
   # script_coop_form_line
   # Input: arg1 = agent_no
   # Output: none
@@ -2119,8 +2122,8 @@ coop_scripts = [
         # (agent_get_group, ":agent_group", ":agent_no"),
         # (eq, ":agent_group", -1),
         (agent_get_class, ":agent_class", ":agent_no"),
-        (this_or_next|eq, ":class", grc_everyone),   
-        (eq, ":agent_class", ":class"),   
+        (this_or_next|eq, ":class", grc_everyone),
+        (eq, ":agent_class", ":class"),
         (try_begin),
           (eq, ":move_to_pos", 1), #set agent at position like spawning
           (agent_get_horse, ":agent_horse", ":agent_no"),
@@ -2186,7 +2189,7 @@ coop_scripts = [
           (player_get_slot, ":type_3_wanted", ":cur_player", slot_player_bot_type_3_wanted),
           (eq, ":type_3_wanted", 1), #player wants type 3
           (assign, ":leader_player", ":cur_player"),
-          (assign, ":end_cond", 0), 
+          (assign, ":end_cond", 0),
         (else_try),
           (eq, ":agent_class", grc_cavalry),
           (player_get_slot, ":type_4_wanted", ":cur_player", slot_player_bot_type_4_wanted),
@@ -2201,55 +2204,55 @@ coop_scripts = [
             (player_get_slot, ":class_0_wanted", ":cur_player", slot_player_coop_class_0_wanted),
             (eq, ":class_0_wanted", 1),
             (assign, ":leader_player", ":cur_player"),
-            (assign, ":end_cond", 0), 
+            (assign, ":end_cond", 0),
           (else_try),
             (eq, ":troop_class", 1),
             (player_get_slot, ":class_1_wanted", ":cur_player", slot_player_coop_class_1_wanted),
             (eq, ":class_1_wanted", 1),
             (assign, ":leader_player", ":cur_player"),
-            (assign, ":end_cond", 0), 
+            (assign, ":end_cond", 0),
           (else_try),
             (eq, ":troop_class", 2),
             (player_get_slot, ":class_2_wanted", ":cur_player", slot_player_coop_class_2_wanted),
             (eq, ":class_2_wanted", 1),
             (assign, ":leader_player", ":cur_player"),
-            (assign, ":end_cond", 0), 
+            (assign, ":end_cond", 0),
           (else_try),
             (eq, ":troop_class", 3),
             (player_get_slot, ":class_3_wanted", ":cur_player", slot_player_coop_class_3_wanted),
             (eq, ":class_3_wanted", 1),
             (assign, ":leader_player", ":cur_player"),
-            (assign, ":end_cond", 0), 
+            (assign, ":end_cond", 0),
           (else_try),
             (eq, ":troop_class", 4),
             (player_get_slot, ":class_4_wanted", ":cur_player", slot_player_coop_class_4_wanted),
             (eq, ":class_4_wanted", 1),
             (assign, ":leader_player", ":cur_player"),
-            (assign, ":end_cond", 0), 
+            (assign, ":end_cond", 0),
           (else_try),
             (eq, ":troop_class", 5),
             (player_get_slot, ":class_5_wanted", ":cur_player", slot_player_coop_class_5_wanted),
             (eq, ":class_5_wanted", 1),
             (assign, ":leader_player", ":cur_player"),
-            (assign, ":end_cond", 0), 
+            (assign, ":end_cond", 0),
           (else_try),
             (eq, ":troop_class", 6),
             (player_get_slot, ":class_6_wanted", ":cur_player", slot_player_coop_class_6_wanted),
             (eq, ":class_6_wanted", 1),
             (assign, ":leader_player", ":cur_player"),
-            (assign, ":end_cond", 0), 
+            (assign, ":end_cond", 0),
           (else_try),
             (eq, ":troop_class", 7),
             (player_get_slot, ":class_7_wanted", ":cur_player", slot_player_coop_class_7_wanted),
             (eq, ":class_7_wanted", 1),
             (assign, ":leader_player", ":cur_player"),
-            (assign, ":end_cond", 0), 
+            (assign, ":end_cond", 0),
           (else_try),
             (eq, ":troop_class", 8),
             (player_get_slot, ":class_8_wanted", ":cur_player", slot_player_coop_class_8_wanted),
             (eq, ":class_8_wanted", 1),
             (assign, ":leader_player", ":cur_player"),
-            (assign, ":end_cond", 0), 
+            (assign, ":end_cond", 0),
           (try_end),
         (try_end),
       (try_end),
@@ -2283,10 +2286,10 @@ coop_scripts = [
       (try_end),
       (agent_set_group, ":agent_no", ":leader_player"),
 
-    # (assign, reg13, ":agent_no"), 
+    # (assign, reg13, ":agent_no"),
     # (str_store_troop_name, s40, ":agent_troop"),
-    # (assign, reg10, ":leader_player"), 
-    # (assign, reg11, ":team_no"), 
+    # (assign, reg10, ":leader_player"),
+    # (assign, reg11, ":team_no"),
     # (display_message, "@{reg11} leader {reg10} agent{reg13}   {s40}"),
 
 
@@ -2303,25 +2306,25 @@ coop_scripts = [
 
 
       (assign, ":selected_troop", 0), #if no troop is found (error) spawn trp_player
-      (try_begin),	  
+      (try_begin),
         (eq, ":team_no", 0), #enemy team
 
-        (assign, ":end", 40), 
+        (assign, ":end", 40),
         (try_for_range, ":unused", 0, ":end"),
           (party_stack_get_troop_id, ":selected_troop", "$coop_cur_temp_party_enemy", 0), #get one troop from each party per cycle
 
           (try_begin),
-            (gt, ":selected_troop", 0), 
-            (assign, ":party", "$coop_cur_temp_party_enemy"), 
-            (party_remove_members, ":party", ":selected_troop", 1),	
-            (store_sub, ":slot_pos", ":party", coop_temp_party_enemy_begin), 
+            (gt, ":selected_troop", 0),
+            (assign, ":party", "$coop_cur_temp_party_enemy"),
+            (party_remove_members, ":party", ":selected_troop", 1),
+            (store_sub, ":slot_pos", ":party", coop_temp_party_enemy_begin),
             (troop_get_slot, "$coop_agent_banner", "trp_temp_array_a", ":slot_pos"),
             (assign, "$coop_agent_party", ":party"),
-            (assign, ":end", 0), 
+            (assign, ":end", 0),
           (try_end),
           (try_begin),
-            (store_add, ":last_party", coop_temp_party_enemy_begin, "$coop_no_enemy_parties"), 
-            (val_sub, ":last_party", 1), 
+            (store_add, ":last_party", coop_temp_party_enemy_begin, "$coop_no_enemy_parties"),
+            (val_sub, ":last_party", 1),
             (eq, "$coop_cur_temp_party_enemy", ":last_party"),
             (assign, "$coop_cur_temp_party_enemy", coop_temp_party_enemy_begin),
           (else_try),
@@ -2333,21 +2336,21 @@ coop_scripts = [
       (else_try),
 	  	  (eq, ":team_no", 1), #player team + allies
 
-        (assign, ":end", 40), 
+        (assign, ":end", 40),
         (try_for_range, ":unused", 0, ":end"),
           (party_stack_get_troop_id, ":selected_troop", "$coop_cur_temp_party_ally", 0), #get one troop from each party per cycle
           (try_begin),
-            (gt, ":selected_troop", 0), 
-            (assign, ":party", "$coop_cur_temp_party_ally"), 
-            (party_remove_members, ":party", ":selected_troop", 1),	
-            (store_sub, ":slot_pos", ":party", coop_temp_party_ally_begin), 
+            (gt, ":selected_troop", 0),
+            (assign, ":party", "$coop_cur_temp_party_ally"),
+            (party_remove_members, ":party", ":selected_troop", 1),
+            (store_sub, ":slot_pos", ":party", coop_temp_party_ally_begin),
             (troop_get_slot, "$coop_agent_banner", "trp_temp_array_b", ":slot_pos"),
             (assign, "$coop_agent_party", ":party"),
-            (assign, ":end", 0), 
+            (assign, ":end", 0),
           (try_end),
           (try_begin),
             (store_add, ":last_party", coop_temp_party_ally_begin, "$coop_no_ally_parties"), #= one more than total
-            (val_sub, ":last_party", 1), 
+            (val_sub, ":last_party", 1),
             (eq, "$coop_cur_temp_party_ally", ":last_party"),
             (assign, "$coop_cur_temp_party_ally", coop_temp_party_ally_begin),
           (else_try),
@@ -2355,7 +2358,7 @@ coop_scripts = [
           (try_end),
         (try_end),
 
-      (try_end), 
+      (try_end),
 
 
       #send banner for troop
@@ -2367,17 +2370,17 @@ coop_scripts = [
       (call_script, "script_coop_check_item_bug", ":selected_troop"), #ITEM BUG WORKAROUND
 
       #  debug
-      # (assign, reg4, "$coop_agent_banner"), 
+      # (assign, reg4, "$coop_agent_banner"),
       # (str_store_troop_name, s41, ":selected_troop"),
-      # (assign, reg6, ":party"), 
+      # (assign, reg6, ":party"),
       # (display_message, "@spawn {s41} from party {reg6} banner {reg4}"),
 
       (assign, reg0, ":selected_troop"),
-    ]),	
+    ]),
 
 
-  
-    # 
+
+    #
    # script_coop_server_on_agent_killed_or_wounded_common
   # Input: arg1 = dead_agent_no
   ("coop_server_on_agent_killed_or_wounded_common",
@@ -2396,8 +2399,8 @@ coop_scripts = [
 
       #xp function = (x*x/10 + x*2 + 10)* 2
       (store_character_level,":dead_troop_level",":dead_troop_id"),
-      (store_mul, ":xp_gain", ":dead_troop_level", ":dead_troop_level"), 
-      (val_div, ":xp_gain", 10), 
+      (store_mul, ":xp_gain", ":dead_troop_level", ":dead_troop_level"),
+      (val_div, ":xp_gain", 10),
       (val_add, ":xp_gain", ":dead_troop_level"),
       (val_add, ":xp_gain", ":dead_troop_level"),
       (val_add, ":xp_gain", 10),
@@ -2408,15 +2411,15 @@ coop_scripts = [
         (eq, ":killer_troop_id", "$coop_my_troop_no"),
         (troop_is_hero, ":killer_troop_id"),
         (eq, "$coop_toggle_messages", 0),
-        (assign, reg1, ":xp_gain"), 
+        (assign, reg1, ":xp_gain"),
         (display_message, "@You got {reg1} experience."),
-      (try_end), 
+      (try_end),
 
       (try_begin),
         (troop_is_hero, ":dead_troop_id"),
         (try_begin),
           (eq, ":dead_agent_team", 0),
-          (party_remove_members, coop_temp_party_enemy_heroes, ":dead_troop_id", 1),	
+          (party_remove_members, coop_temp_party_enemy_heroes, ":dead_troop_id", 1),
         (else_try),
           (eq, ":dead_agent_team", 1),
           (party_remove_members, coop_temp_party_ally_heroes, ":dead_troop_id", 1),
@@ -2446,7 +2449,7 @@ coop_scripts = [
         (troop_get_slot, ":temp_xp", ":killer_troop_id", slot_troop_temp_slot),
         (store_add, ":new_xp", ":temp_xp", ":xp_for_regulars"),
         (troop_set_slot, ":killer_troop_id", slot_troop_temp_slot, ":new_xp"),
-      (try_end), 
+      (try_end),
 
       (party_add_members, ":casualties_party", ":dead_troop_id", 1),
       (try_begin),
@@ -2456,18 +2459,18 @@ coop_scripts = [
       (try_end),
 
       (try_begin), #save hit points for dead heroes (15% of pre battle health)
-        (troop_is_hero, ":dead_troop_id"),   
+        (troop_is_hero, ":dead_troop_id"),
         (store_troop_health, ":old_health", ":dead_troop_id"),
         (val_div, ":old_health", 6),
         (troop_set_health, ":dead_troop_id", ":old_health"),
-      (try_end), 
+      (try_end),
 
 #moved from multiplayer_server_on_agent_killed_or_wounded_common for this game type only
       (agent_get_player_id, ":dead_player_no", ":dead_agent_no"),
       (try_begin),
         (ge, ":dead_player_no", 0),
         (player_is_active, ":dead_player_no"),
-        (neg|agent_is_non_player, ":dead_agent_no"), #dead agent was player    
+        (neg|agent_is_non_player, ":dead_agent_no"), #dead agent was player
         (try_for_agents, ":cur_agent"),
           (agent_is_non_player, ":cur_agent"), #agent is bot
           (agent_is_human, ":cur_agent"),
@@ -2475,11 +2478,11 @@ coop_scripts = [
           (agent_get_group, ":agent_group", ":cur_agent"),
           (try_begin),
             (eq, ":dead_player_no", ":agent_group"),
-            (agent_set_group, ":cur_agent", -1),                 
+            (agent_set_group, ":cur_agent", -1),
           (try_end),
         (try_end),
       (try_end),
-    (try_end),  
+    (try_end),
 
 
 #SERVER BUG WORKAROUND BEGIN ################################################################
@@ -2488,62 +2491,62 @@ coop_scripts = [
       (lt, ":killer_agent_no", 0),
       (agent_is_human, ":dead_agent_no"),
       (try_for_range, ":slot", 0, 8),
-        (agent_get_item_slot, ":cur_item", ":dead_agent_no", ":slot"), 
+        (agent_get_item_slot, ":cur_item", ":dead_agent_no", ":slot"),
         (ge, ":cur_item", 0),
         (agent_unequip_item,":dead_agent_no",":cur_item"),
       (try_end),
       (remove_agent, ":dead_agent_no"),
-    (try_end), 
+    (try_end),
 #SERVER BUG WORKAROUND END ################################################################
-   ]),	
+   ]),
 
-  # 
+  #
   # script_coop_sort_party
   # copies heroes first then troops to p_temp_party, and copies back to original party
   # Input: arg1 = dead_agent_no
   ("coop_sort_party",
    [
     (store_script_param, ":party_no", 1),
- 
 
-        (party_clear, "p_temp_party"), 
+
+        (party_clear, "p_temp_party"),
         (party_get_num_companion_stacks, ":num_stacks", ":party_no"),
         (try_for_range, ":stack", 0, ":num_stacks"),
-          (party_stack_get_troop_id, ":stack_troop",":party_no",":stack"),	
+          (party_stack_get_troop_id, ":stack_troop",":party_no",":stack"),
 	        (troop_is_hero, ":stack_troop"),
           (party_stack_get_size, ":stack_size", ":party_no", ":stack"),
           (party_add_members, "p_temp_party", ":stack_troop", ":stack_size"),
         (try_end),
 
         (try_for_range, ":stack", 0, ":num_stacks"),
-          (party_stack_get_troop_id, ":stack_troop", ":party_no", ":stack"),	
+          (party_stack_get_troop_id, ":stack_troop", ":party_no", ":stack"),
 	        (neg|troop_is_hero, ":stack_troop"),
           (party_stack_get_size, ":stack_size", ":party_no", ":stack"),
           (party_add_members, "p_temp_party", ":stack_troop", ":stack_size"),
         (try_end),
 
 
-		    (party_clear, ":party_no"), 
+		    (party_clear, ":party_no"),
         (party_get_num_companion_stacks, ":num_stacks", "p_temp_party"),
         (try_for_range, ":stack", 0, ":num_stacks"),
-          (party_stack_get_troop_id, ":stack_troop", "p_temp_party", ":stack"),	
+          (party_stack_get_troop_id, ":stack_troop", "p_temp_party", ":stack"),
           (party_stack_get_size, ":stack_size", "p_temp_party", ":stack"),
           (party_add_members, ":party_no", ":stack_troop", ":stack_size"),
         (try_end),
 
-   ]),	
+   ]),
 
 
 
 ###### DATA SCRIPTS ##########################################################################################################
 
-   # 
-  # used to copy parties from SP to registers and temp casualty parties from MP to registers 
+   #
+  # used to copy parties from SP to registers and temp casualty parties from MP to registers
   # script_coop_copy_parties_to_file_sp
   # Input: arg1 = party_no
   ("coop_copy_parties_to_file_sp",
    [
-    (try_begin), 
+    (try_begin),
       (neg|is_vanilla_warband),
         (dict_create, "$coop_dict"),
         (dict_save, "$coop_dict", "@coop_battle"), #clear battle file
@@ -2661,7 +2664,7 @@ coop_scripts = [
         (try_begin),
           (store_add, ":total_fit_for_battle", "$g_enemy_fit_for_battle", "$g_friend_fit_for_battle"), #get number of troops for large or medium scene size
           (gt, ":total_fit_for_battle", 80),
-          (assign, ":scene_to_use", ":scene_to_use_large"), #switch to larger scene 
+          (assign, ":scene_to_use", ":scene_to_use_large"), #switch to larger scene
         (try_end),
       (try_end),
 
@@ -2675,7 +2678,7 @@ coop_scripts = [
       #find which party is castle garrison and which party is commander of garrison
       (dict_set_int, "$coop_dict", "@p_castle_lord", -1), #store null (0 could be a valid number for this variable)
       (assign, ":garrison_lord_party", -1),
-      (try_begin), 
+      (try_begin),
         (this_or_next|party_slot_eq, ":encountered_party", slot_party_type, spt_village),
         (this_or_next|party_slot_eq, ":encountered_party", slot_party_type, spt_town),
         (party_slot_eq, ":encountered_party", slot_party_type, spt_castle),
@@ -2703,7 +2706,7 @@ coop_scripts = [
         (eq, ":terrain_type", rt_snow),
 
         (assign, ":rain", 2),
-      (else_try),        
+      (else_try),
         (this_or_next|eq, ":terrain_type", rt_desert_forest),
         (eq, ":terrain_type", rt_desert),
 
@@ -2760,7 +2763,7 @@ coop_scripts = [
     (assign, reg22, 0), #count heroes
 
     (party_get_num_attached_parties, ":no_enemy_parties", "$coop_encountered_party"),
-    (val_add, ":no_enemy_parties", 1), 
+    (val_add, ":no_enemy_parties", 1),
     (dict_set_int, "$coop_dict", "@num_parties_enemy", ":no_enemy_parties"),
 
     (try_for_range, reg20, 0, ":no_enemy_parties"),
@@ -2772,8 +2775,8 @@ coop_scripts = [
         (party_get_attached_party_with_rank, ":party_no", "$coop_encountered_party", ":attached_party_rank"),
       (try_end),
 
-      (assign, ":banner_spr", 0), 
-      (assign, ":banner_mesh", "mesh_banners_default_d"),  
+      (assign, ":banner_spr", 0),
+      (assign, ":banner_mesh", "mesh_banners_default_d"),
       (try_begin),
         (this_or_next|party_slot_eq, ":party_no", slot_party_type, spt_village),
         (this_or_next|party_slot_eq, ":party_no", slot_party_type, spt_town),
@@ -2792,13 +2795,13 @@ coop_scripts = [
         (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
         (is_between, ":banner_spr", banner_scene_props_begin, ":banner_scene_props_end"),
         (val_sub, ":banner_spr", banner_scene_props_begin),
-        (store_add, ":banner_mesh", ":banner_spr", arms_meshes_begin),	
+        (store_add, ":banner_mesh", ":banner_spr", arms_meshes_begin),
       (try_end),
       (try_begin), #store which party is garrison commander
         (eq, ":party_no", ":garrison_lord_party"),
         (dict_set_int, "$coop_dict", "@p_castle_lord", reg20), #store INDEX of garrison party (not party id)
       (try_end),
-	
+
       (dict_set_int, "$coop_dict", "@p_enemy{reg20}_banner", ":banner_mesh"),
       (dict_set_int, "$coop_dict", "@p_enemy{reg20}_partyid", ":party_no"),
 
@@ -2815,14 +2818,14 @@ coop_scripts = [
           (troop_is_hero, ":stack_troop"),
           (store_troop_health, ":hero_health", ":stack_troop"),
           (le, ":hero_health", 15),
-          (assign, ":num_wounded", 1),  
+          (assign, ":num_wounded", 1),
         (try_end),
-        (store_sub, ":stack_size", ":total_stack_size", ":num_wounded"), 
+        (store_sub, ":stack_size", ":total_stack_size", ":num_wounded"),
         (ge, ":stack_size",1), #if alive
         (try_begin),
           (troop_is_hero, ":stack_troop"),
           (dict_set_int, "$coop_dict", "@hero_{reg22}_trp", ":stack_troop"),
-          (val_add, reg22, 1), 
+          (val_add, reg22, 1),
         (try_end),
         (dict_set_int, "$coop_dict", "@p_enemy{reg20}_{reg21}_trp", ":stack_troop"),
         (dict_set_int, "$coop_dict", "@p_enemy{reg20}_{reg21}_num", ":stack_size"),
@@ -2844,7 +2847,7 @@ coop_scripts = [
       (try_end),
 
     (party_get_num_attached_parties, ":num_attached_parties", ":ally_party"),
-    (val_add, ":no_ally_parties", ":num_attached_parties"), 
+    (val_add, ":no_ally_parties", ":num_attached_parties"),
     (dict_set_int, "$coop_dict", "@num_parties_ally", ":no_ally_parties"),
 
     (try_for_range, reg20, 0, ":no_ally_parties"),
@@ -2860,11 +2863,11 @@ coop_scripts = [
         (party_get_attached_party_with_rank, ":party_no", ":ally_party", ":attached_party_rank"),
       (try_end),
 
-      (assign, ":banner_spr", 0), 
-      (assign, ":banner_mesh", "mesh_banners_default_d"), 
+      (assign, ":banner_spr", 0),
+      (assign, ":banner_mesh", "mesh_banners_default_d"),
       (try_begin),
         (eq, ":party_no", "p_main_party"),
-        (assign, ":banner_mesh", "mesh_banners_default_b"),  
+        (assign, ":banner_mesh", "mesh_banners_default_b"),
       (try_end),
       (try_begin),
         (this_or_next|party_slot_eq, ":party_no", slot_party_type, spt_village),
@@ -2884,14 +2887,14 @@ coop_scripts = [
         (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
         (is_between, ":banner_spr", banner_scene_props_begin, ":banner_scene_props_end"),
         (val_sub, ":banner_spr", banner_scene_props_begin),
-        (store_add, ":banner_mesh", ":banner_spr", arms_meshes_begin),	
+        (store_add, ":banner_mesh", ":banner_spr", arms_meshes_begin),
       (try_end),
 
       (try_begin), #store which party is garrison commander
         (eq, ":party_no", ":garrison_lord_party"),
         (dict_set_int, "$coop_dict", "@p_castle_lord", reg20),  #store INDEX of garrison party (not party id)
       (try_end),
-	
+
       (dict_set_int, "$coop_dict", "@p_ally{reg20}_banner", ":banner_mesh"),
       (dict_set_int, "$coop_dict", "@p_ally{reg20}_partyid", ":party_no"), #store party id for SP
 
@@ -2907,30 +2910,30 @@ coop_scripts = [
           (troop_is_hero, ":stack_troop"),
           (store_troop_health, ":hero_health", ":stack_troop"),
           (le, ":hero_health", 15),
-          (assign, ":num_wounded", 1),  
+          (assign, ":num_wounded", 1),
         (try_end),
-        (store_sub, ":stack_size", ":total_stack_size", ":num_wounded"), 
+        (store_sub, ":stack_size", ":total_stack_size", ":num_wounded"),
         (ge, ":stack_size",1), #if alive
 
         (try_begin), #if storing main party
           (eq, ":party_no", "p_main_party"),
           (troop_get_class, ":troop_class", ":stack_troop"),
           (dict_set_int, "$coop_dict", "@p_ally{reg20}_{reg21}_cls", ":troop_class"),
-          (eq, ":stack_troop", "trp_player"), 
+          (eq, ":stack_troop", "trp_player"),
           (troop_get_type, ":gender", "trp_player"),
               (val_mod, ":gender", 2),    #gender fix chief moto
          (try_begin),
             (eq, ":gender", 1),
-            (assign, ":stack_troop",  "trp_multiplayer_profile_troop_female"),  
+            (assign, ":stack_troop",  "trp_multiplayer_profile_troop_female"),
           (else_try),
-            (assign, ":stack_troop",  "trp_multiplayer_profile_troop_male"),  
+            (assign, ":stack_troop",  "trp_multiplayer_profile_troop_male"),
           (try_end),
         (try_end),
 
         (try_begin),
           (troop_is_hero, ":stack_troop"),
           (dict_set_int, "$coop_dict", "@hero_{reg22}_trp", ":stack_troop"),
-          (val_add, reg22, 1), 
+          (val_add, reg22, 1),
         (try_end),
         (dict_set_int, "$coop_dict", "@p_ally{reg20}_{reg21}_trp", ":stack_troop"),
         (dict_set_int, "$coop_dict", "@p_ally{reg20}_{reg21}_num", ":stack_size"),
@@ -2939,7 +2942,7 @@ coop_scripts = [
 
     (dict_set_int, "$coop_dict", "@hero_num", reg22),
 
-    (call_script, "script_coop_copy_hero_to_file"), 
+    (call_script, "script_coop_copy_hero_to_file"),
 
 
 
@@ -2948,18 +2951,18 @@ coop_scripts = [
     (display_message, "@Battle setup complete."),
     (try_end),
 
-    ]),	
+    ]),
 
 
 
 
 
-  # 
+  #
    #script_coop_copy_file_to_parties_mp
   # Input: arg1 = party_no
   ("coop_copy_file_to_parties_mp",
    [
-    (try_begin), 
+    (try_begin),
       (neg|is_vanilla_warband),
 
       (dict_get_int, "$coop_no_enemy_parties", "$coop_dict", "@num_parties_enemy"),
@@ -2971,15 +2974,15 @@ coop_scripts = [
 
   #CLEAR casualty parties
       (try_for_range, ":party_rank", 0, "$coop_no_enemy_parties"),
-        (store_add, ":party_no", ":party_rank", coop_temp_casualties_enemy_begin), 
+        (store_add, ":party_no", ":party_rank", coop_temp_casualties_enemy_begin),
         (party_clear, ":party_no"),
       (try_end),
       (try_for_range, ":party_rank", 0, "$coop_no_ally_parties"),
-        (store_add, ":party_no", ":party_rank", coop_temp_casualties_ally_begin), 
+        (store_add, ":party_no", ":party_rank", coop_temp_casualties_ally_begin),
         (party_clear, ":party_no"),
       (try_end),
 
-  #ADD TROOPS TO TEMP SPAWN PARTIES 
+  #ADD TROOPS TO TEMP SPAWN PARTIES
   #ENEMY TEAM
       (assign, ":total_enemy_troops", 0),
       # (assign, ":cur_slot", 101),
@@ -2988,7 +2991,7 @@ coop_scripts = [
         (dict_get_int, ":num_stacks", "$coop_dict", "@p_enemy{reg20}_numstacks"),
         (dict_get_int, ":banner_mesh", "$coop_dict", "@p_enemy{reg20}_banner"),
         (troop_set_slot, "trp_temp_array_a", reg20, ":banner_mesh"),#encountered party banner
-        (store_add, ":party_no", reg20, coop_temp_party_enemy_begin), 
+        (store_add, ":party_no", reg20, coop_temp_party_enemy_begin),
         (party_clear, ":party_no"),
         (try_for_range, reg21, 0, ":num_stacks"),
           (dict_get_int, ":stack_troop", "$coop_dict", "@p_enemy{reg20}_{reg21}_trp"),
@@ -3009,13 +3012,13 @@ coop_scripts = [
 
 
 
-  #PLAYER TEAM  
+  #PLAYER TEAM
       (assign, ":total_ally_troops", 0),
       # (assign, ":cur_slot", 101),
         (party_clear, coop_temp_party_ally_heroes),
 
 
-      (try_for_range, reg20, 0, "$coop_no_ally_parties"), 
+      (try_for_range, reg20, 0, "$coop_no_ally_parties"),
         (dict_get_int, ":num_stacks", "$coop_dict", "@p_ally{reg20}_numstacks"),
         (dict_get_int, ":banner_mesh", "$coop_dict", "@p_ally{reg20}_banner"),
         (troop_set_slot, "trp_temp_array_b", reg20, ":banner_mesh"),#encountered party banner
@@ -3049,28 +3052,28 @@ coop_scripts = [
 
 
 
-  # 
+  #
    #script_coop_copy_parties_to_file_mp
   # Input: arg1 = party_no
   ("coop_copy_parties_to_file_mp",
    [
-    (try_begin), 
+    (try_begin),
       (neg|is_vanilla_warband),
       (dict_create, "$coop_dict"),
       (dict_load_file, "$coop_dict", "@coop_battle", 2),
 
         (dict_set_int, "$coop_dict", "@battle_state", coop_battle_state_end_mp),
 
-        (call_script, "script_coop_copy_settings_to_file"),	
+        (call_script, "script_coop_copy_settings_to_file"),
 
 #At end of MP battle:
 
       #copy health from ALIVE agents to hero troops here before copying to registers (dead agents health is copied at coop_server_on_agent_killed_or_wounded_common)
       (try_for_agents, ":cur_agent"),
-        (agent_is_human, ":cur_agent"),  
+        (agent_is_human, ":cur_agent"),
         (agent_is_alive, ":cur_agent"),
         (agent_get_troop_id, ":agent_troop_id", ":cur_agent"),
-        (troop_is_hero, ":agent_troop_id"),   
+        (troop_is_hero, ":agent_troop_id"),
         (store_agent_hit_points, ":agent_hit_points", ":cur_agent"),
         (troop_set_health, ":agent_troop_id", ":agent_hit_points"),
 
@@ -3078,7 +3081,7 @@ coop_scripts = [
         (call_script, "script_coop_player_agent_save_items", ":cur_agent"),
       (try_end),
 
-      (try_begin), 
+      (try_begin),
         (eq, "$coop_winner_team", 0),#0 = enemy won
         (dict_set_int, "$coop_dict", "@battle_result", -1), # = battle_result
       (else_try),
@@ -3091,7 +3094,7 @@ coop_scripts = [
 
 #ENEMY TEAM
       (try_for_range, reg20, 0, "$coop_no_enemy_parties"),
-        (store_add, ":party_no", reg20, coop_temp_casualties_enemy_begin), 
+        (store_add, ":party_no", reg20, coop_temp_casualties_enemy_begin),
         (party_get_num_companion_stacks, ":num_stacks", ":party_no"),
         (dict_set_int, "$coop_dict", "@p_enemy{reg20}_numstacks_cas", ":num_stacks"),
         (try_for_range, reg21, 0, ":num_stacks"),
@@ -3102,9 +3105,9 @@ coop_scripts = [
             (troop_is_hero, ":stack_troop"),
             (store_troop_health, ":hero_health", ":stack_troop"),
             (le, ":hero_health", 15),
-            (assign, ":num_wounded", 1),  
+            (assign, ":num_wounded", 1),
           (try_end),
-          (store_sub, ":dead_size", ":total_stack_size", ":num_wounded"), 
+          (store_sub, ":dead_size", ":total_stack_size", ":num_wounded"),
           (dict_set_int, "$coop_dict", "@p_enemy{reg20}_{reg21}_trp_cas", ":stack_troop"),
           (dict_set_int, "$coop_dict", "@p_enemy{reg20}_{reg21}_ded", ":dead_size"),
           (dict_set_int, "$coop_dict", "@p_enemy{reg20}_{reg21}_wnd", ":num_wounded"),
@@ -3116,7 +3119,7 @@ coop_scripts = [
 
 #ADD PARTIES ATTACHED TO MAIN PARTY
       (try_for_range, reg20, 0, "$coop_no_ally_parties"),
-        (store_add, ":party_no", reg20, coop_temp_casualties_ally_begin), 
+        (store_add, ":party_no", reg20, coop_temp_casualties_ally_begin),
         (party_get_num_companion_stacks, ":num_stacks", ":party_no"),
         (dict_set_int, "$coop_dict", "@p_ally{reg20}_numstacks_cas", ":num_stacks"),
         (try_for_range, reg21, 0, ":num_stacks"),
@@ -3127,9 +3130,9 @@ coop_scripts = [
             (troop_is_hero, ":stack_troop"),
             (store_troop_health, ":hero_health", ":stack_troop"),
             (le, ":hero_health", 15),
-            (assign, ":num_wounded", 1),  
+            (assign, ":num_wounded", 1),
           (try_end),
-          (store_sub, ":dead_size", ":total_stack_size", ":num_wounded"), 
+          (store_sub, ":dead_size", ":total_stack_size", ":num_wounded"),
           (dict_set_int, "$coop_dict", "@p_ally{reg20}_{reg21}_trp_cas", ":stack_troop"),
           (dict_set_int, "$coop_dict", "@p_ally{reg20}_{reg21}_ded", ":dead_size"),
           (dict_set_int, "$coop_dict", "@p_ally{reg20}_{reg21}_wnd", ":num_wounded"),
@@ -3147,10 +3150,10 @@ coop_scripts = [
         (dict_set_int, "$coop_dict", "@p_ally0_{reg21}_stk_xp", ":stack_xp"),
       (try_end),
 
-      (call_script, "script_coop_copy_hero_to_file"), 
+      (call_script, "script_coop_copy_hero_to_file"),
 
       (get_max_players, ":num_players"),
-      (try_for_range, ":player_no", 0, ":num_players"), 
+      (try_for_range, ":player_no", 0, ":num_players"),
         (player_is_active, ":player_no"),
         (player_is_admin, ":player_no"),
         (multiplayer_send_int_to_player, ":player_no", multiplayer_event_coop_send_to_player, coop_event_result_saved),
@@ -3160,7 +3163,7 @@ coop_scripts = [
       (dict_save, "$coop_dict", "@coop_battle"),
       (dict_free, "$coop_dict"),
     (try_end),
-    ]),	
+    ]),
 
 
 
@@ -3170,7 +3173,7 @@ coop_scripts = [
   # Input: arg1 = party_no
   ("coop_copy_file_to_parties_sp",
    [
-    (try_begin), 
+    (try_begin),
       (neg|is_vanilla_warband),
     (dict_create, "$coop_dict"),
     (dict_load_file, "$coop_dict", "@coop_battle", 2),
@@ -3198,7 +3201,7 @@ coop_scripts = [
         (dict_get_int, ":stack_dead", "$coop_dict", "@p_enemy{reg20}_{reg21}_ded"),
         (dict_get_int, ":stack_wounded", "$coop_dict", "@p_enemy{reg20}_{reg21}_wnd"),
 
-          (store_add, ":stack_total_casualties", ":stack_dead", ":stack_wounded"), 
+          (store_add, ":stack_total_casualties", ":stack_dead", ":stack_wounded"),
           (try_begin),
             (troop_is_hero,":stack_troop"),
             (store_random_in_range, ":rand_wound", 40, 71),
@@ -3220,7 +3223,7 @@ coop_scripts = [
 
 
 
-#PLAYER TEAM  
+#PLAYER TEAM
 
      #add regular troop xp BEFORE removing dead troops from party
       (dict_get_int, ":num_stacks", "$coop_dict", "@p_ally0_numstacks"), #num stacks from spawn party
@@ -3234,7 +3237,7 @@ coop_scripts = [
     (assign, "$any_allies_at_the_last_battle", 0),
     (party_clear, "p_player_casualties"),
     (party_clear, "p_ally_casualties"),
-    (try_for_range, reg20, 0, "$coop_no_ally_parties"), 
+    (try_for_range, reg20, 0, "$coop_no_ally_parties"),
       (dict_get_int, ":num_casualty_stacks", "$coop_dict", "@p_ally{reg20}_numstacks_cas"),
       (dict_get_int, ":party_to_kill", "$coop_dict", "@p_ally{reg20}_partyid"),
 
@@ -3252,13 +3255,13 @@ coop_scripts = [
         (dict_get_int, ":stack_troop", "$coop_dict", "@p_ally{reg20}_{reg21}_trp_cas"),
         (dict_get_int, ":stack_dead", "$coop_dict", "@p_ally{reg20}_{reg21}_ded"),
         (dict_get_int, ":stack_wounded", "$coop_dict", "@p_ally{reg20}_{reg21}_wnd"),
-        (store_add, ":stack_total_casualties", ":stack_dead", ":stack_wounded"), 
+        (store_add, ":stack_total_casualties", ":stack_dead", ":stack_wounded"),
 
-        (try_begin), 
+        (try_begin),
           (eq, ":party_to_kill", "p_main_party"),
           (try_begin),
-            (this_or_next|eq, ":stack_troop",  "trp_multiplayer_profile_troop_female"),  
-            (eq, ":stack_troop",  "trp_multiplayer_profile_troop_male"),  
+            (this_or_next|eq, ":stack_troop",  "trp_multiplayer_profile_troop_female"),
+            (eq, ":stack_troop",  "trp_multiplayer_profile_troop_male"),
             (assign, ":stack_troop", "trp_player"),
           (try_end),
           (try_begin),#use surgey to heal regular troops in stack
@@ -3298,9 +3301,9 @@ coop_scripts = [
       (dict_get_int, "$g_battle_result", "$coop_dict", "@battle_result"),  #-1 = enemy won, 1 = player won
       (try_begin),
         (eq, "$g_battle_result", -1), #enemy won
-        (call_script, "script_party_count_members_with_full_health", "p_main_party"), 
-        (assign, "$num_routed_us", reg0), 
-        (call_script, "script_party_count_members_with_full_health", "p_collective_friends"),        
+        (call_script, "script_party_count_members_with_full_health", "p_main_party"),
+        (assign, "$num_routed_us", reg0),
+        (call_script, "script_party_count_members_with_full_health", "p_collective_friends"),
         (assign, "$num_routed_allies", reg0), #use routed troops to avoid a 2nd round of battle
       (else_try),
         (eq, "$g_battle_result", 1), #player won
@@ -3313,12 +3316,12 @@ coop_scripts = [
 
     (dict_free, "$coop_dict"),
     (try_end),
-    ]),	
+    ]),
 
 
 
 
- # 
+ #
    # script_coop_copy_register_to_hero_xp
   ("coop_copy_register_to_hero_xp",
     [
@@ -3326,7 +3329,7 @@ coop_scripts = [
       (store_script_param, ":troop_xp", 2),
       (try_begin),
         (troop_get_xp, ":troop_default_xp", ":troop"),
-        (store_sub, ":xp_to_add", ":troop_xp", ":troop_default_xp"), 
+        (store_sub, ":xp_to_add", ":troop_xp", ":troop_default_xp"),
 
          # (str_store_troop_name, s40, ":troop"),
          # (assign, reg1, ":xp_to_add"),
@@ -3336,29 +3339,29 @@ coop_scripts = [
 
         (try_begin),
           (gt, ":xp_to_add", 29999),
-          (store_div, ":num_times", ":xp_to_add", 29999), 
+          (store_div, ":num_times", ":xp_to_add", 29999),
           (try_for_range, ":unused", 0, ":num_times"),
             (add_xp_to_troop, 29999, ":troop"),
-            (val_sub, ":xp_to_add", 29999), 
-          (try_end),		 
-        (try_end),		 
+            (val_sub, ":xp_to_add", 29999),
+          (try_end),
+        (try_end),
         (add_xp_to_troop, ":xp_to_add", ":troop"),		 #add leftover xp
-      (try_end),	
+      (try_end),
 
 
 
 
-    ]),	 
+    ]),
 
 
 
-# SET heroes SKILL/EQUIPMENT 
+# SET heroes SKILL/EQUIPMENT
   # script_coop_copy_hero_to_file
   # Input: arg1 = hero troop
   # Output: none
   ("coop_copy_hero_to_file",
     [
-    (try_begin), 
+    (try_begin),
       (neg|is_vanilla_warband),
 
       (dict_get_int, ":number_heroes", "$coop_dict", "@hero_num"),
@@ -3366,8 +3369,8 @@ coop_scripts = [
         (dict_get_int, ":cur_troop", "$coop_dict", "@hero_{reg21}_trp"),
         (try_begin),
           (neg|game_in_multiplayer_mode),
-          (this_or_next|eq, ":cur_troop",  "trp_multiplayer_profile_troop_female"),  
-          (eq, ":cur_troop",  "trp_multiplayer_profile_troop_male"),  
+          (this_or_next|eq, ":cur_troop",  "trp_multiplayer_profile_troop_female"),
+          (eq, ":cur_troop",  "trp_multiplayer_profile_troop_male"),
           (assign, ":cur_troop", "trp_player"),
          # (store_troop_gold, ":gold", ":cur_troop"), #use this if needed
           # (dict_set_int, "$coop_dict", "@hero_{reg21}_gld", ":gold"),
@@ -3403,14 +3406,14 @@ coop_scripts = [
           (dict_set_int, "$coop_dict", "@hero_{reg21}_skl{reg20}", ":skill"),
         (try_end),
 
-        (try_for_range, reg20, wpt_one_handed_weapon, 7),  #wpt_firearm = 6 
+        (try_for_range, reg20, wpt_one_handed_weapon, 7),  #wpt_firearm = 6
           (store_proficiency_level, ":prof", ":cur_troop", reg20),
           (dict_set_int, "$coop_dict", "@hero_{reg21}_wp{reg20}", ":prof"),
         (try_end),
 
         (try_begin),
           (neg|is_between, ":cur_troop", kings_begin, pretenders_end), #need this so we dont equip lords with civilian clothes in battle
-          (try_for_range, reg20, ek_item_0, ek_food), 
+          (try_for_range, reg20, ek_item_0, ek_food),
             (troop_get_inventory_slot, ":item", ":cur_troop", reg20),
             (troop_get_inventory_slot_modifier, ":imod", ":cur_troop", reg20),
             (dict_set_int, "$coop_dict", "@hero_{reg21}_itm{reg20}", ":item"),
@@ -3431,7 +3434,7 @@ coop_scripts = [
         (dict_set_int, "$coop_dict", "@player_inv_mgt", ":skill"),
       (try_end),
       (troop_get_inventory_capacity, ":end", ":cur_troop"),
-      (val_add,":end", 1), 
+      (val_add,":end", 1),
       (try_for_range, reg20, 10, ":end"),
         (troop_get_inventory_slot, ":item", ":cur_troop", reg20),
         (troop_get_inventory_slot_modifier, ":imod", ":cur_troop", reg20),
@@ -3441,25 +3444,25 @@ coop_scripts = [
         # (dict_set_int, "$coop_dict", "@party_inv{reg20}_num", ":number"),
       (try_end),
     (try_end),
-    ]),	 
+    ]),
 
 
 
-# SET heroes SKILL/EQUIPMENT 
+# SET heroes SKILL/EQUIPMENT
   # script_coop_copy_file_to_hero
   # Input: arg1 = hero troop
   # Output: none
   ("coop_copy_file_to_hero",
     [
-    (try_begin), 
+    (try_begin),
       (neg|is_vanilla_warband),
       (dict_get_int, ":number_heroes", "$coop_dict", "@hero_num"),
       (try_for_range, reg21, 0, ":number_heroes"),
         (dict_get_int, ":cur_troop", "$coop_dict", "@hero_{reg21}_trp"),
         (try_begin),
-          (neg|game_in_multiplayer_mode), 
-          (this_or_next|eq, ":cur_troop",  "trp_multiplayer_profile_troop_female"),  
-          (eq, ":cur_troop",  "trp_multiplayer_profile_troop_male"),  
+          (neg|game_in_multiplayer_mode),
+          (this_or_next|eq, ":cur_troop",  "trp_multiplayer_profile_troop_female"),
+          (eq, ":cur_troop",  "trp_multiplayer_profile_troop_male"),
           (assign, ":cur_troop", "trp_player"),  #in SP use player instead of profile
         (try_end),
 
@@ -3490,7 +3493,7 @@ coop_scripts = [
           # (try_end),
         (try_end),
 
-        (try_for_range, reg20, wpt_one_handed_weapon, 7),  #wpt_firearm = 6 
+        (try_for_range, reg20, wpt_one_handed_weapon, 7),  #wpt_firearm = 6
           (dict_get_int, ":wprof", "$coop_dict", "@hero_{reg21}_wp{reg20}"),
           (store_proficiency_level, ":value", ":cur_troop", reg20),
           (val_sub, ":wprof", ":value"),
@@ -3505,11 +3508,11 @@ coop_scripts = [
             (str_store_string, s0, "@Player"), #set default name
           (try_end),
           (troop_set_name, ":cur_troop", s0),
-      
+
           (try_begin),#inventory is optional
-            (this_or_next|game_in_multiplayer_mode), 
+            (this_or_next|game_in_multiplayer_mode),
             (eq, "$coop_disable_inventory", 0),
-            (try_for_range, reg20, ek_item_0, ek_food), 
+            (try_for_range, reg20, ek_item_0, ek_food),
               (dict_get_int, ":item", "$coop_dict", "@hero_{reg21}_itm{reg20}"),
               (dict_get_int, ":imod", "$coop_dict", "@hero_{reg21}_imd{reg20}"),
               (troop_set_inventory_slot, ":cur_troop", reg20, ":item"),
@@ -3542,23 +3545,23 @@ coop_scripts = [
           (val_add, ":battle_health", ":lost_health"), #add recovered percentage
           (troop_set_health, ":cur_troop", ":battle_health"),
         (else_try),
-          #NEW not getting this bug anymore 
+          #NEW not getting this bug anymore
           #  when setup MP: ironflesh will add alive hitpoint later when troop spawns, so find what % troop should be now to compensate
-          # (troop_set_health, ":cur_troop", ":battle_health"), 
-          # (store_mul, ":hp_x10", ":battle_health",10), 
+          # (troop_set_health, ":cur_troop", ":battle_health"),
+          # (store_mul, ":hp_x10", ":battle_health",10),
           # (store_troop_health, ":hp", ":cur_troop",1),
           # (val_max, ":hp", 1),
-          # (val_div, ":hp_x10", ":hp"), 
-          # (val_mul, ":hp_x10", ":added_ironflesh"), 
-          # (val_div, ":hp_x10", 10), 
-          # (val_sub, ":battle_health", ":hp_x10"), 
-          (troop_set_health, ":cur_troop", ":battle_health"), 
+          # (val_div, ":hp_x10", ":hp"),
+          # (val_mul, ":hp_x10", ":added_ironflesh"),
+          # (val_div, ":hp_x10", 10),
+          # (val_sub, ":battle_health", ":hp_x10"),
+          (troop_set_health, ":cur_troop", ":battle_health"),
         (try_end),
 
         #use this if needed
         # (try_begin),
           # (dict_get_int, ":new_gold", "$coop_dict", "@hero_{reg21}_gld"),
-          # (store_troop_gold, ":cur_gold", ":cur_troop"), 
+          # (store_troop_gold, ":cur_gold", ":cur_troop"),
           # (gt, ":new_gold", ":cur_gold"),
           # (val_sub, ":new_gold", ":cur_gold"),
           # (troop_add_gold,":cur_troop",":new_gold"),
@@ -3566,7 +3569,7 @@ coop_scripts = [
 
       (try_end), #end of hero loop
 
-    
+
       (try_begin),
         (eq, "$coop_disable_inventory", 0),  #inventory is optional
         (try_begin),
@@ -3580,7 +3583,7 @@ coop_scripts = [
           (assign, ":cur_troop", "trp_player"),
         (try_end),
         (troop_get_inventory_capacity, ":end", ":cur_troop"),
-        (val_add,":end", 1), 
+        (val_add,":end", 1),
         (try_for_range, reg20, 10, ":end"),
           (dict_get_int, ":item", "$coop_dict", "@party_inv{reg20}_itm"),
           (dict_get_int, ":imod", "$coop_dict", "@party_inv{reg20}_imd"),
@@ -3588,7 +3591,7 @@ coop_scripts = [
           (assign, ":skip",0),
           (try_begin),
             (neg|game_in_multiplayer_mode),
-            (is_between, ":item", trade_goods_begin, trade_goods_end), #these items would need to copy correct quantity still need to copy to MP to take up inv capacity 
+            (is_between, ":item", trade_goods_begin, trade_goods_end), #these items would need to copy correct quantity still need to copy to MP to take up inv capacity
             (assign, ":skip",1),
           (try_end),
 
@@ -3598,7 +3601,7 @@ coop_scripts = [
 
           # (dict_get_int, ":number", "$coop_dict", "@party_inv{reg20}_num"),
           # (try_begin),
-            # (gt, ":number", 0), 
+            # (gt, ":number", 0),
             # (troop_inventory_slot_set_item_amount, ":cur_troop", reg20, ":number"),
           # (try_end),
 
@@ -3606,7 +3609,7 @@ coop_scripts = [
       (try_end),
 
     (try_end),
-    ]),	 
+    ]),
 
 
 ]

@@ -1,8 +1,11 @@
-from module_constants import *
-from ID_factions import *
+from header_common import *
 from header_items import  *
+from header_item_modifiers import *
 from header_operations import *
 from header_triggers import *
+from ID_factions import *
+
+from module_constants import *
 
 ####################################################################################################################
 #  Each item record contains the following fields:
@@ -49,10 +52,10 @@ imodbits_bad    = imodbit_rusty | imodbit_chipped | imodbit_tattered | imodbit_r
 
 ## CC distancia de tiro chief commander
 missile_distance_trigger = [
-  (ti_on_missile_hit, 
+  (ti_on_missile_hit,
     [
       (store_trigger_param_1, ":shooter_agent"),
-      
+
       (eq, "$g_report_shot_distance", 1),
       (get_player_agent_no, ":player_agent"),
       (try_begin),
@@ -79,7 +82,73 @@ missile_distance_trigger = [
     ])]
 ## CC
 # Replace winged mace/spiked mace with: Flanged mace / Knobbed mace?
-# Fauchard (majowski glaive) 
+# Fauchard (majowski glaive)
+
+def create_items(prefixs, subfix):
+  return [prefix + subfix for prefix in prefixs]
+
+pictish_kingdoms = [
+  fac_kingdom_20
+]
+irish_kingdoms = [
+  fac_kingdom_17, fac_kingdom_19, fac_kingdom_27,
+  fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31
+]
+pictish_irish_kindoms = pictish_kingdoms + irish_kingdoms
+
+pictish_long_tunic_subfix = [
+  itp_type_body_armor|itp_covers_legs|itp_civilian, 0, 560,
+  weight(1)|abundance(30)|head_armor(0)|body_armor(15)|leg_armor(4),
+  imodbits_cloth, [], pictish_irish_kindoms
+]
+pictish_long_tunics = create_items([
+  ["tribal_warrior_outfit", "Long Tunic", [("outaa1",0)]],
+  ["nomad_robe", "Long Tunic", [("outaa2",0)]],
+  ["heraldric_armor", "Long Tunic", [("outaa3",0)]],
+  ["studded_leather_coat", "Long Tunic", [("outaa4",0)]],
+], pictish_long_tunic_subfix)
+
+irish_long_tunic_subfix = [
+  itp_type_body_armor|itp_covers_legs|itp_civilian ,0, 430 ,
+  weight(1)|abundance(50)|head_armor(0)|body_armor(12)|leg_armor(4),
+  imodbits_cloth, [], pictish_irish_kindoms
+]
+irish_long_tunics = create_items([
+  ["courtly_outfit", "Long Tunic", [("merchant_outf1",0)]],
+  ["nobleman_outfit", "Long Tunic", [("merchant_outf2",0)]],
+  ["nomad_armor", "Long Tunic", [("shirt_shirt_a",0)]],
+  ["khergit_armor", "Long Tunic", [("shirt_shirt_c",0)]],
+  ["fur_coat", "Long Tunic", [("merchant_outf5",0)] ],
+], irish_long_tunic_subfix)
+
+godelic_jacket_subfix = [
+  itp_type_body_armor|itp_covers_legs|itp_civilian, 0, 300,
+  weight(4)|abundance(50)|head_armor(0)|body_armor(12)|leg_armor(2)|difficulty(0),
+  imodbits_cloth, [], irish_kingdoms
+]
+godelic_jackets = create_items([
+  ["nomad_vest", "Grey Godelic Jacket", [("a_gaelic_jacket",0)]],
+  ["leather_jacket", "Grey Godelic Jacket", [("b_gaelic_jacket",0)]],
+  ["ragged_outfit", "Green Godelic Jacket", [("c_gaelic_jacket",0)]],
+], godelic_jacket_subfix)
+
+worn_robe_subfix = [
+  itp_merchandise|itp_type_body_armor|itp_covers_legs, 0, 363,
+  weight(1)|abundance(100)|head_armor(0)|body_armor(13)|leg_armor(4)|difficulty(0),
+  imodbits_cloth
+]
+worn_robes = create_items([
+  ["sarranid_jellaba_blue", "Blue Worn Robe", [("sarranid_jellaba_blue",0)]],
+  ["sarranid_cloth_robe_b", "Worn Robe", [("sar_robegrn",0)]],
+  ["skirmisher_armor", "Worn Robe", [("sar_robeylw",0)]],
+  ["archers_vest", "Worn Robe", [("sar_robewht",0)]],
+  ["sarranid_leather_armor", "Worn Robe", [("sar_robeprp",0)]],
+  ["sarranid_cavalry_robe", "Worn Robe", [("sar_robe_bbge",0)]],
+  ["sarranid_cloth_robe", "Worn Robe", [("sar_robe_bbge",0)]],
+  ["robe", "Robe", [("sar_robered",0)]],
+  ["sarranid_jellaba_white", "White Worn Robe", [("sarranid_jellaba_white",0)]],
+], worn_robe_subfix)
+
 items = [
 # item_name, mesh_name, item_properties, item_capabilities, slot_no, cost, bonus_flags, weapon_flags, scale, view_dir, pos_offset
  ["no_item","INVALID ITEM", [("invalid_item",0)], itp_type_one_handed_wpn|itp_primary|itp_secondary, itc_longsword, 3,weight(1.5)|spd_rtng(103)|weapon_length(90)|swing_damage(16,blunt)|thrust_damage(10,blunt),imodbits_none],
@@ -106,29 +175,29 @@ items = [
 # Items before this point are hardwired and their order should not be changed!
 #cambiados chief
  ["practice_sword","Practice Sword", [("pattern_spatha",0),("sword_medieval_b_scabbard2", ixmesh_carry)], itp_type_one_handed_wpn|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn, 900 , weight(1.25)|difficulty(1)|spd_rtng(82) | weapon_length(95)|swing_damage(35 , cut) | thrust_damage(10 ,  pierce),imodbits_none ],
- ["heavy_practice_sword","War Axe", [("05einhendi_haloygox",0)], itp_type_two_handed_wpn| itp_two_handed|itp_primary|itp_cant_use_on_horseback|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back, 
+ ["heavy_practice_sword","War Axe", [("05einhendi_haloygox",0)], itp_type_two_handed_wpn| itp_two_handed|itp_primary|itp_cant_use_on_horseback|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back,
 620 , weight(3)|difficulty(1)|spd_rtng(71) | weapon_length(100)|swing_damage(42 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe ],
  ["practice_dagger","Practice Dagger", [("hunting_dagger",0)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_no_parry|itp_wooden_attack, itc_dagger|itcf_carry_dagger_front_left, 60 , weight(0.5)|difficulty(0)|spd_rtng(97) | weapon_length(40)|swing_damage(11 , cut) | thrust_damage(11 ,  pierce),imodbits_none ],
- ["practice_axe", "Practice Axe", [("le_werkaxt1",0)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip, 
+ ["practice_axe", "Practice Axe", [("le_werkaxt1",0)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
 457 , weight(2)|difficulty(1)|spd_rtng(77) | weapon_length(70)|swing_damage(31 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe ], #chief modificado
  ["arena_axe", "Axe", [("le_werkaxt1",0)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
  300 , weight(1.5)|difficulty(0)|spd_rtng(77) | weapon_length(60)|swing_damage(26 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe ],
  ["arena_sword", "Sword", [("pattern_spatha",0),("sword_medieval_b_scabbard2", ixmesh_carry)], itp_type_one_handed_wpn|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn, 900 , weight(1.25)|difficulty(0)|spd_rtng(82) | weapon_length(95)|swing_damage(35 , cut) | thrust_damage(10 ,  pierce),imodbits_sword_high ],
- ["arena_sword_two_handed",  "War Axe", [("01tveirhendr_hedmarkox",0)], itp_type_two_handed_wpn| itp_two_handed|itp_primary|itp_cant_use_on_horseback|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back, 
+ ["arena_sword_two_handed",  "War Axe", [("01tveirhendr_hedmarkox",0)], itp_type_two_handed_wpn| itp_two_handed|itp_primary|itp_cant_use_on_horseback|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back,
 620 , weight(3)|difficulty(1)|spd_rtng(71) | weapon_length(100)|swing_damage(42 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe ],
  ["arena_lance",         "Arena Spear", [("05krokaspjott1",0)],itp_type_polearm|itp_offset_lance| itp_primary|itp_wooden_parry, itc_staff|itcf_carry_spear, 420 , weight(4)|abundance(80)|difficulty(1)|spd_rtng(92) | weapon_length(160)|swing_damage(16 , blunt) | thrust_damage(26 ,  pierce),imodbits_polearm ],
  ["practice_staff","Practice Spear", [("05krokaspjott1",0)],itp_type_polearm|itp_offset_lance| itp_primary|itp_wooden_parry, itc_staff|itcf_carry_spear, 180 , weight(2.25)|difficulty(1)|spd_rtng(82) | weapon_length(145)|swing_damage(15 , blunt) | thrust_damage(28 ,  pierce),imodbits_polearm],
  ["practice_lance","Practice Spear", [("05krokaspjott1",0)], itp_type_polearm|itp_offset_lance| itp_primary|itp_wooden_parry, itc_staff|itcf_carry_spear, 180 , weight(2.25)|difficulty(1)|spd_rtng(82) | weapon_length(145)|swing_damage(15 , blunt) | thrust_damage(28 ,  pierce),imodbits_polearm],
  ["practice_shield","Practice Shield", [("leathershield_small_b",0)],  itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,  400 , weight(4.5)|hit_points(400)|body_armor(6)|spd_rtng(55)|shield_width(70)|difficulty(0),imodbits_shield],
- ["practice_bow","Hunting Bow", [("hunting_bow",0),("hunting_bow_carry",ixmesh_carry)],itp_type_bow |itp_primary|itp_two_handed,itcf_shoot_bow|itcf_carry_bow_back, 
+ ["practice_bow","Hunting Bow", [("hunting_bow",0),("hunting_bow_carry",ixmesh_carry)],itp_type_bow |itp_primary|itp_two_handed,itcf_shoot_bow|itcf_carry_bow_back,
 267 , weight(1)|difficulty(0)|spd_rtng(70) | shoot_speed(45) | thrust_damage(14 ,  pierce)|accuracy(65),imodbits_bow ], #chief cambiado
 ##                                                     ("hunting_bow",0)],                  itp_type_bow|itp_two_handed|itp_primary|itp_attach_left_hand, itcf_shoot_bow, 4,weight(1.5)|spd_rtng(90)|shoot_speed(40)|thrust_damage(19,blunt),imodbits_none],
- ["practice_crossbow", "Javelins", [("javelin",0),("javelins_quiver_new", ixmesh_carry)], itp_type_thrown |itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin|itcf_carry_quiver_back|itcf_show_holster_when_drawn, 
+ ["practice_crossbow", "Javelins", [("javelin",0),("javelins_quiver_new", ixmesh_carry)], itp_type_thrown |itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin|itcf_carry_quiver_back|itcf_show_holster_when_drawn,
 100, weight(2)|difficulty(0)|spd_rtng(60) | shoot_speed(28) | thrust_damage(21 ,  pierce)|max_ammo(6)|weapon_length(65),imodbits_thrown ],
- 
- ["practice_javelin", "Practice Javelins", [("javelin",0),("javelins_quiver_new", ixmesh_carry)], itp_type_thrown |itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin|itcf_carry_quiver_back|itcf_show_holster_when_drawn, 
+
+ ["practice_javelin", "Practice Javelins", [("javelin",0),("javelins_quiver_new", ixmesh_carry)], itp_type_thrown |itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin|itcf_carry_quiver_back|itcf_show_holster_when_drawn,
 100, weight(2)|difficulty(0)|spd_rtng(60) | shoot_speed(28) | thrust_damage(21 ,  pierce)|max_ammo(6)|weapon_length(65),imodbits_thrown,missile_distance_trigger ], #chief cambiado max_ammo
- ["practice_javelin_melee", "practice_javelin_melee", [("javelin",0)], itp_type_polearm|itp_primary|itp_secondary|itp_wooden_parry , itc_staff, 
+ ["practice_javelin_melee", "practice_javelin_melee", [("javelin",0)], itp_type_polearm|itp_primary|itp_secondary|itp_wooden_parry , itc_staff,
 100, weight(2)|difficulty(0)|spd_rtng(70) |swing_damage(4, cut)| thrust_damage(19,  pierce)|weapon_length(65),imodbits_polearm ], #chief cambiado
  ["practice_throwing_daggers", "Throwing Daggers", [("throwing_dagger",0)], itp_type_thrown |itp_primary ,itcf_throw_knife, 0 , weight(3.5)|spd_rtng(102) | shoot_speed(25) | thrust_damage(6, blunt)|max_ammo(10)|weapon_length(0),imodbits_thrown,missile_distance_trigger ],
  ["practice_throwing_daggers_100_amount", "Throwing Daggers", [("throwing_dagger",0)], itp_type_thrown |itp_primary ,itcf_throw_knife, 0 , weight(3.5)|spd_rtng(102) | shoot_speed(25) | thrust_damage(6, blunt)|max_ammo(100)|weapon_length(0),imodbits_thrown ],
@@ -187,7 +256,7 @@ items = [
 ["arena_turban_yellow", "Cap", [("skull_cap_new_c",0)], itp_type_head_armor|itp_fit_to_head ,0, 187 , weight(1.25)|abundance(100)|head_armor(3)|body_armor(0)|leg_armor(0), imodbits_plate ], #cambiar chief
 #termina cambiado chief
 # A treatise on The Method of Mechanical Theorems Archimedes
-#chief cambiados libros 
+#chief cambiados libros
 #This book must be at the beginning of readable books
  ["book_tactics","History of the Peloponnesian War", [("book_a",0)], itp_type_book, 0, 4000,weight(2)|abundance(100),imodbits_none],
  ["book_persuasion","Rhetorica ad Herennium", [("book_b",0)], itp_type_book, 0, 5000,weight(2)|abundance(100),imodbits_none],
@@ -232,7 +301,7 @@ items = [
 
  ["raw_leather","Hides", [("leatherwork_inventory",0)], itp_merchandise|itp_type_goods, 0, 320,weight(40)|abundance(90),imodbits_none,[],[fac_kingdom_12],[fac_kingdom_13],[fac_kingdom_18],[fac_kingdom_20]],
  ["leatherwork","Leatherwork", [("leatherwork_frame",0)], itp_merchandise|itp_type_goods, 0, 400,weight(40)|abundance(90),imodbits_none,[],[fac_kingdom_13],[fac_kingdom_18],[fac_kingdom_20]],
- 
+
  ["raw_date_fruit","Silver", [("ore_silver",0)], itp_merchandise|itp_type_goods, 0, 320,weight(60)|abundance(10),imodbits_none,[],[fac_kingdom_6],[fac_kingdom_7],[fac_kingdom_8],[fac_kingdom_21],[fac_kingdom_22],[fac_kingdom_23],[fac_kingdom_24],[fac_kingdom_25],[fac_kingdom_26]],
  ["furs","Furs", [("fur_pack",0)], itp_merchandise|itp_type_goods, 0, 391,weight(40)|abundance(90),imodbits_none,[],[fac_kingdom_13],[fac_kingdom_18],[fac_kingdom_20]],
 
@@ -271,9 +340,9 @@ items = [
  ["wilddonkey_meat","Wild Donkey Meat", [("raw_meat",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 250,weight(30)|abundance(100)|food_quality(30)|max_ammo(50),imodbits_none],
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 #-#-#-#Hunting chief Mod end#-#-#-#
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 
- 
+
 
  #Would like to remove flour altogether and reduce chicken, pork and butter (perishables) to non-trade items. Apples could perhaps become a generic "fruit", also representing dried fruit and grapes
  # Armagan: changed order so that it'll be easier to remove them from trade goods if necessary.
@@ -287,7 +356,7 @@ items = [
  ["quest_wine","Wine", [("amphora_slim",0)], itp_type_goods, 0, 46,weight(40)|abundance(60)|max_ammo(50),imodbits_none],
  ["quest_ale","Ale", [("ale_barrel",0)], itp_type_goods, 0, 31,weight(40)|abundance(70)|max_ammo(50),imodbits_none],
 
- 
+
 # Tutorial Items
 
  ["tutorial_sword", "Sword", [("long_sword",0),("scab_longsw_a", ixmesh_carry)], itp_type_one_handed_wpn|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn, 0 , weight(1.5)|difficulty(0)|spd_rtng(100) | weapon_length(102)|swing_damage(18 , cut) | thrust_damage(15 ,  pierce),imodbits_sword ],
@@ -308,90 +377,400 @@ items = [
 ####################HORSES chief caballos finales ##############################################################
 #############################################################################################################
 # Carthorse, hunter, heavy hunter, hackney, palfrey, courser, destrier.
- ["sumpter_horse","Pony", [("rus_horse",0)], itp_merchandise|itp_type_horse, 0, 1800,abundance(50)|hit_points(60)|body_armor(10)|difficulty(1)|horse_speed(37)|horse_maneuver(36)|horse_charge(9)|horse_scale(86),imodbits_horse_basic],
+  [
+    "sumpter_horse","Pony", [("rus_horse",0)],
+    itp_merchandise|itp_type_horse,0, 1800,
+    abundance(50)|hit_points(60)|body_armor(10)|difficulty(1)|horse_speed(37)
+    |horse_maneuver(36)|horse_charge(9)|horse_scale(86),imodbits_horse_basic
+  ],
 
- ["warhorse_sarranid","North Horse", [("roman_horse_2",0),("horse_c",imodbits_horse_good)], itp_merchandise|itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
- ["saddle_horse3","North Horse", [("roman_horse_1",0),("horse_c",imodbits_horse_good)], itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
- ["steppe_horse3","North Horse", [("WRoman1",0),("horse_c",imodbits_horse_good)], itp_merchandise|itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
- ["charger3","North Horse", [("WRoman2",0),("horse_c",imodbits_horse_good)], itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|horse_maneuver(44)|horse_charge(10)|horse_scale(90),imodbits_horse_basic],
- ["normal_horse11","North Horse", [("normal_horse11",0),("horse_c",imodbits_horse_good)], itp_merchandise|itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
- ["normal_horse12","North Horse", [("normal_horse12",0),("horse_c",imodbits_horse_good)], itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
- ["normal_horse13","North Horse", [("normal_horse13",0),("horse_c",imodbits_horse_good)], itp_merchandise|itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
- ["normal_horse14","North Horse", [("normal_horse14",0),("horse_c",imodbits_horse_good)], itp_merchandise|itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
- ["normal_horse15","North Horse", [("normal_horse15",0),("horse_c",imodbits_horse_good)], itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|horse_maneuver(44)|horse_charge(10)|horse_scale(90),imodbits_horse_basic],
- ["normal_horse16","North Horse", [("normal_horse16",0),("horse_c",imodbits_horse_good)], itp_merchandise|itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
- ["normal_horse21","North Horse", [("normal_horse21",0),("horse_c",imodbits_horse_good)], itp_merchandise|itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
- ["normal_horse22","North Horse", [("normal_horse22",0),("horse_c",imodbits_horse_good)], itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|horse_maneuver(44)|horse_charge(10)|horse_scale(90),imodbits_horse_basic],
- ["normal_horse27","North Horse", [("normal_horse27",0),("horse_c",imodbits_horse_good)], itp_merchandise|itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
- ["normal_horse24","North Horse", [("normal_horse24",0),("horse_c",imodbits_horse_good)], itp_merchandise|itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
- ["normal_horse25","North Horse", [("normal_horse25",0),("horse_c",imodbits_horse_good)], itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
- ["normal_horse26","North Horse", [("normal_horse26",0),("horse_c",imodbits_horse_good)], itp_merchandise|itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
- ["normal_horse30","North Horse", [("normal_horse30",0),("horse_c",imodbits_horse_good)], itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
-#pictos
- ["warhorse_sarranid3","North Horse", [("WPict1",0),("horse_c",imodbits_horse_good)], itp_merchandise|itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(44)|horse_maneuver(40)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
- ["arabian_horse_a","North Horse", [("WPict2",0),("horse_c",imodbits_horse_good)], itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(40)|horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
- ["saddle_horse","North Horse", [("gallic_horse_1",0),("horse_c",imodbits_horse_good)], itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(40)|horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
- ["steppe_horse","North Horse", [("gallic_horse_2",0),("horse_c",imodbits_horse_good)], itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(40)|horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
- ["charger","North Horse", [("gallic_horse_3",0),("horse_c",imodbits_horse_good)], itp_merchandise|itp_type_horse, 0, 2000,abundance(30)|hit_points(78)|body_armor(10)|difficulty(1)|horse_speed(44)|horse_maneuver(44)|horse_charge(10)|horse_scale(90),imodbits_horse_basic],
- ["normal_horse29","North Horse", [("normal_horse29",0),("horse_c",imodbits_horse_good)], itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(40)|horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
- ["normal_horse31","North Horse", [("normal_horse31",0),("horse_c",imodbits_horse_good)], itp_merchandise|itp_type_horse, 0, 2000,abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(40)|horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic],
+  [
+    "warhorse_sarranid","North Horse", [("roman_horse_2",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
 
-#Ario chief
- ["arabian_horse_b","Draft Horse", [("normal_horse1",0)], itp_merchandise|itp_type_horse, 0, 2300,abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic],
- ["courser","Draft Horse", [("normal_horse2",0)], itp_type_horse, 0, 2300,abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(40)|horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic],
- ["arabian_horse_b2","Draft Horse", [("normal_horse3",0)], itp_merchandise|itp_type_horse, 0, 2300,abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic],
- ["arabian_horse_a3","Draft Horse", [("normal_horse4",0)], itp_type_horse, 0, 2300,abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|horse_maneuver(35)|horse_charge(17)|horse_scale(93),imodbits_horse_basic],
- ["arabian_horse_b3","Draft Horse", [("normal_horse5",0)], itp_merchandise|itp_type_horse, 0, 2300,abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic],
- ["arabian_horse_a4","Draft Horse", [("normal_horse6",0)], itp_type_horse, 0, 2300,abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic],
- ["courser4","Draft Horse", [("normal_horse7",0)], itp_merchandise|itp_type_horse, 0, 2300,abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic],
- ["arabian_horse_b4","Draft Horse", [("normal_horse8",0)], itp_type_horse, 0, 2300,abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic],
- ["courser5","Draft Horse", [("normal_horse9",0)], itp_merchandise|itp_type_horse, 0, 2300,abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic],
- ["normal_horse17","Draft Horse", [("normal_horse17",0)], itp_merchandise|itp_type_horse, 0, 2300,abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic],
- ["normal_horse18","Draft Horse", [("normal_horse18",0)], itp_type_horse, 0, 2300,abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic],
- ["normal_horse19","Draft Horse", [("normal_horse19",0)], itp_merchandise|itp_type_horse, 0, 2300,abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic],
- ["normal_horse20","Draft Horse", [("normal_horse20",0)], itp_type_horse, 0, 2300,abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic],
- ["normal_horse23","Draft Horse", [("normal_horse23",0)], itp_merchandise|itp_type_horse, 0, 2300,abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic],
- ["normal_horse28","Draft Horse", [("normal_horse28",0)], itp_type_horse, 0, 2300,abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic],
+  [
+    "saddle_horse3","North Horse", [("roman_horse_1",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
 
-#Courser
- ["hunter","Paraveredus", [("WSumpterChestnut",0),("hunting_horse",imodbits_horse_good)], itp_merchandise|itp_type_horse, 0, 2400,abundance(10)|hit_points(80)|body_armor(12)|difficulty(3)|horse_speed(46)|horse_maneuver(44)|horse_charge(12)|horse_scale(88),imodbits_horse_basic|imodbit_champion],
- ["warhorse","Paraveredus", [("WSumpterBrown",0),("hunting_horse",imodbits_horse_good)], itp_type_horse, 0, 2400,abundance(10)|hit_points(85)|body_armor(12)|difficulty(3)|horse_speed(46)|horse_maneuver(44)|horse_charge(12)|horse_scale(88),imodbits_horse_basic|imodbit_champion],
+  [
+    "steppe_horse3","North Horse", [("WRoman1",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
 
-#Acorazados
- ["warhorses4","Greek armoured horse", [("HalfCata2",0)], itp_type_horse, 0, 3300,abundance(10)|body_armor(22)|hit_points(115)|difficulty(3)|horse_speed(37)|horse_maneuver(33)|horse_charge(19)|horse_scale(100),imodbits_horse_basic|imodbit_champion],
+  [
+    "charger3","North Horse", [("WRoman2",0),("horse_c",imodbits_horse_good)],
+    itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(90),imodbits_horse_basic
+  ],
 
-#burro2 chief
-["warhorse_steppe","Donkey", [("donkey_mount",0)], itp_merchandise|itp_type_horse, 0, 800,abundance(80)|hit_points(55)|body_armor(7)|difficulty(0)|horse_speed(32)|horse_maneuver(33)|horse_charge(8)|horse_scale(79),imodbits_horse_basic],
-["donkey_mount","Donkey", [("donkey_mount2",0)], itp_merchandise|itp_type_horse, 0, 800,abundance(80)|hit_points(55)|body_armor(7)|difficulty(0)|horse_speed(32)|horse_maneuver(33)|horse_charge(8)|horse_scale(79),imodbits_horse_basic],
-["mule","Mule", [("mule",0)], itp_merchandise|itp_type_horse, 0, 1050,abundance(70)|hit_points(65)|body_armor(10)|difficulty(0)|horse_speed(35)|horse_maneuver(35)|horse_charge(8)|horse_scale(86),imodbits_horse_basic],
+  [
+    "normal_horse11","North Horse", [("normal_horse11",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse12","North Horse", [("normal_horse12",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse13","North Horse", [("normal_horse13",0),("horse_c",imodbits_horse_good)],
+     itp_merchandise|itp_type_horse, 0, 2000,
+     abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
+     horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse14","North Horse", [("normal_horse14",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse15","North Horse", [("normal_horse15",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(90),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse16","North Horse", [("normal_horse16",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse21","North Horse", [("normal_horse21",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse22","North Horse", [("normal_horse22",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(90),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse27","North Horse", [("normal_horse27",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse24","North Horse", [("normal_horse24",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse25","North Horse", [("normal_horse25",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse26","North Horse", [("normal_horse26",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse30","North Horse", [("normal_horse30",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
+
+  #pictos
+  [
+    "warhorse_sarranid3","North Horse", [("WPict1",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(44)|
+    horse_maneuver(40)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
+
+  [
+    "arabian_horse_a","North Horse", [("WPict2",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(40)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
+
+  [
+    "saddle_horse","North Horse", [("gallic_horse_1",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(40)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
+
+  [
+    "steppe_horse","North Horse", [("gallic_horse_2",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(40)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
+
+  [
+    "charger","North Horse", [("gallic_horse_3",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(78)|body_armor(10)|difficulty(1)|horse_speed(44)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(90),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse29","North Horse", [("normal_horse29",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(40)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse31","North Horse", [("normal_horse31",0),("horse_c",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2000,
+    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(40)|
+    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
+  ],
+
+  #Ario chief
+  [
+    "arabian_horse_b","Draft Horse", [("normal_horse1",0)],
+    itp_merchandise|itp_type_horse, 0, 2300,
+    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
+    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
+  ],
+
+  [
+    "courser","Draft Horse", [("normal_horse2",0)],
+    itp_merchandise|itp_type_horse, 0, 2300,
+    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(40)|
+    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
+  ],
+
+  [
+    "arabian_horse_b2","Draft Horse", [("normal_horse3",0)],
+    itp_merchandise|itp_type_horse, 0, 2300,
+    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
+    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
+  ],
+
+  [
+    "arabian_horse_a3","Draft Horse", [("normal_horse4",0)],
+    itp_merchandise|itp_type_horse, 0, 2300,
+    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
+    horse_maneuver(35)|horse_charge(17)|horse_scale(93),imodbits_horse_basic
+  ],
+
+  [
+    "arabian_horse_b3","Draft Horse", [("normal_horse5",0)],
+    itp_merchandise|itp_type_horse, 0, 2300,
+    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
+    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
+  ],
+
+  [
+    "arabian_horse_a4","Draft Horse", [("normal_horse6",0)],
+    itp_merchandise|itp_type_horse, 0, 2300,
+    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
+    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
+  ],
+
+  [
+    "courser4","Draft Horse", [("normal_horse7",0)],
+    itp_merchandise|itp_type_horse, 0, 2300,
+    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
+    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
+  ],
+
+  [
+    "arabian_horse_b4","Draft Horse", [("normal_horse8",0)],
+    itp_merchandise|itp_type_horse, 0, 2300,
+    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
+    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
+  ],
+
+  [
+    "courser5","Draft Horse", [("normal_horse9",0)],
+    itp_merchandise|itp_type_horse, 0, 2300,
+    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
+    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse17","Draft Horse", [("normal_horse17",0)],
+    itp_merchandise|itp_type_horse, 0, 2300,
+    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
+    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse18","Draft Horse", [("normal_horse18",0)],
+    itp_merchandise|itp_type_horse, 0, 2300,
+    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
+    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse19","Draft Horse", [("normal_horse19",0)],
+    itp_merchandise|itp_type_horse, 0, 2300,
+    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
+    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse20","Draft Horse", [("normal_horse20",0)],
+    itp_merchandise|itp_type_horse, 0, 2300,
+    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
+    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse23","Draft Horse", [("normal_horse23",0)],
+    itp_merchandise|itp_type_horse, 0, 2300,
+    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
+    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
+  ],
+
+  [
+    "normal_horse28","Draft Horse", [("normal_horse28",0)],
+    itp_merchandise|itp_type_horse, 0, 2300,
+    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
+    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
+  ],
+
+  #Courser
+  [
+    "hunter","Paraveredus", [("WSumpterChestnut",0),("hunting_horse",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2400,
+    abundance(10)|hit_points(80)|body_armor(12)|difficulty(3)|horse_speed(46)|
+    horse_maneuver(44)|horse_charge(12)|horse_scale(88),imodbits_horse_basic|imodbit_champion
+  ],
+
+  [
+    "warhorse","Paraveredus", [("WSumpterBrown",0),("hunting_horse",imodbits_horse_good)],
+    itp_merchandise|itp_type_horse, 0, 2400,
+    abundance(10)|hit_points(85)|body_armor(12)|difficulty(3)|horse_speed(46)|
+    horse_maneuver(44)|horse_charge(12)|horse_scale(88),imodbits_horse_basic|imodbit_champion
+  ],
+
+  #Acorazados
+  [
+    "warhorses4","Greek armoured horse", [("HalfCata2",0)],
+    itp_type_horse, 0, 3300,
+    abundance(10)|body_armor(22)|hit_points(115)|difficulty(3)|horse_speed(37)|
+    horse_maneuver(33)|horse_charge(19)|horse_scale(100),imodbits_horse_basic|imodbit_champion
+  ],
+
+  #burro2 chief
+  [
+    "warhorse_steppe","Donkey", [("donkey_mount",0)],
+    itp_merchandise|itp_type_horse, 0, 800,
+    abundance(80)|hit_points(55)|body_armor(7)|difficulty(0)|horse_speed(32)|
+    horse_maneuver(33)|horse_charge(8)|horse_scale(79),imodbits_horse_basic
+  ],
+
+  [
+    "donkey_mount","Donkey", [("donkey_mount2",0)],
+    itp_merchandise|itp_type_horse, 0, 800,
+    abundance(80)|hit_points(55)|body_armor(7)|difficulty(0)|horse_speed(32)|
+    horse_maneuver(33)|horse_charge(8)|horse_scale(79),imodbits_horse_basic
+  ],
+
+  [
+    "mule","Mule", [("mule",0)],
+    itp_merchandise|itp_type_horse, 0, 1050,
+    abundance(70)|hit_points(65)|body_armor(10)|difficulty(0)|horse_speed(35)|
+    horse_maneuver(35)|horse_charge(8)|horse_scale(86),imodbits_horse_basic
+  ],
 
 ###################caballos y monturas acaba finales chief####################################
 ###############################################################
 
- 
+
 ##########FELCHAS CHIEF empieza finales #########################
  ####################################################################3
- ["arrows","Arrows", [("arrow",0),("flying_arrow",ixmesh_flying_ammo),("quiver", ixmesh_carry)], itp_type_arrows|itp_merchandise|itp_default_ammo, itcf_carry_quiver_back, 200,weight(3)|abundance(110)|weapon_length(95)|thrust_damage(1,pierce)|max_ammo(40),imodbits_missile,missile_distance_trigger], #chief cambiado
- ["khergit_arrows","Byzantine Arrows", [("arrow_b",0),("flying_arrow_b",ixmesh_flying_ammo),("spak_ar_bag", ixmesh_carry)], itp_type_arrows|itp_unique, itcf_carry_quiver_back_right, 410,weight(3.5)|abundance(30)|weapon_length(95)|thrust_damage(3,pierce)|max_ammo(30),imodbits_missile,missile_distance_trigger],
- ["barbed_arrows","Fire Arrow", [("arrow",0),("flying_missile_fire",ixmesh_flying_ammo),("quiver", ixmesh_carry)], itp_type_arrows|itp_merchandise|itp_default_ammo, itcf_carry_quiver_back, 200,weight(3)|abundance(110)|weapon_length(95)|thrust_damage(1,pierce)|max_ammo(40),imodbits_missile,missile_distance_trigger], #chief cambiado
+  [
+    "arrows","Arrows", [("arrow",0),("flying_arrow",ixmesh_flying_ammo),("quiver", ixmesh_carry)],
+    itp_type_arrows|itp_merchandise|itp_default_ammo, itcf_carry_quiver_back,200,
+    weight(3)|abundance(110)|weapon_length(95)|thrust_damage(1,pierce)|max_ammo(40),
+    imodbits_missile,missile_distance_trigger
+  ], #chief cambiado
 
- ["bolts","Bolts", [("bolt",0),("flying_bolt",ixmesh_flying_ammo),("bolt_bag", ixmesh_carry),("bolt_bag_b", ixmesh_carry|imodbit_large_bag)], itp_type_bolts|itp_merchandise|itp_default_ammo|itp_can_penetrate_shield, itcf_carry_quiver_right_vertical, 164,weight(1)|abundance(50)|weapon_length(63)|thrust_damage(1,pierce)|max_ammo(20),imodbits_missile, [], [fac_kingdom_20]], #chief cambiado
+  [
+    "khergit_arrows","Byzantine Arrows", [("arrow_b",0),("flying_arrow_b",ixmesh_flying_ammo),("spak_ar_bag", ixmesh_carry)],
+    itp_type_arrows|itp_unique, itcf_carry_quiver_back_right, 410,
+    weight(3.5)|abundance(30)|weapon_length(95)|thrust_damage(3,pierce)|max_ammo(40),
+    imodbits_missile,missile_distance_trigger
+  ],
+
+  [
+    "barbed_arrows","Fire Arrow", [("arrow",0),("flying_missile_fire",ixmesh_flying_ammo),("quiver", ixmesh_carry)],
+    itp_type_arrows|itp_merchandise|itp_default_ammo, itcf_carry_quiver_back, 200,
+    weight(3)|abundance(110)|weapon_length(95)|thrust_damage(1,pierce)|max_ammo(40),
+    imodbits_missile,missile_distance_trigger
+  ], #chief cambiado
+
+  [
+    "bolts","Bolts", [("bolt",0),("flying_bolt",ixmesh_flying_ammo),("bolt_bag", ixmesh_carry),("bolt_bag_b", ixmesh_carry|imodbit_large_bag)],
+    itp_type_bolts|itp_merchandise|itp_default_ammo|itp_can_penetrate_shield, itcf_carry_quiver_right_vertical, 164,
+    weight(1)|abundance(50)|weapon_length(63)|thrust_damage(1,pierce)|max_ammo(30),
+    imodbits_missile, [], [fac_kingdom_20]
+  ], #chief cambiado
 
 #################flechas chief finales acaba############################333
  ##################################################################
 
 
 ####OTROSSSSSSS##############
-["pilgrim_disguise", "Pilgrim Disguise", [("pilgrim_new",0)], 0| itp_type_body_armor |itp_covers_legs |itp_civilian ,0, 25 , weight(2)|abundance(100)|head_armor(0)|body_armor(10)|leg_armor(2)|difficulty(0) ,imodbits_cloth ], #cambiado chief
-["pilgrim_hood", "Pilgrim Hood", [("pil_hood",0)], 0| itp_type_head_armor |itp_civilian  ,0, 35 , weight(1.25)|abundance(100)|head_armor(4)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_cloth ], #cambiado chief
+  [
+    "pilgrim_disguise", "Pilgrim Disguise", [("pilgrim_new",0)],
+    itp_type_body_armor |itp_covers_legs |itp_civilian ,0, 25 ,
+    weight(2)|abundance(100)|head_armor(0)|body_armor(10)|leg_armor(2)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
 
-# ARMOR 
+  [
+    "pilgrim_hood", "Pilgrim Hood", [("pil_hood",0)],
+    itp_type_head_armor |itp_civilian  ,0, 35,
+    weight(1.25)|abundance(100)|head_armor(4)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
+
+# ARMOR
 #handwear
 
 ##########Guantes empieza chief #################################
-["leather_gloves","Leather Gloves", [("leather_gloves_L",0)], itp_merchandise|itp_type_hand_armor,0, 190, weight(0.25)|abundance(120)|body_armor(12)|difficulty(0),imodbits_cloth],
+  [
+    "leather_gloves","Leather Gloves", [("leather_gloves_L",0)],
+    itp_merchandise|itp_type_hand_armor,0, 190,
+    weight(0.25)|abundance(120)|body_armor(10)|difficulty(0),imodbits_cloth
+  ],
+
 #unique
-["mail_mittens","Mail Mittens", [("mail_mittens_L",0)], itp_unique|itp_type_hand_armor,0, 390, weight(1.5)|abundance(10)|body_armor(19)|difficulty(0),imodbits_armor],
+  [
+    "mail_mittens","Mail Mittens", [("mail_mittens_L",0)],
+    itp_unique|itp_type_hand_armor,0, 390,
+    weight(1.5)|abundance(10)|body_armor(20)|difficulty(0),imodbits_armor
+  ],
 
 ##################Guantes acaba chief ###############################
 
@@ -401,164 +780,307 @@ items = [
 ###Notas: irlandeses y pictos solo bare.
 ###Clase baja
 #footwear
-["wrapping_boots", "Wrapping Boots", [("wrapping_boots_a_bry",0)], itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,
- 100 , weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(10)|difficulty(0) ,imodbits_cloth ],
-["ankle_boots", "Ankle Boots", [("ankle_boots_a_new_bry",0)], itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,
- 250 , weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(15)|difficulty(0) ,imodbits_cloth ], #cambiado chief
+  [
+    "wrapping_boots", "Wrapping Boots", [("wrapping_boots_a_bry",0)],
+    itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,100,
+    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(10)|difficulty(0) ,imodbits_cloth
+  ],
+
+  [
+    "ankle_boots", "Ankle Boots", [("ankle_boots_a_new_bry",0)],
+    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,100,
+    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(10)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
 #bare, piernas desnudas
-["bare_legs_blue", "Leather shoes", [("bare_legs_blue",0)], itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,
- 120 , weight(1)|abundance(90)|head_armor(0)|body_armor(0)|leg_armor(10)|difficulty(0) ,imodbits_cloth ],
- ["carbatinae_2_bare", "Bare Carbatinae", [("carbatinae_2_bare",0)], itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,
- 120 , weight(1)|abundance(90)|head_armor(0)|body_armor(0)|leg_armor(10)|difficulty(0) ,imodbits_cloth ],
- ["carbatinae_1_bare", "Bare Carbatinae", [("carbatinae_1_bare",0)], itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,
- 120 , weight(1)|abundance(90)|head_armor(0)|body_armor(0)|leg_armor(10)|difficulty(0) ,imodbits_cloth ],
-#unidades medias 
-["decorated_leather_shoes_bare", "Bare Decorated leather shoes", [("bare_legs_blue",0)], itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,
- 150 , weight(1)|abundance(90)|head_armor(0)|body_armor(0)|leg_armor(11)|difficulty(0) ,imodbits_cloth ],
-["carbatinae_1", "Quality Carbatinae", [("carbatinae_1",0)],  itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,
- 280 , weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ], #cambiado chief
-["carbatinae_2", "Quality Carbatinae", [("carbatinae_2",0)], itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,
- 280 , weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ], #cambiado chief
-["carbatinae_2_green", "Quality Carbatinae", [("carbatinae_2_green",0)],  itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,
- 280 , weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ], #cambiado chief
-["carbatinae_1_blue", "Quality Carbatinae", [("carbatinae_1_blue",0)],  itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,
- 280 , weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ], #cambiado chief
-["carbatinae_2_blue", "Quality Carbatinae", [("carbatinae_2_blue",0)], itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,
- 280 , weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ], #cambiado chief
-["carbatinae_2_grey", "Quality Carbatinae", [("carbatinae_2_grey",0)], itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,
- 280 , weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ], #cambiado chief
-["carbatinae_1_grey", "Quality Carbatinae", [("carbatinae_1_grey",0)],  itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,
- 280 , weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ], #cambiado chief
-["carbatinae_1_green", "Rich Carbatinae", [("carbatinae_1_green",0)],  itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,
- 280 , weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ], #cambiado chief
-["carbatinae_1_orange", "Rich Carbatinae", [("carbatinae_1_orange",0)],  itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,
- 280 , weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ], #cambiado chief
-["carbatinae_2_orange", "Rich Carbatinae", [("carbatinae_2_orange",0)], itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,
- 280 , weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ], #cambiado chief
-["carbatinae_1_red", "Rich Carbatinae", [("carbatinae_1_red",0)],  itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,
- 480 , weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ], #cambiado chief
-["carbatinae_2_red", "Rich Carbatinae", [("carbatinae_2_red",0)],  itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,
- 480 , weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ], #cambiado chief
+
+  [
+    "bare_legs_blue", "Leather shoes", [("bare_legs_blue",0)],
+    itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,100,
+    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(10)|difficulty(0) ,imodbits_cloth
+  ],
+
+  [
+    "carbatinae_2_bare", "Bare Carbatinae", [("carbatinae_2_bare",0)],
+    itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,100,
+    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(10)|difficulty(0) ,imodbits_cloth
+  ],
+
+  [
+    "carbatinae_1_bare", "Bare Carbatinae", [("carbatinae_1_bare",0)],
+    itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,100,
+    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(10)|difficulty(0) ,imodbits_cloth
+  ],
+
+#unidades medias
+  [
+    "decorated_leather_shoes_bare", "Bare Decorated leather shoes", [("bare_legs_blue",0)],
+    itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,150,
+    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(12)|difficulty(0) ,imodbits_cloth
+  ],
+
+  [
+    "carbatinae_1", "White Quality Carbatinae", [("carbatinae_1",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
+    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
+
+  [
+    "carbatinae_2", "White Quality Carbatinae", [("carbatinae_2",0)],
+    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
+    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
+
+  [
+    "carbatinae_1_green", "Green Quality Carbatinae", [("carbatinae_1_green",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
+    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
+
+  [
+    "carbatinae_2_green", "Green Quality Carbatinae", [("carbatinae_2_green",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
+    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
+
+  [
+    "carbatinae_1_blue", "Blue Quality Carbatinae", [("carbatinae_1_blue",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
+    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
+
+  [
+    "carbatinae_2_blue", "Blue Quality Carbatinae", [("carbatinae_2_blue",0)],
+    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
+    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
+
+  [
+    "carbatinae_1_grey", "Grey Quality Carbatinae", [("carbatinae_1_grey",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
+    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
+
+  [
+    "carbatinae_2_grey", "Grey Quality Carbatinae", [("carbatinae_2_grey",0)],
+    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
+    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
+
+  [
+    "carbatinae_1_orange", "Orange Quality Carbatinae", [("carbatinae_1_orange",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
+    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
+
+  [
+    "carbatinae_2_orange", "Orange Quality Carbatinae", [("carbatinae_2_orange",0)],
+    itp_merchandise| itp_type_foot_armor |itp_civilian|itp_attach_armature,0,280,
+    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
+
+  [
+    "carbatinae_1_red", "Red Quality Carbatinae", [("carbatinae_1_red",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian | itp_attach_armature,0,280,
+    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
+
+  [
+    "carbatinae_2_red", "Red Quality Carbatinae", [("carbatinae_2_red",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
+    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
+
+  #Clase alta civil
+  [
+    "decorated_leather_shoes", "White Rich Carbatinae", [("decorated_leather_shoes",0)],
+    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,600,
+    weight(1)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(20)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
+
+  [
+    "decorated_leather_shoes_green", "Green Rich Carbatinae", [("decorated_leather_shoes_green",0)],
+    itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,600,
+    weight(1)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(20)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
+
+  [
+    "decorated_leather_shoes_blue", "Blue Rich Carbatinae", [("decorated_leather_shoes_blue",0)],
+    itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,600,
+    weight(1)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(20)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
+
+  [
+    "decorated_leather_shoes_grey", "Grey Rich Carbatinae", [("decorated_leather_shoes_grey",0)],
+    itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,600,
+    weight(1)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(20)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
+
+  [
+    "decorated_leather_shoes_orange", "Orange Rich Carbatinae", [("decorated_leather_shoes_orange",0)],
+    itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,600,
+    weight(1)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(20)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
+
+  [
+    "decorated_leather_shoes_red", "Red Rich Carbatinae", [("decorated_leather_shoes_red",0)],
+    itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,600,
+    weight(1)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(20)|difficulty(0) ,imodbits_cloth
+  ], #cambiado chief
 
 
-#Clase alta militar
-["iron_greaves", "Greaves", [("carbatinae_1_greaves",0)], itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 860 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(24)|difficulty(0) ,imodbits_armor ],
-["mail_boots", "Greaves", [("carbatinae_2_greaves",0)], itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 860 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(24)|difficulty(0) ,imodbits_armor ],
-["light_leather_boots", "Leather shoes", [("decorated_leather_shoes_greaves",0)], itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor ],
-["carbatinae_1_greaves_green", "Greaves", [("carbatinae_1_greaves_green",0)], itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor ],
-["carbatinae_2_greaves_green", "Greaves", [("carbatinae_2_greaves_green",0)],  itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor ],
-["carbatinae_1_greaves_blue", "Greaves", [("carbatinae_1_greaves_blue",0)], itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor ],
-["carbatinae_2_greaves_blue", "Greaves", [("carbatinae_2_greaves_blue",0)], itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor ],
-["carbatinae_1_greaves_grey", "Greaves", [("carbatinae_1_greaves_grey",0)], itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor ],
-["carbatinae_2_greaves_grey", "Greaves", [("carbatinae_2_greaves_grey",0)], itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor ],
-["carbatinae_1_greaves_orange", "Greaves", [("carbatinae_1_greaves_orange",0)], itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor ],
-["carbatinae_2_greaves_orange", "Greaves", [("carbatinae_2_greaves_orange",0)], itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor ],
-["carbatinae_2_greaves_red", "Greaves", [("carbatinae_2_greaves_red",0)], itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor ],
-["splinted_greaves", "Greaves", [("carbatinae_1_greaves_red",0)],  itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor ],
-["leather_boots", "Rich Leather Shoes", [("decorated_leather_shoes_greaves_red",0)], itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 920 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(26)|difficulty(0) ,imodbits_armor ],
-["splinted_leather_greaves", "Splinted Leather Greaves", [("splinted_greaves_a_bry",0)], itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 910 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(26)|difficulty(0) ,imodbits_armor ],
-#greaves elite nobles solo
-["mail_chausses", "Nobleman Greaves", [("rus_splint_greaves",0)], itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 980 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(28)|difficulty(0) ,imodbits_armor ],
-["decorated_leather_shoes_greaves_green", "Nobleman Leather Shoes", [("decorated_leather_shoes_greaves_green",0)], itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 920 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(26)|difficulty(0) ,imodbits_armor ],
-["decorated_leather_shoes_greaves_blue", "Leather Shoes", [("decorated_leather_shoes_greaves_blue",0)],  itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 920 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(26)|difficulty(0) ,imodbits_armor ],
-["decorated_leather_shoes_greaves_grey", "Leather Shoes", [("decorated_leather_shoes_greaves_grey",0)], itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 920 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(26)|difficulty(0) ,imodbits_armor ],
-["decorated_leather_shoes_greaves_orange", "Leather Shoes", [("decorated_leather_shoes_greaves_orange",0)], itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 920 , weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(26)|difficulty(0) ,imodbits_armor ],
+  #Clase alta militar
+  [
+    "iron_greaves", "White Greaves", [("carbatinae_1_greaves",0)],
+    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
+    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
+  ],
 
-#Clase alta civil
-["decorated_leather_shoes", "Leather Shoes", [("decorated_leather_shoes",0)], itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,
- 600 , weight(1)|abundance(10)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ], #cambiado chief
-["decorated_leather_shoes_green", "Rich Leather Shoes", [("decorated_leather_shoes_green",0)],  itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,
- 600 , weight(1)|abundance(10)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ], #cambiado chief
-["decorated_leather_shoes_blue", "Leather Shoes", [("decorated_leather_shoes_blue",0)],  itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,
- 600 , weight(1)|abundance(10)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ], #cambiado chief
-["decorated_leather_shoes_grey", "Leather Shoes", [("decorated_leather_shoes_grey",0)],  itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,
- 600 , weight(1)|abundance(10)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ], #cambiado chief
-["decorated_leather_shoes_orange", "Rich Leather Shoes", [("decorated_leather_shoes_orange",0)],  itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,
- 600 , weight(1)|abundance(10)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ], #cambiado chief
-["decorated_leather_shoes_red", "Rich Leather Shoes", [("decorated_leather_shoes_red",0)],  itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,
- 600 , weight(1)|abundance(10)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ], #cambiado chief
+  [
+    "mail_boots", "White Greaves", [("carbatinae_2_greaves",0)],
+    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
+    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
+  ],
+
+  [
+    "light_leather_boots", "White Greaves", [("decorated_leather_shoes_greaves",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
+    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
+  ],
+
+  [
+    "carbatinae_1_greaves_green", "Green Greaves", [("carbatinae_1_greaves_green",0)],
+    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
+    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
+  ],
+
+  [
+    "carbatinae_2_greaves_green", "Green Greaves", [("carbatinae_2_greaves_green",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
+    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
+  ],
+
+  [
+    "carbatinae_1_greaves_blue", "Blue Greaves", [("carbatinae_1_greaves_blue",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
+    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
+  ],
+
+  [
+    "carbatinae_2_greaves_blue", "Blue Greaves", [("carbatinae_2_greaves_blue",0)],
+    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
+    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
+  ],
+
+  [
+    "carbatinae_1_greaves_grey", "Grey Greaves", [("carbatinae_1_greaves_grey",0)],
+    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
+     weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
+  ],
+
+  [
+    "carbatinae_2_greaves_grey", "Grey Greaves", [("carbatinae_2_greaves_grey",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
+    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
+  ],
+
+  [
+    "carbatinae_1_greaves_orange", "Orange Greaves", [("carbatinae_1_greaves_orange",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
+    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
+  ],
+
+  [
+    "carbatinae_2_greaves_orange", "Orange Greaves", [("carbatinae_2_greaves_orange",0)],
+    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
+    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
+  ],
+
+  [
+    "carbatinae_2_greaves_red", "Red Greaves", [("carbatinae_2_greaves_red",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
+    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
+  ],
+
+  [
+    "splinted_greaves", "Red Greaves", [("carbatinae_1_greaves_red",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
+    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
+  ],
+
+  [
+    "splinted_leather_greaves", "Splinted Leather Greaves", [("splinted_greaves_a_bry",0)],
+    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 910 ,
+    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(26)|difficulty(0) ,imodbits_armor
+  ],
+  #greaves elite nobles solo
+  [
+    "mail_chausses", "Rus Splinted Greaves", [("rus_splint_greaves",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 980 ,
+    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(28)|difficulty(0) ,imodbits_armor
+  ],
+
+  [
+    "decorated_leather_shoes_greaves_green", "Green Rich Greaves", [("decorated_leather_shoes_greaves_green",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 920 ,
+    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(26)|difficulty(0) ,imodbits_armor
+  ],
+
+  [
+    "decorated_leather_shoes_greaves_blue", "Blue Rich Greaves", [("decorated_leather_shoes_greaves_blue",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 920 ,
+    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(26)|difficulty(0) ,imodbits_armor
+  ],
+
+  [
+    "decorated_leather_shoes_greaves_grey", "Grey Rich Greaves", [("decorated_leather_shoes_greaves_grey",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 920 ,
+    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(26)|difficulty(0) ,imodbits_armor
+  ],
+
+  [
+    "decorated_leather_shoes_greaves_orange", "Orange Rich Greaves", [("decorated_leather_shoes_greaves_orange",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 920 ,
+    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(26)|difficulty(0) ,imodbits_armor
+  ],
+
+  [
+    "leather_boots", "Red Rich Greaves", [("decorated_leather_shoes_greaves_red",0)],
+    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 920 ,
+    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(26)|difficulty(0) ,imodbits_armor
+  ],
+
 ####Calzado acaba chief finales ###############################################
 ######################################################################
 
-
-
-####Calzado acaba chief ###############################################
-
-######ROPA chief##########################################################
-
-####tunicas largas finales ##############
- ###########################################
 ###Pictish and irish long tunic para druidas, bajos jefes y bajos nobles
-["tribal_warrior_outfit", "Long Tunic", [("outaa1",0)], itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 560 , weight(1)|abundance(30)|head_armor(0)|body_armor(15)|leg_armor(4), imodbits_cloth ,
-[], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
-["nomad_robe", "Long Tunic", [("outaa2",0)], itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 560 , weight(1)|abundance(30)|head_armor(0)|body_armor(15)|leg_armor(4), imodbits_cloth ,
-[], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
-["heraldric_armor", "Long Tunic", [("outaa3",0)], itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 560 , weight(1)|abundance(30)|head_armor(0)|body_armor(15)|leg_armor(4), imodbits_cloth ,
-[], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
-["studded_leather_coat", "Long Tunic", [("outaa4",0)], itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 560 , weight(1)|abundance(30)|head_armor(0)|body_armor(15)|leg_armor(4), imodbits_cloth ,
-[], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
-#irish
-["courtly_outfit", "Long Tunic", [("merchant_outf1",0)], itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 430 , weight(1)|abundance(50)|head_armor(0)|body_armor(12)|leg_armor(4), imodbits_cloth ,
-[], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
-["nobleman_outfit", "Long Tunic", [("merchant_outf2",0)], itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 430 , weight(1)|abundance(50)|head_armor(0)|body_armor(12)|leg_armor(4), imodbits_cloth ,
-[], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
-["nomad_armor", "Long Tunic", [("shirt_shirt_a",0)], itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 430 , weight(1)|abundance(50)|head_armor(0)|body_armor(12)|leg_armor(4), imodbits_cloth ,
-[], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
-["khergit_armor", "Long Tunic", [("shirt_shirt_c",0)], itp_merchandise|itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 430 , weight(1)|abundance(30)|head_armor(0)|body_armor(12)|leg_armor(4), imodbits_cloth ,
-[], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
- ["fur_coat", "Long Tunic", [("merchant_outf5",0)], itp_merchandise|itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 430 , weight(1)|abundance(50)|head_armor(0)|body_armor(12)|leg_armor(4), imodbits_cloth ,
-[], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
-#tunica larga para tropa baja picta e irlandesa 
-["sarranid_jellaba_blue", "Blue Worn Robe", [("sarranid_jellaba_blue",0)], itp_merchandise|itp_type_body_armor  |itp_covers_legs ,0,
- 363 , weight(1)|abundance(100)|head_armor(0)|body_armor(13)|leg_armor(4)|difficulty(0) ,imodbits_cloth ,
-[], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
+  *pictish_long_tunics,
 
-#chief irlandeses gaelic jacket, es del siglo VIII o IX asi que usar muy poco, para algun personaje secundario
-["nomad_vest", "Grey Godelic Jacket", [("a_gaelic_jacket",0)], itp_type_body_armor|itp_covers_legs|itp_civilian,0,
- 300 , weight(4)|abundance(50)|head_armor(0)|body_armor(12)|leg_armor(2)|difficulty(0) ,imodbits_cloth ,
-[], [fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
-["ragged_outfit", "Green Godelic Jacket", [("c_gaelic_jacket",0)], itp_type_body_armor|itp_covers_legs|itp_civilian,0,
- 300 , weight(4)|abundance(50)|head_armor(0)|body_armor(12)|leg_armor(2)|difficulty(0) ,imodbits_cloth ,
-[], [fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
-["leather_jacket", "Grey Godelic Jacket", [("b_gaelic_jacket",0)], itp_type_body_armor|itp_covers_legs|itp_civilian,0,
- 300 , weight(4)|abundance(50)|head_armor(0)|body_armor(12)|leg_armor(2)|difficulty(0) ,imodbits_cloth ,
-[], [fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
+  #irish
+  *irish_long_tunics,
 
+  *godelic_jackets,
 
-####sacerdotes
+  *worn_robes,
 
-###robes derivadas de la sarranida, para comerciantes y village elders 
- ["sarranid_cloth_robe_b", "Worn Robe", [("sar_robegrn",0)], itp_merchandise|itp_type_body_armor  |itp_covers_legs ,0,
- 363 , weight(1)|abundance(100)|head_armor(0)|body_armor(13)|leg_armor(4)|difficulty(0) ,imodbits_cloth ],
-["skirmisher_armor", "Worn Robe", [("sar_robeylw",0)], itp_type_body_armor  |itp_covers_legs ,0,
- 363 , weight(1)|abundance(100)|head_armor(0)|body_armor(13)|leg_armor(4)|difficulty(0) ,imodbits_cloth ],
-["archers_vest", "Worn Robe", [("sar_robewht",0)], itp_merchandise|itp_type_body_armor  |itp_covers_legs ,0,
- 363 , weight(1)|abundance(100)|head_armor(0)|body_armor(13)|leg_armor(4)|difficulty(0) ,imodbits_cloth ],
-["sarranid_leather_armor", "Worn Robe", [("sar_robeprp",0)], itp_type_body_armor  |itp_covers_legs ,0,
- 363 , weight(1)|abundance(100)|head_armor(0)|body_armor(13)|leg_armor(4)|difficulty(0) ,imodbits_cloth ],
-["sarranid_cavalry_robe", "Worn Robe", [("sar_robe_bbge",0)], itp_merchandise|itp_type_body_armor  |itp_covers_legs ,0,
- 363 , weight(1)|abundance(100)|head_armor(0)|body_armor(13)|leg_armor(4)|difficulty(0) ,imodbits_cloth ],
-#robes chief acaba
-#solo:
-###paganos
- ["sarranid_cloth_robe", "Worn Robe", [("sar_robe_bbge",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0,
- 363 , weight(1)|abundance(100)|head_armor(0)|body_armor(13)|leg_armor(4)|difficulty(0) ,imodbits_cloth ], #chief cambiado
-["robe", "Robe", [("sar_robered",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0,
- 363 , weight(1)|abundance(100)|head_armor(0)|body_armor(13)|leg_armor(4)|difficulty(0) ,imodbits_cloth ], #chief cambiado
+  ###cristianos
+  [
+    "blue_gambeson", "Monk Robe", [("priest_1",0)],
+    itp_type_body_armor|itp_covers_legs|itp_civilian,0,170,
+    weight(4)|abundance(50)|head_armor(0)|body_armor(11)|leg_armor(5)|difficulty(0) ,imodbits_cloth
+  ],
 
-###cristianos
-["blue_gambeson", "Monk Robe", [("priest_1",0)], itp_type_body_armor|itp_covers_legs|itp_civilian,0,
- 170 , weight(4)|abundance(50)|head_armor(0)|body_armor(11)|leg_armor(5)|difficulty(0) ,imodbits_cloth ],
-["red_gambeson", "Bishop Robe", [("priest_3",0)], itp_type_body_armor|itp_covers_legs|itp_civilian,0,
- 975 , weight(5)|abundance(10)|head_armor(0)|body_armor(13)|leg_armor(5)|difficulty(0) ,imodbits_cloth ],
+  [
+    "red_gambeson", "Bishop Robe", [("priest_3",0)],
+    itp_type_body_armor|itp_covers_legs|itp_civilian, 0, 975,
+    weight(5)|abundance(10)|head_armor(0)|body_armor(13)|leg_armor(5)|difficulty(0) ,imodbits_cloth
+  ],
 
-####celtas
-["sarranid_jellaba_white", "White Worn Robe", [("sarranid_jellaba_white",0)], itp_type_body_armor  |itp_covers_legs ,0,
- 363 , weight(1)|abundance(100)|head_armor(0)|body_armor(13)|leg_armor(4)|difficulty(0) ,imodbits_cloth ],
-
-#Otros
-["padded_cloth", "Galeno's Tunic", [("surgeon",0)], itp_type_body_armor  |itp_covers_legs ,0,
- 197 , weight(7)|abundance(10)|head_armor(0)|body_armor(7)|leg_armor(2)|difficulty(0) ,imodbits_cloth ],
+  #Otros
+  [
+    "padded_cloth", "Galeno's Tunic", [("surgeon",0)],
+    itp_type_body_armor|itp_covers_legs, 0, 197,
+    weight(7)|abundance(10)|head_armor(0)|body_armor(7)|leg_armor(2)|difficulty(0) ,imodbits_cloth
+  ],
 
 #####tunicas largas acaba chief##############
 ###########################################
@@ -654,8 +1176,8 @@ items = [
 ["coarse_tunic", "Merchant Poor Tunic", [("coarse_tunic_a_bry",0)], itp_merchandise|itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 500 , weight(0.5)|abundance(100)|head_armor(0)|body_armor(12)|leg_armor(3), imodbits_cloth ],
 ["leather_apron", "Leather Apron", [("leather_apron",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0,
  161 , weight(3)|abundance(100)|head_armor(0)|body_armor(3)|leg_armor(3)|difficulty(0) ,imodbits_cloth ], #cambiado chief
-#usar tb: coarse_tunic (para vendedor pobre), leather_apron (taberneros), 
- 
+#usar tb: coarse_tunic (para vendedor pobre), leather_apron (taberneros),
+
 
 
 ###clase alta o elite pictos o irlandeses
@@ -772,10 +1294,10 @@ items = [
 [], [fac_kingdom_6, fac_kingdom_7, fac_kingdom_8, fac_kingdom_10, fac_kingdom_11, fac_kingdom_12, fac_kingdom_15, fac_kingdom_16, fac_kingdom_18, fac_kingdom_21, fac_kingdom_22, fac_kingdom_23, fac_kingdom_24, fac_kingdom_25, fac_kingdom_26]],
 ["bl_tunic10", "Rich Blue Tunic", [("BL_Tunic10",0)], itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 210 , weight(0.5)|abundance(50)|head_armor(0)|body_armor(10)|leg_armor(2), imodbits_cloth ,
 [], [fac_kingdom_6, fac_kingdom_7, fac_kingdom_8, fac_kingdom_10, fac_kingdom_11, fac_kingdom_12, fac_kingdom_15, fac_kingdom_16, fac_kingdom_18, fac_kingdom_21, fac_kingdom_22, fac_kingdom_23, fac_kingdom_24, fac_kingdom_25, fac_kingdom_26]],
- 
+
 #rey briton o mejor para el tipo del muro de hadriano
 ["romantunic_purple", "Tunic Purple", [("romantunic_purple",0)], itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 450 , weight(0.5)|abundance(10)|head_armor(0)|body_armor(5)|leg_armor(2)|difficulty(0), imodbits_cloth ],
- 
+
 ##invasores####
 #clase baja
  ["fattiglinenskjortir", "Blue Shirt", [("fattiglinenskjortir",0)],itp_merchandise|itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 210 , weight(0.5)|abundance(50)|head_armor(0)|body_armor(10)|leg_armor(2), imodbits_cloth ,
@@ -792,7 +1314,7 @@ items = [
 [], [fac_kingdom_1, fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_5, fac_kingdom_9, fac_kingdom_13, fac_kingdom_14]],
 ["bl_tunicsleather_3", "Cloak Rustic Tunic", [("BL_TunicLeather_3",0)],itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 210 , weight(0.5)|abundance(50)|head_armor(0)|body_armor(10)|leg_armor(2), imodbits_cloth ,
 [], [fac_kingdom_1, fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_5, fac_kingdom_9, fac_kingdom_13, fac_kingdom_14]],
- 
+
  ###clase media
 ["bl_tunic03", "Red Tunic", [("BL_Tunic03",0)], itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 210 , weight(0.5)|abundance(50)|head_armor(0)|body_armor(10)|leg_armor(2), imodbits_cloth ,
 [], [fac_kingdom_1, fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_5, fac_kingdom_9, fac_kingdom_13, fac_kingdom_14]],
@@ -838,7 +1360,7 @@ items = [
 
 #tunicas cortas finales acaba###############
  ############################################
- 
+
 
 ######vestuario mujeres chief finales
  #mujeres todas las razas plebeyas campesinas, villages
@@ -846,8 +1368,8 @@ items = [
 [], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
 ["lady_dress_ruby", "Long Shirt", [("vae_tunica_larga6",0)],itp_merchandise|itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 150 , weight(1)|abundance(100)|head_armor(0)|body_armor(5)|leg_armor(3), imodbits_cloth,
 [], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
-["woolen_dress", "Woolen Dress", [("woolen_dress",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 130 , weight(1)|abundance(100)|head_armor(0)|body_armor(5)|leg_armor(2)|difficulty(0) ,imodbits_cloth ], #cambiado chief 
-["peasant_dress_b_new", "Woman Dress", [("peasant_dress_b_new",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 130 , weight(1)|abundance(100)|head_armor(0)|body_armor(5)|leg_armor(2)|difficulty(0) ,imodbits_cloth ], #cambiado chief 
+["woolen_dress", "Woolen Dress", [("woolen_dress",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 130 , weight(1)|abundance(100)|head_armor(0)|body_armor(5)|leg_armor(2)|difficulty(0) ,imodbits_cloth ], #cambiado chief
+["peasant_dress_b_new", "Woman Dress", [("peasant_dress_b_new",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 130 , weight(1)|abundance(100)|head_armor(0)|body_armor(5)|leg_armor(2)|difficulty(0) ,imodbits_cloth ], #cambiado chief
 
 ########mujeres####################
 #tunicas largas pictos mujeres plebeyas campesinas
@@ -907,7 +1429,7 @@ items = [
 ["pictishdress", "Woman Dress", [("pictishdress",0)], itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 500 , weight(3)|abundance(100)|head_armor(0)|body_armor(10)|leg_armor(10)|difficulty(0) ,imodbits_cloth],
 ####mujeres ropa acaba############
  #####################################
- 
+
 #Pictos
 
 #####desnudos pictos finales#############
@@ -954,7 +1476,7 @@ items = [
 ["dress", "Cloaked Body", [("BL_Celts03COAT",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 180 , weight(5)|abundance(60)|head_armor(0)|body_armor(5)|leg_armor(6)|difficulty(0) ,imodbits_cloth ], #cambiado chief
 ["blue_dress", "Cloaked Body", [("BL_Celts04COAT",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 180 , weight(5)|abundance(60)|head_armor(0)|body_armor(15)|leg_armor(6)|difficulty(0) ,imodbits_cloth ], #cambiado chief
 ["tabard", "Cloaked Body", [("BL_Celts05COAT",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 180 , weight(5)|abundance(60)|head_armor(0)|body_armor(5)|leg_armor(6)|difficulty(0) ,imodbits_cloth ], #cambiado chief
-#irlandeses 
+#irlandeses
 ["leather_vest", "Cloaked Body", [("BL_Celts06COAT",0)], itp_merchandise|itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 900 , weight(5)|abundance(10)|head_armor(0)|body_armor(15)|leg_armor(6)|difficulty(0) ,imodbits_cloth, #cambiado chief
   [], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
 ["steppe_armor", "Cloaked Body", [("BL_Celts07COAT",0)],itp_merchandise|itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 900 , weight(5)|abundance(10)|head_armor(0)|body_armor(15)|leg_armor(6)|difficulty(0) ,imodbits_cloth, #cambiado chief
@@ -971,7 +1493,7 @@ items = [
 ["mail_coat", "Blue Pants", [("BL_Celts08",0)], itp_merchandise|itp_type_body_armor  |itp_covers_legs ,0, 400 , weight(0.5)|abundance(10)|head_armor(0)|body_armor(10)|leg_armor(6), imodbits_cloth,
   [], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
 
-#pantalones con pintura,  pictos 
+#pantalones con pintura,  pictos
 ["long_mail_coat", "Blue Pants", [("BL_Celts05",0)], itp_type_body_armor  |itp_covers_legs ,0, 100 , weight(0.5)|abundance(10)|head_armor(0)|body_armor(10)|leg_armor(6), imodbits_cloth ],
 ["mail_with_tunic_red", "Red Pants", [("BL_Celts04",0)], itp_type_body_armor  |itp_covers_legs ,0, 100 , weight(0.5)|abundance(10)|head_armor(0)|body_armor(10)|leg_armor(6), imodbits_cloth ],
 ["mail_with_tunic_green", "Blue Pants", [("BL_Celts03",0)], itp_type_body_armor  |itp_covers_legs ,0, 100 , weight(0.5)|abundance(10)|head_armor(0)|body_armor(10)|leg_armor(6), imodbits_cloth ],
@@ -988,10 +1510,10 @@ items = [
 
 ##############ROPA acaba chief #############################################################
 
- 
+
 ############# ARMOR armadura chief finales empieza ###############################################
 ###################################################################################################
- 
+
 #malla cubre pecho, y piernas, son largas, valen para pictos e irlandeses
 ["mail_coat_1", "Brown Kingly Mail", [("mail_vest_b",0)], itp_merchandise|itp_type_body_armor|itp_covers_legs|itp_civilian,0, 10160 , weight(22)|abundance(2)|head_armor(0)|body_armor(60)|leg_armor(20)|difficulty(14) ,imodbits_armor,
 [], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
@@ -1076,7 +1598,7 @@ items = [
  [], [fac_kingdom_1, fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_5, fac_kingdom_9, fac_kingdom_13, fac_kingdom_14]],
  ["byrnie_d_new", " Noble Mail", [("BL_VikingByrnie11",0)], itp_type_body_armor|itp_covers_legs|itp_civilian,0, 7020 , weight(20)|abundance(10)|head_armor(0)|body_armor(53)|leg_armor(10)|difficulty(13) ,imodbits_armor,
  [], [fac_kingdom_1, fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_5, fac_kingdom_9, fac_kingdom_13, fac_kingdom_14]],
- 
+
 ########armaduras pesadas byrnie, para invasores solamente
 ["byrnie", "Brown Lorica", [("byrnie1",0)], itp_merchandise|itp_type_body_armor|itp_covers_legs|itp_civilian,0, 3840 , weight(19)|abundance(30)|head_armor(0)|body_armor(45)|leg_armor(4)|difficulty(11) ,imodbits_armor,
  [], [fac_kingdom_1, fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_5, fac_kingdom_9, fac_kingdom_13, fac_kingdom_14]],
@@ -1239,9 +1761,9 @@ items = [
 ########################################################################################
  ####armaduras pesadas finales acaba chief############################################
 
- 
+
 ###################ARMADURAS MEDIAS CHIEF finales###########################################
- 
+
 #gambeson de lino, cubre torso, cualquier faccion
 ["padded_jack_3_trig", "White Linen Coat", [("armor_15",0)], itp_merchandise|itp_type_body_armor|itp_covers_legs|itp_civilian,0, 1170 , weight(4)|abundance(60)|head_armor(0)|body_armor(29)|leg_armor(8)|difficulty(7) ,imodbits_armor ],
 ["padded_jack_4_trig", "Linen Coat", [("ped_padded1_brown",0)], itp_merchandise|itp_type_body_armor|itp_covers_legs|itp_civilian,0, 1170 , weight(4)|abundance(60)|head_armor(0)|body_armor(29)|leg_armor(8)|difficulty(7) ,imodbits_armor ],
@@ -1301,7 +1823,7 @@ items = [
 ["vae_thick_coat3", "Simple Coat", [("vae_thick_coat3",0)],  itp_merchandise| itp_type_body_armor|itp_covers_legs|itp_civilian ,0, 700 , weight(3)|abundance(80)|head_armor(0)|body_armor(18)|leg_armor(2)|difficulty(2) ,imodbits_cloth ], #cambiado chief
 ["vae_thick_coat6", "Hide Coat", [("vae_thick_coat6",0)],  itp_type_body_armor|itp_covers_legs|itp_civilian ,0, 800 , weight(3)|abundance(80)|head_armor(0)|body_armor(24)|leg_armor(2)|difficulty(2) ,imodbits_cloth ], #cambiado chief
 ["vae_thick_coat10", "Hide Coat", [("vae_thick_coat10",0)],  itp_merchandise| itp_type_body_armor|itp_covers_legs|itp_civilian ,0, 700 , weight(3)|abundance(80)|head_armor(0)|body_armor(18)|leg_armor(2)|difficulty(2) ,imodbits_cloth ], #cambiado chief
- 
+
 ##fur jackets
 ["idi_furjacket1", "Fur Jacket", [("idi_furjacket1",0)],  itp_merchandise| itp_type_body_armor|itp_covers_legs|itp_civilian ,0, 740 , weight(3)|abundance(70)|head_armor(0)|body_armor(19)|leg_armor(4)|difficulty(4) ,imodbits_cloth ], #cambiado chief
 ["idi_furjacket2", "Fur Jacket", [("idi_furjacket2",0)],  itp_merchandise| itp_type_body_armor|itp_covers_legs|itp_civilian ,0, 740 , weight(3)|abundance(70)|head_armor(0)|body_armor(19)|leg_armor(4)|difficulty(4) ,imodbits_cloth ], #cambiado chief
@@ -1315,7 +1837,7 @@ items = [
 ["gatheredcloaks3", "Yellow Gathered Cloak", [("gatheredcloak3",0)], itp_merchandise| itp_type_body_armor|itp_covers_legs|itp_civilian ,0, 740 , weight(2)|abundance(50)|head_armor(0)|body_armor(17)|leg_armor(6)|difficulty(2) ,imodbits_cloth ], #cambiado chief
 ["gatheredcloaks4", "Gathered Cloak", [("gatheredcloak4",0)], itp_merchandise| itp_type_body_armor|itp_covers_legs|itp_civilian ,0, 740 , weight(2)|abundance(50)|head_armor(0)|body_armor(17)|leg_armor(6)|difficulty(2) ,imodbits_cloth ], #cambiado chief
 ["gatheredcloaks5", "Blue Gathered Cloak", [("gatheredcloak5",0)], itp_merchandise| itp_type_body_armor|itp_covers_legs|itp_civilian ,0, 740 , weight(2)|abundance(50)|head_armor(0)|body_armor(17)|leg_armor(6)|difficulty(2) ,imodbits_cloth ], #cambiado chief
- 
+
 ###tipo gordo
  ["fat_body", "Fat Body", [("fat_body",0)],  itp_unique| itp_type_body_armor|itp_covers_legs|itp_civilian ,0, 10 , weight(3)|abundance(10)|head_armor(0)|body_armor(14)|leg_armor(4)|difficulty(4) ,imodbits_cloth ], #cambiado chief
 
@@ -1325,8 +1847,8 @@ items = [
 
 
 #######################################chief armor acaba##########################
- 
-#Quest-specific - perhaps can be used for prisoners, 
+
+#Quest-specific - perhaps can be used for prisoners,
 ["burlap_tunic", "Burlap Tunic", [("shirt",0)], itp_type_body_armor  |itp_covers_legs ,0,
  25 , weight(1)|abundance(100)|head_armor(0)|body_armor(5)|leg_armor(1)|difficulty(0) ,imodbits_armor ], #cambiado chief
 
@@ -1360,7 +1882,7 @@ items = [
 ["head_wrappings","Head Wrapping",[("head_wrapping_bry",0)],itp_type_head_armor|itp_fit_to_head,0,30, weight(0.25)|head_armor(6),imodbit_tattered | imodbit_ragged | imodbit_sturdy | imodbit_thick], #chief cambiado
 
 #tipo gordo
- ["turret_hat_ruby", "Fat Man", [("large_man_full",0)], itp_unique|itp_type_head_armor  |itp_civilian|itp_fit_to_head ,0, 70 , weight(0.5)|abundance(10)|head_armor(8)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_cloth ], 
+ ["turret_hat_ruby", "Fat Man", [("large_man_full",0)], itp_unique|itp_type_head_armor  |itp_civilian|itp_fit_to_head ,0, 70 , weight(0.5)|abundance(10)|head_armor(8)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_cloth ],
 
 
 ####gorros acabados chief##########3
@@ -1623,7 +2145,7 @@ items = [
 ["talak_sutton_hoo", "Saxon Prince Helmet", [("talak_sutton_hoo",0)], itp_type_head_armor|itp_fit_to_head   ,0, 1320 , weight(2.5)|abundance(10)|head_armor(51)|body_armor(0)|leg_armor(0)|difficulty(10) ,imodbits_plate ],
 #rey sajon o juto, o dena pirate
 ["valsgarde_new", "Scandza Helmet", [("valsgarde_new",0)], itp_type_head_armor|itp_fit_to_head|itp_covers_head   ,0, 1400 , weight(3)|abundance(10)|head_armor(52)|body_armor(0)|leg_armor(0)|difficulty(14) ,imodbits_plate ],
- 
+
 #chief valsgarde helmets de dinamarca para determinadas unidades de elite de INVASORES
 #proteccion base, tropas elite sajones y jutos
 ["footman_helmet", "Dena Helmet", [("BL_01_Valsgarde02",0)], itp_merchandise| itp_type_head_armor|itp_fit_to_head ,0, 850 , weight(2)|abundance(30)|head_armor(34)|body_armor(0)|leg_armor(0)|difficulty(7) ,imodbits_plate,
@@ -1747,39 +2269,39 @@ items = [
 [], [fac_kingdom_6, fac_kingdom_7, fac_kingdom_8, fac_kingdom_10, fac_kingdom_11, fac_kingdom_12, fac_kingdom_15, fac_kingdom_16, fac_kingdom_18, fac_kingdom_21, fac_kingdom_22, fac_kingdom_23, fac_kingdom_24, fac_kingdom_25, fac_kingdom_26]],
 ["szpadelhelmet_gold", "Elite Briton Helm", [("szpadelhelmet_gold",0)], itp_merchandise| itp_type_head_armor|itp_fit_to_head ,0, 760 , weight(2)|abundance(60)|head_armor(34)|body_armor(0)|leg_armor(0)|difficulty(8) ,imodbits_plate,
 [], [fac_kingdom_6, fac_kingdom_7, fac_kingdom_8, fac_kingdom_10, fac_kingdom_11, fac_kingdom_12, fac_kingdom_15, fac_kingdom_16, fac_kingdom_18, fac_kingdom_21, fac_kingdom_22, fac_kingdom_23, fac_kingdom_24, fac_kingdom_25, fac_kingdom_26]],
- 
+
 #para decapitaciones, casco chief invisible
 ["sarranid_horseman_helmet", "No head", [("no_head",0)], itp_type_head_armor|itp_fit_to_head|itp_covers_head   ,0, 180 , weight(2)|abundance(100)|head_armor(25)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_plate ],
 
 ####Yelmos finales acaba#################################
  ############################################################
 
- 
+
 # Chief empieza########
 ####ARMAS DE ATAQUE#########
 
 
 ###armas de no filo, porras, mazas madera etc... finalizadas
  #######################
-["wooden_stick",         "Wooden Stick", [("wooden_stick",0)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_wooden_parry|itp_wooden_attack, itc_scimitar, 
+["wooden_stick",         "Wooden Stick", [("wooden_stick",0)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_wooden_parry|itp_wooden_attack, itc_scimitar,
 2 , weight(2)|difficulty(0)|spd_rtng(82) | weapon_length(80)|swing_damage(16 , blunt) | thrust_damage(0 ,  pierce),imodbits_none ], #chief cambiado
-["club",         "Club", [("club",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise|itp_primary|itp_secondary|itp_wooden_parry|itp_wooden_attack, itc_scimitar, 
+["club",         "Club", [("club",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise|itp_primary|itp_secondary|itp_wooden_parry|itp_wooden_attack, itc_scimitar,
 20 , weight(1.5)|difficulty(4)|spd_rtng(80) | weapon_length(65)|swing_damage(17 , blunt) | thrust_damage(0 ,  pierce),imodbits_none ], #cambiado chief
 ["club_one",         "Club", [("club_one",0)], itp_type_one_handed_wpn|itp_merchandise| itp_primary|itp_wooden_parry|itp_wooden_attack, itc_scimitar,
  125 , weight(2)|difficulty(6)|spd_rtng(87) | weapon_length(35)|swing_damage(19 , blunt) | thrust_damage(5 ,  pierce),imodbits_none ],
-["cudgel",         "Wooden Club", [("palka",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise|itp_primary|itp_secondary|itp_wooden_parry|itp_wooden_attack, itc_scimitar, 
+["cudgel",         "Wooden Club", [("palka",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise|itp_primary|itp_secondary|itp_wooden_parry|itp_wooden_attack, itc_scimitar,
 100 , weight(2)|difficulty(0)|spd_rtng(87) | weapon_length(65)|swing_damage(20 , blunt) | thrust_damage(0 ,  pierce),imodbits_none ], #chief cambiado
-["palka2",         "Wooden Club", [("palka2",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise|itp_primary|itp_secondary|itp_wooden_parry|itp_wooden_attack, itc_scimitar, 
+["palka2",         "Wooden Club", [("palka2",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise|itp_primary|itp_secondary|itp_wooden_parry|itp_wooden_attack, itc_scimitar,
 100 , weight(2)|difficulty(0)|spd_rtng(87) | weapon_length(65)|swing_damage(20 , blunt) | thrust_damage(0 ,  pierce),imodbits_none ], #chief cambiado
-["palka3",         "Wooden Club", [("palka3",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise|itp_primary|itp_secondary|itp_wooden_parry|itp_wooden_attack, itc_scimitar, 
+["palka3",         "Wooden Club", [("palka3",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise|itp_primary|itp_secondary|itp_wooden_parry|itp_wooden_attack, itc_scimitar,
 100 , weight(2)|difficulty(0)|spd_rtng(87) | weapon_length(65)|swing_damage(20 , blunt) | thrust_damage(0 ,  pierce),imodbits_none ], #chief cambiado
-["palka4",         "Wooden Club", [("palka4",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise|itp_primary|itp_secondary|itp_wooden_parry|itp_wooden_attack, itc_scimitar, 
+["palka4",         "Wooden Club", [("palka4",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise|itp_primary|itp_secondary|itp_wooden_parry|itp_wooden_attack, itc_scimitar,
 100 , weight(2)|difficulty(0)|spd_rtng(87) | weapon_length(65)|swing_damage(20 , blunt) | thrust_damage(0 ,  pierce),imodbits_none ], #chief cambiado
-["palka5",         "Wooden Club", [("palka5",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise|itp_primary|itp_secondary|itp_wooden_parry|itp_wooden_attack, itc_scimitar, 
+["palka5",         "Wooden Club", [("palka5",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise|itp_primary|itp_secondary|itp_wooden_parry|itp_wooden_attack, itc_scimitar,
 100 , weight(2)|difficulty(0)|spd_rtng(87) | weapon_length(65)|swing_damage(20 , blunt) | thrust_damage(0 ,  pierce),imodbits_none ], #chief cambiado
-["spiked_club",         "Spiked Club", [("spiked_club",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise|itp_primary|itp_secondary|itp_wooden_parry, itc_scimitar|itcf_carry_mace_left_hip, 
+["spiked_club",         "Spiked Club", [("spiked_club",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise|itp_primary|itp_secondary|itp_wooden_parry, itc_scimitar|itcf_carry_mace_left_hip,
 130 , weight(3)|difficulty(0)|spd_rtng(77) | weapon_length(85)|swing_damage(22 , pierce) | thrust_damage(0 ,  pierce),imodbits_none ], #cambiado chief
-["sickle",         "Sickle", [("sickle",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_no_parry|itp_wooden_parry, itc_cleaver, 
+["sickle",         "Sickle", [("sickle",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_no_parry|itp_wooden_parry, itc_cleaver,
 100 , weight(1.5)|difficulty(0)|spd_rtng(86) | weapon_length(40)|swing_damage(15 , cut) | thrust_damage(0 ,  pierce),imodbits_none ],
 #####no filo
  ##############################
@@ -1787,9 +2309,9 @@ items = [
 ####cuchillos y seax chief###################
  ###########################################
 
-["knife",         "Knife", [("peasant_knife",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left, 
+["knife",         "Knife", [("peasant_knife",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_left,
 205 , weight(0.5)|difficulty(0)|spd_rtng(97) | weapon_length(30)|swing_damage(16 , cut) | thrust_damage(16 ,  pierce),imodbits_sword ], #cambiado chief
-["butchering_knife", "Butchering Knife", [("khyber_knife",0)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_right, 
+["butchering_knife", "Butchering Knife", [("khyber_knife",0)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_no_parry, itc_dagger|itcf_carry_dagger_front_right,
 185 , weight(0.75)|difficulty(0)|spd_rtng(82) | weapon_length(40)|swing_damage(19 , cut) | thrust_damage(9 ,  pierce),imodbits_sword ], #chief cambiado
 
 #todos
@@ -1929,7 +2451,7 @@ items = [
 [], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
  ["celticshort1_2", "Celtic Sword", [("CelticShort1_2",0),("CelticShort1_2_Scab", ixmesh_carry)], itp_merchandise|itp_type_one_handed_wpn|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn, 1000 , weight(1.25)|difficulty(8)|spd_rtng(82) | weapon_length(95)|swing_damage(33 , cut) | thrust_damage(19 ,  pierce),imodbits_sword_high,
 [], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
- 
+
 #irlandeses y pictos nobles y rey
 ["pict_sword", "Princep Sword", [("Pict_sword",0),("Scab_Pict_Sword", ixmesh_carry)], itp_type_one_handed_wpn|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn, 1080 , weight(1.25)|difficulty(9)|spd_rtng(82) | weapon_length(90)|swing_damage(36 , cut) | thrust_damage(20 ,  pierce),imodbits_sword_high,
 [], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
@@ -1982,7 +2504,7 @@ items = [
 #espada del rey de kent
 ["scimitar_b",         "Cyning Eadbald's Sword", [("ValsSword1",0),("ValsSword1_scab", ixmesh_carry)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_next_item_as_melee, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn, 2500 , weight(1.25)|difficulty(12)|spd_rtng(85) | weapon_length(95)|swing_damage(34 , cut) | thrust_damage(16 ,  pierce),imodbits_sword_high ],
 ["scimitar_b2",         "Cyning Eadbald's Sword", [("ValsSword1",0),("ValsSword1_scab", ixmesh_carry)], itp_type_two_handed_wpn|itp_primary|itp_secondary, itc_bastardsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn, 2500 , weight(1.25)|difficulty(12)|spd_rtng(85) | weapon_length(95)|swing_damage(37 , cut) | thrust_damage(18 ,  pierce),imodbits_sword_high ],
- 
+
 #
  ["arabian_sword_a",         "Cyning Cynegils's Sword", [("RichSpatha",0),("RichSpatha_scab", ixmesh_carry)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_next_item_as_melee, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn, 2500 , weight(1.25)|difficulty(12)|spd_rtng(85) | weapon_length(95)|swing_damage(34 , cut) | thrust_damage(16 ,  pierce),imodbits_sword_high ],
 ["arabian_sword_b",         "Cyning Cynegils's Sword", [("RichSpatha",0),("RichSpatha_scab", ixmesh_carry)], itp_type_two_handed_wpn|itp_primary|itp_secondary, itc_bastardsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn, 2000 , weight(1.25)|difficulty(12)|spd_rtng(82) | weapon_length(95)|swing_damage(37 , cut) | thrust_damage(18 ,  pierce),imodbits_sword_high ],
@@ -2019,7 +2541,7 @@ items = [
  ####################################################
 ###########hachas 1m chief#########################
 #todos
-["hatchet",         "Hatchet", [("hatchet",0)], itp_type_one_handed_wpn|itp_unique|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip, 
+["hatchet",         "Hatchet", [("hatchet",0)], itp_type_one_handed_wpn|itp_unique|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
 360 , weight(2)|difficulty(2)|spd_rtng(80) | weapon_length(55)|swing_damage(25 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe ], #chief modificado
 ["axefaradon2", "Axe", [("axefaradon2",0)], itp_type_one_handed_wpn|itp_merchandise| itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
  462 , weight(1.5)|difficulty(8)|spd_rtng(80) | weapon_length(70)|swing_damage(31 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe ],
@@ -2033,31 +2555,31 @@ items = [
  462 , weight(2)|difficulty(6)|spd_rtng(75) | weapon_length(92)|swing_damage(31 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe ],
 ["lui_waronehandedaxec", "Warrior Axe", [("axe_c",0)], itp_type_one_handed_wpn|itp_merchandise| itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
  490 , weight(1.5)|difficulty(8)|spd_rtng(78) | weapon_length(70)|swing_damage(33 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe ],
-["hand_axe",         "Hand Axe", [("le_werkaxt1",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip, 
+["hand_axe",         "Hand Axe", [("le_werkaxt1",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
 457 , weight(2)|difficulty(9)|spd_rtng(80) | weapon_length(70)|swing_damage(30 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe ], #chief modificado
 #invasores
- ["axe",                 "Engle Axe", [("axefaradon3",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip, 
+ ["axe",                 "Engle Axe", [("axefaradon3",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
 469 , weight(2)|difficulty(9)|spd_rtng(80) | weapon_length(73)|swing_damage(30 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe, [], [fac_kingdom_1, fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_5, fac_kingdom_9, fac_kingdom_13, fac_kingdom_14]],
- ["vikingaxeb",                 "Frankish Long Axe", [("vikingaxeb",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip, 
+ ["vikingaxeb",                 "Frankish Long Axe", [("vikingaxeb",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
 481 , weight(2)|difficulty(9)|spd_rtng(79) | weapon_length(80)|swing_damage(31 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe, [], [fac_kingdom_1, fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_5]],
- ["frankish_axe2",                 "Frankish Axe", [("frankish_Axe2",0)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip, 
+ ["frankish_axe2",                 "Frankish Axe", [("frankish_Axe2",0)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
 517 , weight(2)|difficulty(7)|spd_rtng(80) | weapon_length(76)|swing_damage(34 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe, [], [fac_kingdom_1, fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_5]],
- ["vikingaxe",                 "Decorated Axe", [("vikingaxe",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip, 
+ ["vikingaxe",                 "Decorated Axe", [("vikingaxe",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
 467 , weight(2)|difficulty(9)|spd_rtng(79) | weapon_length(70)|swing_damage(31 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe, [], [fac_kingdom_1, fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_5, fac_kingdom_9, fac_kingdom_13, fac_kingdom_14]],
- ["saxon_axe",                 "Saxon Axe", [("p_axe_1",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip, 
+ ["saxon_axe",                 "Saxon Axe", [("p_axe_1",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
 461 , weight(2)|difficulty(9)|spd_rtng(80) | weapon_length(76)|swing_damage(32 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe, [], [fac_kingdom_1, fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_5, fac_kingdom_9, fac_kingdom_13, fac_kingdom_14]],
- ["lui_battleaxetwoh",                 "Germanic Axe", [("lui_battleaxetwoh",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip, 
+ ["lui_battleaxetwoh",                 "Germanic Axe", [("lui_battleaxetwoh",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
 483 , weight(2)|difficulty(9)|spd_rtng(79) | weapon_length(79)|swing_damage(33 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe, [], [fac_kingdom_1, fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_5, fac_kingdom_9, fac_kingdom_13, fac_kingdom_14]],
 #elite, Rey o noble Sajon, anglo o juto
 ["talak_bearded_axe", "Hand Axe", [("talak_bearded_axe",0)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
  497 , weight(2)|difficulty(10)|spd_rtng(78) | weapon_length(65)|swing_damage(35 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe ],
- ["talak_nordic_axe",                 "Decorated Elite Axe", [("talak_nordic_axe",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip, 
+ ["talak_nordic_axe",                 "Decorated Elite Axe", [("talak_nordic_axe",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
 481 , weight(2)|difficulty(9)|spd_rtng(80) | weapon_length(79)|swing_damage(33 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe, [], [fac_kingdom_1, fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_5, fac_kingdom_9, fac_kingdom_13, fac_kingdom_14]],
 ["talak_jomsviking_axe", "War Axe", [("05einhendi_hedmarkrox",0)], itp_type_one_handed_wpn| itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
  480 , weight(2)|difficulty(12)|spd_rtng(80) | weapon_length(65)|swing_damage(32 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe ],
 
 #britones
- ["axehammer1",                 "Basic Axe Hammer", [("axehammer",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip, 
+ ["axehammer1",                 "Basic Axe Hammer", [("axehammer",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
 439 , weight(2)|difficulty(7)|spd_rtng(79) | weapon_length(73)|swing_damage(29 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe,
 [], [fac_kingdom_6, fac_kingdom_7, fac_kingdom_8, fac_kingdom_10, fac_kingdom_11, fac_kingdom_12, fac_kingdom_15, fac_kingdom_16, fac_kingdom_18, fac_kingdom_21, fac_kingdom_22, fac_kingdom_23, fac_kingdom_24, fac_kingdom_25, fac_kingdom_26]],
  ["gallic_axe_1", "Briton Axe", [("gallic_axe_1",0)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
@@ -2082,23 +2604,23 @@ items = [
 
 ######Hachas 2M
 
-["battle_axe",         "Battle Axe", [("einhendi_haloygox",0)], itp_type_two_handed_wpn|itp_merchandise| itp_two_handed|itp_primary|itp_cant_use_on_horseback|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back, 
+["battle_axe",         "Battle Axe", [("einhendi_haloygox",0)], itp_type_two_handed_wpn|itp_merchandise| itp_two_handed|itp_primary|itp_cant_use_on_horseback|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back,
 570 , weight(3)|difficulty(12)|spd_rtng(69) | weapon_length(98)|swing_damage(46 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe ],
-["war_axe",         "Two Handed Axe", [("01tveirhendr_hedmarkox",0)], itp_type_two_handed_wpn|itp_merchandise| itp_two_handed|itp_primary|itp_cant_use_on_horseback|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back, 
+["war_axe",         "Two Handed Axe", [("01tveirhendr_hedmarkox",0)], itp_type_two_handed_wpn|itp_merchandise| itp_two_handed|itp_primary|itp_cant_use_on_horseback|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back,
 620 , weight(3)|difficulty(13)|spd_rtng(66) | weapon_length(100)|swing_damage(48 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe ],
 #chief hachas especiales, hacha 2 m de rey
-["thunder",         "Thunder", [("01einhendi_trondrox",0)], itp_type_two_handed_wpn| itp_two_handed|itp_primary|itp_cant_use_on_horseback|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back, 
+["thunder",         "Thunder", [("01einhendi_trondrox",0)], itp_type_two_handed_wpn| itp_two_handed|itp_primary|itp_cant_use_on_horseback|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back,
 2000 , weight(4)|difficulty(14)|spd_rtng(70) | weapon_length(100)|swing_damage(50 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe ],
-["woden_fury",         "Woden Fury", [("03einhendi_trondrox",0)], itp_type_two_handed_wpn| itp_two_handed|itp_primary|itp_cant_use_on_horseback|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back, 
+["woden_fury",         "Woden Fury", [("03einhendi_trondrox",0)], itp_type_two_handed_wpn| itp_two_handed|itp_primary|itp_cant_use_on_horseback|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back,
 2000 , weight(4)|difficulty(14)|spd_rtng(70) | weapon_length(100)|swing_damage(50 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe ],
-["sword_two_handed_b",        "My Wife", [("02tveirhendr_hedmarkox",0)], itp_type_two_handed_wpn| itp_two_handed|itp_primary|itp_cant_use_on_horseback|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back, 
+["sword_two_handed_b",        "My Wife", [("02tveirhendr_hedmarkox",0)], itp_type_two_handed_wpn| itp_two_handed|itp_primary|itp_cant_use_on_horseback|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back,
 2000 , weight(4)|difficulty(14)|spd_rtng(70) | weapon_length(100)|swing_damage(50 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe ],
-["sword_two_handed_a",         "Manslayer", [("05einhendi_trondrox",0)], itp_type_two_handed_wpn| itp_two_handed|itp_primary|itp_cant_use_on_horseback|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back, 
+["sword_two_handed_a",         "Manslayer", [("05einhendi_trondrox",0)], itp_type_two_handed_wpn| itp_two_handed|itp_primary|itp_cant_use_on_horseback|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back,
 2000 , weight(4)|difficulty(14)|spd_rtng(70) | weapon_length(100)|swing_damage(50 , pierce) | thrust_damage(0 ,  pierce),imodbits_axe ],
 #################hachas 2 m acaba chief ############################
 #############hachas acaba#########################################
  ####################################################################
- 
+
 
 ################################spears lanzas y armas de asta empiezan###########################################################
  ###########################################################################################################
@@ -2165,7 +2687,7 @@ items = [
 #[], [fac_kingdom_1, fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_5, fac_kingdom_9, fac_kingdom_13, fac_kingdom_14]],
 ["spear_5",         "Saxon Long Spear", [("langr_svia",0)],itp_type_polearm|itp_offset_lance|itp_merchandise| itp_primary|itp_wooden_parry, itc_staff|itcf_carry_spear, 500 , weight(3.25)|difficulty(8)|spd_rtng(95) | weapon_length(235)|swing_damage(17 , blunt) | thrust_damage(31 ,  pierce),imodbits_polearm,
 [], [fac_kingdom_1, fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_5, fac_kingdom_9, fac_kingdom_13, fac_kingdom_14]],
- 
+
 # Goedendag Irish y pictos
  ["club_with_spike_head",  "Hunting Spear", [("04hoggkesja",0)],  itp_type_polearm|itp_offset_lance|itp_merchandise| itp_primary|itp_wooden_parry, itc_staff|itcf_carry_spear, 160 , weight(1.7)|abundance(90)|difficulty(7)|spd_rtng(97) | weapon_length(157)|swing_damage(15 , blunt) | thrust_damage(31 ,  pierce),imodbits_polearm,
 [], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
@@ -2206,7 +2728,7 @@ items = [
 ["wessexbanner8",         "Banner", [("wessexbanner8",0)], itp_type_two_handed_wpn| itp_two_handed|itp_primary|itp_cant_use_on_horseback, itc_greatsword, 780 , weight(2)|difficulty(2)|spd_rtng(75) | weapon_length(140)|swing_damage(18 , cut) | thrust_damage(0 ,  pierce),imodbits_none ], #chief cambiado
 ["wessexbanner9",         "Banner", [("wessexbanner9",0)], itp_merchandise|itp_type_two_handed_wpn| itp_two_handed|itp_primary|itp_cant_use_on_horseback, itc_greatsword, 780 , weight(2)|difficulty(2)|spd_rtng(75) | weapon_length(140)|swing_damage(18 , cut) | thrust_damage(0 ,  pierce),imodbits_none ], #chief cambiado
 #todo correcto pero problemas para ajustar textura, pasable por ahora
-["personalbanner",         "Personal Banner", [("personalbanner",0)], itp_merchandise|itp_type_two_handed_wpn| itp_two_handed|itp_primary|itp_cant_use_on_horseback, itc_greatsword, 780 , weight(2)|difficulty(2)|spd_rtng(75) | weapon_length(140)|swing_damage(18 , cut) | thrust_damage(0 ,  pierce),imodbits_none, 
+["personalbanner",         "Personal Banner", [("personalbanner",0)], itp_merchandise|itp_type_two_handed_wpn| itp_two_handed|itp_primary|itp_cant_use_on_horseback, itc_greatsword, 780 , weight(2)|difficulty(2)|spd_rtng(75) | weapon_length(140)|swing_damage(18 , cut) | thrust_damage(0 ,  pierce),imodbits_none,
 [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_pavise_shield_1", ":agent_no", ":troop_no")])]],
 #####estandartes finales acaba####
  ##############################
@@ -2265,7 +2787,7 @@ items = [
 ["buckler5", "Small shield", [("buckler5",0)], itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,  300 , weight(2)|hit_points(250)|body_armor(5)|spd_rtng(70)|shield_width(40),imodbits_shield,
 [], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
 
-#ligeros acaba 
+#ligeros acaba
 #irlandeses escudos ligeros
  ["gaelic_shield_a", "Gaelic Shield", [("Gaelic_Shield_a",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,  340 , weight(4)|hit_points(270)|body_armor(7)|spd_rtng(60)|shield_width(60)|difficulty(1),imodbits_shield,
 [], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
@@ -2508,7 +3030,7 @@ items = [
 [], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
 ["vae_cuadrado_28", "Square Shield", [("vae_cuadrado_28",0)], itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,  350 , weight(3)|hit_points(280)|body_armor(7)|spd_rtng(65)|shield_width(60)|difficulty(1),imodbits_shield,
 [], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
- 
+
 ###escudo rectangular picto e irlandes
  ["vae_escudo_picto", "Rectangular Shield", [("vae_escudo_picto",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,  380 , weight(3)|hit_points(290)|body_armor(9)|spd_rtng(60)|shield_width(60)|difficulty(1),imodbits_shield,
 [], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
@@ -2575,7 +3097,7 @@ items = [
 
 
 
- 
+
 ###########escudos pesados chief ########
 
 ########invasores
@@ -2850,7 +3372,7 @@ items = [
 ["cantabro_shield_8", "Cantabrian Round Shield", [("cantabro_shield_8",0)], itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,  600 , weight(4.5)|hit_points(400)|body_armor(10)|spd_rtng(55)|shield_width(70)|difficulty(2),imodbits_shield],
 ["cantabro_shield_9", "Cantabrian Round Shield", [("cantabro_shield_9",0)], itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,  600 , weight(4.5)|hit_points(400)|body_armor(10)|spd_rtng(55)|shield_width(70)|difficulty(2),imodbits_shield],
 ["cantabro_shield_10", "Cantabrian Round Shield", [("cantabro_shield_10",0)], itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,  600 , weight(4.5)|hit_points(400)|body_armor(10)|spd_rtng(55)|shield_width(70)|difficulty(2),imodbits_shield],
- 
+
 
 #######Britones
 ####britones y celtas####
@@ -2879,82 +3401,82 @@ items = [
 #nuevos escudos chief de brust Briton
 #normal
  #unique chief
-["tab_shield_round_a", "native", [("tableau_shield_round_5",0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,  
+["tab_shield_round_a", "native", [("tableau_shield_round_5",0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,
 26 , weight(2.5)|hit_points(195)|body_armor(4)|spd_rtng(93)|shield_width(50),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_round_shield_5", ":agent_no", ":troop_no")])]],
-["tab_shield_round_b", "native", [("tableau_shield_round_3",0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,  
+["tab_shield_round_b", "native", [("tableau_shield_round_3",0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,
 65 , weight(3)|hit_points(260)|body_armor(8)|spd_rtng(90)|shield_width(50),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_round_shield_3", ":agent_no", ":troop_no")])]],
 #chief unique acaba
 
 
-["tab_shield_round_c", "Banner Round Shield", [("tableau_shield_round_2",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,  
+["tab_shield_round_c", "Banner Round Shield", [("tableau_shield_round_2",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,
 400 , weight(4.5)|hit_points(350)|body_armor(8)|spd_rtng(55)|shield_width(65)|difficulty(2),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner","tableau_round_shield_2", ":agent_no", ":troop_no")])]], #cambiado chief
 
 #chief unique empieza
-["tab_shield_round_d", "native", [("tableau_shield_round_1",0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,  
+["tab_shield_round_d", "native", [("tableau_shield_round_1",0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,
 210 , weight(4)|hit_points(350)|body_armor(15)|spd_rtng(84)|shield_width(50),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_round_shield_1", ":agent_no", ":troop_no")])]],
-["tab_shield_round_e", "native", [("tableau_shield_round_4",0)], itp_unique|itp_type_shield, itcf_carry_round_shield,  
+["tab_shield_round_e", "native", [("tableau_shield_round_4",0)], itp_unique|itp_type_shield, itcf_carry_round_shield,
 430 , weight(4.5)|hit_points(410)|body_armor(19)|spd_rtng(81)|shield_width(50),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_round_shield_4", ":agent_no", ":troop_no")])]],
 
-["tab_shield_kite_a", "native",   [("tableau_shield_kite_1" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,  
+["tab_shield_kite_a", "native",   [("tableau_shield_kite_1" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
 33 , weight(2)|hit_points(165)|body_armor(5)|spd_rtng(96)|shield_width(36)|shield_height(70),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_kite_shield_1", ":agent_no", ":troop_no")])]],
-["tab_shield_kite_b", "native",   [("tableau_shield_kite_3" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,  
+["tab_shield_kite_b", "native",   [("tableau_shield_kite_3" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
 70 , weight(2.5)|hit_points(215)|body_armor(10)|spd_rtng(93)|shield_width(36)|shield_height(70),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_kite_shield_3", ":agent_no", ":troop_no")])]],
-["tab_shield_kite_c", "native",   [("tableau_shield_kite_2" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,  
+["tab_shield_kite_c", "native",   [("tableau_shield_kite_2" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
 156 , weight(3)|hit_points(265)|body_armor(13)|spd_rtng(90)|shield_width(36)|shield_height(70),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_kite_shield_2", ":agent_no", ":troop_no")])]],
-["tab_shield_kite_d", "native",   [("tableau_shield_kite_2" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,  
+["tab_shield_kite_d", "native",   [("tableau_shield_kite_2" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
 320 , weight(3.5)|hit_points(310)|body_armor(18)|spd_rtng(87)|shield_width(36)|shield_height(70),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_kite_shield_2", ":agent_no", ":troop_no")])]],
-["tab_shield_kite_cav_a", "native",   [("tableau_shield_kite_4" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,  
+["tab_shield_kite_cav_a", "native",   [("tableau_shield_kite_4" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
 205 , weight(2)|hit_points(165)|body_armor(14)|spd_rtng(103)|shield_width(30)|shield_height(50),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_kite_shield_4", ":agent_no", ":troop_no")])]],
-["tab_shield_kite_cav_b", "native",   [("tableau_shield_kite_4" ,0)], itp_unique|itp_type_shield, itcf_carry_kite_shield,  
+["tab_shield_kite_cav_b", "native",   [("tableau_shield_kite_4" ,0)], itp_unique|itp_type_shield, itcf_carry_kite_shield,
 360 , weight(2.5)|hit_points(225)|body_armor(23)|spd_rtng(100)|shield_width(30)|shield_height(50),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_kite_shield_4", ":agent_no", ":troop_no")])]],
 
-["tab_shield_heater_a", "native",   [("tableau_shield_heater_1" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,  
+["tab_shield_heater_a", "native",   [("tableau_shield_heater_1" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
 36 , weight(2)|hit_points(160)|body_armor(6)|spd_rtng(96)|shield_width(36)|shield_height(70),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_heater_shield_1", ":agent_no", ":troop_no")])]],
-["tab_shield_heater_b", "native",   [("tableau_shield_heater_1" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,  
+["tab_shield_heater_b", "native",   [("tableau_shield_heater_1" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
 74 , weight(2.5)|hit_points(210)|body_armor(11)|spd_rtng(93)|shield_width(36)|shield_height(70),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_heater_shield_1", ":agent_no", ":troop_no")])]],
-["tab_shield_heater_c", "native",   [("tableau_shield_heater_1" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,  
+["tab_shield_heater_c", "native",   [("tableau_shield_heater_1" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
 160 , weight(3)|hit_points(260)|body_armor(14)|spd_rtng(90)|shield_width(36)|shield_height(70),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_heater_shield_1", ":agent_no", ":troop_no")])]],
-["tab_shield_heater_d", "native",   [("tableau_shield_heater_1" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,  
+["tab_shield_heater_d", "native",   [("tableau_shield_heater_1" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
 332 , weight(3.5)|hit_points(305)|body_armor(19)|spd_rtng(87)|shield_width(36)|shield_height(70),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_heater_shield_1", ":agent_no", ":troop_no")])]],
-["tab_shield_heater_cav_a", "native",   [("tableau_shield_heater_2" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,  
+["tab_shield_heater_cav_a", "native",   [("tableau_shield_heater_2" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
 229 , weight(2)|hit_points(160)|body_armor(16)|spd_rtng(103)|shield_width(30)|shield_height(50),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_heater_shield_2", ":agent_no", ":troop_no")])]],
-["tab_shield_heater_cav_b", "native",   [("tableau_shield_heater_2" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,  
+["tab_shield_heater_cav_b", "native",   [("tableau_shield_heater_2" ,0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
 390 , weight(2.5)|hit_points(220)|body_armor(23)|spd_rtng(100)|shield_width(30)|shield_height(50),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_heater_shield_2", ":agent_no", ":troop_no")])]],
 
-["tab_shield_pavise_a", "native",   [("tableau_shield_pavise_2" ,0)], itp_unique|itp_type_shield|itp_cant_use_on_horseback|itp_wooden_parry, itcf_carry_board_shield,  
+["tab_shield_pavise_a", "native",   [("tableau_shield_pavise_2" ,0)], itp_unique|itp_type_shield|itp_cant_use_on_horseback|itp_wooden_parry, itcf_carry_board_shield,
 60 , weight(3.5)|hit_points(280)|body_armor(4)|spd_rtng(89)|shield_width(43)|shield_height(100),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_pavise_shield_2", ":agent_no", ":troop_no")])]],
-["tab_shield_pavise_b", "native",   [("tableau_shield_pavise_2" ,0)], itp_unique|itp_type_shield|itp_cant_use_on_horseback|itp_wooden_parry, itcf_carry_board_shield,  
+["tab_shield_pavise_b", "native",   [("tableau_shield_pavise_2" ,0)], itp_unique|itp_type_shield|itp_cant_use_on_horseback|itp_wooden_parry, itcf_carry_board_shield,
 114 , weight(4)|hit_points(360)|body_armor(8)|spd_rtng(85)|shield_width(43)|shield_height(100),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_pavise_shield_2", ":agent_no", ":troop_no")])]],
-["tab_shield_pavise_c", "native",   [("tableau_shield_pavise_1" ,0)], itp_unique|itp_type_shield|itp_cant_use_on_horseback|itp_wooden_parry, itcf_carry_board_shield,  
+["tab_shield_pavise_c", "native",   [("tableau_shield_pavise_1" ,0)], itp_unique|itp_type_shield|itp_cant_use_on_horseback|itp_wooden_parry, itcf_carry_board_shield,
 210 , weight(4.5)|hit_points(430)|body_armor(10)|spd_rtng(81)|shield_width(43)|shield_height(100),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_pavise_shield_1", ":agent_no", ":troop_no")])]],
-["tab_shield_pavise_d", "native",   [("tableau_shield_pavise_1" ,0)], itp_unique|itp_type_shield|itp_cant_use_on_horseback|itp_wooden_parry, itcf_carry_board_shield,  
+["tab_shield_pavise_d", "native",   [("tableau_shield_pavise_1" ,0)], itp_unique|itp_type_shield|itp_cant_use_on_horseback|itp_wooden_parry, itcf_carry_board_shield,
 370 , weight(5)|hit_points(550)|body_armor(14)|spd_rtng(78)|shield_width(43)|shield_height(100),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_pavise_shield_1", ":agent_no", ":troop_no")])]],
 
-["tab_shield_small_round_a", "native", [("tableau_shield_small_round_3",0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,  
+["tab_shield_small_round_a", "native", [("tableau_shield_small_round_3",0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,
 96 , weight(2)|hit_points(160)|body_armor(8)|spd_rtng(105)|shield_width(40),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_small_round_shield_3", ":agent_no", ":troop_no")])]],
-["tab_shield_small_round_b", "native", [("tableau_shield_small_round_1",0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,  
+["tab_shield_small_round_b", "native", [("tableau_shield_small_round_1",0)], itp_unique|itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,
 195 , weight(2.5)|hit_points(200)|body_armor(14)|spd_rtng(103)|shield_width(40),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_small_round_shield_1", ":agent_no", ":troop_no")])]],
 #chief unique acaba
@@ -2968,55 +3490,55 @@ items = [
 
 #TODO:
 
-["darts",         "darts", [("dart_b",0),("dart_b_bag", ixmesh_carry)], itp_type_thrown |itp_merchandise|itp_primary ,itcf_throw_javelin|itcf_carry_quiver_right_vertical|itcf_show_holster_when_drawn, 
+["darts",         "darts", [("dart_b",0),("dart_b_bag", ixmesh_carry)], itp_type_thrown |itp_merchandise|itp_primary ,itcf_throw_javelin|itcf_carry_quiver_right_vertical|itcf_show_holster_when_drawn,
 85 , weight(2)|difficulty(1)|spd_rtng(90) | shoot_speed(30) | thrust_damage(23 ,  pierce)|max_ammo(7)|weapon_length(32)|accuracy(80),imodbits_thrown,missile_distance_trigger ,
 [], [fac_kingdom_20, fac_kingdom_17, fac_kingdom_19, fac_kingdom_27, fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31]],
 
 #quitando quivers chief
-##["javelin",         "Javelins", [("atgeirr1",0),("javelins_quiver_new", ixmesh_carry)], itp_type_thrown |itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin|itcf_carry_quiver_back|itcf_show_holster_when_drawn, 
+##["javelin",         "Javelins", [("atgeirr1",0),("javelins_quiver_new", ixmesh_carry)], itp_type_thrown |itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin|itcf_carry_quiver_back|itcf_show_holster_when_drawn,
 ##200, weight(2)|difficulty(1)|spd_rtng(75) | shoot_speed(28) | thrust_damage(27 ,  cut)|max_ammo(4)|weapon_length(65)|accuracy(55),imodbits_thrown,missile_distance_trigger ], #chief cambiado max_ammo
-["javelin",         "Javelins", [("atgeirr1",0)], itp_type_thrown |itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin, 
+["javelin",         "Javelins", [("atgeirr1",0)], itp_type_thrown |itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin,
 200, weight(2)|difficulty(1)|spd_rtng(75) | shoot_speed(28) | thrust_damage(31 ,  cut)|max_ammo(4)|weapon_length(65)|accuracy(99),imodbits_thrown,missile_distance_trigger ], #chief cambiado max_ammo
-["javelin_melee",         "Javelin", [("atgeirr1",0)], itp_type_polearm|itp_primary|itp_secondary|itp_wooden_parry , itc_staff, 
+["javelin_melee",         "Javelin", [("atgeirr1",0)], itp_type_polearm|itp_primary|itp_secondary|itp_wooden_parry , itc_staff,
 200, weight(2)|difficulty(0)|spd_rtng(82) |swing_damage(9, cut)| thrust_damage(25,  cut)|weapon_length(65),imodbits_polearm ], #chief cambiado
 #wooden javelin para britones solo
-["throwing_knives",         "Wooden Javelins", [("kijek",0)], itp_type_thrown |itp_merchandise|itp_primary|itp_secondary|itp_next_item_as_melee ,itcf_throw_javelin, 
+["throwing_knives",         "Wooden Javelins", [("kijek",0)], itp_type_thrown |itp_merchandise|itp_primary|itp_secondary|itp_next_item_as_melee ,itcf_throw_javelin,
 190, weight(2)|difficulty(0)|spd_rtng(85) | shoot_speed(33) | thrust_damage(27 ,  cut)|max_ammo(4)|weapon_length(60)|accuracy(90),imodbits_thrown,missile_distance_trigger , #chief cambiado max_ammo
 [], [fac_kingdom_6, fac_kingdom_7, fac_kingdom_8, fac_kingdom_10, fac_kingdom_11, fac_kingdom_12, fac_kingdom_15, fac_kingdom_16, fac_kingdom_18, fac_kingdom_21, fac_kingdom_22, fac_kingdom_23, fac_kingdom_24, fac_kingdom_25, fac_kingdom_26]],
-["throwing_daggers",         "Wooden Javelin", [("kijek",0)], itp_type_polearm|itp_primary|itp_secondary|itp_wooden_parry , itc_staff, 
+["throwing_daggers",         "Wooden Javelin", [("kijek",0)], itp_type_polearm|itp_primary|itp_secondary|itp_wooden_parry , itc_staff,
 200, weight(2)|difficulty(0)|spd_rtng(88) |swing_damage(9, cut)| thrust_damage(20,  cut)|weapon_length(65),imodbits_polearm ], #chief cambiado
 #jabalinas para jinetes ligeros
-["javelin_jinetes",         "Horsemen Javelins", [("02atgeirr1",0),("javelins_quiver_new", ixmesh_carry)], itp_type_thrown |itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin|itcf_carry_quiver_back|itcf_show_holster_when_drawn, 
+["javelin_jinetes",         "Horsemen Javelins", [("02atgeirr1",0),("javelins_quiver_new", ixmesh_carry)], itp_type_thrown |itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin|itcf_carry_quiver_back|itcf_show_holster_when_drawn,
 300, weight(4)|difficulty(2)|spd_rtng(75) | shoot_speed(28) | thrust_damage(31 ,  cut)|max_ammo(6)|weapon_length(65)|accuracy(95),imodbits_thrown,missile_distance_trigger ], #chief cambiado max_ammo
-["shortened_military_scythe",         "Horseman Javelin", [("02atgeirr1",0)], itp_type_polearm|itp_primary|itp_secondary|itp_wooden_parry , itc_staff, 
+["shortened_military_scythe",         "Horseman Javelin", [("02atgeirr1",0)], itp_type_polearm|itp_primary|itp_secondary|itp_wooden_parry , itc_staff,
 300, weight(4)|difficulty(0)|spd_rtng(82) |swing_damage(9, cut)| thrust_damage(25,  cut)|weapon_length(65),imodbits_polearm ], #chief cambiado
 #chief cambiado modelo y todo kastad_krokaspjott
-["throwing_spears",         "Throwing Spears", [("kastad_krokaspjott",0)], itp_type_thrown |itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin, 
+["throwing_spears",         "Throwing Spears", [("kastad_krokaspjott",0)], itp_type_thrown |itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin,
 425 , weight(2)|difficulty(2)|spd_rtng(65) | shoot_speed(17) | thrust_damage(41 ,  pierce)|max_ammo(1)|weapon_length(100)|accuracy(85),imodbits_thrown,missile_distance_trigger ], #cambiado chief
-["throwing_spear_melee",         "Throwing Spear", [("kastad_krokaspjott",0)],itp_type_polearm|itp_primary|itp_secondary|itp_wooden_parry , itc_staff, 
+["throwing_spear_melee",         "Throwing Spear", [("kastad_krokaspjott",0)],itp_type_polearm|itp_primary|itp_secondary|itp_wooden_parry , itc_staff,
 425 , weight(2)|difficulty(2)|spd_rtng(80) | swing_damage(10, cut) | thrust_damage(31 ,  pierce)|weapon_length(100),imodbits_thrown ], #cambiado chief
 #invasores
-["jarid",         "Angons", [("angon1",0)], itp_type_thrown |itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin, 
+["jarid",         "Angons", [("angon1",0)], itp_type_thrown |itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin,
 425 , weight(2)|difficulty(2)|spd_rtng(65) | shoot_speed(17) | thrust_damage(41 ,  pierce)|max_ammo(1)|weapon_length(100)|accuracy(85),imodbits_thrown,missile_distance_trigger , #cambiado chief
  [], [fac_kingdom_1, fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_5, fac_kingdom_9, fac_kingdom_13, fac_kingdom_14]],
-["jarid_melee2",         "Angon", [("angon1",0)],itp_type_polearm|itp_primary|itp_secondary|itp_wooden_parry , itc_staff, 
+["jarid_melee2",         "Angon", [("angon1",0)],itp_type_polearm|itp_primary|itp_secondary|itp_wooden_parry , itc_staff,
 425 , weight(2)|difficulty(2)|spd_rtng(80) | swing_damage(10, cut) | thrust_damage(31 ,  pierce)|weapon_length(100),imodbits_thrown ], #cambiado chief
 
-["throwing_spears3",         "Angons", [("05kastad_krokaspjott",0)], itp_type_thrown |itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin, 
+["throwing_spears3",         "Angons", [("05kastad_krokaspjott",0)], itp_type_thrown |itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin,
 415 , weight(2)|difficulty(2)|spd_rtng(75) | shoot_speed(19) | thrust_damage(37 ,  pierce)|max_ammo(1)|weapon_length(100)|accuracy(85),imodbits_thrown,missile_distance_trigger , #cambiado chief
  [], [fac_kingdom_1, fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_5, fac_kingdom_9, fac_kingdom_13, fac_kingdom_14]],
-["heavy_throwing_axes_melee",         "Angon", [("05kastad_krokaspjott",0)],itp_type_polearm|itp_primary|itp_secondary|itp_wooden_parry , itc_staff, 
+["heavy_throwing_axes_melee",         "Angon", [("05kastad_krokaspjott",0)],itp_type_polearm|itp_primary|itp_secondary|itp_wooden_parry , itc_staff,
 415 , weight(2)|difficulty(2)|spd_rtng(80) | swing_damage(10, cut) | thrust_damage(31 ,  pierce)|weapon_length(100),imodbits_thrown ], #cambiado chief
 
-["throwing_spears4",         "Angons", [("kastspjottmidtaggir",0)], itp_type_thrown |itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin, 
+["throwing_spears4",         "Angons", [("kastspjottmidtaggir",0)], itp_type_thrown |itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin,
 435 , weight(2)|difficulty(2)|spd_rtng(60) | shoot_speed(15) | thrust_damage(44 ,  pierce)|max_ammo(1)|weapon_length(100)|accuracy(85),imodbits_thrown,missile_distance_trigger , #cambiado chief
  [], [fac_kingdom_1, fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_5, fac_kingdom_9, fac_kingdom_13, fac_kingdom_14]],
-["heavy_throwing_axes",         "Angon", [("kastspjottmidtaggir",0)],itp_type_polearm|itp_primary|itp_secondary|itp_wooden_parry , itc_staff, 
+["heavy_throwing_axes",         "Angon", [("kastspjottmidtaggir",0)],itp_type_polearm|itp_primary|itp_secondary|itp_wooden_parry , itc_staff,
 435 , weight(2)|difficulty(2)|spd_rtng(80) | swing_damage(10, cut) | thrust_damage(31 ,  pierce)|weapon_length(100),imodbits_thrown ], #cambiado chief
 #especial
-["gae_bolga",         "Gae Bolga", [("01kastad_krokaspjott",0)], itp_type_thrown |itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin, 
+["gae_bolga",         "Gae Bolga", [("01kastad_krokaspjott",0)], itp_type_thrown |itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee ,itcf_throw_javelin,
 2225 , weight(3)|difficulty(3)|spd_rtng(75) | shoot_speed(25) | thrust_damage(60 ,  pierce)|max_ammo(1)|weapon_length(105)|accuracy(85),imodbit_balanced ,missile_distance_trigger], #cambiado chief
-["gae_bolga_melee",         "Gae Bolga", [("01kastad_krokaspjott",0)],itp_type_polearm|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry , itc_staff, 
+["gae_bolga_melee",         "Gae Bolga", [("01kastad_krokaspjott",0)],itp_type_polearm|itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry , itc_staff,
 2225 , weight(3)|difficulty(2)|spd_rtng(80) | swing_damage(7, cut) | thrust_damage(33 ,  pierce)|weapon_length(105),imodbit_balanced ], #cambiado chief
 
 
@@ -3024,7 +3546,7 @@ items = [
 #TODO: Heavy throwing Spear
 ["stones",         "Stones", [("throwing_stone",0)], itp_type_thrown |itp_merchandise|itp_primary|itp_secondary ,itcf_throw_stone, 1 , weight(1)|difficulty(0)|spd_rtng(95) | shoot_speed(20) | thrust_damage(17 ,  blunt)|max_ammo(6)|weapon_length(8),imodbit_large_bag,missile_distance_trigger ], #chief cambiado
 
- 
+
 #TODO: Light Trowing axe, Heavy Throwing Axe
 ["light_throwing_axes", "Francisca", [("francisca",0)], itp_type_thrown |itp_merchandise|itp_primary|itp_secondary|itp_bonus_against_shield|itp_next_item_as_melee,itcf_throw_axe,
 380, weight(3)|difficulty(4)|spd_rtng(65) | shoot_speed(15) | thrust_damage(42,cut)|max_ammo(1)|weapon_length(53),imodbits_thrown_minus_heavy,missile_distance_trigger, [], [fac_kingdom_1,fac_kingdom_2,fac_kingdom_3]], #cambiado chief
@@ -3060,9 +3582,9 @@ items = [
     [(ti_on_weapon_attack, [(call_script, "script_cf_set_fire_arrow", 48, pos1)])]],
 
 
-["hunting_crossbow", "Pictish Crossbow", [("xenoargh_arbalest",0)], itp_type_crossbow |itp_merchandise|itp_primary|itp_cant_use_on_horseback|itp_two_handed ,itcf_shoot_crossbow|itcf_carry_crossbow_back, 
+["hunting_crossbow", "Pictish Crossbow", [("xenoargh_arbalest",0)], itp_type_crossbow |itp_merchandise|itp_primary|itp_cant_use_on_horseback|itp_two_handed ,itcf_shoot_crossbow|itcf_carry_crossbow_back,
 250 , weight(2.25)|difficulty(1)|spd_rtng(40) | shoot_speed(45) | thrust_damage(20 ,  pierce)|max_ammo(1)|accuracy(85),imodbits_crossbow, [], [fac_kingdom_20]], #chief cambiado
- 
+
 #sling sot chief
 ["sniper_crossbow", "Sling Rocks", [("throwing_stone",0),("throwing_stone",ixmesh_flying_ammo),("bolt_bag_c", ixmesh_carry)],
   itp_type_bullets|itp_merchandise, 0, 15,weight(0.5)|abundance(90)|weapon_length(3)|thrust_damage(1,pierce)|max_ammo(50),imodbits_missile],
@@ -3119,7 +3641,7 @@ items = [
         #pos1 - Missile hit position
         #param_1 - Shooter agent
 		(this_or_next|multiplayer_is_server),
-		(neg|game_in_multiplayer_mode),		
+		(neg|game_in_multiplayer_mode),
 		(store_trigger_param_1,":shooter"),
 		(copy_position, pos63, pos1),
 		(particle_system_burst,"psys_piedra_dust",pos1,1),
@@ -3131,7 +3653,7 @@ items = [
 				(neg|agent_is_ally,":agent"),
 				(agent_is_active,":agent"),
 				(agent_is_alive,":agent"),
-				(neq,":agent",":shooter"),				   
+				(neq,":agent",":shooter"),
 #				(agent_set_hit_points,":agent",0,1),#insta-death
 				(agent_deliver_damage_to_agent,":shooter",":agent"),
 			(play_sound,"snd_shield_broken"),
@@ -3149,16 +3671,16 @@ items = [
           (try_begin),
 		     (this_or_next|multiplayer_is_server),
 		     (neg|game_in_multiplayer_mode),
-			 
+
 			(store_trigger_param_1,":shooter"),
-			(copy_position, pos63, pos1),				 
+			(copy_position, pos63, pos1),
 			(particle_system_burst,"psys_agua_hirviendo",pos63,1),
 			(particle_system_burst,"psys_agua_hirviendo",pos63,3),
 			(particle_system_burst,"psys_agua_hirviendo",pos63,10),
 (play_sound, "snd_dummy_destroyed"),
           			(spawn_scene_prop,"spr_dungeon_water_drops",63),
 			(store_random_in_range,":random_no",10,45),
-			(assign,reg0,":random_no"),				 
+			(assign,reg0,":random_no"),
              (try_for_agents,":agent"),
                 (agent_get_position,pos62,":agent"),
                 (get_distance_between_positions,":dist",pos63,pos62),
@@ -3167,9 +3689,9 @@ items = [
 					(neg|agent_is_ally,":agent"),
 					(agent_is_active,":agent"),
 					(agent_is_alive,":agent"),
-					(neq,":agent",":shooter"),				   
-				   (store_agent_hit_points,":hp",":agent",1),  
-				   (val_sub,":hp",":random_no"),               
+					(neq,":agent",":shooter"),
+				   (store_agent_hit_points,":hp",":agent",1),
+				   (val_sub,":hp",":random_no"),
 					(try_begin),
 						(lt,":hp",1),
 						(agent_deliver_damage_to_agent,":shooter",":agent"),
@@ -3181,7 +3703,7 @@ items = [
           (try_end),
 ]),
 ]],
- 
+
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 #-#-#-#Hunting chief Mod begin#-#-#-#
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#
@@ -3210,12 +3732,12 @@ items = [
 ###                           (agent_set_animation, ":agent", "anim_cheer"),
 ##       (try_end),
        (val_add,":life",5),
-       (agent_set_hit_points,":agent",":life",0),      
+       (agent_set_hit_points,":agent",":life",0),
        (agent_play_sound, ":agent", "snd_man_victory"),
-       (try_end),           
+       (try_end),
        (store_add,":recovery",5),
        (assign,reg1,":recovery"),
-     #  (display_message,"@Horn rally men! (wounded troops recover 5 hitpoints)",0x6495ed),      
+     #  (display_message,"@Horn rally men! (wounded troops recover 5 hitpoints)",0x6495ed),
                               ],)]],
 
 ####trofeos de batalla chief
@@ -3228,14 +3750,14 @@ items = [
  ["iniauhorn",         "Iniau Horn", [("horn",0)], itp_type_goods, 0, 255,weight(50)|abundance(120),imodbits_none],
 ############3
  ##################
- 
-##diplomacy chief end 
+
+##diplomacy chief end
 #################especiales chief acaba ################################
 
 ####OTROS chief ##################################
 ["tunic_with_green_cape", "Tunic with Green Cape", [("peasant_man_a_bry",0)], itp_merchandise|itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 80 , weight(0.5)|abundance(100)|head_armor(0)|body_armor(3)|leg_armor(1), imodbits_cloth ], #cambiado chief
 ["keys", "Ring of Keys", [("throwing_axe_a",0)], itp_type_one_handed_wpn |itp_primary|itp_bonus_against_shield,itc_scimitar,
-240, weight(5)|spd_rtng(98) | swing_damage(29,cut)|max_ammo(5)|weapon_length(53),imodbits_thrown ], 
+240, weight(5)|spd_rtng(98) | swing_damage(29,cut)|max_ammo(5)|weapon_length(53),imodbits_thrown ],
 ["bride_dress", "Bride Dress", [("bride_dress",0)], itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 500 , weight(3)|abundance(100)|head_armor(0)|body_armor(10)|leg_armor(10)|difficulty(0) ,imodbits_cloth],
 ["bride_crown", "Crown of Flowers", [("bride_crown",0)],  itp_type_head_armor | itp_doesnt_cover_hair |itp_civilian |itp_attach_armature,0, 1 , weight(0.5)|abundance(100)|head_armor(4)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_cloth ],
 ["bride_shoes", "Bride Shoes", [("bride_shoes",0)], itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,
@@ -3255,7 +3777,7 @@ items = [
     #pos1 - Missile hit position
     #param_1 - Shooter agent
        #     (multiplayer_is_server),
-            #(neg|game_in_multiplayer_mode),		
+            #(neg|game_in_multiplayer_mode),
             (store_trigger_param_1,":shooter"),
             (copy_position, pos63, pos1),
             (particle_system_burst,"psys_piedra_dust",pos1,1),
@@ -3267,7 +3789,7 @@ items = [
                             (neg|agent_is_ally,":agent"),
                             (agent_is_active,":agent"),
                             (agent_is_alive,":agent"),
-                            (neq,":agent",":shooter"),				   
+                            (neq,":agent",":shooter"),
 #				(agent_set_hit_points,":agent",0,1),#insta-death
                             (agent_deliver_damage_to_agent,":shooter",":agent"),
                              #(multiplayer_send_int_to_server,multiplayer_event_sound_at_player, "snd_shield_broken"),
@@ -3275,7 +3797,7 @@ items = [
                    (try_end),
             (try_end),
             (try_end),
-]), 
+]),
  ]],
 
 
@@ -3316,9 +3838,9 @@ items = [
 ["sarranid_boots_d", "native", [("ankle_boots_a_new_bry",0)], itp_unique| itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,
  920 , weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(30)|difficulty(0) ,imodbits_armor ],
 #chief unique empiza
-["light_crossbow", "native", [("xenoargh_arbalest",0)], itp_type_crossbow |itp_unique|itp_primary|itp_two_handed ,itcf_shoot_crossbow|itcf_carry_crossbow_back, 
+["light_crossbow", "native", [("xenoargh_arbalest",0)], itp_type_crossbow |itp_unique|itp_primary|itp_two_handed ,itcf_shoot_crossbow|itcf_carry_crossbow_back,
 67 , weight(2.5)|difficulty(8)|spd_rtng(45) | shoot_speed(59) | thrust_damage(44 ,  pierce)|max_ammo(1),imodbits_crossbow ],
-["crossbow",         "native",         [("xenoargh_arbalest",0)], itp_type_crossbow |itp_unique|itp_primary|itp_two_handed|itp_cant_reload_on_horseback ,itcf_shoot_crossbow|itcf_carry_crossbow_back, 
+["crossbow",         "native",         [("xenoargh_arbalest",0)], itp_type_crossbow |itp_unique|itp_primary|itp_two_handed|itp_cant_reload_on_horseback ,itcf_shoot_crossbow|itcf_carry_crossbow_back,
 182 , weight(3)|difficulty(8)|spd_rtng(43) | shoot_speed(66) | thrust_damage(49,pierce)|max_ammo(1),imodbits_crossbow ],
  #chief unique acaba
 
@@ -3414,7 +3936,7 @@ items = [
 #chief unique acaba
 
 ["plate_boots", "native", [("ankle_boots_a_new_bry",0)], itp_unique| itp_type_foot_armor | itp_attach_armature,0,
- 1770 , weight(3.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(33)|difficulty(9) ,imodbits_plate ], 
+ 1770 , weight(3.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(33)|difficulty(9) ,imodbits_plate ],
 ["heraldic_mail_with_surcoat_for_tableau", "native", [("shirt_a_bry",0)], itp_unique|itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 400 , weight(0.5)|abundance(50)|head_armor(0)|body_armor(15)|leg_armor(2), imodbits_cloth],
 ["mail_boots_for_tableau", "native", [("ankle_boots_a_new_bry",0)], itp_type_foot_armor | itp_attach_armature  ,0,
  1, weight(3)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(1) ,imodbits_armor ],
@@ -3441,7 +3963,7 @@ def modmerge(var_set):
 	try:
 		var_name_1 = "items"
 		orig_items = var_set[var_name_1]
-		
+
 		add_item = deepcopy(orig_items)
 		for i_item in range(1,len(orig_items)):
 			type = add_item[i_item][3] & 0x000000ff
@@ -3450,21 +3972,21 @@ def modmerge(var_set):
 				#Above checks that it is a weapon with thrust damage; also checks that it isn't a tournament-type weapon by checking the item ID (just to prevent not-used items)
 				add_item[i_item][0] = 'noswing_'+add_item[i_item][0]                  #add noswing_ to the item's name
 				add_item[i_item][6] = add_item[i_item][6] & ~(ibf_damage_mask << iwf_swing_damage_bits) #should set new item's swing damage to 0
-				add_item[i_item][4] = add_item[i_item][4] & ~itcf_overswing_polearm  #remove itcf_ capabilties to prevent swinging without damage  
-				add_item[i_item][4] = add_item[i_item][4] & ~itcf_slashright_polearm                     
+				add_item[i_item][4] = add_item[i_item][4] & ~itcf_overswing_polearm  #remove itcf_ capabilties to prevent swinging without damage
+				add_item[i_item][4] = add_item[i_item][4] & ~itcf_slashright_polearm
 				add_item[i_item][4] = add_item[i_item][4] & ~itcf_slashleft_polearm
-				add_item[i_item][4] = add_item[i_item][4] & ~itcf_overswing_onehanded   
-				add_item[i_item][4] = add_item[i_item][4] & ~itcf_slashright_onehanded                     
+				add_item[i_item][4] = add_item[i_item][4] & ~itcf_overswing_onehanded
+				add_item[i_item][4] = add_item[i_item][4] & ~itcf_slashright_onehanded
 				add_item[i_item][4] = add_item[i_item][4] & ~itcf_slashleft_onehanded
 				add_item[i_item][4] = add_item[i_item][4] & ~itcf_overswing_twohanded
-				add_item[i_item][4] = add_item[i_item][4] & ~itcf_slashright_twohanded                     
+				add_item[i_item][4] = add_item[i_item][4] & ~itcf_slashright_twohanded
 				add_item[i_item][4] = add_item[i_item][4] & ~itcf_slashleft_twohanded
 				if type == itp_type_polearm and add_item[i_item][3] & itp_two_handed == 0:
 					add_item[i_item][4] = add_item[i_item][4] | itcf_thrust_onehanded  #so that the polearms use 'bent elbow' with shields, but normal without
 				add_item[i_item][3] = add_item[i_item][3] & ~itp_merchandise
 				# orig_items.insert((len(orig_items)-1), add_item[i_item])        #add right above itm_items_end
 				orig_items.append(add_item[i_item])
-		
+
 	except KeyError:
 		errstring = "Variable set does not contain expected variable: \"%s\"." % var_name_1
 		raise ValueError(errstring)

@@ -1,14 +1,14 @@
 from header_common import *
 from header_operations import *
 from header_mission_templates import *
-from header_animations import *
-from header_sounds import *
-from header_music import *
-from header_items import *
+from header_triggers import *
 from module_constants import *
 
-#from module_mission_templates import *
-
+# from header_animations import *
+# from header_sounds import *
+# from header_music import *
+# from header_items import *
+# from module_mission_templates import *
 
 ####################################################################################################################
 #   Each mission-template is a tuple that contains the following fields:
@@ -19,7 +19,7 @@ from module_constants import *
 #  3) Mission-type(int): Which mission types this mission template matches.
 #     For mission-types to be used with the default party-meeting system,
 #     this should be 'charge' or 'charge_with_ally' otherwise must be -1.
-#     
+#
 #  4) Mission description text (string).
 #  5) List of spawn records (list): Each spawn record is a tuple that contains the following fields:
 #    5.1) entry-no: Troops spawned from this spawn record will use this entry
@@ -32,7 +32,7 @@ from module_constants import *
 #     See module_triggers.py for infomation about triggers.
 #
 #  Please note that mission templates is work in progress and can be changed in the future versions.
-# 
+#
 ####################################################################################################################
 
 
@@ -53,12 +53,12 @@ coop_server_check_polls = (
     ])
 
 
-coop_store_respawn_as_bot = (  
+coop_store_respawn_as_bot = (
       ti_on_agent_killed_or_wounded, 0, 0, [(multiplayer_is_server)],
        [
          (store_trigger_param_1, ":dead_agent_no"),
          (try_begin),#store player location for respawn as bot
-           
+
            (agent_is_human, ":dead_agent_no"),
            (neg|agent_is_non_player, ":dead_agent_no"),
 
@@ -74,17 +74,17 @@ coop_store_respawn_as_bot = (
            (position_get_x, ":x_coor", pos0),
            (position_get_y, ":y_coor", pos0),
            (position_get_z, ":z_coor", pos0),
-         
+
            (player_set_slot, ":dead_agent_player_id", slot_player_death_pos_x, ":x_coor"),
            (player_set_slot, ":dead_agent_player_id", slot_player_death_pos_y, ":y_coor"),
            (player_set_slot, ":dead_agent_player_id", slot_player_death_pos_z, ":z_coor"),
-         (try_end), 
- 
+         (try_end),
+
     ])
 
 
 
-coop_respawn_as_bot = (  
+coop_respawn_as_bot = (
       2, 0, 0, [
         (multiplayer_is_server),
         (eq, "$g_multiplayer_player_respawn_as_bot", 1),
@@ -158,7 +158,7 @@ coop_respawn_as_bot = (
 # Trigger result: if returned result is greater than or equal to zero, inflicted damage is set to the value specified by the module.
 coop_server_reduce_damage = (
   ti_on_agent_hit, 0, 0,
-    [    
+    [
       (multiplayer_is_server),
       (eq, "$coop_reduce_damage", 1),
     ],
@@ -269,7 +269,7 @@ coop_mission_templates = [
      # common_battle_order_panel_tick,
 
 #multiplayer_once_at_the_first_frame
-      
+
       (ti_server_player_joined, 0, 0, [],
        [
         (store_trigger_param_1, ":player_no"),
@@ -298,9 +298,9 @@ coop_mission_templates = [
          (assign, "$coop_winner_team", -1),
          (assign, "$coop_battle_started", 0),
 
-        # (assign, reg1, "$coop_time_of_day"), 
-        # (assign, reg2, "$coop_cloud"), 
-        # (assign, reg3, "$coop_haze"), 
+        # (assign, reg1, "$coop_time_of_day"),
+        # (assign, reg2, "$coop_cloud"),
+        # (assign, reg3, "$coop_haze"),
         # (display_message, "@time {reg1} cloud {reg2} haze {reg3}"),
 
           #set_weather
@@ -326,7 +326,7 @@ coop_mission_templates = [
 
          ]),
 
-      (ti_after_mission_start, 0, 0, [], 
+      (ti_after_mission_start, 0, 0, [],
        [
          (call_script, "script_initialize_all_scene_prop_slots"),
          (call_script, "script_multiplayer_initialize_belfry_wheel_rotations"),
@@ -371,7 +371,7 @@ coop_mission_templates = [
 
             (try_begin),
               (eq, "$coop_battle_type", coop_battle_type_village_player_attack),
-              (assign, ":ally", 1), 
+              (assign, ":ally", 1),
               (assign, ":enemy", 2),#inside village
             (else_try),
               (eq, "$coop_battle_type", coop_battle_type_village_player_defend),
@@ -388,10 +388,10 @@ coop_mission_templates = [
            (position_set_z_to_ground_level, pos3),
 
            (set_spawn_position, pos2),
-           (spawn_scene_prop, "spr_coop_inventory", 0),   
+           (spawn_scene_prop, "spr_coop_inventory", 0),
 
            (set_spawn_position, pos3),
-           (spawn_scene_prop, "spr_coop_inventory", 0),  
+           (spawn_scene_prop, "spr_coop_inventory", 0),
            (assign, "$coop_inventory_box", reg0),
 
         (try_end),
@@ -408,7 +408,7 @@ coop_mission_templates = [
 
 
         (assign, ":battle_size", "$coop_battle_size"),
-        (try_begin), 
+        (try_begin),
           (eq, "$coop_battle_type", coop_battle_type_bandit_lair),
           (assign, ":battle_size", 20),
         (try_end),
@@ -421,7 +421,7 @@ coop_mission_templates = [
           (assign, "$coop_reinforce", 1),
         (try_end),
         (try_begin),
-          (ge, ":total_bots", ":battle_size"), 
+          (ge, ":total_bots", ":battle_size"),
           (assign, "$coop_reinforce", 0),
         (try_end),
 
@@ -437,7 +437,7 @@ coop_mission_templates = [
           (assign, ":alive_team2", "$coop_alive_team2"),
           (val_max, ":alive_team1", 1),
           (val_mul, ":alive_team2", 1000),
-          (store_div, ":ratio_current", ":alive_team2", ":alive_team1"), 
+          (store_div, ":ratio_current", ":alive_team2", ":alive_team1"),
 
           (try_begin),
             (this_or_next|eq, "$coop_num_bots_team_2", 0), #skip ratio if other team has no reinforcements
@@ -466,7 +466,7 @@ coop_mission_templates = [
           (assign, ":selected_troop", reg0),
 
           (try_begin),
-            (eq, ":selected_team", 0),     
+            (eq, ":selected_team", 0),
             (try_begin),
               (eq, "$coop_battle_type", coop_battle_type_village_player_attack),
               (assign, reg0, 2),#peasants inside village
@@ -476,7 +476,7 @@ coop_mission_templates = [
             (else_try),
               (eq, "$coop_battle_type", coop_battle_type_bandit_lair),
               (store_random_in_range, ":random_entry_point", 2, 11),
-              (assign, reg0, ":random_entry_point"),#bandits 
+              (assign, reg0, ":random_entry_point"),#bandits
             (else_try),
               (assign, reg0, 32),#spawn point 32
             (try_end),
@@ -510,30 +510,30 @@ coop_mission_templates = [
             (eq, ":selected_team", 1),
             (val_sub, "$coop_num_bots_team_2", 1),
           (try_end),
-        (try_end),    
+        (try_end),
         ]),
- 
+
 
 
 #multiplayer_server_manage_bots
-      (3, 0, 0, [], 
+      (3, 0, 0, [],
        [
         (multiplayer_is_server),
         (store_mission_timer_a, ":seconds_past_since_round_started"),
 
         #this can be used to make the bigger team charge first
         # (try_begin),#pick attacker to charge
-          # (gt, "$coop_alive_team1", "$coop_alive_team2"), 
+          # (gt, "$coop_alive_team1", "$coop_alive_team2"),
           # (assign, ":team_charge", 0),
         # (else_try),
           # (assign, ":team_charge", 1),
         # (try_end),
 
           # (assign, ":hold_time", "$coop_alive_team1"),
-          # (val_max, ":hold_time", "$coop_alive_team2"), 
+          # (val_max, ":hold_time", "$coop_alive_team2"),
           # (val_div, ":hold_time", 5), #larger team / 5
           (store_add, ":hold_time", "$coop_alive_team1", "$coop_alive_team2"),
-          (val_div, ":hold_time", 2), 
+          (val_div, ":hold_time", 2),
           (val_clamp, ":hold_time", 10, 41),
 
         (try_for_agents, ":cur_agent"),
@@ -618,7 +618,7 @@ coop_mission_templates = [
           (agent_is_human, ":agent_no"),
           (agent_get_troop_id,":troop_no", ":agent_no"),
 
-      #common_battle_init_banner 
+      #common_battle_init_banner
         (call_script, "script_troop_agent_set_banner", "tableau_game_troop_label_banner", ":agent_no", ":troop_no"),
 
         #when client's chosen troop spawns, request control of it
@@ -641,7 +641,7 @@ coop_mission_templates = [
 #new
          (call_script, "script_coop_server_on_agent_killed_or_wounded_common", ":dead_agent_no", ":killer_agent_no"),
 	       (call_script, "script_multiplayer_server_on_agent_killed_or_wounded_common", ":dead_agent_no", ":killer_agent_no"),
-     
+
 
          (assign, ":number_of_alive_1", 0),
          (assign, ":number_of_alive_2", 0),
@@ -661,7 +661,7 @@ coop_mission_templates = [
          (assign, "$coop_alive_team2", ":number_of_alive_2"),
 
 
-        (try_begin), #check round end        
+        (try_begin), #check round end
           (this_or_next|eq, ":number_of_alive_1", 0),
           (eq, ":number_of_alive_2", 0),
           (try_begin), #assign my initial team value (only used to set color of multiplayer_message_type_round_result_in_battle_mode)
@@ -672,7 +672,7 @@ coop_mission_templates = [
             (player_get_agent_id, ":my_agent_id", ":my_player_no"),
             (ge, ":my_agent_id", 0),
             (agent_get_troop_id, "$coop_my_troop_no", ":my_agent_id"),
-          (try_end),     
+          (try_end),
 
           (try_begin),
             (eq, "$coop_alive_team1", 0),#if team 1 is dead
@@ -682,7 +682,7 @@ coop_mission_templates = [
             (assign, "$coop_winner_team", 0),
           (try_end),
 
-          (call_script, "script_show_multiplayer_message", multiplayer_message_type_round_result_in_battle_mode, "$coop_winner_team"), #team 2 is winner 
+          (call_script, "script_show_multiplayer_message", multiplayer_message_type_round_result_in_battle_mode, "$coop_winner_team"), #team 2 is winner
           (store_mission_timer_a, "$g_round_finish_time"),
           (assign, "$g_round_ended", 1),
         (try_end),
@@ -692,7 +692,7 @@ coop_mission_templates = [
 
 
 
-#	 END BATTLE ##################	
+#	 END BATTLE ##################
       (3, 4, ti_once, [(eq, "$g_round_ended", 1)],
        [
         (try_begin),
@@ -703,7 +703,7 @@ coop_mission_templates = [
           (call_script, "script_coop_copy_parties_to_file_mp"),
           (neg|multiplayer_is_dedicated_server),
           (finish_mission),
-        (try_end), 
+        (try_end),
 
         ]),
 
@@ -732,7 +732,7 @@ coop_mission_templates = [
 
 
 
-#################  
+#################
     (
     "coop_siege",mtf_battle_mode,-1, #siege
     "You lead your men to battle.",
@@ -869,7 +869,7 @@ coop_mission_templates = [
          (try_end),
          (set_rain, ":rain_type" , ":rain_amount"), #1=rain 2=snow
 
-#common_battle_mission_start = 
+#common_battle_mission_start =
          (try_begin),
            (gt, "$coop_castle_banner", 0),
            (replace_scene_props, banner_scene_props_begin, "$coop_castle_banner"),
@@ -879,7 +879,7 @@ coop_mission_templates = [
 
          ]),
 
-      (ti_after_mission_start, 0, 0, [], 
+      (ti_after_mission_start, 0, 0, [],
        [
 
          (call_script, "script_initialize_all_scene_prop_slots"),
@@ -903,7 +903,7 @@ coop_mission_templates = [
              #these lines are done in only clients at start of each new round.
              (call_script, "script_multiplayer_initialize_belfry_wheel_rotations"),
              (call_script, "script_initialize_objects_clients"),
-           (try_end),  
+           (try_end),
 
         (try_begin),
           (multiplayer_is_server),
@@ -915,7 +915,7 @@ coop_mission_templates = [
           (try_begin),
             (eq, "$coop_round", coop_round_battle),
             (start_presentation, "prsnt_coop_start_battle"),
-          (try_end), 
+          (try_end),
 
           (entry_point_get_position, pos26, 10),
           (entry_point_get_position, pos31, 0),
@@ -931,14 +931,14 @@ coop_mission_templates = [
             (else_try),
               (assign, ":defender", 15),
             (try_end),
- 
+
             (entry_point_get_position, pos2, ":attacker"),
             (entry_point_get_position, pos3, ":defender"),
             (position_set_z_to_ground_level, pos2),
             (position_set_z_to_ground_level, pos3),
 
             (set_spawn_position, pos2),
-            (spawn_scene_prop, "spr_coop_inventory", 0),   
+            (spawn_scene_prop, "spr_coop_inventory", 0),
             (try_begin),
               (eq, "$coop_battle_type", coop_battle_type_siege_player_attack),
               (assign, "$coop_inventory_box", reg0),
@@ -961,7 +961,7 @@ coop_mission_templates = [
        (multiplayer_is_server),
         (this_or_next|eq, "$coop_round", coop_round_town_street),
         (eq, "$coop_round", coop_round_castle_hall),
-        ], 
+        ],
        [
         (eq, "$coop_battle_started", 0),
         (assign, "$g_multiplayer_ready_for_spawning_agent", 1),
@@ -969,7 +969,7 @@ coop_mission_templates = [
 
 
 #multiplayer_server_spawn_bots
-      (0, 0, 0, [], 
+      (0, 0, 0, [],
        [
         (multiplayer_is_server),
         (eq, "$g_multiplayer_ready_for_spawning_agent", 1),
@@ -977,7 +977,7 @@ coop_mission_templates = [
 
         #get battle size
         (assign, ":battle_size", "$coop_battle_size"),
-        (try_begin), 
+        (try_begin),
           (eq, "$coop_round", coop_round_castle_hall),
           (val_div, ":battle_size", 4),
           (val_max, ":battle_size", 20),
@@ -989,11 +989,11 @@ coop_mission_templates = [
         (store_sub, ":reinforce_bots", ":battle_size", "$coop_reinforce_size"),#when less troops than battle size
         (try_begin),
           (this_or_next|eq, "$coop_round", coop_round_castle_hall),
-          (le, ":total_bots", ":reinforce_bots"), 
+          (le, ":total_bots", ":reinforce_bots"),
           (assign, "$coop_reinforce", 1), #need global var so not cleared
         (try_end),
         (try_begin),
-          (ge, ":total_bots", ":battle_size"), 
+          (ge, ":total_bots", ":battle_size"),
           (assign, "$coop_reinforce", 0),
         (try_end),
 
@@ -1007,7 +1007,7 @@ coop_mission_templates = [
           (assign, ":alive_team2", "$coop_alive_team2"),
           (val_max, ":alive_team1", 1),
           (val_mul, ":alive_team2", 1000),
-          (store_div, ":ratio_current", ":alive_team2", ":alive_team1"), 
+          (store_div, ":ratio_current", ":alive_team2", ":alive_team1"),
 
 
           (try_begin),
@@ -1053,7 +1053,7 @@ coop_mission_templates = [
               (le, "$coop_num_bots_team_2", ":reserves"),
               (val_add, "$coop_round", 1),
             (try_end),
-          (try_end), 
+          (try_end),
 
           #if defenders withdraw, finish spawning attackers
           (try_begin),
@@ -1118,9 +1118,9 @@ coop_mission_templates = [
             (val_sub, "$coop_num_bots_team_2", 1),
           (try_end),
 
-        (try_end),   
+        (try_end),
         ]),
- 
+
 
       (ti_on_agent_spawn, 0, 0, [],
        [
@@ -1181,11 +1181,11 @@ coop_mission_templates = [
                 (store_random_in_range, ":random_point", 40, 47),
                 (entry_point_get_position, pos27, ":random_point"),
                  (try_begin),
-                  (eq, "$coop_attacker_is_on_wall", 0), 
-                  (agent_set_scripted_destination, ":agent_no", pos27, 0), 
+                  (eq, "$coop_attacker_is_on_wall", 0),
+                  (agent_set_scripted_destination, ":agent_no", pos27, 0),
                 (try_end),
                 (try_begin),
-                  (eq, "$coop_battle_spawn_formation", 1),#when spawn formation is on, 
+                  (eq, "$coop_battle_spawn_formation", 1),#when spawn formation is on,
                   (position_move_x, pos27, 200),
                   (agent_set_position, ":agent_no", pos27),
                 (try_end),
@@ -1194,12 +1194,12 @@ coop_mission_templates = [
                 (eq, "$coop_attacker_is_on_wall", 0), #before attackers reach wall, move half of defenders to wall
                 (entry_point_get_position, pos25, 10),
                 (try_begin),
-                  # (eq, "$coop_battle_spawn_formation", 1), #when spawn formation is on, 
+                  # (eq, "$coop_battle_spawn_formation", 1), #when spawn formation is on,
                   (store_random_in_range, ":random", 0, 2),
                   (eq, ":random", 0),
                   (try_begin),
                     (get_distance_between_positions, ":dist",pos26,pos25),
-                    (ge, ":dist", 600), #12 x 50 per row 
+                    (ge, ":dist", 600), #12 x 50 per row
                     (entry_point_get_position, pos26, 10),
                   (try_end),
                   (agent_set_position, ":agent_no", pos26),
@@ -1223,7 +1223,7 @@ coop_mission_templates = [
           (agent_is_human, ":agent_no"),
           (agent_get_troop_id,":troop_no", ":agent_no"),
 
-      #common_battle_init_banner 
+      #common_battle_init_banner
         (call_script, "script_troop_agent_set_banner", "tableau_game_troop_label_banner", ":agent_no", ":troop_no"),
 
         #when client's chosen troop spawns, request control of it
@@ -1240,7 +1240,7 @@ coop_mission_templates = [
           (multiplayer_send_int_to_server, multiplayer_event_change_team_no, "$coop_my_team"),
           (multiplayer_send_int_to_server, multiplayer_event_change_troop_id, "$coop_my_troop_no"),
         (try_end),
-      
+
 
          ]),
 
@@ -1252,7 +1252,7 @@ coop_mission_templates = [
 ###
          (call_script, "script_coop_server_on_agent_killed_or_wounded_common", ":dead_agent_no", ":killer_agent_no"),
 	       (call_script, "script_multiplayer_server_on_agent_killed_or_wounded_common", ":dead_agent_no", ":killer_agent_no"),
-     
+
          (assign, ":number_of_alive_1", 0),
          (assign, ":number_of_alive_2", 0),
           (try_for_agents, ":cur_agent"),
@@ -1270,7 +1270,7 @@ coop_mission_templates = [
          (assign, "$coop_alive_team1", ":number_of_alive_1"),
          (assign, "$coop_alive_team2", ":number_of_alive_2"),
 
-        (try_begin), #check round end        
+        (try_begin), #check round end
           (this_or_next|eq, ":number_of_alive_1", 0),
           (eq, ":number_of_alive_2", 0),
           (try_begin), #assign my initial team value (only used to set color of multiplayer_message_type_round_result_in_battle_mode)
@@ -1281,7 +1281,7 @@ coop_mission_templates = [
             (player_get_agent_id, ":my_agent_id", ":my_player_no"),
             (ge, ":my_agent_id", 0),
             (agent_get_troop_id, "$coop_my_troop_no", ":my_agent_id"),
-          (try_end),     
+          (try_end),
 
           (try_begin),
             (eq, "$coop_alive_team1", 0),#if team 1 is dead
@@ -1299,17 +1299,17 @@ coop_mission_templates = [
             (try_end),
           (try_end),
 
-          (call_script, "script_show_multiplayer_message", multiplayer_message_type_round_result_in_battle_mode, "$coop_winner_team"), #team 2 is winner 
+          (call_script, "script_show_multiplayer_message", multiplayer_message_type_round_result_in_battle_mode, "$coop_winner_team"), #team 2 is winner
           (store_mission_timer_a, "$g_round_finish_time"),
           (assign, "$g_round_ended", 1),
         (try_end),
-#END BATTLE ##################	
+#END BATTLE ##################
         ]),
 
 
 
 
-#multiplayer_server_check_end_map =                 
+#multiplayer_server_check_end_map =
       (1, 0, 0,   #must check this in separate trigger in case no defenders spawn in battle round
        [
         (multiplayer_is_server),
@@ -1320,7 +1320,7 @@ coop_mission_templates = [
         (try_begin),
           (try_begin),
             (eq, "$attacker_team", 0),
-            (this_or_next|gt, "$coop_alive_team1", 0), 
+            (this_or_next|gt, "$coop_alive_team1", 0),
             (gt, "$coop_num_bots_team_1", 0),#if attacker is not dead continue
             (eq, "$coop_alive_team2", 0),
             (val_add, "$coop_round", 1),
@@ -1334,7 +1334,7 @@ coop_mission_templates = [
 
           (this_or_next|eq, "$coop_round", coop_round_town_street),
           (eq, "$coop_round", coop_round_castle_hall),
-          (try_begin), 
+          (try_begin),
             (eq, "$coop_street_scene", 0),
             (assign, "$coop_round", coop_round_castle_hall), #if no street scene, skip to castle hall
           (try_end),
@@ -1369,17 +1369,17 @@ coop_mission_templates = [
           (try_end),
 
           #sort troops of spawn parties
-          (store_add, ":last_party", coop_temp_party_enemy_begin, "$coop_no_enemy_parties"), 
+          (store_add, ":last_party", coop_temp_party_enemy_begin, "$coop_no_enemy_parties"),
           (try_for_range, ":party_no", coop_temp_party_enemy_begin, ":last_party"),
             (call_script, "script_coop_sort_party", ":party_no"),
           (try_end),
 
-          (store_add, ":last_party", coop_temp_party_ally_begin, "$coop_no_ally_parties"), 
+          (store_add, ":last_party", coop_temp_party_ally_begin, "$coop_no_ally_parties"),
           (try_for_range, ":party_no", coop_temp_party_ally_begin, ":last_party"),
             (call_script, "script_coop_sort_party", ":party_no"),
           (try_end),
 
-          (try_begin), 
+          (try_begin),
             (eq, "$coop_round", coop_round_town_street),
             (assign, ":next_scene", "$coop_street_scene"),
           (else_try),
@@ -1408,10 +1408,10 @@ coop_mission_templates = [
           (call_script, "script_coop_copy_parties_to_file_mp"),
           (neg|multiplayer_is_dedicated_server),
           (finish_mission),
-        (try_end), 
+        (try_end),
         ]),
 
-       
+
       (ti_tab_pressed, 0, 0, [],
        [
          (try_begin),
@@ -1430,7 +1430,7 @@ coop_mission_templates = [
          ]),
 
 #multiplayer_server_manage_bots
-      (3, 0, 0, [], 
+      (3, 0, 0, [],
        [
         (multiplayer_is_server),
         (try_for_agents, ":cur_agent"),
@@ -1482,7 +1482,7 @@ coop_mission_templates = [
 
 
 
-#common_siege_refill_ammo = 
+#common_siege_refill_ammo =
       (120, 0, 0, [(multiplayer_is_server)],
       [#refill ammo of defenders every two minutes.
         (try_for_agents,":cur_agent"),
@@ -1498,29 +1498,29 @@ coop_mission_templates = [
 
 
 #line up attacking archers (not working) hard to find good position
-#      (3, 0, 0,[        
+#      (3, 0, 0,[
 #        (eq, "$coop_round", coop_round_battle),
-#        ], 
-#        [ 
+#        ],
+#        [
 #        (entry_point_get_position, pos4, 15), #top of ladder
-#        (position_move_y, pos4, 5000), 
-#        (position_move_x, pos4, -2000), 
+#        (position_move_y, pos4, 5000),
+#        (position_move_x, pos4, -2000),
 #        (call_script, "script_coop_form_line", pos4, "$attacker_team", grc_archers, 200, 100, 3, 0), #(pos, team, dist to row, dist to troop, rows)
 #      ]),
 
 
 #common_siege_init_ai_and_belfry,
-      (0, 0, ti_once, [], 
+      (0, 0, ti_once, [],
        [
          (try_begin),
            (multiplayer_is_server),
-         
+
            (scene_prop_get_num_instances, ":num_belfries", "spr_belfry_a"),
            (try_for_range, ":belfry_no", 0, ":num_belfries"),
              (scene_prop_get_instance, ":belfry_scene_prop_id", "spr_belfry_a", ":belfry_no"),
              (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 1),
            (try_end),
-         
+
            (scene_prop_get_num_instances, ":num_belfries", "spr_belfry_b"),
            (try_for_range, ":belfry_no", 0, ":num_belfries"),
              (scene_prop_get_instance, ":belfry_scene_prop_id", "spr_belfry_b", ":belfry_no"),
@@ -1529,14 +1529,14 @@ coop_mission_templates = [
           #call coop script
            (call_script, "script_coop_move_belfries_to_their_first_entry_point", "spr_belfry_a"),
            (call_script, "script_coop_move_belfries_to_their_first_entry_point", "spr_belfry_b"),
-         
+
            (scene_prop_get_num_instances, ":num_belfries", "spr_belfry_a"),
            (try_for_range, ":belfry_no", 0, ":num_belfries"),
              (scene_prop_get_instance, ":belfry_scene_prop_id", "spr_belfry_a", ":belfry_no"),
              (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_number_of_agents_pushing, 0),
              (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_next_entry_point_id, 0),
            (try_end),
-         
+
            (scene_prop_get_num_instances, ":num_belfries", "spr_belfry_b"),
            (try_for_range, ":belfry_no", 0, ":num_belfries"),
              (scene_prop_get_instance, ":belfry_scene_prop_id", "spr_belfry_b", ":belfry_no"),
@@ -1577,15 +1577,15 @@ coop_mission_templates = [
       (else_try),
         (assign, ":belfry_body_scene_prop", "spr_belfry_b"),
       (try_end),
-    
+
       (scene_prop_get_num_instances, ":num_belfries", ":belfry_body_scene_prop"),
 
       (try_for_range, ":belfry_no", 0, ":num_belfries"),
         (scene_prop_get_instance, ":belfry_scene_prop_id", ":belfry_body_scene_prop", ":belfry_no"),
-        (prop_instance_get_position, pos1, ":belfry_scene_prop_id"), #pos1 holds position of current belfry 
+        (prop_instance_get_position, pos1, ":belfry_scene_prop_id"), #pos1 holds position of current belfry
         (prop_instance_get_starting_position, pos11, ":belfry_scene_prop_id"),
 
-#common_siege_assign_men_to_belfry = 
+#common_siege_assign_men_to_belfry =
         (call_script, "script_cf_coop_siege_assign_men_to_belfry",  pos1),
 
 #        (store_add, ":belfry_first_entry_point_id", 11, ":belfry_no"), #belfry entry points are 110..119 and 120..129 and 130..139
@@ -1594,17 +1594,17 @@ coop_mission_templates = [
           (eq, ":belfry_kind", 1),
           (scene_prop_get_num_instances, ":number_of_belfry_a", "spr_belfry_a"),
           (val_add, ":belfry_first_entry_point_id", ":number_of_belfry_a"),
-        (try_end),        
-                
+        (try_end),
+
         (val_mul, ":belfry_first_entry_point_id", 10),
 #        (store_add, ":belfry_last_entry_point_id", ":belfry_first_entry_point_id", 10),#number points for each belfry
         (store_add, ":belfry_last_entry_point_id", ":belfry_first_entry_point_id", 5),#number points for each belfry
-    
+
         (try_for_range, ":entry_point_id", ":belfry_first_entry_point_id", ":belfry_last_entry_point_id"),
           (entry_point_is_auto_generated, ":entry_point_id"),
           (assign, ":belfry_last_entry_point_id", ":entry_point_id"),
         (try_end),
-        
+
         (assign, ":belfry_last_entry_point_id_plus_one", ":belfry_last_entry_point_id"),
         (val_sub, ":belfry_last_entry_point_id", 1),
         (assign, reg0, ":belfry_last_entry_point_id"),
@@ -1618,11 +1618,11 @@ coop_mission_templates = [
           # coop check when belfry is close
           (try_begin),
             (lt, ":dist_between_belfry_and_its_destination", 1000),
-            (assign, "$belfry_positioned", 2), 
+            (assign, "$belfry_positioned", 2),
           (try_end),
 
           (try_begin),
-            (lt, "$belfry_positioned", 2), 
+            (lt, "$belfry_positioned", 2),
             (copy_position, pos4, pos1),
             (position_move_y, pos4, -2400),
             (position_move_x, pos4, -800),
@@ -1645,11 +1645,11 @@ coop_mission_templates = [
             (ge, ":belfry_next_entry_point_id", 0),
             (entry_point_get_position, pos5, ":belfry_next_entry_point_id"), #pos5 holds belfry next entry point target during its path
           (else_try),
-            (copy_position, pos5, pos11),    
+            (copy_position, pos5, pos11),
           (try_end),
-        
+
           (get_distance_between_positions, ":belfry_next_entry_point_distance", pos1, pos5),
-        
+
           #collecting scene prop ids of belfry parts
           (try_begin),
             (eq, ":belfry_kind", 0),
@@ -1661,12 +1661,12 @@ coop_mission_templates = [
             #belfry platform_a
             (scene_prop_get_instance, ":belfry_platform_a_scene_prop_id", "spr_belfry_b_platform_a", ":belfry_no"),
           (try_end),
-    
+
           #belfry wheel_1
           (store_mul, ":wheel_no", ":belfry_no", 3),
           (try_begin),
             (eq, ":belfry_body_scene_prop", "spr_belfry_b"),
-            (scene_prop_get_num_instances, ":number_of_belfry_a", "spr_belfry_a"),    
+            (scene_prop_get_num_instances, ":number_of_belfry_a", "spr_belfry_a"),
             (store_mul, ":number_of_belfry_a_wheels", ":number_of_belfry_a", 3),
             (val_add, ":wheel_no", ":number_of_belfry_a_wheels"),
           (try_end),
@@ -1697,7 +1697,7 @@ coop_mission_templates = [
 
             (agent_get_team, ":agent_team", ":agent_id"),
             (eq, ":agent_team", "$attacker_team"),
- 
+
             (agent_get_position, pos2, ":agent_id"),
             (get_sq_distance_between_positions_in_meters, ":dist_between_agent_and_belfry", pos18, pos2),
 
@@ -1708,13 +1708,13 @@ coop_mission_templates = [
 
             (this_or_next|eq, ":belfry_kind", 1), #there is this_or_next here because belfry_b has no platform_b
             (neg|scene_prop_has_agent_on_it, ":belfry_platform_b_scene_prop_id", ":agent_id"),
-    
+
             (neg|scene_prop_has_agent_on_it, ":belfry_wheel_1_scene_prop_id", ":agent_id"),#can be removed to make faster
             (neg|scene_prop_has_agent_on_it, ":belfry_wheel_2_scene_prop_id", ":agent_id"),#can be removed to make faster
             (neg|scene_prop_has_agent_on_it, ":belfry_wheel_3_scene_prop_id", ":agent_id"),#can be removed to make faster
             (neg|position_is_behind_position, pos2, pos19),
             (position_is_behind_position, pos2, pos1),
-            (val_add, ":number_of_agents_around_belfry", 1),        
+            (val_add, ":number_of_agents_around_belfry", 1),
           (try_end),
 
           (val_min, ":number_of_agents_around_belfry", 16),
@@ -1726,7 +1726,7 @@ coop_mission_templates = [
             (neq, ":next_entry_point_id", ":belfry_next_entry_point_id"),
 
             (try_begin),
-              (eq, ":next_entry_point_id", ":belfry_next_entry_point_id"), #if we are still targetting same entry point subtract 
+              (eq, ":next_entry_point_id", ":belfry_next_entry_point_id"), #if we are still targetting same entry point subtract
               (prop_instance_is_animating, ":is_animating", ":belfry_scene_prop_id"),
               (eq, ":is_animating", 1),
 
@@ -1736,8 +1736,8 @@ coop_mission_templates = [
               (assign, ":distance", ":belfry_next_entry_point_distance"),
               (val_mul, ":distance", ":sqrt_number_of_agents_around_belfry"),
               (val_div, ":distance", 100), #100 is because of fixed_point_multiplier
-              (val_mul, ":distance", 8), #multiplying with 4 to make belfry pushing process slower, 
-                                                                 #with 16 agents belfry will go with 4 / 4 = 1 speed (max), with 1 agent belfry will go with 1 / 4 = 0.25 speed (min)    
+              (val_mul, ":distance", 8), #multiplying with 4 to make belfry pushing process slower,
+                                                                 #with 16 agents belfry will go with 4 / 4 = 1 speed (max), with 1 agent belfry will go with 1 / 4 = 0.25 speed (min)
             (try_end),
 
             (try_begin),
@@ -1747,20 +1747,20 @@ coop_mission_templates = [
               (init_position, pos9),
               (position_set_y, pos9, -500), #go 5.0 meters back
               (position_set_x, pos9, -300), #go 3.0 meters left
-              (position_transform_position_to_parent, pos10, pos5, pos9), 
+              (position_transform_position_to_parent, pos10, pos5, pos9),
               (position_get_distance_to_terrain, ":height_to_terrain_1", pos10), #learn distance between 5 meters back of entry point(pos10) and ground level at left part of belfry
-      
+
               (init_position, pos9),
               (position_set_y, pos9, -500), #go 5.0 meters back
               (position_set_x, pos9, 300), #go 3.0 meters right
-              (position_transform_position_to_parent, pos10, pos5, pos9), 
+              (position_transform_position_to_parent, pos10, pos5, pos9),
               (position_get_distance_to_terrain, ":height_to_terrain_2", pos10), #learn distance between 5 meters back of entry point(pos10) and ground level at right part of belfry
 
               (store_add, ":height_to_terrain", ":height_to_terrain_1", ":height_to_terrain_2"),
               (val_mul, ":height_to_terrain", 100), #because of fixed point multiplier
 
               (store_div, ":rotate_angle_of_next_entry_point", ":height_to_terrain", 24), #if there is 1 meters of distance (100cm) then next target position will rotate by 2 degrees. #ac sonra
-              (init_position, pos20),    
+              (init_position, pos20),
               (position_rotate_x_floating, pos20, ":rotate_angle_of_next_entry_point"),
               (position_transform_position_to_parent, pos23, pos5, pos20),
 
@@ -1787,18 +1787,18 @@ coop_mission_templates = [
               (position_get_distance_to_terrain, ":height_to_terrain_at_right", pos10), #learn distance between 3.0 meters right of entry point(pos10) and ground level
               (store_sub, ":height_to_terrain_2", ":height_to_terrain_at_left", ":height_to_terrain_at_right"),
 
-              (store_add, ":height_to_terrain", ":height_to_terrain_1", ":height_to_terrain_2"),    
+              (store_add, ":height_to_terrain", ":height_to_terrain_1", ":height_to_terrain_2"),
               (val_mul, ":height_to_terrain", 100), #100 is because of fixed_point_multiplier
-              (store_div, ":rotate_angle_of_next_entry_point", ":height_to_terrain", 24), #if there is 1 meters of distance (100cm) then next target position will rotate by 25 degrees. 
+              (store_div, ":rotate_angle_of_next_entry_point", ":height_to_terrain", 24), #if there is 1 meters of distance (100cm) then next target position will rotate by 25 degrees.
               (val_mul, ":rotate_angle_of_next_entry_point", -1),
 
               (init_position, pos20),
               (position_rotate_y_floating, pos20, ":rotate_angle_of_next_entry_point"),
               (position_transform_position_to_parent, pos22, pos23, pos20),
             (else_try),
-              (copy_position, pos22, pos5),      
+              (copy_position, pos22, pos5),
             (try_end),
-              
+
             (try_begin),
               (ge, ":number_of_agents_around_belfry", 1), #if there is any agents pushing belfry
 
@@ -1806,15 +1806,15 @@ coop_mission_templates = [
               (store_sqrt, ":sqrt_number_of_agents_around_belfry", ":sqrt_number_of_agents_around_belfry"),
               (val_min, ":sqrt_number_of_agents_around_belfry", 300),
               (val_mul, ":belfry_next_entry_point_distance", 100), #100 is because of fixed_point_multiplier
-              (val_mul, ":belfry_next_entry_point_distance", 8), #multiplying with 3 to make belfry pushing process slower, 
-                                                                 #with 9 agents belfry will go with 3 / 3 = 1 speed (max), with 1 agent belfry will go with 1 / 3 = 0.33 speed (min)    
+              (val_mul, ":belfry_next_entry_point_distance", 8), #multiplying with 3 to make belfry pushing process slower,
+                                                                 #with 9 agents belfry will go with 3 / 3 = 1 speed (max), with 1 agent belfry will go with 1 / 3 = 0.33 speed (min)
               (val_div, ":belfry_next_entry_point_distance", ":sqrt_number_of_agents_around_belfry"),
               #calculating destination coordinates of belfry parts
               #belfry platform_a
               (prop_instance_get_position, pos6, ":belfry_platform_a_scene_prop_id"),
               (position_transform_position_to_local, pos7, pos1, pos6),
               (position_transform_position_to_parent, pos8, pos22, pos7),
-              (prop_instance_animate_to_position, ":belfry_platform_a_scene_prop_id", pos8, ":belfry_next_entry_point_distance"),    
+              (prop_instance_animate_to_position, ":belfry_platform_a_scene_prop_id", pos8, ":belfry_next_entry_point_distance"),
               #belfry platform_b
               (try_begin),
                 (eq, ":belfry_kind", 0),
@@ -1835,7 +1835,7 @@ coop_mission_templates = [
               (position_transform_position_to_local, pos7, pos20, pos13),
               (position_transform_position_to_parent, pos21, pos22, pos7),
               (prop_instance_rotate_to_position, ":belfry_wheel_1_scene_prop_id", pos21, ":belfry_next_entry_point_distance", ":belfry_wheel_rotation"),
-      
+
               #belfry wheel_2
               #(prop_instance_get_starting_position, pos13, ":belfry_wheel_2_scene_prop_id"),
               (prop_instance_get_position, pos13, ":belfry_wheel_2_scene_prop_id"),
@@ -1843,7 +1843,7 @@ coop_mission_templates = [
               (position_transform_position_to_local, pos7, pos20, pos13),
               (position_transform_position_to_parent, pos21, pos22, pos7),
               (prop_instance_rotate_to_position, ":belfry_wheel_2_scene_prop_id", pos21, ":belfry_next_entry_point_distance", ":belfry_wheel_rotation"),
-      
+
               #belfry wheel_3
               (prop_instance_get_position, pos13, ":belfry_wheel_3_scene_prop_id"),
               (prop_instance_get_position, pos20, ":belfry_scene_prop_id"),
@@ -1852,7 +1852,7 @@ coop_mission_templates = [
               (prop_instance_rotate_to_position, ":belfry_wheel_3_scene_prop_id", pos21, ":belfry_next_entry_point_distance", ":belfry_wheel_rotation"),
 
               #belfry main body
-              (prop_instance_animate_to_position, ":belfry_scene_prop_id", pos22, ":belfry_next_entry_point_distance"),    
+              (prop_instance_animate_to_position, ":belfry_scene_prop_id", pos22, ":belfry_next_entry_point_distance"),
             (else_try),
               (prop_instance_is_animating, ":is_animating", ":belfry_scene_prop_id"),
               (eq, ":is_animating", 1),
@@ -1873,15 +1873,15 @@ coop_mission_templates = [
               #belfry main body
               (prop_instance_stop_animating, ":belfry_scene_prop_id"),
             (try_end),
-        
-            (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_number_of_agents_pushing, ":number_of_agents_around_belfry"),    
+
+            (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_number_of_agents_pushing, ":number_of_agents_around_belfry"),
             (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_next_entry_point_id, ":belfry_next_entry_point_id"),
           (try_end),
         (else_try),
           (le, ":dist_between_belfry_and_its_destination", 4),
           (scene_prop_slot_eq, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 0),
-      
-          (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 1),    
+
+          (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 1),
 
           (try_begin),
             (eq, ":belfry_kind", 0),

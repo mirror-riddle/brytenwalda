@@ -1,7 +1,7 @@
 from header_map_icons import *
 from module_constants import *
 from header_operations import *
-from header_triggers import *
+from header_triggers import ti_on_init_map_icon
 from ID_sounds import *
 
 ####################################################################################################################
@@ -10,7 +10,7 @@ from ID_sounds import *
 #     The prefix icon_ is automatically added before each map icon id.
 #  2) Map icon flags. See header_map icons.py for a list of available flags
 #  3) Mesh name.
-#  4) Scale. 
+#  4) Scale.
 #  5) Sound.
 #  6) Offset x position for the flag icon.
 #  7) Offset y position for the flag icon.
@@ -83,7 +83,7 @@ map_icons = [
 #  ("outpost",mcn_no_shadow,"outpost", 0.22,0),
 #  ("fort_a",mcn_no_shadow,"map_fort_a", 0.22,0),
 #-## Outposts end
-  
+
   ("bridge_a",mcn_no_shadow,"map_river_bridge_a", 1.27,0),
   ("bridge_b",mcn_no_shadow,"map_river_bridge_b", 0.7,0),
   ("bridge_snow_a",mcn_no_shadow,"map_river_bridge_snow_a", 1.27,0),
@@ -327,7 +327,7 @@ map_icons = [
   ("banner_195",0,"map_flag_f08", banner_scale,0),
   ("banner_196",0,"map_flag_f09", banner_scale,0),
   ("banner_197",0,"map_flag_f10", banner_scale,0),
-  
+
   ("map_flag_kingdom_a",0,"map_flag_kingdom_a", banner_scale,0),
   ("map_flag_kingdom_b",0,"map_flag_kingdom_b", banner_scale,0),
   ("map_flag_kingdom_c",0,"map_flag_kingdom_c", banner_scale,0),

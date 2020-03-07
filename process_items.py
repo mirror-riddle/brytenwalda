@@ -1,7 +1,10 @@
-import string
+# import string
 
-from process_common import *
+from module_info import export_dir
 from module_items import *
+
+from process_operations import *
+from process_common import convert_to_identifier
 
 def get_item_code(item):
   prefix = "it_"
@@ -10,7 +13,7 @@ def get_item_code(item):
 
 def save_python_header():
   file = open("./ID_items.py","w")
-  for i_item in xrange(len(items)):
+  for i_item in range(len(items)):
     file.write("itm_%s = %d\n"%(convert_to_identifier(items[i_item][0]),i_item))
   file.close()
 
@@ -29,7 +32,7 @@ def write_items(variable_list,variable_uses,tag_uses,quick_strings):
       ofile.write(" %s %d "%(item_variation[0],item_variation[1]))
     ofile.write(" %d %d %d %d %f %d %d %d %d %d %d %d %d %d %d %d %d\n"%(item[3], item[4], item[5], item[7],
                                                    get_weight(item[6]),
-                                                   get_abundance(item[6]),                  
+                                                   get_abundance(item[6]),
                                                    get_head_armor(item[6]),
                                                    get_body_armor(item[6]),
                                                    get_leg_armor(item[6]),
@@ -57,13 +60,8 @@ def write_items(variable_list,variable_uses,tag_uses,quick_strings):
 
   ofile.close()
 
-print "Exporting item data..."
+print("Exporting item data...")
 save_python_header()
-
-from module_info import *
-
-from process_common import *
-from process_operations import *
 
 variable_uses = []
 variables = load_variables(export_dir,variable_uses)

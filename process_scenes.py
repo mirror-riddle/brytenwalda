@@ -1,19 +1,18 @@
-from module_info import *
-from module_scenes import *
+from module_info import export_dir
+from module_scenes import scenes
+from module_troops import troops, find_troop
 
-from process_common import *
+from process_operations import *
+from process_common import convert_to_identifier
 
 def save_python_header():
   ofile = open("./ID_scenes.py","w")
-  for i_scene in xrange(len(scenes)):
+  for i_scene in range(len(scenes)):
     ofile.write("scn_%s = %d\n"%(convert_to_identifier(scenes[i_scene][0]),i_scene))
   ofile.close()
 
-print "Exporting scene data..."
+print("Exporting scene data...")
 save_python_header()
-
-from process_operations import *
-from module_troops import *
 
 scene_name_pos = 0
 passages_pos = 8
@@ -22,7 +21,7 @@ scene_outer_terrain_pos = 10
 
 def write_vec(ofile,vec):
   ofile.write(" %f %f %f "%vec)
-  
+
 def write_passage(ofile,scenes,passage):
   scene_no = 0
   found = 0
@@ -36,9 +35,8 @@ def write_passage(ofile,scenes,passage):
   elif (passage == ""):
     scene_no = 0
   elif not found:
-    print "Error passage not found:"
-    print passage
-    do_error()
+    print("Error passage not found:")
+    print(passage)
   ofile.write(" %d "%scene_no)
 
 
@@ -57,7 +55,7 @@ def save_scenes(variables,variable_uses,tag_uses):
     for chest_troop in chest_troops:
       troop_no = find_troop(troops,chest_troop)
       if (troop_no < 0):
-        print "Error unable to find chest-troop: " + chest_troop
+        print("Error unable to find chest-troop: " + chest_troop)
         troop_no = 0
       else:
         add_tag_use(tag_uses,tag_troop,troop_no)

@@ -1,12 +1,13 @@
-import random
+# import random
 
-from header_common import *
-from header_items import *
+# from header_common import *
+# from header_items import *
 from header_troops import *
 from header_skills import *
-from ID_factions import *
+
 from ID_items import *
 from ID_scenes import *
+from ID_factions import *
 
 ####################################################################################################################
 #  Each troop contains the following fields:
