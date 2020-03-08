@@ -1,11 +1,6 @@
-from header_common import *
-from header_items import  *
-from header_item_modifiers import *
-from header_operations import *
-from header_triggers import *
-from ID_factions import *
-
+from header_items import *
 from module_constants import *
+from module_items_helper import *
 
 ####################################################################################################################
 #  Each item record contains the following fields:
@@ -26,75 +21,74 @@ from module_constants import *
 #  10) [Optional] Factions: List of factions that item can be found as merchandise.
 ####################################################################################################################
 
-# Some constants for ease of use.
-imodbits_none = 0
-imodbits_horse_basic = imodbit_swaybacked|imodbit_lame|imodbit_spirited|imodbit_heavy|imodbit_stubborn
-imodbits_cloth  = imodbit_tattered | imodbit_ragged | imodbit_sturdy | imodbit_thick | imodbit_hardened
-imodbits_armor  = imodbit_rusty | imodbit_battered | imodbit_crude | imodbit_thick | imodbit_reinforced |imodbit_lordly
-imodbits_plate  = imodbit_cracked | imodbit_rusty | imodbit_battered | imodbit_crude | imodbit_thick | imodbit_reinforced |imodbit_lordly
-imodbits_polearm = imodbit_cracked | imodbit_bent | imodbit_balanced
-imodbits_shield  = imodbit_cracked | imodbit_battered |imodbit_thick | imodbit_reinforced
-imodbits_sword   = imodbit_rusty | imodbit_chipped | imodbit_balanced |imodbit_tempered
-imodbits_sword_high   = imodbit_rusty | imodbit_chipped | imodbit_balanced |imodbit_tempered|imodbit_masterwork
-imodbits_axe   = imodbit_rusty | imodbit_chipped | imodbit_heavy
-imodbits_mace   = imodbit_rusty | imodbit_chipped | imodbit_heavy
-imodbits_pick   = imodbit_rusty | imodbit_chipped | imodbit_balanced | imodbit_heavy
-#imodbits_bow = imodbit_cracked | imodbit_bent | imodbit_strong |imodbit_masterwork
-imodbits_bow = imodbit_cracked | imodbit_bent | imodbit_strong
-imodbits_crossbow = imodbit_cracked | imodbit_bent | imodbit_masterwork
-imodbits_missile   = imodbit_bent | imodbit_large_bag
-imodbits_thrown   = imodbit_bent | imodbit_heavy| imodbit_balanced| imodbit_large_bag
-imodbits_thrown_minus_heavy = imodbit_bent | imodbit_balanced| imodbit_large_bag
-
-imodbits_horse_good = imodbit_spirited|imodbit_heavy
-imodbits_good   = imodbit_sturdy | imodbit_thick | imodbit_hardened | imodbit_reinforced
-imodbits_bad    = imodbit_rusty | imodbit_chipped | imodbit_tattered | imodbit_ragged | imodbit_cracked | imodbit_bent
-
-## CC distancia de tiro chief commander
-missile_distance_trigger = [
-  (ti_on_missile_hit,
-    [
-      (store_trigger_param_1, ":shooter_agent"),
-
-      (eq, "$g_report_shot_distance", 1),
-      (get_player_agent_no, ":player_agent"),
-      (try_begin),
-        (eq, ":shooter_agent", ":player_agent"),
-        (agent_get_position, pos2, ":shooter_agent"),
-        (agent_get_horse, ":horse_agent", ":player_agent"),
-        (try_begin),
-          (gt, ":horse_agent", -1),
-          (position_move_z, pos2, 220),
-        (else_try),
-          (position_move_z, pos2, 150),
-        (try_end),
-        (get_distance_between_positions, ":distance", pos1, pos2),
-        (store_div, reg61, ":distance", 100),
-        (store_mod, reg62, ":distance", 100),
-        (try_begin),
-          (lt, reg62, 10),
-          (str_store_string, s1, "@{reg61}.0{reg62}"),
-        (else_try),
-          (str_store_string, s1, "@{reg61}.{reg62}"),
-        (try_end),
-       # (display_message, "@Shot distance: {s1} meters.", 0xCCCCCC), #hemos pues off chief porque igual es algo pesado.
-      (try_end),
-    ])]
-## CC
-# Replace winged mace/spiked mace with: Flanged mace / Knobbed mace?
-# Fauchard (majowski glaive)
-
-def create_items(prefixs, subfix):
-  return [prefix + subfix for prefix in prefixs]
-
-pictish_kingdoms = [
-  fac_kingdom_20
+north_horse_subfix = [
+  itp_merchandise|itp_type_horse, 0, 2000,
+  abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
+  horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
 ]
-irish_kingdoms = [
-  fac_kingdom_17, fac_kingdom_19, fac_kingdom_27,
-  fac_kingdom_28, fac_kingdom_29, fac_kingdom_30, fac_kingdom_31
+
+north_horses = create_horses([
+  ["warhorse_sarranid", "roman_horse_2"],
+  ["saddle_horse3", "roman_horse_1"],
+  ["steppe_horse3", "WRoman1"],
+  ["charger3", "WRoman2"],
+  ["normal_horse11", "normaL_horse11"],
+  ["normal_horse12", "normaL_horse12"],
+  ["normal_horse13", "normaL_horse13"],
+  ["normal_horse14", "normaL_horse14"],
+  ["normal_horse15", "normaL_horse15"],
+  ["normal_horse16", "normaL_horse16"],
+  ["normal_horse21", "normaL_horse21"],
+  ["normal_horse22", "normaL_horse22"],
+  ["normal_horse24", "normaL_horse24"],
+  ["normal_horse25", "normaL_horse25"],
+  ["normal_horse26", "normaL_horse26"],
+  ["normal_horse27", "normaL_horse27"],
+  ["normal_horse29", "normaL_horse29"],
+  ["normal_horse30", "normaL_horse30"],
+  ["normal_horse31", "normaL_horse31"],
+  ["warhorse_sarranid3", "WPict1"],
+  ["arabian_horse_a", "WPict2"],
+  ["saddle_horse", "gallic_horse_1"],
+  ["steppe_horse", "gallic_horse_2"],
+  ["charger", "gallic_horse_3"],
+], north_horse_subfix, create_north_horse_prefix)
+
+draft_horse_subfix = [
+  itp_merchandise|itp_type_horse, 0, 2300,
+  abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
+  horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
 ]
-pictish_irish_kindoms = pictish_kingdoms + irish_kingdoms
+
+draft_horses = create_horses([
+  ["arabian_horse_b", "normal_horse1"],
+  ["courser", "normal_horse2"],
+  ["arabian_horse_b2", "normal_horse3"],
+  ["arabian_horse_a3", "normal_horse4"],
+  ["arabian_horse_b3", "normal_horse5"],
+  ["arabian_horse_a4", "normal_horse6"],
+  ["courser4", "normal_horse7"],
+  ["arabian_horse_b4", "normal_horse8"],
+  ["courser5", "normal_horse9"],
+  ["normal_horse17", "normal_horse17"],
+  ["normal_horse18", "normal_horse18"],
+  ["normal_horse19", "normal_horse19"],
+  ["normal_horse20", "normal_horse20"],
+  ["normal_horse23", "normal_horse23"],
+  ["normal_horse28", "normal_horse28"],
+], draft_horse_subfix, create_draft_horse_prefix)
+
+paraveredus_horse_subfix = [
+  itp_merchandise|itp_type_horse, 0, 2400,
+  abundance(10)|hit_points(85)|body_armor(12)|difficulty(3)|horse_speed(46)|
+  horse_maneuver(44)|horse_charge(12)|horse_scale(88),
+  imodbits_horse_basic|imodbit_champion
+]
+
+paraveredus_horses = create_horses([
+  ["hunter", "WSumpterChestnut"],
+  ["warhorse", "WSumpterBrown"]
+], paraveredus_horse_subfix, create_paraveredus_horse_prefix)
 
 pictish_long_tunic_subfix = [
   itp_type_body_armor|itp_covers_legs|itp_civilian, 0, 560,
@@ -384,295 +378,11 @@ items = [
     |horse_maneuver(36)|horse_charge(9)|horse_scale(86),imodbits_horse_basic
   ],
 
-  [
-    "warhorse_sarranid","North Horse", [("roman_horse_2",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
+  *north_horses,
 
-  [
-    "saddle_horse3","North Horse", [("roman_horse_1",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
+  *draft_horses,
 
-  [
-    "steppe_horse3","North Horse", [("WRoman1",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
-
-  [
-    "charger3","North Horse", [("WRoman2",0),("horse_c",imodbits_horse_good)],
-    itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(90),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse11","North Horse", [("normal_horse11",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse12","North Horse", [("normal_horse12",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse13","North Horse", [("normal_horse13",0),("horse_c",imodbits_horse_good)],
-     itp_merchandise|itp_type_horse, 0, 2000,
-     abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
-     horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse14","North Horse", [("normal_horse14",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse15","North Horse", [("normal_horse15",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(90),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse16","North Horse", [("normal_horse16",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse21","North Horse", [("normal_horse21",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse22","North Horse", [("normal_horse22",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(90),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse27","North Horse", [("normal_horse27",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse24","North Horse", [("normal_horse24",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse25","North Horse", [("normal_horse25",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse26","North Horse", [("normal_horse26",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse30","North Horse", [("normal_horse30",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
-
-  #pictos
-  [
-    "warhorse_sarranid3","North Horse", [("WPict1",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(44)|
-    horse_maneuver(40)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
-
-  [
-    "arabian_horse_a","North Horse", [("WPict2",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(40)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
-
-  [
-    "saddle_horse","North Horse", [("gallic_horse_1",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(40)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
-
-  [
-    "steppe_horse","North Horse", [("gallic_horse_2",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(40)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
-
-  [
-    "charger","North Horse", [("gallic_horse_3",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(78)|body_armor(10)|difficulty(1)|horse_speed(44)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(90),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse29","North Horse", [("normal_horse29",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(40)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse31","North Horse", [("normal_horse31",0),("horse_c",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2000,
-    abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(40)|
-    horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-  ],
-
-  #Ario chief
-  [
-    "arabian_horse_b","Draft Horse", [("normal_horse1",0)],
-    itp_merchandise|itp_type_horse, 0, 2300,
-    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
-    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
-  ],
-
-  [
-    "courser","Draft Horse", [("normal_horse2",0)],
-    itp_merchandise|itp_type_horse, 0, 2300,
-    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(40)|
-    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
-  ],
-
-  [
-    "arabian_horse_b2","Draft Horse", [("normal_horse3",0)],
-    itp_merchandise|itp_type_horse, 0, 2300,
-    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
-    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
-  ],
-
-  [
-    "arabian_horse_a3","Draft Horse", [("normal_horse4",0)],
-    itp_merchandise|itp_type_horse, 0, 2300,
-    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
-    horse_maneuver(35)|horse_charge(17)|horse_scale(93),imodbits_horse_basic
-  ],
-
-  [
-    "arabian_horse_b3","Draft Horse", [("normal_horse5",0)],
-    itp_merchandise|itp_type_horse, 0, 2300,
-    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
-    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
-  ],
-
-  [
-    "arabian_horse_a4","Draft Horse", [("normal_horse6",0)],
-    itp_merchandise|itp_type_horse, 0, 2300,
-    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
-    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
-  ],
-
-  [
-    "courser4","Draft Horse", [("normal_horse7",0)],
-    itp_merchandise|itp_type_horse, 0, 2300,
-    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
-    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
-  ],
-
-  [
-    "arabian_horse_b4","Draft Horse", [("normal_horse8",0)],
-    itp_merchandise|itp_type_horse, 0, 2300,
-    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
-    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
-  ],
-
-  [
-    "courser5","Draft Horse", [("normal_horse9",0)],
-    itp_merchandise|itp_type_horse, 0, 2300,
-    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
-    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse17","Draft Horse", [("normal_horse17",0)],
-    itp_merchandise|itp_type_horse, 0, 2300,
-    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
-    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse18","Draft Horse", [("normal_horse18",0)],
-    itp_merchandise|itp_type_horse, 0, 2300,
-    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
-    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse19","Draft Horse", [("normal_horse19",0)],
-    itp_merchandise|itp_type_horse, 0, 2300,
-    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
-    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse20","Draft Horse", [("normal_horse20",0)],
-    itp_merchandise|itp_type_horse, 0, 2300,
-    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
-    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse23","Draft Horse", [("normal_horse23",0)],
-    itp_merchandise|itp_type_horse, 0, 2300,
-    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
-    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
-  ],
-
-  [
-    "normal_horse28","Draft Horse", [("normal_horse28",0)],
-    itp_merchandise|itp_type_horse, 0, 2300,
-    abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
-    horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
-  ],
-
-  #Courser
-  [
-    "hunter","Paraveredus", [("WSumpterChestnut",0),("hunting_horse",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2400,
-    abundance(10)|hit_points(80)|body_armor(12)|difficulty(3)|horse_speed(46)|
-    horse_maneuver(44)|horse_charge(12)|horse_scale(88),imodbits_horse_basic|imodbit_champion
-  ],
-
-  [
-    "warhorse","Paraveredus", [("WSumpterBrown",0),("hunting_horse",imodbits_horse_good)],
-    itp_merchandise|itp_type_horse, 0, 2400,
-    abundance(10)|hit_points(85)|body_armor(12)|difficulty(3)|horse_speed(46)|
-    horse_maneuver(44)|horse_charge(12)|horse_scale(88),imodbits_horse_basic|imodbit_champion
-  ],
+  *paraveredus_horses,
 
   #Acorazados
   [
