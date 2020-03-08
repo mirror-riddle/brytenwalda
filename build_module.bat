@@ -32,5 +32,5 @@ echo.
 echo ______________________________
 echo.
 echo Script processing has ended.
-echo Press any key to exit. . .
-pause>nul
+REM echo Press any key to exit. . .
+REM pause>nul
