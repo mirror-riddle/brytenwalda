@@ -1892,7 +1892,7 @@ game_menus = [
 ##        (troop_raise_skill, "trp_player",skl_leadership,1),
 ##        (troop_raise_skill, "trp_player",skl_prisoner_management,1),
 ##        (troop_raise_proficiency, "trp_player",0,10),
-##        (troop_add_item, "trp_player","itm_robe",0),
+##        (troop_add_item, "trp_player","itm_cloth_robe_grey",0),
 ##        (troop_add_item, "trp_player","itm_wrapping_boots",0),
 ##        (troop_add_item, "trp_player","itm_club",0),
 ##        (troop_add_item, "trp_player","itm_smoked_fish",0),
