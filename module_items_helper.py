@@ -1308,7 +1308,7 @@ all_light_helments = create_all_items_simple([
       ["youhou_assassin_hood_red", "Assassin Hood", [("youhou_assassin_hood_red",0)]],
     ],
     [
-      itp_merchandise|itp_type_head_armor|itp_civilian, 0, 100,
+      itp_type_head_armor|itp_civilian, 0, 100,
       weight(1)|abundance(100)|head_armor(10)|body_armor(0)|leg_armor(0)|difficulty(0),
       imodbits_cloth
     ]
@@ -1423,7 +1423,7 @@ all_light_helments = create_all_items_simple([
       ["grey_cloak_hoodc", "Grey cloak and hood with mask", [("cloak30",0)]],
     ],
     [
-      itp_merchandise|itp_type_head_armor| itp_attach_armature| itp_fit_to_head,0, 193,
+      itp_type_head_armor| itp_attach_armature| itp_fit_to_head,0, 193,
       weight(2)|abundance(100)|head_armor(3)|body_armor(5)|leg_armor(3) ,imodbits_cloth
     ]
   ),

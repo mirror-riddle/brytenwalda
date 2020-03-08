@@ -2689,7 +2689,7 @@ burro_end = "itm_arrows"
 coronas_begin = "itm_sib_lombardy"
 coronas_end = "itm_norman_helmet"
 mercaderes_begin = "itm_coarse_tunic1"
-mercaderes_end = "itm_leather_apron"
+mercaderes_end = "itm_koszula_gaelicka"
 tiposnobles_begin = "itm_nordiclightarmor1"
 tiposnobles_end = "itm_nordiclightarmor8"
 
