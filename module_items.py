@@ -1,5 +1,3 @@
-from header_items import *
-from module_constants import *
 from module_items_helper import *
 
 ####################################################################################################################
@@ -21,127 +19,6 @@ from module_items_helper import *
 #  10) [Optional] Factions: List of factions that item can be found as merchandise.
 ####################################################################################################################
 
-north_horse_subfix = [
-  itp_merchandise|itp_type_horse, 0, 2000,
-  abundance(30)|hit_points(73)|body_armor(10)|difficulty(1)|horse_speed(42)|
-  horse_maneuver(44)|horse_charge(10)|horse_scale(91),imodbits_horse_basic
-]
-
-north_horses = create_horses([
-  ["warhorse_sarranid", "roman_horse_2"],
-  ["saddle_horse3", "roman_horse_1"],
-  ["steppe_horse3", "WRoman1"],
-  ["charger3", "WRoman2"],
-  ["normal_horse11", "normal_horse11"],
-  ["normal_horse12", "normal_horse12"],
-  ["normal_horse13", "normal_horse13"],
-  ["normal_horse14", "normal_horse14"],
-  ["normal_horse15", "normal_horse15"],
-  ["normal_horse16", "normal_horse16"],
-  ["normal_horse21", "normal_horse21"],
-  ["normal_horse22", "normal_horse22"],
-  ["normal_horse24", "normal_horse24"],
-  ["normal_horse25", "normal_horse25"],
-  ["normal_horse26", "normal_horse26"],
-  ["normal_horse27", "normal_horse27"],
-  ["normal_horse29", "normal_horse29"],
-  ["normal_horse30", "normal_horse30"],
-  ["normal_horse31", "normal_horse31"],
-  ["warhorse_sarranid3", "WPict1"],
-  ["arabian_horse_a", "WPict2"],
-  ["saddle_horse", "gallic_horse_1"],
-  ["steppe_horse", "gallic_horse_2"],
-  ["charger", "gallic_horse_3"],
-], north_horse_subfix, create_north_horse_prefix)
-
-draft_horse_subfix = [
-  itp_merchandise|itp_type_horse, 0, 2300,
-  abundance(20)|body_armor(16)|hit_points(90)|difficulty(2)|horse_speed(36)|
-  horse_maneuver(35)|horse_charge(17)|horse_scale(94),imodbits_horse_basic
-]
-
-draft_horses = create_horses([
-  ["arabian_horse_b", "normal_horse1"],
-  ["courser", "normal_horse2"],
-  ["arabian_horse_b2", "normal_horse3"],
-  ["arabian_horse_a3", "normal_horse4"],
-  ["arabian_horse_b3", "normal_horse5"],
-  ["arabian_horse_a4", "normal_horse6"],
-  ["courser4", "normal_horse7"],
-  ["arabian_horse_b4", "normal_horse8"],
-  ["courser5", "normal_horse9"],
-  ["normal_horse17", "normal_horse17"],
-  ["normal_horse18", "normal_horse18"],
-  ["normal_horse19", "normal_horse19"],
-  ["normal_horse20", "normal_horse20"],
-  ["normal_horse23", "normal_horse23"],
-  ["normal_horse28", "normal_horse28"],
-], draft_horse_subfix, create_draft_horse_prefix)
-
-paraveredus_horse_subfix = [
-  itp_merchandise|itp_type_horse, 0, 2400,
-  abundance(10)|hit_points(85)|body_armor(12)|difficulty(3)|horse_speed(46)|
-  horse_maneuver(44)|horse_charge(12)|horse_scale(88),
-  imodbits_horse_basic|imodbit_champion
-]
-
-paraveredus_horses = create_horses([
-  ["hunter", "WSumpterChestnut"],
-  ["warhorse", "WSumpterBrown"]
-], paraveredus_horse_subfix, create_paraveredus_horse_prefix)
-
-pictish_long_tunic_subfix = [
-  itp_type_body_armor|itp_covers_legs|itp_civilian, 0, 560,
-  weight(1)|abundance(30)|head_armor(0)|body_armor(15)|leg_armor(4),
-  imodbits_cloth, [], pictish_irish_kindoms
-]
-pictish_long_tunics = create_items([
-  ["tribal_warrior_outfit", "Long Tunic", [("outaa1",0)]],
-  ["nomad_robe", "Long Tunic", [("outaa2",0)]],
-  ["heraldric_armor", "Long Tunic", [("outaa3",0)]],
-  ["studded_leather_coat", "Long Tunic", [("outaa4",0)]],
-], pictish_long_tunic_subfix)
-
-irish_long_tunic_subfix = [
-  itp_type_body_armor|itp_covers_legs|itp_civilian ,0, 430 ,
-  weight(1)|abundance(50)|head_armor(0)|body_armor(12)|leg_armor(4),
-  imodbits_cloth, [], pictish_irish_kindoms
-]
-irish_long_tunics = create_items([
-  ["courtly_outfit", "Long Tunic", [("merchant_outf1",0)]],
-  ["nobleman_outfit", "Long Tunic", [("merchant_outf2",0)]],
-  ["nomad_armor", "Long Tunic", [("shirt_shirt_a",0)]],
-  ["khergit_armor", "Long Tunic", [("shirt_shirt_c",0)]],
-  ["fur_coat", "Long Tunic", [("merchant_outf5",0)] ],
-], irish_long_tunic_subfix)
-
-godelic_jacket_subfix = [
-  itp_type_body_armor|itp_covers_legs|itp_civilian, 0, 300,
-  weight(4)|abundance(50)|head_armor(0)|body_armor(12)|leg_armor(2)|difficulty(0),
-  imodbits_cloth, [], irish_kingdoms
-]
-godelic_jackets = create_items([
-  ["nomad_vest", "Grey Godelic Jacket", [("a_gaelic_jacket",0)]],
-  ["leather_jacket", "Grey Godelic Jacket", [("b_gaelic_jacket",0)]],
-  ["ragged_outfit", "Green Godelic Jacket", [("c_gaelic_jacket",0)]],
-], godelic_jacket_subfix)
-
-worn_robe_subfix = [
-  itp_merchandise|itp_type_body_armor|itp_covers_legs, 0, 363,
-  weight(1)|abundance(100)|head_armor(0)|body_armor(13)|leg_armor(4)|difficulty(0),
-  imodbits_cloth
-]
-worn_robes = create_items([
-  ["sarranid_jellaba_blue", "Blue Worn Robe", [("sarranid_jellaba_blue",0)]],
-  ["sarranid_cloth_robe_b", "Worn Robe", [("sar_robegrn",0)]],
-  ["skirmisher_armor", "Worn Robe", [("sar_robeylw",0)]],
-  ["archers_vest", "Worn Robe", [("sar_robewht",0)]],
-  ["sarranid_leather_armor", "Worn Robe", [("sar_robeprp",0)]],
-  ["sarranid_cavalry_robe", "Worn Robe", [("sar_robe_bbge",0)]],
-  ["sarranid_cloth_robe", "Worn Robe", [("sar_robe_bbge",0)]],
-  ["robe", "Robe", [("sar_robered",0)]],
-  ["sarranid_jellaba_white", "White Worn Robe", [("sarranid_jellaba_white",0)]],
-], worn_robe_subfix)
 
 items = [
 # item_name, mesh_name, item_properties, item_capabilities, slot_no, cost, bonus_flags, weapon_flags, scale, view_dir, pos_offset
@@ -386,10 +263,11 @@ items = [
 
   #Acorazados
   [
-    "warhorses4","Greek armoured horse", [("HalfCata2",0)],
+    "greek_armored_horse","Greek armored horse", [("HalfCata2",0)],
     itp_type_horse, 0, 3300,
     abundance(10)|body_armor(22)|hit_points(115)|difficulty(3)|horse_speed(37)|
-    horse_maneuver(33)|horse_charge(19)|horse_scale(100),imodbits_horse_basic|imodbit_champion
+    horse_maneuver(33)|horse_charge(19)|horse_scale(100),
+    imodbits_horse_basic|imodbit_champion
   ],
 
   #burro2 chief
@@ -414,31 +292,49 @@ items = [
 ##########FELCHAS CHIEF empieza finales #########################
  ####################################################################3
   [
-    "arrows","Arrows", [("arrow",0),("flying_arrow",ixmesh_flying_ammo),("quiver", ixmesh_carry)],
+    "arrows","Arrows", [
+      ("arrow",0),
+      ("flying_arrow",ixmesh_flying_ammo),
+      ("quiver", ixmesh_carry)
+    ],
     itp_type_arrows|itp_merchandise|itp_default_ammo, itcf_carry_quiver_back,200,
     weight(3)|abundance(110)|weapon_length(95)|thrust_damage(1,pierce)|max_ammo(40),
     imodbits_missile,missile_distance_trigger
   ], #chief cambiado
 
   [
-    "khergit_arrows","Byzantine Arrows", [("arrow_b",0),("flying_arrow_b",ixmesh_flying_ammo),("spak_ar_bag", ixmesh_carry)],
+    "khergit_arrows","Byzantine Arrows", [
+      ("arrow_b",0),
+      ("flying_arrow_b",ixmesh_flying_ammo),
+      ("spak_ar_bag", ixmesh_carry)
+    ],
     itp_type_arrows|itp_unique, itcf_carry_quiver_back_right, 410,
     weight(3.5)|abundance(30)|weapon_length(95)|thrust_damage(3,pierce)|max_ammo(40),
     imodbits_missile,missile_distance_trigger
   ],
 
   [
-    "barbed_arrows","Fire Arrow", [("arrow",0),("flying_missile_fire",ixmesh_flying_ammo),("quiver", ixmesh_carry)],
+    "fire_arrows","Fire Arrow", [
+      ("arrow",0),
+      ("flying_missile_fire",ixmesh_flying_ammo),
+      ("quiver", ixmesh_carry)
+    ],
     itp_type_arrows|itp_merchandise|itp_default_ammo, itcf_carry_quiver_back, 200,
     weight(3)|abundance(110)|weapon_length(95)|thrust_damage(1,pierce)|max_ammo(40),
     imodbits_missile,missile_distance_trigger
   ], #chief cambiado
 
   [
-    "bolts","Bolts", [("bolt",0),("flying_bolt",ixmesh_flying_ammo),("bolt_bag", ixmesh_carry),("bolt_bag_b", ixmesh_carry|imodbit_large_bag)],
-    itp_type_bolts|itp_merchandise|itp_default_ammo|itp_can_penetrate_shield, itcf_carry_quiver_right_vertical, 164,
+    "bolts","Bolts", [
+      ("bolt",0),
+      ("flying_bolt",ixmesh_flying_ammo),
+      ("bolt_bag", ixmesh_carry),
+      ("bolt_bag_b", ixmesh_carry|imodbit_large_bag)
+    ],
+    itp_type_bolts|itp_merchandise|itp_default_ammo|itp_can_penetrate_shield,
+    itcf_carry_quiver_right_vertical, 164,
     weight(1)|abundance(50)|weapon_length(63)|thrust_damage(1,pierce)|max_ammo(30),
-    imodbits_missile, [], [fac_kingdom_20]
+    imodbits_missile, [], pictish_kingdoms
   ], #chief cambiado
 
 #################flechas chief finales acaba############################333
@@ -448,14 +344,16 @@ items = [
 ####OTROSSSSSSS##############
   [
     "pilgrim_disguise", "Pilgrim Disguise", [("pilgrim_new",0)],
-    itp_type_body_armor |itp_covers_legs |itp_civilian ,0, 25 ,
-    weight(2)|abundance(100)|head_armor(0)|body_armor(10)|leg_armor(2)|difficulty(0) ,imodbits_cloth
+    itp_type_body_armor|itp_covers_legs|itp_civilian, 0, 25 ,
+    weight(2)|abundance(100)|head_armor(0)|body_armor(10)|leg_armor(2)|difficulty(0),
+    imodbits_cloth
   ], #cambiado chief
 
   [
     "pilgrim_hood", "Pilgrim Hood", [("pil_hood",0)],
-    itp_type_head_armor |itp_civilian  ,0, 35,
-    weight(1.25)|abundance(100)|head_armor(4)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_cloth
+    itp_type_head_armor|itp_civilian, 0, 35,
+    weight(1.25)|abundance(100)|head_armor(4)|body_armor(0)|leg_armor(0)|difficulty(0),
+    imodbits_cloth
   ], #cambiado chief
 
 # ARMOR

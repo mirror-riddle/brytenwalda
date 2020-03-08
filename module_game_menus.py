@@ -2028,7 +2028,7 @@ game_menus = [
         (troop_add_item, "trp_player","itm_leather_vest_green",0),
         (troop_add_item, "trp_player","itm_carbatinae_1_blue",0),
         (troop_add_item, "trp_player","itm_hunting_bow",0),
-        (troop_add_item, "trp_player","itm_barbed_arrows",0),
+        (troop_add_item, "trp_player","itm_fire_arrows",0),
         (troop_add_item, "trp_player","itm_sumpter_horse",imod_heavy),
         (troop_add_item, "trp_player","itm_dried_meat",0),
         (troop_add_item, "trp_player","itm_dried_meat",0),
@@ -18813,7 +18813,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (store_random_in_range, ":rand", 0, 20),
                                           (try_begin),
                                             (eq, ":rand", 0),
-	(troop_add_item, "trp_player", "itm_warhorses4", 0), #chief da objeto al ganar torneo
+	(troop_add_item, "trp_player", "itm_greek_armored_horse", 0), #chief da objeto al ganar torneo
                                             	    (display_message, "@A expensive and armoured greek horse is gift you for your victory.", 0xFF0000),
                                           (else_try),
                                             (eq, ":rand", 1),
