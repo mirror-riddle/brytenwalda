@@ -453,7 +453,7 @@ game_menus = [
 ##
 ##        (troop_clear_inventory, "$g_player_troop"),
 ##        (troop_add_item, "$g_player_troop","itm_leather_jerkin",0),
-##        (troop_add_item, "$g_player_troop","itm_leather_boots",0),
+##        (troop_add_item, "$g_player_troop","itm_rich_greaves_red",0),
 ##        (troop_add_item, "$g_player_troop","itm_practice_sword",0),
 ##        (troop_add_item, "$g_player_troop","itm_quarter_staff",0),
 ##        (troop_equip_items, "$g_player_troop"),
@@ -524,7 +524,7 @@ game_menus = [
 
         (troop_clear_inventory, "$g_player_troop"),
         (troop_add_item, "$g_player_troop","itm_leather_jerkin",0),
-        (troop_add_item, "$g_player_troop","itm_leather_boots",0),
+        (troop_add_item, "$g_player_troop","itm_rich_greaves_red",0),
         (troop_add_item, "$g_player_troop","itm_practice_sword",0),
         (troop_add_item, "$g_player_troop","itm_quarter_staff",0),
         (troop_equip_items, "$g_player_troop"),
@@ -858,7 +858,7 @@ game_menus = [
 ###       (troop_add_item, "trp_player","itm_khergit_arrows",0),
 ###       (troop_add_item, "trp_player","itm_kite_shield",0),
 ###       (troop_add_item, "trp_player","itm_hunter",0),
-###       (troop_add_item, "trp_player","itm_mail_chausses",0),
+###       (troop_add_item, "trp_player","itm_rus_splinted_greaves",0),
 ###       (troop_equip_items, "trp_player"),
 ##
 ##       (set_visitors, 1, "trp_farmer", 13),
@@ -935,8 +935,8 @@ game_menus = [
 ##       (troop_clear_inventory, "$g_player_troop"),
 ##       (troop_add_item, "$g_player_troop","itm_helmet_with_neckguard",0),
 ##       (troop_add_item, "$g_player_troop","itm_plate_armor",0),
-##       (troop_add_item, "$g_player_troop","itm_iron_greaves",0),
-##       (troop_add_item, "$g_player_troop","itm_mail_chausses",0),
+##       (troop_add_item, "$g_player_troop","itm_carbatinae_greaves_white",0),
+##       (troop_add_item, "$g_player_troop","itm_rus_splinted_greaves",0),
 ##       (troop_add_item, "$g_player_troop","itm_tab_shield_small_round_c",0),
 ##       (troop_add_item, "$g_player_troop","itm_heavy_crossbow",0),
 ##       (troop_add_item, "$g_player_troop","itm_bolts",0),
@@ -1718,7 +1718,7 @@ game_menus = [
         (call_script, "script_change_player_honor", 3),
 
 
-##        (troop_add_item, "trp_player","itm_red_gambeson",imod_plain),
+##        (troop_add_item, "trp_player","itm_bishop_robe",imod_plain),
 ##        (troop_add_item, "trp_player","itm_sword",imod_plain),
 ##        (troop_add_item, "trp_player","itm_dagger",imod_balanced),
 ##        (troop_add_item, "trp_player","itm_woolen_hose",0),
@@ -1758,7 +1758,7 @@ game_menus = [
         (troop_raise_proficiency, "trp_player",wpt_two_handed_weapon,10),
 
 ##        (troop_add_item, "trp_player","itm_leather_jacket",0),
-##        (troop_add_item, "trp_player","itm_leather_boots",0),
+##        (troop_add_item, "trp_player","itm_rich_greaves_red",0),
 ##        (troop_add_item, "trp_player","itm_fur_hat",0),
 ##        (troop_add_item, "trp_player","itm_dagger",0),
 ##        (troop_add_item, "trp_player","itm_hunting_crossbow",0),
@@ -2008,7 +2008,7 @@ game_menus = [
 ##        (troop_remove_item, "trp_player","itm_hide_boots"),
 ##        (try_end),
 ##        (troop_add_item, "trp_player","itm_khergit_guard_helmet",imod_crude),
-##        (troop_add_item, "trp_player","itm_mail_chausses",imod_crude),
+##        (troop_add_item, "trp_player","itm_rus_splinted_greaves",imod_crude),
 ##        (troop_add_item, "trp_player","itm_sword_khergit_1",imod_plain),
 ##        (troop_add_gold, "trp_player", 20),
 ##        (troop_raise_proficiency, "trp_player",2,20),
@@ -2026,7 +2026,7 @@ game_menus = [
 
         (troop_add_item, "trp_player","itm_axe",imod_chipped),
         (troop_add_item, "trp_player","itm_leather_vest_green",0),
-        (troop_add_item, "trp_player","itm_carbatinae_1_blue",0),
+        (troop_add_item, "trp_player","itm_quality_carbatinae_blue",0),
         (troop_add_item, "trp_player","itm_hunting_bow",0),
         (troop_add_item, "trp_player","itm_fire_arrows",0),
         (troop_add_item, "trp_player","itm_sumpter_horse",imod_heavy),
@@ -2048,7 +2048,7 @@ game_menus = [
         (troop_add_gold, "trp_player", 100),
 
 
-        (troop_add_item, "trp_player","itm_leather_boots",imod_ragged),
+        (troop_add_item, "trp_player","itm_rich_greaves_red",imod_ragged),
         (troop_add_item, "trp_player","itm_coarse_tunic",0),
 
         (troop_add_item, "trp_player","itm_sword_medieval_b", imod_balanced),
@@ -2072,7 +2072,7 @@ game_menus = [
         (troop_raise_proficiency, "trp_player",wpt_polearm,15),
 
         (troop_add_item, "trp_player","itm_leather_jacket",0),
-        (troop_add_item, "trp_player","itm_leather_boots",imod_ragged),
+        (troop_add_item, "trp_player","itm_rich_greaves_red",imod_ragged),
         (troop_add_item, "trp_player","itm_fur_hat",0),
         (troop_add_item, "trp_player","itm_staff",0),
         (troop_add_item, "trp_player","itm_hunting_crossbow",0),
@@ -2112,7 +2112,7 @@ game_menus = [
         (troop_raise_proficiency, "trp_player",wpt_crossbow,10),
 
         (troop_add_item, "trp_player","itm_tabard",imod_sturdy),
-        (troop_add_item, "trp_player","itm_leather_boots",imod_ragged),
+        (troop_add_item, "trp_player","itm_rich_greaves_red",imod_ragged),
         (troop_add_item, "trp_player","itm_sword_medieval_a", imod_rusty),
         (troop_add_item, "trp_player","itm_hunting_crossbow", 0),
         (troop_add_item, "trp_player","itm_bolts", 0),
@@ -2136,7 +2136,7 @@ game_menus = [
         (troop_raise_proficiency, "trp_player",wpt_throwing,10),
 
         (troop_add_item, "trp_player","itm_leather_jerkin",imod_ragged),
-        (troop_add_item, "trp_player","itm_leather_boots",imod_tattered),
+        (troop_add_item, "trp_player","itm_rich_greaves_red",imod_tattered),
 
         (troop_add_item, "trp_player","itm_sword_medieval_a", imod_rusty),
         (troop_add_item, "trp_player","itm_hunting_crossbow",0),

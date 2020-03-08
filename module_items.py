@@ -381,304 +381,42 @@ items = [
 ###Notas: irlandeses y pictos solo bare.
 ###Clase baja
 #footwear
-  [
-    "wrapping_boots", "Wrapping Boots", [("wrapping_boots_a_bry",0)],
-    itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,100,
-    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(10)|difficulty(0) ,imodbits_cloth
-  ],
 
-  [
-    "ankle_boots", "Ankle Boots", [("ankle_boots_a_new_bry",0)],
-    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,100,
-    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(10)|difficulty(0) ,imodbits_cloth
-  ], #cambiado chief
-#bare, piernas desnudas
+  *poor_boots,
 
-  [
-    "bare_legs_blue", "Leather shoes", [("bare_legs_blue",0)],
-    itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,100,
-    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(10)|difficulty(0) ,imodbits_cloth
-  ],
+  *quality_carbatinaes,
 
-  [
-    "carbatinae_2_bare", "Bare Carbatinae", [("carbatinae_2_bare",0)],
-    itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,100,
-    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(10)|difficulty(0) ,imodbits_cloth
-  ],
+  *rich_carbatinaes,
 
-  [
-    "carbatinae_1_bare", "Bare Carbatinae", [("carbatinae_1_bare",0)],
-    itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,100,
-    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(10)|difficulty(0) ,imodbits_cloth
-  ],
+  *carbatinae_greaves,
 
-#unidades medias
-  [
-    "decorated_leather_shoes_bare", "Bare Decorated leather shoes", [("bare_legs_blue",0)],
-    itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,150,
-    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(12)|difficulty(0) ,imodbits_cloth
-  ],
+  *rich_greaves,
 
-  [
-    "carbatinae_1", "White Quality Carbatinae", [("carbatinae_1",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
-    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
-  ], #cambiado chief
+  *splinted_greaves,
 
-  [
-    "carbatinae_2", "White Quality Carbatinae", [("carbatinae_2",0)],
-    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
-    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
-  ], #cambiado chief
-
-  [
-    "carbatinae_1_green", "Green Quality Carbatinae", [("carbatinae_1_green",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
-    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
-  ], #cambiado chief
-
-  [
-    "carbatinae_2_green", "Green Quality Carbatinae", [("carbatinae_2_green",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
-    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
-  ], #cambiado chief
-
-  [
-    "carbatinae_1_blue", "Blue Quality Carbatinae", [("carbatinae_1_blue",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
-    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
-  ], #cambiado chief
-
-  [
-    "carbatinae_2_blue", "Blue Quality Carbatinae", [("carbatinae_2_blue",0)],
-    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
-    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
-  ], #cambiado chief
-
-  [
-    "carbatinae_1_grey", "Grey Quality Carbatinae", [("carbatinae_1_grey",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
-    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
-  ], #cambiado chief
-
-  [
-    "carbatinae_2_grey", "Grey Quality Carbatinae", [("carbatinae_2_grey",0)],
-    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
-    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
-  ], #cambiado chief
-
-  [
-    "carbatinae_1_orange", "Orange Quality Carbatinae", [("carbatinae_1_orange",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
-    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
-  ], #cambiado chief
-
-  [
-    "carbatinae_2_orange", "Orange Quality Carbatinae", [("carbatinae_2_orange",0)],
-    itp_merchandise| itp_type_foot_armor |itp_civilian|itp_attach_armature,0,280,
-    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
-  ], #cambiado chief
-
-  [
-    "carbatinae_1_red", "Red Quality Carbatinae", [("carbatinae_1_red",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian | itp_attach_armature,0,280,
-    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
-  ], #cambiado chief
-
-  [
-    "carbatinae_2_red", "Red Quality Carbatinae", [("carbatinae_2_red",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,280,
-    weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth
-  ], #cambiado chief
-
-  #Clase alta civil
-  [
-    "decorated_leather_shoes", "White Rich Carbatinae", [("decorated_leather_shoes",0)],
-    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,600,
-    weight(1)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(20)|difficulty(0) ,imodbits_cloth
-  ], #cambiado chief
-
-  [
-    "decorated_leather_shoes_green", "Green Rich Carbatinae", [("decorated_leather_shoes_green",0)],
-    itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,600,
-    weight(1)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(20)|difficulty(0) ,imodbits_cloth
-  ], #cambiado chief
-
-  [
-    "decorated_leather_shoes_blue", "Blue Rich Carbatinae", [("decorated_leather_shoes_blue",0)],
-    itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,600,
-    weight(1)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(20)|difficulty(0) ,imodbits_cloth
-  ], #cambiado chief
-
-  [
-    "decorated_leather_shoes_grey", "Grey Rich Carbatinae", [("decorated_leather_shoes_grey",0)],
-    itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,600,
-    weight(1)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(20)|difficulty(0) ,imodbits_cloth
-  ], #cambiado chief
-
-  [
-    "decorated_leather_shoes_orange", "Orange Rich Carbatinae", [("decorated_leather_shoes_orange",0)],
-    itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,600,
-    weight(1)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(20)|difficulty(0) ,imodbits_cloth
-  ], #cambiado chief
-
-  [
-    "decorated_leather_shoes_red", "Red Rich Carbatinae", [("decorated_leather_shoes_red",0)],
-    itp_type_foot_armor |itp_civilian  | itp_attach_armature,0,600,
-    weight(1)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(20)|difficulty(0) ,imodbits_cloth
-  ], #cambiado chief
-
-
-  #Clase alta militar
-  [
-    "iron_greaves", "White Greaves", [("carbatinae_1_greaves",0)],
-    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
-    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
-  ],
-
-  [
-    "mail_boots", "White Greaves", [("carbatinae_2_greaves",0)],
-    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
-    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
-  ],
-
-  [
-    "light_leather_boots", "White Greaves", [("decorated_leather_shoes_greaves",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
-    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
-  ],
-
-  [
-    "carbatinae_1_greaves_green", "Green Greaves", [("carbatinae_1_greaves_green",0)],
-    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
-    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
-  ],
-
-  [
-    "carbatinae_2_greaves_green", "Green Greaves", [("carbatinae_2_greaves_green",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
-    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
-  ],
-
-  [
-    "carbatinae_1_greaves_blue", "Blue Greaves", [("carbatinae_1_greaves_blue",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
-    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
-  ],
-
-  [
-    "carbatinae_2_greaves_blue", "Blue Greaves", [("carbatinae_2_greaves_blue",0)],
-    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
-    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
-  ],
-
-  [
-    "carbatinae_1_greaves_grey", "Grey Greaves", [("carbatinae_1_greaves_grey",0)],
-    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
-     weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
-  ],
-
-  [
-    "carbatinae_2_greaves_grey", "Grey Greaves", [("carbatinae_2_greaves_grey",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
-    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
-  ],
-
-  [
-    "carbatinae_1_greaves_orange", "Orange Greaves", [("carbatinae_1_greaves_orange",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
-    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
-  ],
-
-  [
-    "carbatinae_2_greaves_orange", "Orange Greaves", [("carbatinae_2_greaves_orange",0)],
-    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
-    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
-  ],
-
-  [
-    "carbatinae_2_greaves_red", "Red Greaves", [("carbatinae_2_greaves_red",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
-    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
-  ],
-
-  [
-    "splinted_greaves", "Red Greaves", [("carbatinae_1_greaves_red",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 890 ,
-    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0) ,imodbits_armor
-  ],
-
-  [
-    "splinted_leather_greaves", "Splinted Leather Greaves", [("splinted_greaves_a_bry",0)],
-    itp_merchandise| itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 910 ,
-    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(26)|difficulty(0) ,imodbits_armor
-  ],
-  #greaves elite nobles solo
-  [
-    "mail_chausses", "Rus Splinted Greaves", [("rus_splint_greaves",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 980 ,
-    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(28)|difficulty(0) ,imodbits_armor
-  ],
-
-  [
-    "decorated_leather_shoes_greaves_green", "Green Rich Greaves", [("decorated_leather_shoes_greaves_green",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 920 ,
-    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(26)|difficulty(0) ,imodbits_armor
-  ],
-
-  [
-    "decorated_leather_shoes_greaves_blue", "Blue Rich Greaves", [("decorated_leather_shoes_greaves_blue",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 920 ,
-    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(26)|difficulty(0) ,imodbits_armor
-  ],
-
-  [
-    "decorated_leather_shoes_greaves_grey", "Grey Rich Greaves", [("decorated_leather_shoes_greaves_grey",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 920 ,
-    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(26)|difficulty(0) ,imodbits_armor
-  ],
-
-  [
-    "decorated_leather_shoes_greaves_orange", "Orange Rich Greaves", [("decorated_leather_shoes_greaves_orange",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 920 ,
-    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(26)|difficulty(0) ,imodbits_armor
-  ],
-
-  [
-    "leather_boots", "Red Rich Greaves", [("decorated_leather_shoes_greaves_red",0)],
-    itp_merchandise|itp_type_foot_armor |itp_civilian  | itp_attach_armature,0, 920 ,
-    weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(26)|difficulty(0) ,imodbits_armor
-  ],
-
-####Calzado acaba chief finales ###############################################
-######################################################################
-
-###Pictish and irish long tunic para druidas, bajos jefes y bajos nobles
   *pictish_long_tunics,
 
-  #irish
   *irish_long_tunics,
 
   *godelic_jackets,
 
   *worn_robes,
 
-  ###cristianos
   [
-    "blue_gambeson", "Monk Robe", [("priest_1",0)],
-    itp_type_body_armor|itp_covers_legs|itp_civilian,0,170,
+    "monk_robe", "Monk Robe", [("priest_1",0)],
+    itp_merchandise|itp_type_body_armor|itp_covers_legs|itp_civilian,0,170,
     weight(4)|abundance(50)|head_armor(0)|body_armor(11)|leg_armor(5)|difficulty(0) ,imodbits_cloth
   ],
 
   [
-    "red_gambeson", "Bishop Robe", [("priest_3",0)],
+    "bishop_robe", "Bishop Robe", [("priest_3",0)],
     itp_type_body_armor|itp_covers_legs|itp_civilian, 0, 975,
     weight(5)|abundance(10)|head_armor(0)|body_armor(13)|leg_armor(5)|difficulty(0) ,imodbits_cloth
   ],
 
   #Otros
   [
-    "padded_cloth", "Galeno's Tunic", [("surgeon",0)],
+    "galeno_tunic", "Galeno's Tunic", [("surgeon",0)],
     itp_type_body_armor|itp_covers_legs, 0, 197,
     weight(7)|abundance(10)|head_armor(0)|body_armor(7)|leg_armor(2)|difficulty(0) ,imodbits_cloth
   ],

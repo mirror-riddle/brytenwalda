@@ -9510,7 +9510,7 @@ mission_templates = [
     (call_script, "script_change_player_honor", 5),
     (call_script, "script_troop_add_gold", "trp_player", 300),
             (troop_add_item, "trp_player","itm_rathos_spangenhelm_a",0),
-            (troop_add_item, "trp_player","itm_decorated_leather_shoes_green",0),
+            (troop_add_item, "trp_player","itm_rich_carbatinae_green",0),
                         (assign,"$g_romanruins2",1),
        ]),
 
@@ -16190,7 +16190,7 @@ torneo_aumenta_dano, #dunde torneo chief
     "tutorial_1",0,-1,
     "You enter the training ground.",
     [
-        (0,mtef_leader_only,af_override_everything,0,1,[itm_tutorial_shield,itm_tutorial_sword,itm_tutorial_short_bow,itm_tutorial_arrows,itm_leather_jerkin,itm_leather_boots]), #af_override_weapons
+        (0,mtef_leader_only,af_override_everything,0,1,[itm_tutorial_shield,itm_tutorial_sword,itm_tutorial_short_bow,itm_tutorial_arrows,itm_leather_jerkin,itm_rich_greaves_red]), #af_override_weapons
      ],
     [
       (ti_tab_pressed, 0, 0, [],
@@ -16398,7 +16398,7 @@ torneo_aumenta_dano, #dunde torneo chief
     "tutorial_2",mtf_arena_fight,-1,
     "You enter the training ground.",
     [
-        (0,mtef_leader_only|mtef_team_0,af_override_everything,0,1,[itm_tutorial_shield,itm_leather_jerkin,itm_leather_boots]),
+        (0,mtef_leader_only|mtef_team_0,af_override_everything,0,1,[itm_tutorial_shield,itm_leather_jerkin,itm_rich_greaves_red]),
         (2,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
         (4,mtef_visitor_source|mtef_team_1,0,0,1,[]),
      ],
@@ -16683,7 +16683,7 @@ torneo_aumenta_dano, #dunde torneo chief
     "tutorial_3",mtf_arena_fight,-1,
     "You enter the training ground.",
     [
-        (0,mtef_leader_only|mtef_team_0,af_override_everything,0,1,[itm_leather_jerkin,itm_leather_boots]),
+        (0,mtef_leader_only|mtef_team_0,af_override_everything,0,1,[itm_leather_jerkin,itm_rich_greaves_red]),
         (3,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
         (5,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
      ],
@@ -16940,7 +16940,7 @@ torneo_aumenta_dano, #dunde torneo chief
     "tutorial_3_2",mtf_arena_fight,-1,
     "You enter the training ground.",
     [
-        (0,mtef_leader_only|mtef_team_0,af_override_everything,0,1,[itm_tutorial_staff,itm_leather_jerkin,itm_leather_boots]),
+        (0,mtef_leader_only|mtef_team_0,af_override_everything,0,1,[itm_tutorial_staff,itm_leather_jerkin,itm_rich_greaves_red]),
         (4,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
         (6,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
      ],
@@ -17094,7 +17094,7 @@ torneo_aumenta_dano, #dunde torneo chief
     "tutorial_4",mtf_arena_fight,-1,
     "You enter the training ground.",
     [
-        (0,mtef_leader_only|mtef_team_0,af_override_everything,0,1,[itm_tutorial_sword,itm_tutorial_short_bow,itm_tutorial_arrows,itm_leather_jerkin,itm_leather_boots]), #af_override_weapons
+        (0,mtef_leader_only|mtef_team_0,af_override_everything,0,1,[itm_tutorial_sword,itm_tutorial_short_bow,itm_tutorial_arrows,itm_leather_jerkin,itm_rich_greaves_red]), #af_override_weapons
      ],
     [
       (ti_tab_pressed, 0, 0, [],
@@ -17309,7 +17309,7 @@ torneo_aumenta_dano, #dunde torneo chief
     "tutorial_5",mtf_arena_fight,-1,
     "You enter the training ground.",
     [
-        (0,mtef_visitor_source|mtef_team_0,af_override_everything,0,1,[itm_tutorial_sword,itm_tutorial_shield,itm_tutorial_short_bow,itm_tutorial_arrows,itm_tutorial_saddle_horse,itm_leather_jerkin,itm_carbatinae_2]), #cambiado chief
+        (0,mtef_visitor_source|mtef_team_0,af_override_everything,0,1,[itm_tutorial_sword,itm_tutorial_shield,itm_tutorial_short_bow,itm_tutorial_arrows,itm_tutorial_saddle_horse,itm_leather_jerkin,itm_quality_carbatinae_white]), #cambiado chief
         (1,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
         (2,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
         (3,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),

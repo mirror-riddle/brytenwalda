@@ -77,6 +77,7 @@ def create_item(prefix, subfix):
 
 def create_prefix(id, name, extra_mesh=[]):
   name = id[2] if len(id) == 3 else name
+  extra_mesh = id[3] if len(id) == 4 else extra_mesh
   mesh = [(id[1], 0)] + extra_mesh
   return [id[0], name, mesh]
 
@@ -201,3 +202,82 @@ worn_robes = create_items([
   ["robe", "sar_robered", "Robe"],
   ["sarranid_jellaba_white", "sarranid_jellaba_white", "White Worn Robe"],
 ], worn_robe_subfix, "Worn Robe")
+
+poor_boots_subfix = [
+  itp_merchandise|itp_type_foot_armor|itp_civilian|itp_attach_armature, 0, 100,
+  weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(10)|difficulty(0),
+  imodbits_cloth
+]
+poor_boots = create_items([
+  ["wrapping_boots", "wrapping_boots_a_bry", "Wrapping Boots"],
+  ["ankle_boots", "ankle_boots_a_new_bry", "Ankle Boots"],
+  ["bare_legs_blue", "bare_legs_blue", "Leather Shoes"],
+  ["carbatinae_1_bare", "carbatinae_1_bare", "Bare Carbatinae", [("carbatinae_2_bare", 0)]],
+], poor_boots_subfix, "Poor Boots")
+
+quality_carbatinae_subfix = [
+  itp_merchandise|itp_type_foot_armor |itp_civilian|itp_attach_armature, 0, 280,
+  weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0),
+  imodbits_cloth
+]
+quality_carbatinaes = create_items([
+  ["quality_carbatinae_white", "carbatinae_1", "White Quality Carbatinae", [("carbatinae_2",0)]],
+  ["quality_carbatinae_green", "carbatinae_1_green", "Green Quality Carbatinae", [("carbatinae_2_green",0)]],
+  ["quality_carbatinae_blue", "carbatinae_1_blue", "Blue Quality Carbatinae", [("carbatinae_2_blue",0)]],
+  ["quality_carbatinae_grey", "carbatinae_1_grey", "Grey Quality Carbatinae", [("carbatinae_2_grey",0)]],
+  ["quality_carbatinae_orange", "carbatinae_1_orange", "Orange Quality Carbatinae", [("carbatinae_2_orange",0)]],
+  ["quality_carbatinae_red", "carbatinae_1_red", "Red Quality Carbatinae", [("carbatinae_2_red",0)]],
+], quality_carbatinae_subfix, "Quality Carbatinae")
+
+rich_carbatinae_subfix = [
+  itp_merchandise|itp_type_foot_armor|itp_civilian|itp_attach_armature, 0, 600,
+  weight(1)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(20)|difficulty(0),
+  imodbits_cloth
+]
+rich_carbatinaes = create_items([
+  ["rich_carbatinae_white", "decorated_leather_shoes", "White Rich Carbatinae"],
+  ["rich_carbatinae_green", "decorated_leather_shoes_green", "Green Rich Carbatinae"],
+  ["rich_carbatinae_blue", "decorated_leather_shoes_blue", "Blue Rich Carbatinae"],
+  ["rich_carbatinae_grey", "decorated_leather_shoes_grey", "Grey Rich Carbatinae"],
+  ["rich_carbatinae_orange", "decorated_leather_shoes_orange", "Orange Rich Carbatinae"],
+  ["rich_carbatinae_red", "decorated_leather_shoes_red", "Red Rich Carbatinae"],
+], rich_carbatinae_subfix, "Rich Carbatinae")
+
+carbatinae_greaves_subfix = [
+  itp_merchandise|itp_type_foot_armor|itp_civilian|itp_attach_armature, 0, 890,
+  weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(25)|difficulty(0),
+  imodbits_armor
+]
+carbatinae_greaves = create_items([
+  ["carbatinae_greaves_white", "carbatinae_1_greaves", "White Greaves", [("carbatinae_2_greaves",0)]],
+  ["carbatinae_greaves_green", "carbatinae_1_greaves_green", "Green Greaves", [("carbatinae_2_greaves_green",0)]],
+  ["carbatinae_greaves_blue", "carbatinae_1_greaves_blue", "Blue Greaves", [("carbatinae_2_greaves_blue",0)]],
+  ["carbatinae_greaves_grey", "carbatinae_1_greaves_grey", "Grey Greaves", [("carbatinae_2_greaves_grey",0)]],
+  ["carbatinae_greaves_orange", "carbatinae_1_greaves_orange", "Orange Greaves", [("carbatinae_2_greaves_orange",0)]],
+  ["carbatinae_greaves_red", "carbatinae_1_greaves_red", "Red Greaves", [("carbatinae_2_greaves_red",0)]],
+], carbatinae_greaves_subfix, "Greaves")
+
+rich_greaves_subfix = [
+  itp_merchandise|itp_type_foot_armor|itp_civilian|itp_attach_armature, 0, 980,
+  weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(28)|difficulty(0),
+  imodbits_armor
+]
+rich_greaves = create_items([
+  ["rich_greaves_white", "decorated_leather_shoes_greaves", "White Rich Greaves"],
+  ["rich_greaves_green", "decorated_leather_shoes_greaves_green", "Green Rich Greaves"],
+  ["rich_greaves_blue", "decorated_leather_shoes_greaves_blue", "Blue Rich Greaves"],
+  ["rich_greaves_grey", "decorated_leather_shoes_greaves_grey", "Grey Rich Greaves"],
+  ["rich_greaves_orange", "decorated_leather_shoes_greaves_orange", "Orange Rich Greaves"],
+  ["rich_greaves_red", "decorated_leather_shoes_greaves_red", "Red Rich Greaves"],
+], rich_greaves_subfix, "Rich Greaves")
+
+splinted_greaves_subfix = [
+  itp_merchandise|itp_type_foot_armor|itp_civilian|itp_attach_armature, 0, 1040,
+  weight(2)|abundance(30)|head_armor(0)|body_armor(0)|leg_armor(30)|difficulty(0),
+  imodbits_armor
+]
+splinted_greaves = create_items([
+  ["splinted_leather_greaves", "splinted_greaves_a_bry", "Splinted Leather Greaves"],
+  ["rus_splinted_greaves", "rus_splint_greaves", "Rus Splinted Greaves"],
+], splinted_greaves_subfix, "Splinted Greaves")
+
