@@ -32,21 +32,21 @@ north_horses = create_horses([
   ["saddle_horse3", "roman_horse_1"],
   ["steppe_horse3", "WRoman1"],
   ["charger3", "WRoman2"],
-  ["normal_horse11", "normaL_horse11"],
-  ["normal_horse12", "normaL_horse12"],
-  ["normal_horse13", "normaL_horse13"],
-  ["normal_horse14", "normaL_horse14"],
-  ["normal_horse15", "normaL_horse15"],
-  ["normal_horse16", "normaL_horse16"],
-  ["normal_horse21", "normaL_horse21"],
-  ["normal_horse22", "normaL_horse22"],
-  ["normal_horse24", "normaL_horse24"],
-  ["normal_horse25", "normaL_horse25"],
-  ["normal_horse26", "normaL_horse26"],
-  ["normal_horse27", "normaL_horse27"],
-  ["normal_horse29", "normaL_horse29"],
-  ["normal_horse30", "normaL_horse30"],
-  ["normal_horse31", "normaL_horse31"],
+  ["normal_horse11", "normal_horse11"],
+  ["normal_horse12", "normal_horse12"],
+  ["normal_horse13", "normal_horse13"],
+  ["normal_horse14", "normal_horse14"],
+  ["normal_horse15", "normal_horse15"],
+  ["normal_horse16", "normal_horse16"],
+  ["normal_horse21", "normal_horse21"],
+  ["normal_horse22", "normal_horse22"],
+  ["normal_horse24", "normal_horse24"],
+  ["normal_horse25", "normal_horse25"],
+  ["normal_horse26", "normal_horse26"],
+  ["normal_horse27", "normal_horse27"],
+  ["normal_horse29", "normal_horse29"],
+  ["normal_horse30", "normal_horse30"],
+  ["normal_horse31", "normal_horse31"],
   ["warhorse_sarranid3", "WPict1"],
   ["arabian_horse_a", "WPict2"],
   ["saddle_horse", "gallic_horse_1"],
@@ -394,14 +394,7 @@ items = [
 
   #burro2 chief
   [
-    "warhorse_steppe","Donkey", [("donkey_mount",0)],
-    itp_merchandise|itp_type_horse, 0, 800,
-    abundance(80)|hit_points(55)|body_armor(7)|difficulty(0)|horse_speed(32)|
-    horse_maneuver(33)|horse_charge(8)|horse_scale(79),imodbits_horse_basic
-  ],
-
-  [
-    "donkey_mount","Donkey", [("donkey_mount2",0)],
+    "donkey","Donkey", [("donkey_mount",0), ("donkey_mount2",0)],
     itp_merchandise|itp_type_horse, 0, 800,
     abundance(80)|hit_points(55)|body_armor(7)|difficulty(0)|horse_speed(32)|
     horse_maneuver(33)|horse_charge(8)|horse_scale(79),imodbits_horse_basic
