@@ -28,9 +28,8 @@ python process_simple_triggers.py
 python process_dialogs.py
 python process_global_variables_unused.py
 python process_postfx.py
-echo.
+
+echo .
 echo ______________________________
-echo.
+echo .
 echo Script processing has ended.
-REM echo Press any key to exit. . .
-REM pause>nul

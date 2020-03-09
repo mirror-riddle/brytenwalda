@@ -224,7 +224,7 @@ all_boots = create_all_items([
         ],
         [
             itp_merchandise | itp_type_foot_armor | itp_civilian | itp_attach_armature, 0, 100,
-            weight(1) | abundance(100) | head_armor(0) | body_armor(0) | leg_armor(10),
+            weight(1) | abundance(100) | body_armor(0) | leg_armor(10),
             imodbits_cloth
         ],
         "Poor Boots"
@@ -258,7 +258,7 @@ all_boots = create_all_items([
         ],
         [
             itp_merchandise | itp_type_foot_armor | itp_civilian | itp_attach_armature, 0, 280,
-            weight(1) | abundance(100) | head_armor(0) | body_armor(0) | leg_armor(16),
+            weight(1) | abundance(100) | body_armor(0) | leg_armor(16),
             imodbits_cloth
         ],
         "Quality Carbatinae"
@@ -274,7 +274,7 @@ all_boots = create_all_items([
         ],
         [
             itp_merchandise | itp_type_foot_armor | itp_civilian | itp_attach_armature, 0, 600,
-            weight(1) | abundance(30) | head_armor(0) | body_armor(0) | leg_armor(20),
+            weight(1) | abundance(30) | body_armor(0) | leg_armor(20),
             imodbits_cloth
         ],
         "Rich Carbatinae"
@@ -308,7 +308,7 @@ all_boots = create_all_items([
         ],
         [
             itp_merchandise | itp_type_foot_armor | itp_civilian | itp_attach_armature, 0, 890,
-            weight(2) | abundance(30) | head_armor(0) | body_armor(0) | leg_armor(25),
+            weight(2) | abundance(30) | body_armor(0) | leg_armor(25),
             imodbits_armor
         ],
         "Greaves"
@@ -324,7 +324,7 @@ all_boots = create_all_items([
         ],
         [
             itp_merchandise | itp_type_foot_armor | itp_civilian | itp_attach_armature, 0, 980,
-            weight(2) | abundance(30) | head_armor(0) | body_armor(0) | leg_armor(28),
+            weight(2) | abundance(30) | body_armor(0) | leg_armor(28),
             imodbits_armor
         ],
         "Rich Greaves"
@@ -336,7 +336,7 @@ all_boots = create_all_items([
         ],
         [
             itp_merchandise | itp_type_foot_armor | itp_civilian | itp_attach_armature, 0, 1040,
-            weight(2) | abundance(30) | head_armor(0) | body_armor(0) | leg_armor(30),
+            weight(2) | abundance(30) | body_armor(0) | leg_armor(30),
             imodbits_armor
         ],
         "Splinted Greaves"
@@ -357,7 +357,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs, 0, 363,
-            weight(1) | abundance(100) | head_armor(0) | body_armor(13) | leg_armor(4),
+            weight(1) | abundance(100) | body_armor(13) | leg_armor(4),
             imodbits_cloth
         ],
     ),  # cloth robes
@@ -374,7 +374,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_civilian | itp_covers_legs, 0, 400,
-            weight(2) | abundance(60) | head_armor(0) | body_armor(14) | leg_armor(2),
+            weight(2) | abundance(60) | body_armor(14) | leg_armor(2),
             imodbits_cloth, [], pictish_irish_kingdoms
         ]
     ),  # cloaked tunics
@@ -388,7 +388,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_civilian | itp_covers_legs, 0, 210,
-            weight(2) | abundance(60) | head_armor(0) | body_armor(11) | leg_armor(2),
+            weight(2) | abundance(60) | body_armor(11) | leg_armor(2),
             imodbits_cloth, [], pictish_irish_kingdoms
         ]
     ),  # pictish irish tunics
@@ -399,7 +399,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 110,
-            weight(0.5) | abundance(100) | head_armor(0) | body_armor(10) | leg_armor(2),
+            weight(0.5) | abundance(100) | body_armor(10) | leg_armor(2),
             imodbits_cloth
         ]
     ),  # poor shirts
@@ -424,7 +424,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 210,
-            weight(0.5) | abundance(50) | head_armor(0) | body_armor(10) | leg_armor(2),
+            weight(0.5) | abundance(50) | body_armor(10) | leg_armor(2),
             imodbits_cloth
         ]
     ),  # poor tunics
@@ -441,7 +441,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 320,
-            weight(1) | abundance(50) | head_armor(0) | body_armor(11) | leg_armor(2),
+            weight(1) | abundance(50) | body_armor(11) | leg_armor(2),
             imodbits_cloth
         ]
     ),  # farmer tunics
@@ -459,7 +459,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 500,
-            weight(0.5) | abundance(100) | head_armor(0) | body_armor(12) | leg_armor(3),
+            weight(0.5) | abundance(100) | body_armor(12) | leg_armor(3),
             imodbits_cloth
         ]
     ),  # merchant tunics
@@ -474,7 +474,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 200,
-            weight(0.5) | abundance(50) | head_armor(0) | body_armor(10) | leg_armor(2),
+            weight(0.5) | abundance(50) | body_armor(10) | leg_armor(2),
             imodbits_cloth, [], pictish_irish_kingdoms
         ]
     ),  # pictish irish rich tunics
@@ -490,7 +490,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 240,
-            weight(1) | abundance(30) | head_armor(0) | body_armor(11) | leg_armor(2),
+            weight(1) | abundance(30) | body_armor(11) | leg_armor(2),
             imodbits_cloth, [], pictish_kingdoms
         ]
     ),  # pictish tunics
@@ -508,7 +508,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 240,
-            weight(0.5) | abundance(50) | head_armor(0) | body_armor(9) | leg_armor(4),
+            weight(0.5) | abundance(50) | body_armor(9) | leg_armor(4),
             imodbits_cloth, [], pictish_kingdoms
         ]
     ),  # pictish poor tunics
@@ -523,7 +523,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 240,
-            weight(1) | abundance(20) | head_armor(0) | body_armor(11) | leg_armor(2),
+            weight(1) | abundance(20) | body_armor(11) | leg_armor(2),
             imodbits_cloth, [], irish_kingdoms
         ]
     ),  # irish tunics
@@ -536,7 +536,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 560,
-            weight(1) | abundance(30) | head_armor(0) | body_armor(15) | leg_armor(4),
+            weight(1) | abundance(30) | body_armor(15) | leg_armor(4),
             imodbits_cloth, [], pictish_irish_kingdoms
         ]
     ),
@@ -550,7 +550,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 320,
-            weight(1) | abundance(50) | head_armor(0) | body_armor(12) | leg_armor(4),
+            weight(1) | abundance(50) | body_armor(12) | leg_armor(4),
             imodbits_cloth, [], pictish_irish_kingdoms
         ]
     ),  # irish long tunics
@@ -564,7 +564,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 300,
-            weight(4) | abundance(50) | head_armor(0) | body_armor(12) | leg_armor(2),
+            weight(4) | abundance(50) | body_armor(12) | leg_armor(2),
             imodbits_cloth, [], irish_kingdoms
         ]
     ),  # godelic jackets
@@ -575,7 +575,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 420,
-            weight(1) | abundance(20) | head_armor(0) | body_armor(13) | leg_armor(3),
+            weight(1) | abundance(20) | body_armor(13) | leg_armor(3),
             imodbits_cloth, [], irish_kingdoms
         ]
     ),  # godelic fur tunics
@@ -590,7 +590,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 240,
-            weight(0.5) | abundance(50) | head_armor(0) | body_armor(9) | leg_armor(4),
+            weight(0.5) | abundance(50) | body_armor(9) | leg_armor(4),
             imodbits_cloth, [], irish_kingdoms
         ]
     ),  # gidelic_tunics
@@ -610,7 +610,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 210,
-            weight(0.5) | abundance(50) | head_armor(0) | body_armor(10) | leg_armor(2),
+            weight(0.5) | abundance(50) | body_armor(10) | leg_armor(2),
             imodbits_cloth, [], briton_kingdoms
         ]
     ),  # briton_tunics
@@ -636,7 +636,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 210,
-            weight(0.5) | abundance(50) | head_armor(0) | body_armor(10) | leg_armor(2),
+            weight(0.5) | abundance(50) | body_armor(10) | leg_armor(2),
             imodbits_cloth, [], angle_saxon_kingdoms
         ]
     ),  # angle_saxon_tunics
@@ -648,7 +648,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 260,
-            weight(0.5) | abundance(50) | head_armor(0) | body_armor(10) | leg_armor(3),
+            weight(0.5) | abundance(50) | body_armor(10) | leg_armor(3),
             imodbits_cloth
         ]
     ),  # noble_shirts
@@ -660,7 +660,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 1000,
-            weight(10) | abundance(50) | head_armor(0) | body_armor(25) | leg_armor(0) | difficulty(8),
+            weight(10) | abundance(50) | body_armor(25) | leg_armor(0) | difficulty(8),
             imodbits_cloth, [], angle_saxon_kingdoms
         ]
     ),  # angle_saxon_noble_tunics
@@ -672,7 +672,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 1000,
-            weight(10) | abundance(50) | head_armor(0) | body_armor(25) | leg_armor(0) | difficulty(8),
+            weight(10) | abundance(50) | body_armor(25) | leg_armor(0) | difficulty(8),
             imodbits_cloth, [], briton_kingdoms
         ]
     ),  # briton_noble_tunics
@@ -686,7 +686,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 1000,
-            weight(10) | abundance(50) | head_armor(0) | body_armor(25) | leg_armor(0) | difficulty(8),
+            weight(10) | abundance(50) | body_armor(25) | leg_armor(0) | difficulty(8),
             imodbits_cloth, [], pictish_irish_kingdoms
         ]
     ),  # pictish_irish_noble_tunics
@@ -706,7 +706,7 @@ all_robes_tunics_shirts = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 150,
-            weight(1) | abundance(100) | head_armor(0) | body_armor(5) | leg_armor(3),
+            weight(1) | abundance(100) | body_armor(5) | leg_armor(3),
             imodbits_cloth, [], pictish_irish_kingdoms
         ]
     ),  # pictish irish long shirts
@@ -766,7 +766,7 @@ all_women_dresses = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 500,
-            weight(3) | abundance(100) | head_armor(0) | body_armor(10) | leg_armor(10),
+            weight(3) | abundance(100) | body_armor(10) | leg_armor(10),
             imodbits_cloth
         ]
     ),  # women dress
@@ -810,7 +810,7 @@ all_pictish_clothes = create_all_items_simple([
         ],
         [
             itp_unique | itp_type_body_armor | itp_covers_legs, 0, 100,
-            weight(0.5) | abundance(10) | head_armor(0) | body_armor(10) | leg_armor(5),
+            weight(0.5) | abundance(10) | body_armor(10) | leg_armor(5),
             imodbits_cloth
         ]
     ),  # pictish naked
@@ -827,7 +827,7 @@ all_pictish_clothes = create_all_items_simple([
         ],
         [
             itp_type_body_armor | itp_civilian | itp_covers_legs, 0, 180,
-            weight(5) | abundance(60) | head_armor(0) | body_armor(15) | leg_armor(6),
+            weight(5) | abundance(60) | body_armor(15) | leg_armor(6),
             imodbits_cloth, [], pictish_irish_kingdoms
         ]
     ),  # cloaked body
@@ -847,7 +847,7 @@ all_pictish_clothes = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs, 0, 100,
-            weight(0.5) | abundance(100) | head_armor(0) | body_armor(10) | leg_armor(6),
+            weight(0.5) | abundance(100) | body_armor(10) | leg_armor(6),
             imodbits_cloth, [], pictish_irish_kingdoms
         ]
     )  # pictish pants
@@ -865,7 +865,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 10160,
-            weight(22) | abundance(2) | head_armor(0) | body_armor(60) | leg_armor(20) | difficulty(14),
+            weight(22) | abundance(2) | body_armor(60) | leg_armor(20) | difficulty(14),
             imodbits_armor, [], pictish_irish_kingdoms
         ]
     ),  # pictish kingly mails
@@ -875,7 +875,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 8000,
-            weight(23) | abundance(10) | head_armor(0) | body_armor(49) | leg_armor(23) | difficulty(13),
+            weight(23) | abundance(10) | body_armor(49) | leg_armor(23) | difficulty(13),
             imodbits_armor, [], pictish_irish_kingdoms
         ]
     ),  # long mail coats
@@ -907,7 +907,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 5560,
-            weight(19) | abundance(30) | head_armor(0) | body_armor(45) | leg_armor(15) | difficulty(12),
+            weight(19) | abundance(30) | body_armor(45) | leg_armor(15) | difficulty(12),
             imodbits_armor
         ]
     ),  # mail coats
@@ -917,7 +917,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 4600,
-            weight(19) | abundance(10) | head_armor(0) | body_armor(42) | leg_armor(13) | difficulty(10),
+            weight(19) | abundance(10) | body_armor(42) | leg_armor(13) | difficulty(10),
             imodbits_armor
         ]
     ),  # furred small ring mail
@@ -942,7 +942,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 7020,
-            weight(20) | abundance(10) | head_armor(0) | body_armor(53) | leg_armor(10) | difficulty(13),
+            weight(20) | abundance(10) | body_armor(53) | leg_armor(10) | difficulty(13),
             imodbits_armor, [], angle_saxon_kingdoms
         ]
     ),  # angle saxon noble mails
@@ -963,7 +963,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 3840,
-            weight(19) | abundance(30) | head_armor(0) | body_armor(45) | leg_armor(4) | difficulty(11),
+            weight(19) | abundance(30) | body_armor(45) | leg_armor(4) | difficulty(11),
             imodbits_armor, [], angle_saxon_kingdoms
         ]
     ),  # loricas
@@ -973,7 +973,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 4590,
-            weight(20) | abundance(30) | head_armor(0) | body_armor(46) | leg_armor(5) | difficulty(13),
+            weight(20) | abundance(30) | body_armor(46) | leg_armor(5) | difficulty(13),
             imodbits_armor, [], angle_saxon_kingdoms
         ]
     ),  # leather over mail
@@ -986,7 +986,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 4590,
-            weight(20) | abundance(30) | head_armor(0) | body_armor(46) | leg_armor(5) | difficulty(13),
+            weight(20) | abundance(30) | body_armor(46) | leg_armor(5) | difficulty(13),
             imodbits_armor, [], angle_saxon_kingdoms
         ]
     ),  # short mails
@@ -998,7 +998,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 4840,
-            weight(19) | abundance(10) | head_armor(0) | body_armor(45) | leg_armor(6) | difficulty(11),
+            weight(19) | abundance(10) | body_armor(45) | leg_armor(6) | difficulty(11),
             imodbits_armor, [], pictish_kingdoms
         ]
     ),
@@ -1009,7 +1009,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 4840,
-            weight(19) | abundance(10) | head_armor(0) | body_armor(45) | leg_armor(6) | difficulty(11),
+            weight(19) | abundance(10) | body_armor(45) | leg_armor(6) | difficulty(11),
             imodbits_armor, [], briton_kingdoms
         ]
     ),
@@ -1019,7 +1019,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 8000,
-            weight(19) | abundance(10) | head_armor(0) | body_armor(53) | leg_armor(6) | difficulty(11),
+            weight(19) | abundance(10) | body_armor(53) | leg_armor(6) | difficulty(11),
             imodbits_armor, [], pictish_irish_kingdoms
         ]
     ),
@@ -1030,7 +1030,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 5600,
-            weight(22) | abundance(10) | head_armor(0) | body_armor(65) | leg_armor(10) | difficulty(14),
+            weight(22) | abundance(10) | body_armor(65) | leg_armor(10) | difficulty(14),
             imodbits_armor, [], angle_saxon_kingdoms
         ]
     ),
@@ -1040,7 +1040,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 5600,
-            weight(22) | abundance(10) | head_armor(0) | body_armor(60) | leg_armor(15) | difficulty(14),
+            weight(22) | abundance(10) | body_armor(60) | leg_armor(15) | difficulty(14),
             imodbits_armor, [], briton_kingdoms
         ]
     ),
@@ -1050,7 +1050,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 5600,
-            weight(22) | abundance(10) | head_armor(0) | body_armor(55) | leg_armor(20) | difficulty(14),
+            weight(22) | abundance(10) | body_armor(55) | leg_armor(20) | difficulty(14),
             imodbits_armor, [], pictish_irish_kingdoms
         ]
     ),
@@ -1061,7 +1061,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 3660,
-            weight(15) | abundance(40) | head_armor(0) | body_armor(45) | leg_armor(6) | difficulty(11),
+            weight(15) | abundance(40) | body_armor(45) | leg_armor(6) | difficulty(11),
             imodbits_armor
         ]
     ),
@@ -1071,7 +1071,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 4360,
-            weight(15) | abundance(40) | head_armor(0) | body_armor(50) | leg_armor(6) | difficulty(11),
+            weight(15) | abundance(40) | body_armor(50) | leg_armor(6) | difficulty(11),
             imodbits_armor
         ]
     ),
@@ -1091,7 +1091,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 3860,
-            weight(15) | abundance(40) | head_armor(0) | body_armor(49) | leg_armor(2) | difficulty(12),
+            weight(15) | abundance(40) | body_armor(49) | leg_armor(2) | difficulty(12),
             imodbits_armor
         ]
     ),
@@ -1103,7 +1103,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 4280,
-            weight(17) | abundance(20) | head_armor(0) | body_armor(42) | leg_armor(15) | difficulty(11),
+            weight(17) | abundance(20) | body_armor(42) | leg_armor(15) | difficulty(11),
             imodbits_armor, [], pictish_irish_kingdoms
         ]
     ),
@@ -1121,7 +1121,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 3510,
-            weight(10) | abundance(10) | head_armor(0) | body_armor(42) | leg_armor(5) | difficulty(10),
+            weight(10) | abundance(10) | body_armor(42) | leg_armor(5) | difficulty(10),
             imodbits_armor, [], saxon_kingdoms
         ]
     ),
@@ -1133,7 +1133,7 @@ all_heavy_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 3830,
-            weight(12) | abundance(10) | head_armor(0) | body_armor(43) | leg_armor(6) | difficulty(11),
+            weight(12) | abundance(10) | body_armor(43) | leg_armor(6) | difficulty(11),
             imodbits_armor, [], saxon_kingdoms
         ]
     ),
@@ -1147,7 +1147,7 @@ all_medium_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 2800,
-            weight(13) | abundance(40) | head_armor(0) | body_armor(38) | leg_armor(5) | difficulty(8),
+            weight(13) | abundance(40) | body_armor(38) | leg_armor(5) | difficulty(8),
             imodbits_armor
         ]
     ),
@@ -1158,7 +1158,7 @@ all_medium_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 3920,
-            weight(14) | abundance(10) | head_armor(0) | body_armor(46) | leg_armor(16) | difficulty(13),
+            weight(14) | abundance(10) | body_armor(46) | leg_armor(16) | difficulty(13),
             imodbits_armor, [], briton_kingdoms
         ]
     ),
@@ -1177,7 +1177,7 @@ all_medium_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 3130,
-            weight(12) | abundance(10) | head_armor(0) | body_armor(42) | leg_armor(6) | difficulty(11),
+            weight(12) | abundance(10) | body_armor(42) | leg_armor(6) | difficulty(11),
             imodbits_armor, [], briton_kingdoms
         ]
     ),
@@ -1191,7 +1191,7 @@ all_medium_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 3130,
-            weight(12) | abundance(10) | head_armor(0) | body_armor(42) | leg_armor(6) | difficulty(11),
+            weight(12) | abundance(10) | body_armor(42) | leg_armor(6) | difficulty(11),
             imodbits_armor, [], pictish_irish_kingdoms
         ]
     ),
@@ -1203,7 +1203,7 @@ all_medium_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 1170,
-            weight(4) | abundance(60) | head_armor(0) | body_armor(29) | leg_armor(8) | difficulty(7),
+            weight(4) | abundance(60) | body_armor(29) | leg_armor(8) | difficulty(7),
             imodbits_armor
         ]
     ),
@@ -1214,7 +1214,7 @@ all_medium_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 1090,
-            weight(4) | abundance(80) | head_armor(0) | body_armor(27) | leg_armor(5) | difficulty(6),
+            weight(4) | abundance(80) | body_armor(27) | leg_armor(5) | difficulty(6),
             imodbits_armor
         ]
     )
@@ -1227,7 +1227,7 @@ all_light_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 680,
-            weight(3) | abundance(40) | head_armor(0) | body_armor(25) | leg_armor(4) | difficulty(4),
+            weight(3) | abundance(40) | body_armor(25) | leg_armor(4) | difficulty(4),
             imodbits_cloth, [], angle_saxon_kingdoms
         ]
     ),
@@ -1246,7 +1246,7 @@ all_light_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 520,
-            weight(3) | abundance(60) | head_armor(0) | body_armor(20) | leg_armor(3) | difficulty(4),
+            weight(3) | abundance(60) | body_armor(20) | leg_armor(3) | difficulty(4),
             imodbits_cloth, [], angle_saxon_kingdoms
         ]
     ),
@@ -1258,7 +1258,7 @@ all_light_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 820,
-            weight(4) | abundance(60) | head_armor(0) | body_armor(23) | leg_armor(2) | difficulty(6),
+            weight(4) | abundance(60) | body_armor(23) | leg_armor(2) | difficulty(6),
             imodbits_cloth
         ]
     ),
@@ -1276,7 +1276,7 @@ all_light_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 1020,
-            weight(6) | abundance(60) | head_armor(0) | body_armor(24) | leg_armor(8) | difficulty(6),
+            weight(6) | abundance(60) | body_armor(24) | leg_armor(8) | difficulty(6),
             imodbits_cloth
         ]
     ),
@@ -1286,7 +1286,7 @@ all_light_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 1160,
-            weight(4) | abundance(20) | head_armor(0) | body_armor(22) | leg_armor(12) | difficulty(6),
+            weight(4) | abundance(20) | body_armor(22) | leg_armor(12) | difficulty(6),
             imodbits_cloth
         ]
     ),
@@ -1302,7 +1302,7 @@ all_light_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 700,
-            weight(3) | abundance(80) | head_armor(0) | body_armor(18) | leg_armor(2) | difficulty(2),
+            weight(3) | abundance(80) | body_armor(18) | leg_armor(2) | difficulty(2),
             imodbits_cloth
         ]
     ),
@@ -1317,7 +1317,7 @@ all_light_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 740,
-            weight(3) | abundance(70) | head_armor(0) | body_armor(19) | leg_armor(4) | difficulty(4),
+            weight(3) | abundance(70) | body_armor(19) | leg_armor(4) | difficulty(4),
             imodbits_cloth
         ]
     ),
@@ -1331,7 +1331,7 @@ all_light_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 740,
-            weight(2) | abundance(50) | head_armor(0) | body_armor(17) | leg_armor(6) | difficulty(2),
+            weight(2) | abundance(50) | body_armor(17) | leg_armor(6) | difficulty(2),
             imodbits_cloth
         ]
     ),
@@ -1341,7 +1341,7 @@ all_light_armors = create_all_items_simple([
         ],
         [
             itp_unique | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 10,
-            weight(3) | abundance(10) | head_armor(0) | body_armor(14) | leg_armor(4) | difficulty(4),
+            weight(3) | abundance(10) | body_armor(14) | leg_armor(4) | difficulty(4),
             imodbits_cloth
         ]
     ),
@@ -1351,7 +1351,7 @@ all_light_armors = create_all_items_simple([
         ],
         [
             itp_type_body_armor | itp_covers_legs, 0, 25,
-            weight(1) | abundance(100) | head_armor(0) | body_armor(5) | leg_armor(1),
+            weight(1) | abundance(100) | body_armor(5) | leg_armor(1),
             imodbits_armor
         ]
     ),

@@ -134,7 +134,7 @@ items = [
     ["practice_bolts_9_amount", "Practice Bolts", [("bolt", 0), ("flying_bolt", ixmesh_flying_ammo), ("bolt_bag", ixmesh_carry), ("bolt_bag_b", ixmesh_carry | imodbit_large_bag)],
         itp_type_bolts, itcf_carry_quiver_right_vertical, 0, weight(2.25) | weapon_length(55) | max_ammo(9), imodbits_missile, missile_distance_trigger],
     ["practice_boots", "Practice Boots", [("carbatinae_2", 0)], itp_type_foot_armor | itp_civilian | itp_attach_armature, 0, 11, weight(
-     1) | abundance(100) | head_armor(0) | body_armor(0) | leg_armor(10), imodbits_cloth],
+     1) | abundance(100) | body_armor(0) | leg_armor(10), imodbits_cloth],
     ["red_tourney_armor", "Red Tourney Armor", [("arena_tunicR_new", 0)], itp_type_body_armor | itp_covers_legs, 0, 152, weight(
      15.0) | body_armor(20) | leg_armor(6), imodbits_none],
     ["blue_tourney_armor", "Blue Tourney Armor", [("arena_tunicB_new", 0)], itp_type_body_armor | itp_covers_legs, 0, 152, weight(
@@ -162,25 +162,25 @@ items = [
         4.5) | hit_points(300) | body_armor(20) | spd_rtng(65) | shield_width(70), imodbits_shield],  # chief cambiado
 
     ["arena_armor_white", "Armor", [("arena_tunicW_new", 0)], itp_type_body_armor | itp_covers_legs, 0, 600, weight(
-        4) | abundance(90) | head_armor(0) | body_armor(30) | leg_armor(0), imodbits_armor],  # cambiado chief
+        4) | abundance(90) | body_armor(30) | leg_armor(0), imodbits_armor],  # cambiado chief
     ["arena_armor_red", "Armor", [("arena_tunicR_new", 0)], itp_type_body_armor | itp_covers_legs, 0, 600, weight(
-        4) | abundance(90) | head_armor(0) | body_armor(30) | leg_armor(0), imodbits_armor],  # cambiado chief
+        4) | abundance(90) | body_armor(30) | leg_armor(0), imodbits_armor],  # cambiado chief
     ["arena_armor_blue", "Armor", [("arena_tunicB_new", 0)], itp_type_body_armor | itp_covers_legs, 0, 600, weight(
-        4) | abundance(90) | head_armor(0) | body_armor(30) | leg_armor(0), imodbits_armor],  # cambiado chief
+        4) | abundance(90) | body_armor(30) | leg_armor(0), imodbits_armor],  # cambiado chief
     ["arena_armor_green", "Armor", [("arena_tunicG_new", 0)], itp_type_body_armor | itp_covers_legs, 0, 600, weight(
-        4) | abundance(90) | head_armor(0) | body_armor(30) | leg_armor(0), imodbits_armor],  # cambiado chief
+        4) | abundance(90) | body_armor(30) | leg_armor(0), imodbits_armor],  # cambiado chief
     ["arena_armor_yellow", "Armor", [("shirt_ylw", 0)], itp_type_body_armor | itp_covers_legs, 0, 600, weight(
-        4) | abundance(90) | head_armor(0) | body_armor(30) | leg_armor(0), imodbits_armor],  # cambiado chief
+        4) | abundance(90) | body_armor(30) | leg_armor(0), imodbits_armor],  # cambiado chief
     ["arena_tunic_white", "Tunic White ", [("arena_tunicW_new", 0)], itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 140, weight(
-        0.5) | abundance(50) | head_armor(0) | body_armor(5) | leg_armor(2), imodbits_cloth],  # cambiado chief
+        0.5) | abundance(50) | body_armor(5) | leg_armor(2), imodbits_cloth],  # cambiado chief
     ["arena_tunic_red", "Tunic Red", [("arena_tunicR_new", 0)], itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 140, weight(
-        0.5) | abundance(50) | head_armor(0) | body_armor(5) | leg_armor(2), imodbits_cloth],  # cambiado chief
+        0.5) | abundance(50) | body_armor(5) | leg_armor(2), imodbits_cloth],  # cambiado chief
     ["arena_tunic_blue", "Tunic Blue", [("arena_tunicB_new", 0)], itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 140, weight(
-        0.5) | abundance(50) | head_armor(0) | body_armor(5) | leg_armor(2), imodbits_cloth],  # cambiado chief
+        0.5) | abundance(50) | body_armor(5) | leg_armor(2), imodbits_cloth],  # cambiado chief
     ["arena_tunic_green", "Tunic Green", [("arena_tunicG_new", 0)], itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 140, weight(
-        0.5) | abundance(50) | head_armor(0) | body_armor(5) | leg_armor(2), imodbits_cloth],  # cambiado chief
+        0.5) | abundance(50) | body_armor(5) | leg_armor(2), imodbits_cloth],  # cambiado chief
     ["arena_tunic_yellow", "Tunic Yellow", [("shirt_ylw", 0)], itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 140, weight(
-        0.5) | abundance(50) | head_armor(0) | body_armor(5) | leg_armor(2), imodbits_cloth],  # cambiado chief
+        0.5) | abundance(50) | body_armor(5) | leg_armor(2), imodbits_cloth],  # cambiado chief
 
     # headwear
     ["arena_helmet_red", "Headwrapping", [("leather_cap", 0)], itp_type_head_armor | itp_fit_to_head, 0, 187, weight(
@@ -579,7 +579,7 @@ items = [
     [
         "pilgrim_disguise", "Pilgrim Disguise", [("pilgrim_new", 0)],
         itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 25,
-        weight(2) | abundance(100) | head_armor(0) | body_armor(10) | leg_armor(2),
+        weight(2) | abundance(100) | body_armor(10) | leg_armor(2),
         imodbits_cloth
     ],  # cambiado chief
 
@@ -613,14 +613,14 @@ items = [
     [
         "monk_robe", "Monk Robe", [("priest_1", 0)],
         itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 170,
-        weight(4) | abundance(50) | head_armor(0) | body_armor(11) | leg_armor(5),
+        weight(4) | abundance(50) | body_armor(11) | leg_armor(5),
         imodbits_cloth
     ],
 
     [
         "bishop_robe", "Bishop Robe", [("priest_3", 0)],
         itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 975,
-        weight(5) | abundance(10) | head_armor(0) | body_armor(13) | leg_armor(5),
+        weight(5) | abundance(10) | body_armor(13) | leg_armor(5),
         imodbits_cloth
     ],
 
@@ -628,21 +628,21 @@ items = [
     [
         "galeno_tunic", "Galeno's Tunic", [("surgeon", 0)],
         itp_type_body_armor | itp_covers_legs, 0, 197,
-        weight(7) | abundance(10) | head_armor(0) | body_armor(7) | leg_armor(2),
+        weight(7) | abundance(10) | body_armor(7) | leg_armor(2),
         imodbits_cloth
     ],
 
     [
         "leather_apron", "Leather Apron", [("leather_apron", 0)],
         itp_type_body_armor | itp_civilian | itp_covers_legs, 0, 161,
-        weight(3) | abundance(100) | head_armor(0) | body_armor(3) | leg_armor(3),
+        weight(3) | abundance(100) | body_armor(3) | leg_armor(3),
         imodbits_cloth
     ],
 
     [
         "romantunic_purple", "Tunic Purple", [("romantunic_purple", 0)],
         itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 450,
-        weight(0.5) | abundance(10) | head_armor(0) | body_armor(5) | leg_armor(2),
+        weight(0.5) | abundance(10) | body_armor(5) | leg_armor(2),
         imodbits_cloth
     ],
 
@@ -2445,7 +2445,7 @@ items = [
     ##["strange_great_sword",  "native", [("no_dachi",0),("no_dachi_scabbard",ixmesh_carry)], itp_type_two_handed_wpn|itp_two_handed|itp_primary, itc_nodachi|itcf_carry_sword_back|itcf_show_holster_when_drawn, 920 , weight(3.5)|difficulty(11)|spd_rtng(92) | weapon_length(125)|swing_damage(33 , cut) | thrust_damage(0 ,  pierce),imodbits_axe ],
     ##["strange_short_sword", "native", [("wakizashi",0),("wakizashi_scabbard",ixmesh_carry)], itp_type_one_handed_wpn|itp_primary, itc_longsword|itcf_carry_wakizashi|itcf_show_holster_when_drawn, 321 , weight(1.25)|difficulty(0)|spd_rtng(108) | weapon_length(65)|swing_damage(15 , cut) | thrust_damage(24 ,  pierce),imodbits_sword ],
     ["court_dress", "Court Dress", [("court_dress", 0)], itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 348, weight(
-        4) | abundance(100) | head_armor(0) | body_armor(14) | leg_armor(4), imodbits_cloth],
+        4) | abundance(100) | body_armor(14) | leg_armor(4), imodbits_cloth],
     # chief unique acaba
 
     #################especiales chief#############################################
@@ -2573,7 +2573,7 @@ items = [
      0, 610, weight(10) | abundance(90), imodbits_none],
     # chief begin
     ["dplmc_coat_of_plates_red_constable", "Constable Mail", [("byrnie16", 0)], itp_type_body_armor | itp_covers_legs | itp_civilian, 0,
-     3828, weight(25) | abundance(100) | head_armor(0) | body_armor(52) | leg_armor(16), imodbits_armor],
+     3828, weight(25) | abundance(100) | body_armor(52) | leg_armor(16), imodbits_armor],
     ["iniauhorn",         "Iniau Horn", [("horn", 0)], itp_type_goods, 0, 255,
      weight(50) | abundance(120), imodbits_none],
     # 3
@@ -2584,15 +2584,15 @@ items = [
 
     ####OTROS chief ##################################
     ["tunic_with_green_cape", "Tunic with Green Cape", [("peasant_man_a_bry", 0)], itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 80, weight(
-        0.5) | abundance(100) | head_armor(0) | body_armor(3) | leg_armor(1), imodbits_cloth],  # cambiado chief
+        0.5) | abundance(100) | body_armor(3) | leg_armor(1), imodbits_cloth],  # cambiado chief
     ["keys", "Ring of Keys", [("throwing_axe_a", 0)], itp_type_one_handed_wpn | itp_primary | itp_bonus_against_shield, itc_scimitar,
      240, weight(5) | spd_rtng(98) | swing_damage(29, cut) | max_ammo(5) | weapon_length(53), imodbits_thrown],
     ["bride_dress", "Bride Dress", [("bride_dress", 0)], itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 500, weight(
-        3) | abundance(100) | head_armor(0) | body_armor(10) | leg_armor(10), imodbits_cloth],
+        3) | abundance(100) | body_armor(10) | leg_armor(10), imodbits_cloth],
     ["bride_crown", "Crown of Flowers", [("bride_crown", 0)],  itp_type_head_armor | itp_doesnt_cover_hair | itp_civilian | itp_attach_armature, 0, 1, weight(
         0.5) | abundance(100) | head_armor(4) | body_armor(0) | leg_armor(0), imodbits_cloth],
     ["bride_shoes", "Bride Shoes", [("bride_shoes", 0)], itp_type_foot_armor | itp_civilian | itp_attach_armature, 0,
-     30, weight(1) | abundance(100) | head_armor(0) | body_armor(0) | leg_armor(8), imodbits_cloth],
+     30, weight(1) | abundance(100) | body_armor(0) | leg_armor(8), imodbits_cloth],
 
     ["practice_bow_2", "Practice Bow", [("hunting_bow", 0), ("hunting_bow_carry", ixmesh_carry)], itp_type_bow | itp_primary | itp_two_handed,
      itcf_shoot_bow | itcf_carry_bow_back, 0, weight(1.5) | spd_rtng(90) | shoot_speed(40) | thrust_damage(21, blunt), imodbits_bow],
@@ -2645,11 +2645,11 @@ items = [
 
     # armaduras raider, anadidas aqui para compatibilidad con savegames
     ["military_cleaver_b", "Raider Mail", [("raider_hauberk", 0)], itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 2060, weight(
-        17) | abundance(10) | head_armor(0) | body_armor(31) | leg_armor(4) | difficulty(10), imodbits_armor],
+        17) | abundance(10) | body_armor(31) | leg_armor(4) | difficulty(10), imodbits_armor],
     ["military_cleaver_c", "Raider Mail", [("raider_hauberk2", 0)], itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 2060, weight(
-        17) | abundance(10) | head_armor(0) | body_armor(31) | leg_armor(4) | difficulty(10), imodbits_armor],
+        17) | abundance(10) | body_armor(31) | leg_armor(4) | difficulty(10), imodbits_armor],
     ["military_sickle_a", "Raider Mail", [("raider_hauberk3", 0)], itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 2060, weight(
-        17) | abundance(10) | head_armor(0) | body_armor(31) | leg_armor(4) | difficulty(10), imodbits_armor],
+        17) | abundance(10) | body_armor(31) | leg_armor(4) | difficulty(10), imodbits_armor],
 
 
     # chief unique
@@ -2664,19 +2664,19 @@ items = [
     # chief original unique para q no se vea en el juego acaba
     # chief original unique
     ["nomad_boots", "native", [("ankle_boots_a_new_bry", 0)], itp_unique | itp_type_foot_armor | itp_civilian | itp_attach_armature, 0,
-     116, weight(1.25) | abundance(100) | head_armor(0) | body_armor(0) | leg_armor(14), imodbits_cloth],
+     116, weight(1.25) | abundance(100) | body_armor(0) | leg_armor(14), imodbits_cloth],
     ["khergit_guard_boots",  "native", [("ankle_boots_a_new_bry", 0)], itp_unique | itp_type_foot_armor | itp_attach_armature, 0, 254, weight(
-        1) | abundance(100) | head_armor(0) | body_armor(0) | leg_armor(20), imodbits_cloth],
+        1) | abundance(100) | body_armor(0) | leg_armor(20), imodbits_cloth],
     ["khergit_leather_boots", "native", [("ankle_boots_a_new_bry", 0)], itp_unique | itp_type_foot_armor | itp_civilian | itp_attach_armature, 0,
-     120, weight(1) | abundance(100) | head_armor(0) | body_armor(0) | leg_armor(18), imodbits_cloth],
+     120, weight(1) | abundance(100) | body_armor(0) | leg_armor(18), imodbits_cloth],
     ["sarranid_boots_a", "native", [("ankle_boots_a_new_bry", 0)], itp_unique | itp_type_foot_armor | itp_civilian | itp_attach_armature, 0,
-     30, weight(1) | abundance(100) | head_armor(0) | body_armor(0) | leg_armor(8), imodbits_cloth],
+     30, weight(1) | abundance(100) | body_armor(0) | leg_armor(8), imodbits_cloth],
     ["sarranid_boots_b", "native", [("ankle_boots_a_new_bry", 0)], itp_unique | itp_type_foot_armor | itp_civilian | itp_attach_armature, 0,
-     120, weight(1) | abundance(100) | head_armor(0) | body_armor(0) | leg_armor(16), imodbits_cloth],
+     120, weight(1) | abundance(100) | body_armor(0) | leg_armor(16), imodbits_cloth],
     ["sarranid_boots_c", "native", [("ankle_boots_a_new_bry", 0)], itp_unique | itp_type_foot_armor | itp_civilian | itp_attach_armature, 0,
-     280, weight(1) | abundance(100) | head_armor(0) | body_armor(0) | leg_armor(20), imodbits_plate],
+     280, weight(1) | abundance(100) | body_armor(0) | leg_armor(20), imodbits_plate],
     ["sarranid_boots_d", "native", [("ankle_boots_a_new_bry", 0)], itp_unique | itp_type_foot_armor | itp_civilian | itp_attach_armature, 0,
-     920, weight(1) | abundance(100) | head_armor(0) | body_armor(0) | leg_armor(30), imodbits_armor],
+     920, weight(1) | abundance(100) | body_armor(0) | leg_armor(30), imodbits_armor],
     # chief unique empiza
     ["light_crossbow", "native", [("xenoargh_arbalest", 0)], itp_type_crossbow | itp_unique | itp_primary | itp_two_handed, itcf_shoot_crossbow | itcf_carry_crossbow_back,
      67, weight(2.5) | difficulty(8) | spd_rtng(45) | shoot_speed(59) | thrust_damage(44,  pierce) | max_ammo(1), imodbits_crossbow],
@@ -2686,9 +2686,9 @@ items = [
 
     # chief unique
     ["heraldic_mail_with_tunic_b", "Shirt", [("shirt_a_bry", 0)], itp_unique | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 400, weight(
-        0.5) | abundance(50) | head_armor(0) | body_armor(15) | leg_armor(2), imodbits_cloth],
+        0.5) | abundance(50) | body_armor(15) | leg_armor(2), imodbits_cloth],
     ["heraldic_mail_with_tabard", "Shirt", [("shirt_a_bry", 0)], itp_unique | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 400, weight(
-        0.5) | abundance(50) | head_armor(0) | body_armor(15) | leg_armor(2), imodbits_cloth],
+        0.5) | abundance(50) | body_armor(15) | leg_armor(2), imodbits_cloth],
     # native
     ["female_hood", "native", [("head_wrapping_bry", 0)], itp_unique | itp_type_head_armor, 0, 6, weight(
         1) | abundance(100) | head_armor(11) | body_armor(0) | leg_armor(0), imodbits_cloth],
@@ -2782,11 +2782,11 @@ items = [
     # chief unique acaba
 
     ["plate_boots", "native", [("ankle_boots_a_new_bry", 0)], itp_unique | itp_type_foot_armor | itp_attach_armature, 0,
-     1770, weight(3.5) | abundance(100) | head_armor(0) | body_armor(0) | leg_armor(33) | difficulty(9), imodbits_plate],
+     1770, weight(3.5) | abundance(100) | body_armor(0) | leg_armor(33) | difficulty(9), imodbits_plate],
     ["heraldic_mail_with_surcoat_for_tableau", "native", [("shirt_a_bry", 0)], itp_unique | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 400, weight(
-        0.5) | abundance(50) | head_armor(0) | body_armor(15) | leg_armor(2), imodbits_cloth],
+        0.5) | abundance(50) | body_armor(15) | leg_armor(2), imodbits_cloth],
     ["mail_boots_for_tableau", "native", [("ankle_boots_a_new_bry", 0)], itp_type_foot_armor | itp_attach_armature, 0,
-     1, weight(3) | abundance(100) | head_armor(0) | body_armor(0) | leg_armor(1), imodbits_armor],
+     1, weight(3) | abundance(100) | body_armor(0) | leg_armor(1), imodbits_armor],
     ["mace_1",         "native", [("Pictish_Longsword", 0), ("Scab_Pictish_Longsword", ixmesh_carry)], itp_type_one_handed_wpn | itp_unique | itp_primary | itp_secondary | itp_next_item_as_melee, itc_longsword | itcf_carry_sword_left_hip | itcf_show_holster_when_drawn, 960, weight(1.3) | difficulty(8) | spd_rtng(82) | weapon_length(99) | swing_damage(36, cut) | thrust_damage(12,  pierce), imodbits_sword,
      [], pictish_irish_kingdoms],
     ["mace_2",         "native", [("Pictish_Longsword", 0), ("Scab_Pictish_Longsword", ixmesh_carry)], itp_type_one_handed_wpn | itp_unique | itp_primary | itp_secondary | itp_next_item_as_melee, itc_longsword | itcf_carry_sword_left_hip | itcf_show_holster_when_drawn, 960, weight(1.3) | difficulty(8) | spd_rtng(82) | weapon_length(99) | swing_damage(36, cut) | thrust_damage(12,  pierce), imodbits_sword,

@@ -1,22 +1,29 @@
 # import string
 # import types
 
+
 def convert_to_identifier_with_no_lowercase(s0):
-  s1 = s0.replace(" ", "_")
-  s2 = s1.replace("'", "_")
-  s3 = s2.replace("`", "_")
-  s4 = s3.replace("(", "_")
-  s5 = s4.replace(")", "_")
-  s6 = s5.replace("-", "_")
-  s7 = s6.replace(",", "")
-  s8 = s7.replace("|", "")
-  s9 = s8.replace("\t", "_") #Tab
-  return s9
+    s1 = s0.replace(" ", "_")
+    s2 = s1.replace("'", "_")
+    s3 = s2.replace("`", "_")
+    s4 = s3.replace("(", "_")
+    s5 = s4.replace(")", "_")
+    s6 = s5.replace("-", "_")
+    s7 = s6.replace(",", "")
+    s8 = s7.replace("|", "")
+    s9 = s8.replace("\t", "_")  # Tab
+    return s9
+
 
 def convert_to_identifier(s0):
-  s1 = convert_to_identifier_with_no_lowercase(s0)
-  return s1.lower()
+    s1 = convert_to_identifier_with_no_lowercase(s0)
+    return s1.lower()
+
 
 def replace_spaces(s0):
-  s1 = s0.replace("\t", "_")
-  return s1.replace(" ", "_")
+    s1 = s0.replace("\t", "_")
+    return s1.replace(" ", "_")
+
+
+def lf_open(file, mode):
+    return open(file, mode, -1, None, None, '\n')

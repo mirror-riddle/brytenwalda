@@ -3,10 +3,10 @@
 # from header_common import *
 from module_info import export_dir
 from module_music import tracks
-# from process_common import *
+from process_common import lf_open
 
 def save_python_header():
-  ofile = open("./ID_music.py","w")
+  ofile = lf_open("./ID_music.py","w")
   for i_track in range(len(tracks)):
     ofile.write("track_%s = %d\n"%(tracks[i_track][0],i_track))
   ofile.write("\n\n")
