@@ -30,7 +30,5 @@ python3 process_dialogs.py
 python3 process_global_variables_unused.py
 python3 process_postfx.py
 
-rm *pyc
-
 echo '______________________________'
 echo 'Script processing has ended.'
