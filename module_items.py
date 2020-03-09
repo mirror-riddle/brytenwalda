@@ -44,8 +44,14 @@ items = [
         imodbits_none
     ],
 
-    ["tutorial_battle_axe", "Battle Axe", [("battle_ax", 0)], itp_type_two_handed_wpn | itp_two_handed | itp_primary | itp_bonus_against_shield | itp_wooden_parry, itc_nodachi |
-     itcf_carry_axe_back, 0, weight(5) | spd_rtng(88) | weapon_length(108) | swing_damage(27, cut) | thrust_damage(0,  pierce), imodbits_axe],
+    [
+        "tutorial_battle_axe", "Battle Axe", [("battle_ax", 0)],
+        itp_type_two_handed_wpn | itp_two_handed | itp_primary | itp_bonus_against_shield | itp_wooden_parry,
+        itc_nodachi | itcf_carry_axe_back, 0,
+        weight(5) | spd_rtng(88) | weapon_length(108) | swing_damage(27, cut) | thrust_damage(0,  pierce),
+        imodbits_axe
+    ],
+
     ["tutorial_arrows", "Arrows", [("arrow", 0), ("flying_arrow", ixmesh_flying_ammo), ("quiver", ixmesh_carry)], itp_type_arrows, itcf_carry_quiver_back, 0, weight(
         3) | abundance(160) | weapon_length(95) | thrust_damage(0, pierce) | max_ammo(20), imodbits_missile, missile_distance_trigger],
     ["tutorial_bolts", "Bolts", [("bolt", 0), ("flying_bolt", ixmesh_flying_ammo), ("bolt_bag", ixmesh_carry), ("bolt_bag_b", ixmesh_carry | imodbit_large_bag)], itp_type_bolts,

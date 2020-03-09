@@ -166,7 +166,8 @@ all_horses = create_all_items([
         [
             itp_merchandise | itp_type_horse, 0, 2000,
             abundance(30) | hit_points(73) | body_armor(10) | difficulty(1) | horse_speed(42) |
-            horse_maneuver(44) | horse_charge(10) | horse_scale(91), imodbits_horse_basic
+            horse_maneuver(44) | horse_charge(10) | horse_scale(91),
+            imodbits_horse_basic
         ],
         "North Horse",
         [("horse_c", imodbits_horse_good)]
@@ -192,7 +193,8 @@ all_horses = create_all_items([
         [
             itp_merchandise | itp_type_horse, 0, 2300,
             abundance(20) | body_armor(16) | hit_points(90) | difficulty(2) | horse_speed(36) |
-            horse_maneuver(35) | horse_charge(17) | horse_scale(94), imodbits_horse_basic
+            horse_maneuver(35) | horse_charge(17) | horse_scale(94),
+            imodbits_horse_basic
         ],
         "Draft Horse"
     ),
@@ -229,13 +231,30 @@ all_boots = create_all_items([
     ),  # poor boots
     (
         [
-            ["quality_carbatinae_white", "carbatinae_1", "White Quality Carbatinae", [("carbatinae_2", 0)]],
-            ["quality_carbatinae_green", "carbatinae_1_green", "Green Quality Carbatinae", [("carbatinae_2_green", 0)]],
-            ["quality_carbatinae_blue", "carbatinae_1_blue", "Blue Quality Carbatinae", [("carbatinae_2_blue", 0)]],
-            ["quality_carbatinae_grey", "carbatinae_1_grey", "Grey Quality Carbatinae", [("carbatinae_2_grey", 0)]],
-            ["quality_carbatinae_orange", "carbatinae_1_orange",
-             "Orange Quality Carbatinae", [("carbatinae_2_orange", 0)]],
-            ["quality_carbatinae_red", "carbatinae_1_red", "Red Quality Carbatinae", [("carbatinae_2_red", 0)]],
+            [
+                "quality_carbatinae_white", "carbatinae_1",
+                "White Quality Carbatinae", [("carbatinae_2", 0)]
+            ],
+            [
+                "quality_carbatinae_green", "carbatinae_1_green",
+                "Green Quality Carbatinae", [("carbatinae_2_green", 0)]
+            ],
+            [
+                "quality_carbatinae_blue", "carbatinae_1_blue",
+                "Blue Quality Carbatinae", [("carbatinae_2_blue", 0)]
+            ],
+            [
+                "quality_carbatinae_grey", "carbatinae_1_grey",
+                "Grey Quality Carbatinae", [("carbatinae_2_grey", 0)]
+            ],
+            [
+                "quality_carbatinae_orange", "carbatinae_1_orange",
+                "Orange Quality Carbatinae", [("carbatinae_2_orange", 0)]
+            ],
+            [
+                "quality_carbatinae_red", "carbatinae_1_red",
+                "Red Quality Carbatinae", [("carbatinae_2_red", 0)]
+            ],
         ],
         [
             itp_merchandise | itp_type_foot_armor | itp_civilian | itp_attach_armature, 0, 280,
@@ -262,16 +281,30 @@ all_boots = create_all_items([
     ),  # rich carbatinaes
     (
         [
-            ["carbatinae_greaves_white", "carbatinae_1_greaves", "White Greaves", [("carbatinae_2_greaves", 0)]],
-            ["carbatinae_greaves_green", "carbatinae_1_greaves_green",
-             "Green Greaves", [("carbatinae_2_greaves_green", 0)]],
-            ["carbatinae_greaves_blue", "carbatinae_1_greaves_blue",
-                "Blue Greaves", [("carbatinae_2_greaves_blue", 0)]],
-            ["carbatinae_greaves_grey", "carbatinae_1_greaves_grey",
-                "Grey Greaves", [("carbatinae_2_greaves_grey", 0)]],
-            ["carbatinae_greaves_orange", "carbatinae_1_greaves_orange",
-             "Orange Greaves", [("carbatinae_2_greaves_orange", 0)]],
-            ["carbatinae_greaves_red", "carbatinae_1_greaves_red", "Red Greaves", [("carbatinae_2_greaves_red", 0)]],
+            [
+                "carbatinae_greaves_white", "carbatinae_1_greaves",
+                "White Greaves", [("carbatinae_2_greaves", 0)]
+            ],
+            [
+                "carbatinae_greaves_green", "carbatinae_1_greaves_green",
+                "Green Greaves", [("carbatinae_2_greaves_green", 0)]
+            ],
+            [
+                "carbatinae_greaves_blue", "carbatinae_1_greaves_blue",
+                "Blue Greaves", [("carbatinae_2_greaves_blue", 0)]
+            ],
+            [
+                "carbatinae_greaves_grey", "carbatinae_1_greaves_grey",
+                "Grey Greaves", [("carbatinae_2_greaves_grey", 0)]
+            ],
+            [
+                "carbatinae_greaves_orange", "carbatinae_1_greaves_orange",
+                "Orange Greaves", [("carbatinae_2_greaves_orange", 0)]
+            ],
+            [
+                "carbatinae_greaves_red", "carbatinae_1_greaves_red",
+                "Red Greaves", [("carbatinae_2_greaves_red", 0)]
+            ],
         ],
         [
             itp_merchandise | itp_type_foot_armor | itp_civilian | itp_attach_armature, 0, 890,
@@ -524,8 +557,10 @@ all_robes_tunics_shirts = create_all_items_simple([
     (
         [
             ["nomad_vest", "Grey Godelic Jacket", [("a_gaelic_jacket", 0)]],
-            ["leather_jacket", "Grey Godelic Jacket", [("b_gaelic_jacket", 0)]],
-            ["ragged_outfit", "Green Godelic Jacket", [("c_gaelic_jacket", 0)]],
+            ["leather_jacket", "Grey Godelic Jacket",
+                [("b_gaelic_jacket", 0)]],
+            ["ragged_outfit", "Green Godelic Jacket",
+                [("c_gaelic_jacket", 0)]],
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 300,
@@ -1411,9 +1446,10 @@ all_light_helments = create_all_items_simple([
             ["irishcloak", "Gael Cloak", [("BL_coat19", 0)]],
         ],
         [
-            itp_merchandise | itp_type_head_armor | itp_attach_armature | itp_doesnt_cover_hair | itp_fit_to_head | itp_civilian, 0, 580,
-            weight(2) | abundance(50) | head_armor(1) | body_armor(
-                10) | leg_armor(5), imodbits_cloth, [], pictish_irish_kingdoms
+            itp_merchandise | itp_type_head_armor | itp_attach_armature | itp_doesnt_cover_hair |
+            itp_fit_to_head | itp_civilian, 0, 580,
+            weight(2) | abundance(50) | head_armor(1) | body_armor(10) | leg_armor(5),
+            imodbits_cloth, [], pictish_irish_kingdoms
         ]
     ),
     (
@@ -1434,9 +1470,10 @@ all_light_helments = create_all_items_simple([
             ["red_cloak", "Cloak", [("BL_coat011", 0)]],
         ],
         [
-            itp_merchandise | itp_type_head_armor | itp_attach_armature | itp_doesnt_cover_hair | itp_fit_to_head | itp_civilian, 0, 580,
-            weight(2) | abundance(50) | head_armor(1) | body_armor(
-                10) | leg_armor(5), imodbits_cloth, [], pictish_irish_kingdoms
+            itp_merchandise | itp_type_head_armor | itp_attach_armature | itp_doesnt_cover_hair |
+            itp_fit_to_head | itp_civilian, 0, 580,
+            weight(2) | abundance(50) | head_armor(1) | body_armor(10) | leg_armor(5),
+            imodbits_cloth, [], pictish_irish_kingdoms
         ]
     ),
     (
@@ -1462,9 +1499,10 @@ all_light_helments = create_all_items_simple([
             ["piel_coat07", "Cloak", [("BL_coat04", 0)]],
         ],
         [
-            itp_merchandise | itp_type_head_armor | itp_attach_armature | itp_doesnt_cover_hair | itp_fit_to_head | itp_civilian, 0, 580,
-            weight(1) | abundance(50) | head_armor(1) | body_armor(
-                10) | leg_armor(5), imodbits_cloth, [], angle_saxon_kingdoms
+            itp_merchandise | itp_type_head_armor | itp_attach_armature | itp_doesnt_cover_hair |
+            itp_fit_to_head | itp_civilian, 0, 580,
+            weight(1) | abundance(50) | head_armor(1) | body_armor(10) | leg_armor(5),
+            imodbits_cloth, [], angle_saxon_kingdoms
         ]
     ),
     (
@@ -1472,7 +1510,8 @@ all_light_helments = create_all_items_simple([
             ["bl_boar_fur", "Fur Cloak", [("BL_boar_fur", 0)]],
         ],
         [
-            itp_merchandise | itp_type_head_armor | itp_attach_armature | itp_fit_to_head | itp_doesnt_cover_hair, 0, 300,
+            itp_merchandise | itp_type_head_armor | itp_attach_armature | itp_fit_to_head |
+            itp_doesnt_cover_hair, 0, 300,
             weight(1.5) | abundance(10) | head_armor(1) | body_armor(15) | leg_armor(0) | difficulty(4),
             imodbits_cloth, [], angle_saxon_kingdoms
         ]
