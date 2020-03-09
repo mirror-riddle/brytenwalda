@@ -1,34 +1,36 @@
 #! /usr/bin/env bash
 
-python3 process_init.py
-python3 process_global_variables.py
-python3 process_strings.py
-python3 process_skills.py
-python3 process_music.py
-python3 process_animations.py
-python3 process_meshes.py
-python3 process_sounds.py
-python3 process_skins.py
-python3 process_map_icons.py
-python3 process_factions.py
-python3 process_items.py
-python3 process_scenes.py
-python3 process_troops.py
-python3 process_particle_sys.py
-python3 process_scene_props.py
-python3 process_tableau_materials.py
-python3 process_presentations.py
-python3 process_party_tmps.py
-python3 process_parties.py
-python3 process_quests.py
-python3 process_info_pages.py
-python3 process_scripts.py
-python3 process_mission_tmps.py
-python3 process_game_menus.py
-python3 process_simple_triggers.py
-python3 process_dialogs.py
-python3 process_global_variables_unused.py
-python3 process_postfx.py
+cd ./processes
+
+python3 init.py
+python3 global_variables.py
+python3 strings.py
+python3 skills.py
+python3 music.py
+python3 animations.py
+python3 meshes.py
+python3 sounds.py
+python3 skins.py
+python3 map_icons.py
+python3 factions.py
+python3 items.py
+python3 scenes.py
+python3 troops.py
+python3 particle_sys.py
+python3 scene_props.py
+python3 tableau_materials.py
+python3 presentations.py
+python3 party_tmps.py
+python3 parties.py
+python3 quests.py
+python3 info_pages.py
+python3 scripts.py
+python3 mission_tmps.py
+python3 game_menus.py
+python3 simple_triggers.py
+python3 dialogs.py
+python3 global_variables_unused.py
+python3 postfx.py
 
 echo '______________________________'
 echo 'Script processing has ended.'
