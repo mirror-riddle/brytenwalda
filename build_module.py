@@ -63,3 +63,6 @@ process_simple_tiggers()
 process_dialogs()
 process_global_variables_unused()
 process_postfx()
+
+print('______________________________')
+print('Script processing has ended.')
