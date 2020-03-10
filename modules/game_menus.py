@@ -219,9 +219,6 @@ game_menus = [
         ]
      ),
 
-
-
-
     (
         "start_game_3", mnf_disable_all_keys,
         "Choose your scenario:",
@@ -229,121 +226,14 @@ game_menus = [
         [
             (assign, "$g_custom_battle_scenario", 0),
             (assign, "$g_custom_battle_scenario", "$g_custom_battle_scenario"),
-            # Default banners
-            ##      (troop_set_slot, "trp_banner_background_color_array", 126, 0xFF212221),
-            ##      (troop_set_slot, "trp_banner_background_color_array", 127, 0xFF212221),
-            ##      (troop_set_slot, "trp_banner_background_color_array", 128, 0xFF2E3B10),
-            ##      (troop_set_slot, "trp_banner_background_color_array", 129, 0xFF425D7B),
-            ##      (troop_set_slot, "trp_banner_background_color_array", 130, 0xFF394608),
         ],
         [
-            # ("custom_battle_scenario_1",[], "Skirmish 1",
-            # [
-            ##           (assign, "$g_custom_battle_scenario", 0),
-            ##           (jump_to_menu, "mnu_custom_battle_2"),
-            ##
-            # ]
-            # ),
-            # ("custom_battle_scenario_2",[],"Siege Attack 1",
-            # [
-            ####           (assign, "$g_custom_battle_scenario", 1),
-            ####           (jump_to_menu, "mnu_custom_battle_2"),
-            ####
-            # ]
-            # ),
-            # ("custom_battle_scenario_3",[],"Skirmish 2",
-            # [
-            ##           (assign, "$g_custom_battle_scenario", 1),
-            ##           (jump_to_menu, "mnu_custom_battle_2"),
-            ##
-            # ]
-            # ),
-            # ("custom_battle_scenario_4",[],"Siege Defense",
-            # [
-            ##           (assign, "$g_custom_battle_scenario", 2),
-            ##           (jump_to_menu, "mnu_custom_battle_2"),
-            # ]
-            # ),
-            # ("custom_battle_scenario_5",[],"Skirmish 3",
-            # [
-            ##           (assign, "$g_custom_battle_scenario", 3),
-            ##           (jump_to_menu, "mnu_custom_battle_2"),
-            # ]
-            # ),
-            # ("custom_battle_scenario_6",[],"Siege Attack",
-            # [
-            ##           (assign, "$g_custom_battle_scenario", 4),
-            ##           (jump_to_menu, "mnu_custom_battle_2"),
-            ##
-            # ]
-            # ),
             ("go_back", [], "Go back",
              [(change_screen_quit),
               ]
              ),
         ]
     ),
-
-    # ("start_game_3",mnf_disable_all_keys,
-    ##    "Choose your scenario:",
-    # "none",
-    # [
-    ##      (assign, "$g_custom_battle_scenario", 0),
-    ##      (assign, "$g_custom_battle_scenario", "$g_custom_battle_scenario"),
-    # Default banners
-    ####      (troop_set_slot, "trp_banner_background_color_array", 126, 0xFF212221),
-    ####      (troop_set_slot, "trp_banner_background_color_array", 127, 0xFF212221),
-    ####      (troop_set_slot, "trp_banner_background_color_array", 128, 0xFF2E3B10),
-    ####      (troop_set_slot, "trp_banner_background_color_array", 129, 0xFF425D7B),
-    ####      (troop_set_slot, "trp_banner_background_color_array", 130, 0xFF394608),
-    # ],
-    # [
-    # ("custom_battle_scenario_1",[], "Skirmish 1",
-    # [
-    ####           (assign, "$g_custom_battle_scenario", 0),
-    ####           (jump_to_menu, "mnu_custom_battle_2"),
-    ####
-    # ]
-    # ),
-    # ("custom_battle_scenario_2",[],"Siege Attack 1",
-    # [
-    ######           (assign, "$g_custom_battle_scenario", 1),
-    ######           (jump_to_menu, "mnu_custom_battle_2"),
-    ######
-    # ]
-    # ),
-    # ("custom_battle_scenario_3",[],"Skirmish 2",
-    # [
-    ####           (assign, "$g_custom_battle_scenario", 1),
-    ####           (jump_to_menu, "mnu_custom_battle_2"),
-    ####
-    # ]
-    # ),
-    # ("custom_battle_scenario_4",[],"Siege Defense",
-    # [
-    ####           (assign, "$g_custom_battle_scenario", 2),
-    ####           (jump_to_menu, "mnu_custom_battle_2"),
-    # ]
-    # ),
-    # ("custom_battle_scenario_5",[],"Skirmish 3",
-    # [
-    ####           (assign, "$g_custom_battle_scenario", 3),
-    ####           (jump_to_menu, "mnu_custom_battle_2"),
-    # ]
-    # ),
-    # ("custom_battle_scenario_6",[],"Siege Attack",
-    # [
-    ####           (assign, "$g_custom_battle_scenario", 4),
-    ####           (jump_to_menu, "mnu_custom_battle_2"),
-    ####
-    # ]
-    # ),
-    # ("go_back",[],"Go back",
-    # [(change_screen_quit),
-    # ]
-    # ),
-    # ]
-    # ),
 
     (
         "tutorial", mnf_disable_all_keys,
@@ -812,241 +702,6 @@ game_menus = [
         ]
     ),
 
-    # depreciated
-    # (
-    # "custom_battle_2",mnf_disable_all_keys,
-    # "{s16}",
-    # "none",
-    # [
-    ##     (assign, "$g_battle_result", 0),
-    ##     (set_show_messages, 0),
-    ##
-    ##     (troop_clear_inventory, "trp_player"),
-    ##     (troop_raise_attribute, "trp_player", ca_strength, -1000),
-    ##     (troop_raise_attribute, "trp_player", ca_agility, -1000),
-    ##     (troop_raise_attribute, "trp_player", ca_charisma, -1000),
-    ##     (troop_raise_attribute, "trp_player", ca_intelligence, -1000),
-    ##     (troop_raise_skill, "trp_player", skl_shield, -1000),
-    ##     (troop_raise_skill, "trp_player", skl_athletics, -1000),
-    ##     (troop_raise_skill, "trp_player", skl_riding, -1000),
-    ##     (troop_raise_skill, "trp_player", skl_power_strike, -1000),
-    ##     (troop_raise_skill, "trp_player", skl_power_throw, -1000),
-    ##     (troop_raise_skill, "trp_player", skl_weapon_master, -1000),
-    ##     (troop_raise_skill, "trp_player", skl_horse_archery, -1000),
-    ##     (troop_raise_skill, "trp_player", skl_ironflesh, -1000),
-    ##     (troop_raise_proficiency_linear, "trp_player", wpt_one_handed_weapon, -10000),
-    ##     (troop_raise_proficiency_linear, "trp_player", wpt_two_handed_weapon, -10000),
-    ##     (troop_raise_proficiency_linear, "trp_player", wpt_polearm, -10000),
-    ##     (troop_raise_proficiency_linear, "trp_player", wpt_archery, -10000),
-    ##     (troop_raise_proficiency_linear, "trp_player", wpt_crossbow, -10000),
-    ##     (troop_raise_proficiency_linear, "trp_player", wpt_throwing, -10000),
-    ##
-    # (reset_visitors),
-    # Scene 1 Start "Shalow Lake War"
-    # (try_begin),
-    ##       (eq, "$g_custom_battle_scenario", 0),
-    ##       (assign, "$g_player_troop", "trp_knight_1_15"),
-    ##       (set_player_troop, "$g_player_troop"),
-    ##
-    ##       (assign, "$g_custom_battle_scene", "scn_quick_battle_1"),
-    ##       (modify_visitors_at_site, "$g_custom_battle_scene"),
-    ##       (set_visitor, 0, "$g_player_troop"),
-    ##
-    ###       (troop_add_item, "trp_player","itm_bascinet",0),
-    ###       (troop_add_item, "trp_player","itm_mail_with_surcoat",0),
-    ###       (troop_add_item, "trp_player","itm_bastard_sword_a",0),
-    ###       (troop_add_item, "trp_player","itm_war_bow",0),
-    ###       (troop_add_item, "trp_player","itm_khergit_arrows",0),
-    ###       (troop_add_item, "trp_player","itm_kite_shield",0),
-    ###       (troop_add_item, "trp_player","itm_hunter",0),
-    ###       (troop_add_item, "trp_player","itm_rus_splinted_greaves",0),
-    ###       (troop_equip_items, "trp_player"),
-    ##
-    ##       (set_visitors, 1, "trp_farmer", 13),
-    ##       (set_visitors, 2, "trp_swadian_sergeant", 5),
-    ##       (set_visitors, 3, "trp_swadian_sharpshooter", 4),
-    ##       (set_visitors, 4, "trp_swadian_man_at_arms", 8),
-    ##       (set_visitors, 5, "trp_swadian_knight", 3),
-    ##       (set_visitors, 6, "trp_peasant_woman", 7),
-    ##
-    # Enemy
-    ##       (set_visitors, 16, "trp_vaegir_infantry", 6),
-    ##       (set_visitors, 17, "trp_vaegir_archer", 6),
-    ##       (set_visitors, 18, "trp_vaegir_horseman", 4),
-    ##       (set_visitors, 19, "trp_vaegir_knight", 10),
-    ##       (set_visitors, 20, "trp_vaegir_guard", 6),
-    ##       (str_store_string, s16, "str_custom_battle_1"),
-    ##
-    # SCENE 3 Start "Mountain Bandit Hunt"
-    # (else_try),
-    ##       (eq, "$g_custom_battle_scenario", 1),
-    ##       (assign, "$g_player_troop", "trp_knight_2_5"),
-    ##       (set_player_troop, "$g_player_troop"),
-    ##
-    ##       (assign, "$g_custom_battle_scene", "scn_quick_battle_3"),
-    ##       (modify_visitors_at_site, "$g_custom_battle_scene"),
-    ##       (set_visitor, 0, "$g_player_troop"),
-    ##
-    ##       (set_visitors, 1, "trp_vaegir_archer", 4),
-    ##       (set_visitors, 2, "trp_vaegir_archer", 5),
-    ##       (set_visitors, 3, "trp_vaegir_veteran", 4),
-    ##       (set_visitors, 4, "trp_vaegir_horseman", 4),
-    ##       (set_visitors, 5, "trp_vaegir_footman", 2),
-    ##       (set_visitors, 6, "trp_vaegir_knight", 4),
-    # ENEMY
-    ##
-    ##       (set_visitors, 16, "trp_mountain_bandit", 4),
-    ##       (set_visitors, 17, "trp_bandit", 8),
-    ##       (set_visitors, 18, "trp_mountain_bandit", 8),
-    ##       (set_visitors, 19, "trp_mountain_bandit", 6),
-    ##       (set_visitors, 20, "trp_sea_raider", 5),
-    ##       (set_visitors, 21, "trp_mountain_bandit", 4),
-    ##       (set_visitors, 22, "trp_brigand", 6),
-    ##       (set_visitors, 23, "trp_sea_raider", 8),
-    ##       (set_visitors, 25, "trp_brigand", 10),
-    ##       (str_store_string, s16, "str_custom_battle_2"),
-    ##
-    # SCENE 4 Start "Grand Stand"
-    # (else_try),
-    ##       (eq, "$g_custom_battle_scenario", 2),
-    ##       (assign, "$g_player_troop", "trp_kingdom_5_lady_1"),
-    ##       (set_player_troop, "$g_player_troop"),
-    ##
-    ##       (troop_raise_attribute, "$g_player_troop", ca_strength, 12),
-    ##       (troop_raise_attribute, "$g_player_troop", ca_agility, 9),
-    ##       (troop_raise_attribute, "$g_player_troop", ca_charisma, 5),
-    ##       (troop_raise_attribute, "$g_player_troop", ca_intelligence, 5),
-    ##       (troop_raise_skill, "$g_player_troop", skl_shield, 3),
-    ##       (troop_raise_skill, "$g_player_troop", skl_athletics, 2),
-    ##       (troop_raise_skill, "$g_player_troop", skl_riding, 3),
-    ##       (troop_raise_skill, "$g_player_troop", skl_power_strike, 4),
-    ##       (troop_raise_skill, "$g_player_troop", skl_power_draw, 5),
-    ##       (troop_raise_skill, "$g_player_troop", skl_weapon_master, 4),
-    ##       (troop_raise_skill, "$g_player_troop", skl_ironflesh, 6),
-    ##       (troop_raise_proficiency_linear, "$g_player_troop", wpt_one_handed_weapon, 100),
-    ##       (troop_raise_proficiency_linear, "$g_player_troop", wpt_two_handed_weapon, 30),
-    ##       (troop_raise_proficiency_linear, "$g_player_troop", wpt_polearm, 20),
-    ##       (troop_raise_proficiency_linear, "$g_player_troop", wpt_crossbow, 110),
-    ##       (troop_raise_proficiency_linear, "$g_player_troop", wpt_throwing, 10),
-    ##
-    ##       (assign, "$g_custom_battle_scene", "scn_quick_battle_4"),
-    ##       (modify_visitors_at_site, "$g_custom_battle_scene"),
-    ##       (set_visitor, 0, "$g_player_troop"),
-    ##
-    ##       (troop_clear_inventory, "$g_player_troop"),
-    ##       (troop_add_item, "$g_player_troop","itm_helmet_with_neckguard",0),
-    ##       (troop_add_item, "$g_player_troop","itm_plate_armor",0),
-    ##       (troop_add_item, "$g_player_troop","itm_carbatinae_greaves_white",0),
-    ##       (troop_add_item, "$g_player_troop","itm_rus_splinted_greaves",0),
-    ##       (troop_add_item, "$g_player_troop","itm_tab_shield_small_round_c",0),
-    ##       (troop_add_item, "$g_player_troop","itm_heavy_crossbow",0),
-    ##       (troop_add_item, "$g_player_troop","itm_bolts",0),
-    ##       (troop_add_item, "$g_player_troop","itm_sword_medieval_b_small",0),
-    ##       (troop_equip_items, "$g_player_troop"),
-    # US
-    ##       (set_visitors, 1, "trp_vaegir_infantry", 4),
-    ##       (set_visitors, 2, "trp_vaegir_archer", 3),
-    ##       (set_visitors, 3, "trp_vaegir_infantry", 4),
-    ##       (set_visitors, 4, "trp_vaegir_archer", 3),
-    ##       (set_visitors, 5, "trp_vaegir_infantry", 3),
-    ##       (set_visitors, 6, "trp_vaegir_footman", 5),
-    ##       (set_visitors, 7, "trp_vaegir_footman", 4),
-    ##       (set_visitors, 8, "trp_vaegir_archer", 3),
-    ##
-    # ENEMY
-    ##       (set_visitors, 16, "trp_swadian_footman", 8),
-    ##       (set_visitors, 17, "trp_swadian_crossbowman", 9),
-    ##       (set_visitors, 18, "trp_swadian_sergeant", 7),
-    ##       (set_visitors, 19, "trp_swadian_sharpshooter", 8),
-    ##       (set_visitors, 20, "trp_swadian_militia", 13),
-    ##       (str_store_string, s16, "str_custom_battle_3"),
-    ##
-    # Scene 5 START
-    # (else_try),
-    ##       (eq, "$g_custom_battle_scenario", 3),
-    ##       (assign, "$g_player_troop", "trp_knight_1_10"),
-    ##       (set_player_troop, "$g_player_troop"),
-    ##
-    ##       (assign, "$g_custom_battle_scene", "scn_quick_battle_5"),
-    ##       (modify_visitors_at_site, "$g_custom_battle_scene"),
-    ##       (set_visitor, 0, "$g_player_troop"),
-    ##
-    # US
-    ##       (set_visitors, 1, "trp_swadian_knight", 3),
-    ##       (set_visitors, 2, "trp_swadian_sergeant", 4),
-    ##       (set_visitors, 3, "trp_swadian_sharpshooter", 8),
-    ##       (set_visitors, 4, "trp_swadian_man_at_arms", 8),
-    ##       (set_visitors, 5, "trp_swadian_knight", 2),
-    ##
-    # enemy
-    ##       (set_visitors, 16, "trp_vaegir_infantry", 8),
-    ##       (set_visitors, 17, "trp_vaegir_archer", 10),
-    ##       (set_visitors, 18, "trp_vaegir_horseman", 4),
-    ##       (set_visitors, 19, "trp_vaegir_knight", 10),
-    ##       (set_visitors, 20, "trp_vaegir_guard", 7),
-    ##       (str_store_string, s16, "str_custom_battle_4"),
-    ##
-    # (else_try),
-    ##       (eq, "$g_custom_battle_scenario", 4),
-    ##
-    ####       (assign, "$g_custom_battle_scene", "scn_quick_battle_6"),
-    ##       (assign, "$g_custom_battle_scene", "scn_quick_battle_7"),
-    ##
-    # Player Wear
-    ##       (assign, "$g_player_troop", "trp_knight_4_9"),
-    ##       (set_player_troop, "$g_player_troop"),
-    ##
-    ##       (modify_visitors_at_site, "$g_custom_battle_scene"),
-    ##       (set_visitor, 0, "$g_player_troop"),
-    ##
-    ##       (set_visitors, 1, "trp_nord_archer", 4),
-    ##       (set_visitors, 2, "trp_nord_archer", 4),
-    ##       (set_visitors, 3, "trp_nord_champion", 4),
-    ##       (set_visitors, 4, "trp_nord_veteran", 5),
-    ##       (set_visitors, 5, "trp_nord_warrior", 5),
-    ##       (set_visitors, 6, "trp_nord_trained_footman", 8),
-    ##
-    # ENEMY
-    ##       (set_visitors, 11, "trp_vaegir_knight", 2),
-    ##       (set_visitors, 12, "trp_vaegir_guard", 6),
-    ##       (set_visitors, 13, "trp_vaegir_infantry", 8),
-    ##       (set_visitors, 14, "trp_vaegir_veteran", 10),
-    ##       (set_visitors, 16, "trp_vaegir_skirmisher", 5),
-    ##       (set_visitors, 17, "trp_vaegir_archer", 4),
-    ##       (set_visitors, 18, "trp_vaegir_marksman", 2),
-    ##       (set_visitors, 19, "trp_vaegir_skirmisher", 4),
-    ##       (set_visitors, 20, "trp_vaegir_skirmisher", 3),
-    ##       (set_visitors, 21, "trp_vaegir_skirmisher", 3),
-    ##       (set_visitors, 22, "trp_vaegir_skirmisher", 3),
-    ##       (set_visitors, 23, "trp_vaegir_archer", 2),
-    ##       (str_store_string, s16, "str_custom_battle_5"),
-    # (try_end),
-    ##     (set_show_messages, 1),
-    # ],
-    ##
-    # [
-    # ("custom_battle_go",[],"Start.",
-    # [(try_begin),
-    ##          (eq, "$g_custom_battle_scenario", 2),
-    # (set_jump_mission,"mt_custom_battle_siege"),
-    # (else_try),
-    ##          (eq, "$g_custom_battle_scenario", 4),
-    # (set_jump_mission,"mt_custom_battle_5"),
-    # (else_try),
-    # (set_jump_mission,"mt_custom_battle"),
-    # (try_end),
-    ##        (jump_to_menu, "mnu_custom_battle_end"),
-    # (jump_to_scene,"$g_custom_battle_scene"),
-    # (change_screen_mission),
-    # ]
-    # ),
-    # ("leave_custom_battle_2",[],"Cancel.",
-    # [(jump_to_menu, "mnu_start_game_3"),
-    # ]
-    # ),
-    # ]
-    # ),
-
     # dunde cambia custom battles chief. Dunde eres un crack.
     (
         "custom_battle_end", mnf_disable_all_keys,
@@ -1138,38 +793,7 @@ game_menus = [
             # Dunde's Restart Custom Battle END
         ]
     ),
-
-
-    # (
-    # "custom_battle_end",mnf_disable_all_keys,
-    ##    "The battle is over. {s1} Your side killed {reg5} enemies and lost {reg6} troops over the battle. You personally slew {reg7} men in the fighting.",
-    # "none",
-    # [(music_set_situation, 0),
-    ##     (assign, reg5, "$g_custom_battle_team2_death_count"),
-    ##     (assign, reg6, "$g_custom_battle_team1_death_count"),
-    ##     (get_player_agent_kill_count, ":kill_count"),
-    ##     (get_player_agent_kill_count, ":wound_count", 1),
-    ##     (store_add, reg7, ":kill_count", ":wound_count"),
-    # (try_begin),
-    ##       (eq, "$g_battle_result", 1),
-    ##       (str_store_string, s1, "str_battle_won"),
-    # (else_try),
-    ##       (str_store_string, s1, "str_battle_lost"),
-    # (try_end),
-    # (try_begin),
-    ##       (ge, "$g_custom_battle_team2_death_count", 100),
-    ##       (unlock_achievement, ACHIEVEMENT_LOOK_AT_THE_BONES),
-    # (try_end),
-    # ],
-    # [
-    # ("continue",[],"Continue.",
-    # [(change_screen_quit),
-    # ]
-    # ),
-    # ]
-    # ),
-    # dunde chief cambia acaba.
-
+    
     # chief nueva creacion pj
     # This needs to be the first window!!! dunde
     (
@@ -1356,60 +980,6 @@ game_menus = [
                 (jump_to_menu, "mnu_start_character_3"),
             ]),
 
-            # ("mummer",[],"Mummer.",[
-            # (assign,"$background_answer_2",5),
-            ##      (assign, reg3, "$character_gender"),
-            # (str_store_string,s13,"@{reg3?woman:man}"),
-            # (str_store_string,s12,"@{reg3?girl:boy}"),
-            # (str_store_string,s11,"@As a {s12} growing out of childhood,\
-            # you attached yourself to a troupe of wandering entertainers, going from town to town setting up mummer's\
-            # shows. It was a life of hard work, selling, begging and stealing your living from the punters who flocked\
-            # to watch your antics. Over time you became a performer well capable of attracting a crowd."),
-            # (jump_to_menu,"mnu_start_character_3"),
-            # ]),
-            # ("courtier",[],"Courtier.",[
-            # (assign,"$background_answer_2",6),
-            ##      (assign, reg3, "$character_gender"),
-            # (str_store_string,s13,"@{reg3?woman:man}"),
-            # (str_store_string,s12,"@{reg3?girl:boy}"),
-            # (str_store_string,s11,"@As a {s12} growing out of childhood,\
-            # you spent much of your life at court, inserting yourself into the tightly-knit circles of nobility.\
-            # With the years you became more and more involved with the politics and intrigue demanded of a high-born {s13}.\
-            # You could not afford to remain a stranger to backstabbing and political violence, even if you wanted to."),
-            # (jump_to_menu,"mnu_start_character_3"),
-            # ]),
-            # ("noble",[],"Noble in training.",[
-            # (assign,"$background_answer_2",7),
-            ##      (assign, reg3, "$character_gender"),
-            # (str_store_string,s13,"@{reg3?woman:man}"),
-            # (str_store_string,s12,"@{reg3?girl:boy}"),
-            # (try_begin),
-            # (eq,"$character_gender",tf_male),
-            # (str_store_string,s11,"@As a {s12} growing out of childhood,\
-            # you were trained and educated to perform the duties and wield the rights of a noble landowner.\
-            # The managing of taxes and rents were equally important in your education as diplomacy and even\
-            # personal defence. You learned everything you needed to become a lord of your own hall."),
-            # (else_try),
-            # (str_store_string,s11,"@As a {s12} growing out of childhood,\
-            # you were trained and educated to the duties of a noble {s13}. You learned much about the household arts,\
-            # but even more about diplomacy and decorum, and all the things that a future husband might choose to speak of.\
-            # Truly, you became every inch as shrewd as any lord, though it would be rude to admit it aloud."),
-            # (try_end),
-            # (jump_to_menu,"mnu_start_character_3"),
-            # ]),
-            # ("acolyte",[],"Cleric acolyte.",[
-            # (assign,"$background_answer_2",8),
-            ##      (assign, reg3, "$character_gender"),
-            # (str_store_string,s13,"@{reg3?woman:man}"),
-            # (str_store_string,s12,"@{reg3?girl:boy}"),
-            # (str_store_string,s11,"@As a {s12} growing out of childhood,\
-            # you became an acolyte in the church, the lowest rank on the way to priesthood.\
-            # Years of rigorous learning and hard work followed. You were one of several acolytes,\
-            # performing most of the menial labour in the church in addition to being trained for more holy tasks.\
-            # On the night of your adulthood you were allowed to conduct your first service.\
-            # After that you were no longer an acolyte {s12}, but a {s13} waiting to take your vows into the service of God."),
-            # (jump_to_menu,"mnu_start_character_3"),
-            # ]),
             ("go_back", [], "Go back.",
              [(jump_to_menu, "mnu_start_character_1"),
               ]),
@@ -1421,30 +991,6 @@ game_menus = [
         "none",
         [(assign, reg3, "$character_gender"), ],
         [
-            # ("bravo",[],"A travelling bravo.",[
-            # (assign,"$background_answer_3",1),
-            # (str_store_string,s14,"@{reg3?daughter:man}"),
-            # (str_store_string,s13,"@{reg3?woman:man}"),
-            # (str_store_string,s12,"@Though the distinction felt sudden to you,\
-            # somewhere along the way you had become a {s13}, and the whole world seemed to change around you.\
-            # You left your old life behind to travel the roads as a mercenary, a bravo, guarding caravans for coppers\
-            # or bashing in heads for silvers. You became a {s14} of the open road, working with bandits as often as against.\
-            # Going from fight to fight, you grew experienced at battle, and you learned what it was to kill."),
-            # (jump_to_menu,"mnu_start_character_4"),
-            # ]),
-            # ("merc",[],"A sellsword in foreign lands.",[
-            # (assign,"$background_answer_3",2),
-            # (str_store_string,s14,"@{reg3?daughter:man}"),
-            # (str_store_string,s13,"@{reg3?woman:man}"),
-            # (str_store_string,s12,"@Though the distinction felt sudden to you,\
-            # somewhere along the way you had become a {s13}, and the whole world seemed to change around you.\
-            # You signed on with a mercenary company and travelled far from your home. The life you found was rough and\
-            # ready, marching to the beat of strange drums and learning unusual ways of fighting.\
-            # There were men who taught you how to wield any weapon you desired, and plenty of battles to hone your skills.\
-            # You were one of the charmed few who survived through every campaign in which you marched."),
-            # (jump_to_menu,"mnu_start_character_4"),
-            # ]),
-
             ("squire", [(eq, "$character_gender", tf_male)], "A squire.", [
                 (assign, "$background_answer_3", cb3_squire),
                 (str_store_string, s14, "@{reg3?daughter:man}"),
@@ -1531,19 +1077,7 @@ game_menus = [
  firewood that warmed many freezing homes during winter. All for a few silvers, of course."),
                 (jump_to_menu, "mnu_start_character_4"),
             ]),
-            # ("preacher",[],"Itinerant preacher.",[
-            # (assign,"$background_answer_3",6),
-            # (str_store_string,s14,"@{reg3?daughter:man}"),
-            # (str_store_string,s13,"@{reg3?woman:man}"),
-            # (str_store_string,s12,"@Though the distinction felt sudden to you,\
-            # somewhere along the way you had become a {s13}, and the whole world seemed to change around you.\
-            # You packed your few belongings and went out into the world to spread the word of God. You preached to\
-            # anyone who would listen, and impressed many with the passion of your sermons. Though you had taken a vow\
-            # to remain in poverty through your itinerant years, you never lacked for food, drink or shelter; the\
-            # hospitality of the peasantry was always generous to a rising {s13} of God."),
-            # (jump_to_menu,"mnu_start_character_4"),
-            # ]),
-            ("go_back", [], "Go back.",
+           ("go_back", [], "Go back.",
              [(jump_to_menu, "mnu_start_character_2"),
               ]
              ),
@@ -1650,21 +1184,6 @@ game_menus = [
             (try_end),
          ],
         [
-            # ("start_swordsman",[],"Swordsmanship.",[
-            ##        (assign, "$starting_skill", 1),
-            ##        (str_store_string, s14, "@You are particularly talented at swordsmanship."),
-            # (jump_to_menu,"mnu_past_life_explanation"),
-            # ]),
-            # ("start_archer",[],"Archery.",[
-            ##        (assign, "$starting_skill", 2),
-            ##        (str_store_string, s14, "@You are particularly talented at archery."),
-            # (jump_to_menu,"mnu_past_life_explanation"),
-            # ]),
-            # ("start_medicine",[],"Medicine.",[
-            ##        (assign, "$starting_skill", 3),
-            ##        (str_store_string, s14, "@You are particularly talented at medicine."),
-            # (jump_to_menu,"mnu_past_life_explanation"),
-            # ]),
             ("begin_adventuring", [], "Become an adventurer and ride to your destiny.", [
                 (set_show_messages, 0),
                 (try_begin),
@@ -1682,29 +1201,6 @@ game_menus = [
 
                 (troop_raise_skill, "trp_player", "skl_leadership", 1),
                 (troop_raise_skill, "trp_player", "skl_riding", 1),
-                # (try_begin),
-                ##             (eq, "$starting_skill", 1),
-                ##             (troop_raise_attribute, "trp_player",ca_agility,1),
-                ##             (troop_raise_attribute, "trp_player",ca_strength,1),
-                ##             (troop_raise_skill, "trp_player",skl_power_strike,2),
-                ##             (troop_raise_proficiency, "trp_player",0,30),
-                ##             (troop_raise_proficiency, "trp_player",1,20),
-                # (else_try),
-                ##             (eq, "$starting_skill", 2),
-                ##             (troop_raise_attribute, "trp_player",ca_strength,2),
-                ##             (troop_raise_skill, "trp_player",skl_power_draw,2),
-                ##             (troop_raise_proficiency, "trp_player",3,50),
-                # (else_try),
-                ##             (troop_raise_attribute, "trp_player",ca_intelligence,1),
-                ##             (troop_raise_attribute, "trp_player",ca_charisma,1),
-                ##             (troop_raise_skill, "trp_player",skl_first_aid,1),
-                ##             (troop_raise_skill, "trp_player",skl_wound_treatment,1),
-                ##             (troop_add_item, "trp_player","itm_winged_mace",0),
-                ##             (troop_raise_proficiency, "trp_player",0,15),
-                ##             (troop_raise_proficiency, "trp_player",1,15),
-                ##             (troop_raise_proficiency, "trp_player",2,15),
-                # (try_end),
-
 
                 (try_begin),
                 (eq, "$background_type", cb_noble),
@@ -1723,15 +1219,8 @@ game_menus = [
                 (troop_add_item, "trp_player", "itm_tab_shield_round_a", imod_battered),
                 (troop_set_slot, "trp_player", slot_troop_renown, 100),
                 (call_script, "script_change_player_honor", 3),
-
-
-                ##        (troop_add_item, "trp_player","itm_bishop_robe",imod_plain),
-                ##        (troop_add_item, "trp_player","itm_sword",imod_plain),
-                ##        (troop_add_item, "trp_player","itm_dagger",imod_balanced),
-                ##        (troop_add_item, "trp_player","itm_woolen_hose",0),
-                ##        (troop_add_item, "trp_player","itm_dried_meat",0),
-                ##        (troop_add_item, "trp_player","itm_saddle_horse",imod_plain),
                 (troop_add_gold, "trp_player", 100),
+
                 (else_try),
                 (eq, "$background_type", cb_noble),
                 (eq, "$character_gender", tf_female),
@@ -1745,15 +1234,8 @@ game_menus = [
 
                 (troop_set_slot, "trp_player", slot_troop_renown, 50),
                 (troop_add_item, "trp_player", "itm_tab_shield_round_a", imod_battered),
-
-                ##        (troop_add_item, "trp_player","itm_dress",imod_sturdy),
-                ##        (troop_add_item, "trp_player","itm_dagger",imod_watered_steel),
-                ##        (troop_add_item, "trp_player","itm_woolen_hose",0),
-                ##        (troop_add_item, "trp_player","itm_hunting_crossbow",0),
-                ##        (troop_add_item, "trp_player","itm_bolts",0),
-                ##        (troop_add_item, "trp_player","itm_smoked_fish",0),
-                ##        (troop_add_item, "trp_player","itm_courser",imod_spirited),
                 (troop_add_gold, "trp_player", 100),
+
                 (else_try),
                 (eq, "$background_type", cb_merchant),
                 (troop_raise_attribute, "trp_player", ca_intelligence, 2),
@@ -1763,24 +1245,9 @@ game_menus = [
                 (troop_raise_skill, "trp_player", skl_trade, 2),
                 (troop_raise_skill, "trp_player", skl_inventory_management, 1),
                 (troop_raise_proficiency, "trp_player", wpt_two_handed_weapon, 10),
-
-                ##        (troop_add_item, "trp_player","itm_leather_jacket",0),
-                ##        (troop_add_item, "trp_player","itm_rich_greaves_red",0),
-                ##        (troop_add_item, "trp_player","itm_fur_hat",0),
-                ##        (troop_add_item, "trp_player","itm_dagger",0),
-                ##        (troop_add_item, "trp_player","itm_hunting_crossbow",0),
-                ##        (troop_add_item, "trp_player","itm_bolts",0),
-                ##        (troop_add_item, "trp_player","itm_smoked_fish",0),
-                ##        (troop_add_item, "trp_player","itm_saddle_horse",0),
-                ##        (troop_add_item, "trp_player","itm_sumpter_horse",0),
-                ##        (troop_add_item, "trp_player","itm_salt",0),
-                ##        (troop_add_item, "trp_player","itm_salt",0),
-                ##        (troop_add_item, "trp_player","itm_salt",0),
-                ##        (troop_add_item, "trp_player","itm_pottery",0),
-                ##        (troop_add_item, "trp_player","itm_pottery",0),
-
                 (troop_add_gold, "trp_player", 250),
                 (troop_set_slot, "trp_player", slot_troop_renown, 20),
+                
                 (else_try),
                 (eq, "$background_type", cb_guard),
                 (troop_raise_attribute, "trp_player", ca_strength, 1),
@@ -1796,20 +1263,9 @@ game_menus = [
                 (troop_raise_proficiency, "trp_player", wpt_polearm, 20),
                 (troop_raise_proficiency, "trp_player", wpt_throwing, 10),
                 (troop_add_item, "trp_player", "itm_tab_shield_kite_b", imod_battered),
-
-                ##        (troop_add_item, "trp_player","itm_leather_jerkin",imod_ragged),
-                ##        (troop_add_item, "trp_player","itm_skullcap",imod_rusty),
-                ##        (troop_add_item, "trp_player","itm_spear",0),
-                ##        (troop_add_item, "trp_player","itm_arming_sword",imod_chipped),
-                ##        (troop_add_item, "trp_player","itm_hunting_crossbow",0),
-                ##        (troop_add_item, "trp_player","itm_hunter_boots",0),
-                ##        (troop_add_item, "trp_player","itm_leather_gloves",imod_ragged),
-                ##        (troop_add_item, "trp_player","itm_bolts",0),
-                ##        (troop_add_item, "trp_player","itm_smoked_fish",0),
-
-                ##        (troop_add_item, "trp_player","itm_saddle_horse",imod_swaybacked),
                 (troop_add_gold, "trp_player", 50),
                 (troop_set_slot, "trp_player", slot_troop_renown, 10),
+
                 (else_try),
                 (eq, "$background_type", cb_forester),
                 (troop_raise_attribute, "trp_player", ca_strength, 1),
@@ -1821,15 +1277,8 @@ game_menus = [
                 (troop_raise_skill, "trp_player", "skl_athletics", 1),
                 (troop_raise_proficiency, "trp_player", wpt_two_handed_weapon, 10),
                 (troop_raise_proficiency, "trp_player", wpt_archery, 30),
-                ##        (troop_add_item, "trp_player","itm_short_bow",imod_bent),
-                ##        (troop_add_item, "trp_player","itm_arrows",0),
-                ##        (troop_add_item, "trp_player","itm_axe",imod_chipped),
-                ##        (troop_add_item, "trp_player","itm_leather_vest_green",0),
-                ##        (troop_add_item, "trp_player","itm_hide_boots",0),
-                ##        (troop_add_item, "trp_player","itm_dried_meat",0),
-                ##        (troop_add_item, "trp_player","itm_sumpter_horse",imod_heavy),
-                ##        (troop_add_item, "trp_player","itm_furs",0),
                 (troop_add_gold, "trp_player", 30),
+
                 (else_try),
                 (eq, "$background_type", cb_nomad),
                 (eq, "$character_gender", tf_male),
@@ -1844,14 +1293,9 @@ game_menus = [
                 (troop_raise_proficiency, "trp_player", wpt_archery, 30),
                 (troop_raise_proficiency, "trp_player", wpt_throwing, 10),
                 (troop_add_item, "trp_player", "itm_tab_shield_small_round_a", imod_battered),
-                ##        (troop_add_item, "trp_player","itm_javelin",imod_bent),
-                ##        (troop_add_item, "trp_player","itm_sword_khergit_1",imod_rusty),
-                ##        (troop_add_item, "trp_player","itm_nomad_armor",0),
-                ##        (troop_add_item, "trp_player","itm_hide_boots",0),
-                ##        (troop_add_item, "trp_player","itm_horse_meat",0),
-                ##        (troop_add_item, "trp_player","itm_steppe_horse",0),
                 (troop_add_gold, "trp_player", 15),
                 (troop_set_slot, "trp_player", slot_troop_renown, 10),
+
                 (else_try),
                 (eq, "$background_type", cb_nomad),
                 (eq, "$character_gender", tf_female),
@@ -1866,13 +1310,8 @@ game_menus = [
                 (troop_raise_proficiency, "trp_player", wpt_archery, 20),
                 (troop_raise_proficiency, "trp_player", wpt_throwing, 5),
                 (troop_add_item, "trp_player", "itm_tab_shield_small_round_a", imod_battered),
-                ##        (troop_add_item, "trp_player","itm_javelin",imod_bent),
-                ##        (troop_add_item, "trp_player","itm_sickle",imod_plain),
-                ##        (troop_add_item, "trp_player","itm_nomad_armor",0),
-                ##        (troop_add_item, "trp_player","itm_hide_boots",0),
-                ##        (troop_add_item, "trp_player","itm_steppe_horse",0),
-                ##        (troop_add_item, "trp_player","itm_grain",0),
                 (troop_add_gold, "trp_player", 20),
+
                 (else_try),
                 (eq, "$background_type", cb_thief),
                 (troop_raise_attribute, "trp_player", ca_agility, 3),
@@ -1883,29 +1322,7 @@ game_menus = [
                 (troop_raise_proficiency, "trp_player", wpt_one_handed_weapon, 20),
                 (troop_raise_proficiency, "trp_player", wpt_throwing, 20),
                 (troop_add_item, "trp_player", "itm_throwing_knives", 0),
-                ##        (troop_add_item, "trp_player","itm_stones",0),
-                ##        (troop_add_item, "trp_player","itm_cudgel",imod_plain),
-                ##        (troop_add_item, "trp_player","itm_dagger",imod_rusty),
-                ##        (troop_add_item, "trp_player","itm_shirt",imod_tattered),
-                ##        (troop_add_item, "trp_player","itm_black_hood",imod_tattered),
-                ##        (troop_add_item, "trp_player","itm_wrapping_boots",imod_ragged),
                 (troop_add_gold, "trp_player", 25),
-                # (else_try),
-                # (eq,"$background_type",cb_priest),
-                ##        (troop_raise_attribute, "trp_player",ca_strength,1),
-                ##        (troop_raise_attribute, "trp_player",ca_intelligence,2),
-                ##        (troop_raise_attribute, "trp_player",ca_charisma,1),
-                ##        (troop_raise_skill, "trp_player",skl_wound_treatment,1),
-                ##        (troop_raise_skill, "trp_player",skl_leadership,1),
-                ##        (troop_raise_skill, "trp_player",skl_prisoner_management,1),
-                ##        (troop_raise_proficiency, "trp_player",0,10),
-                ##        (troop_add_item, "trp_player","itm_cloth_robe_grey",0),
-                ##        (troop_add_item, "trp_player","itm_wrapping_boots",0),
-                ##        (troop_add_item, "trp_player","itm_club",0),
-                ##        (troop_add_item, "trp_player","itm_smoked_fish",0),
-                ##        (troop_add_item, "trp_player","itm_sumpter_horse",0),
-                ##        (troop_add_gold, "trp_player", 10),
-                ##        (troop_set_slot, "trp_player", slot_troop_renown, 10),
                 (try_end),
 
                 (try_begin),
@@ -1944,82 +1361,9 @@ game_menus = [
                 (troop_raise_attribute, "trp_player", ca_charisma, 1),
                 (troop_raise_skill, "trp_player", "skl_inventory_management", 1),
                 (troop_raise_skill, "trp_player", "skl_trade", 1),
-                # (else_try),
-                # (eq,"$background_answer_2",5),
-                ##        (troop_raise_attribute, "trp_player",ca_intelligence,1),
-                ##        (troop_raise_attribute, "trp_player",ca_charisma,1),
-                ##        (troop_raise_skill, "trp_player",skl_leadership,1),
-                ##        (troop_raise_skill, "trp_player",skl_athletics,1),
-                ##        (troop_raise_skill, "trp_player",skl_riding,1),
-                ##        (troop_raise_proficiency, "trp_player",1,5),
-                ##        (troop_raise_proficiency, "trp_player",2,5),
-                ##        (call_script,"script_change_troop_renown", "trp_player", 15),
-                # (else_try),
-                # (eq,"$background_answer_2",6),
-                ##        (troop_raise_attribute, "trp_player",ca_charisma,3),
-                ##        (troop_raise_attribute, "trp_player",ca_agility,1),
-                ##        (troop_raise_skill, "trp_player",skl_weapon_master,1),
-                ##        (troop_raise_proficiency, "trp_player",0,15),
-                ##        (troop_raise_proficiency, "trp_player",2,10),
-                ##        (troop_raise_proficiency, "trp_player",4,10),
-                ##        (call_script,"script_change_troop_renown", "trp_player", 20),
-                # (else_try),
-                # (eq,"$background_answer_2",7),
-                ##        (troop_raise_attribute, "trp_player",ca_intelligence,1),
-                ##        (troop_raise_attribute, "trp_player",ca_charisma,2),
-                ##        (troop_raise_skill, "trp_player",skl_leadership,1),
-                ##        (troop_raise_skill, "trp_player",skl_tactics,1),
-                ##        (troop_raise_proficiency, "trp_player",0,10),
-                ##        (troop_raise_proficiency, "trp_player",1,10),
-                ##        (call_script,"script_change_troop_renown", "trp_player", 15),
-                # (else_try),
-                # (eq,"$background_answer_2",8),
-                ##        (troop_raise_attribute, "trp_player",ca_agility,1),
-                ##        (troop_raise_attribute, "trp_player",ca_intelligence,1),
-                ##        (troop_raise_attribute, "trp_player",ca_charisma,1),
-                ##        (troop_raise_skill, "trp_player",skl_leadership,1),
-                ##        (troop_raise_skill, "trp_player",skl_surgery,1),
-                ##        (troop_raise_skill, "trp_player",skl_first_aid,1),
-                ##        (troop_raise_proficiency, "trp_player",2,10),
-                ##        (call_script,"script_change_troop_renown", "trp_player", 5),
                 (try_end),
 
                 (try_begin),
-                # (eq,"$background_answer_3",1),
-                ##        (troop_raise_attribute, "trp_player",ca_strength,1),
-                ##        (troop_raise_skill, "trp_player",skl_power_strike,1),
-                ##        (troop_raise_skill, "trp_player",skl_shield,1),
-                ##        (troop_add_gold, "trp_player", 10),
-                # (try_begin),
-                # (this_or_next|player_has_item,"itm_sword"),
-                # (troop_has_item_equipped,"trp_player","itm_sword"),
-                ##        (troop_remove_item, "trp_player","itm_sword"),
-                # (try_end),
-                # (try_begin),
-                # (this_or_next|player_has_item,"itm_arming_sword"),
-                # (troop_has_item_equipped,"trp_player","itm_arming_sword"),
-                ##        (troop_remove_item, "trp_player","itm_arming_sword"),
-                # (try_end),
-                ##        (troop_add_item, "trp_player","itm_short_sword",0),
-                ##        (troop_add_item, "trp_player","itm_wooden_shield",imod_battered),
-                ##        (troop_raise_proficiency, "trp_player",0,10),
-                ##        (troop_raise_proficiency, "trp_player",4,10),
-                # (else_try),
-                # (eq,"$background_answer_3",2),
-                ##        (troop_raise_attribute, "trp_player",ca_agility,1),
-                ##        (troop_raise_skill, "trp_player",skl_weapon_master,1),
-                ##        (troop_raise_skill, "trp_player",skl_shield,1),
-                # (try_begin),
-                # (this_or_next|player_has_item,"itm_hide_boots"),
-                # (troop_has_item_equipped,"trp_player","itm_hide_boots"),
-                ##        (troop_remove_item, "trp_player","itm_hide_boots"),
-                # (try_end),
-                ##        (troop_add_item, "trp_player","itm_khergit_guard_helmet",imod_crude),
-                ##        (troop_add_item, "trp_player","itm_rus_splinted_greaves",imod_crude),
-                ##        (troop_add_item, "trp_player","itm_sword_khergit_1",imod_plain),
-                ##        (troop_add_gold, "trp_player", 20),
-                ##        (troop_raise_proficiency, "trp_player",2,20),
-                # (else_try),
                 (eq, "$background_answer_3", cb3_poacher),
                 (troop_raise_attribute, "trp_player", ca_strength, 1),
                 (troop_raise_attribute, "trp_player", ca_agility, 1),
@@ -2092,19 +1436,6 @@ game_menus = [
                 (troop_add_item, "trp_player", "itm_wool", 0),
                 (troop_add_item, "trp_player", "itm_wool", 0),
                 (troop_add_item, "trp_player", "itm_smoked_fish", 0),
-                # (else_try),
-                # (eq,"$background_answer_3",6),
-                ##        (troop_raise_attribute, "trp_player",ca_strength,1),
-                ##        (troop_raise_attribute, "trp_player",ca_charisma,1),
-                ##        (troop_raise_skill, "trp_player",skl_shield,1),
-                ##        (troop_raise_skill, "trp_player",skl_wound_treatment,1),
-                ##        (troop_raise_skill, "trp_player",skl_first_aid,1),
-                ##        (troop_raise_skill, "trp_player",skl_surgery,1),
-                ##        (troop_add_item, "trp_player","itm_leather_gloves",imod_ragged),
-                ##        (troop_add_item, "trp_player","itm_quarter_staff",imod_heavy),
-                ##        (troop_add_item, "trp_player","itm_black_hood",0),
-                ##        (troop_add_gold, "trp_player", 10),
-                ##        (troop_raise_proficiency, "trp_player",2,20),
                 (else_try),
                 (eq, "$background_answer_3", cb3_troubadour),
                 (troop_raise_attribute, "trp_player", ca_charisma, 2),
@@ -2206,11 +1537,6 @@ game_menus = [
                 (eq, "$background_answer_4", cb4_wanderlust),
                 (troop_raise_attribute, "trp_player", ca_agility, 2),
                 (troop_raise_skill, "trp_player", "skl_pathfinding", 1),
-                # (else_try),
-                # (eq,"$background_answer_4",4),
-                ##        (troop_raise_attribute, "trp_player",ca_charisma,1),
-                ##        (troop_raise_skill, "trp_player",skl_wound_treatment,1),
-                ##        (troop_raise_proficiency, "trp_player",5,10),
                 (else_try),
                 (eq, "$background_answer_4", cb4_disown),
                 (troop_raise_attribute, "trp_player", ca_strength, 1),
@@ -2281,82 +1607,6 @@ game_menus = [
         [
         ]
     ),
-    # native morale report chief puesto off para anadir debajo el de motomataru
-    # ("morale_report",0,
-    # "{s1}",
-    # "none",
-    # [
-    ##     (call_script, "script_get_player_party_morale_values"),
-    ##
-    ##     (assign, ":target_morale", reg0),
-    ##     (assign, reg1, "$g_player_party_morale_modifier_party_size"),
-    # (try_begin),
-    ##       (gt, reg1, 0),
-    ##       (str_store_string, s2, "@{!} -"),
-    # (else_try),
-    ##       (str_store_string, s2, "str_space"),
-    # (try_end),
-    ##
-    ##     (assign, reg2, "$g_player_party_morale_modifier_leadership"),
-    # (try_begin),
-    ##       (gt, reg2, 0),
-    ##       (str_store_string, s3, "@{!} +"),
-    # (else_try),
-    ##       (str_store_string, s3, "str_space"),
-    # (try_end),
-    ##
-    # (try_begin),
-    ##       (gt, "$g_player_party_morale_modifier_no_food", 0),
-    ##       (assign, reg7, "$g_player_party_morale_modifier_no_food"),
-    ##       (str_store_string, s5, "@^No food:  -{reg7}"),
-    # (else_try),
-    ##       (str_store_string, s5, "str_space"),
-    # (try_end),
-    ##     (assign, reg3, "$g_player_party_morale_modifier_food"),
-    # (try_begin),
-    ##       (gt, reg3, 0),
-    ##       (str_store_string, s4, "@{!} +"),
-    # (else_try),
-    ##       (str_store_string, s4, "str_space"),
-    # (try_end),
-    ##
-    # (try_begin),
-    ##       (gt, "$g_player_party_morale_modifier_debt", 0),
-    ##       (assign, reg6, "$g_player_party_morale_modifier_debt"),
-    ##       (str_store_string, s6, "@^Wage debt:  -{reg6}"),
-    # (else_try),
-    ##       (str_store_string, s6, "str_space"),
-    # (try_end),
-    ##
-    ##     (party_get_morale, reg5, "p_main_party"),
-    ##     (store_sub, reg4, reg5, ":target_morale"),
-    # (try_begin),
-    ##       (gt, reg4, 0),
-    ##       (str_store_string, s7, "@{!} +"),
-    # (else_try),
-    ##       (str_store_string, s7, "str_space"),
-    # (try_end),
-    ##
-    ##     (assign, reg6, 50),
-    ##
-    ##     (str_store_string, s1, "str_current_party_morale_is_reg5_current_party_morale_modifiers_are__base_morale__50_party_size_s2reg1_leadership_s3reg2_food_variety_s4reg3s5s6_recent_events_s7reg4_total__reg5___"),
-    ##
-    ##     (try_for_range, ":kingdom_no", npc_kingdoms_begin, npc_kingdoms_end),
-    ##       (faction_get_slot, ":faction_morale", ":kingdom_no",  slot_faction_morale_of_player_troops),
-    ##       (val_div, ":faction_morale", 100),
-    ##       (neq, ":faction_morale", 0),
-    ##       (assign, reg6, ":faction_morale"),
-    ##       (str_store_faction_name, s9, ":kingdom_no"),
-    ##       (str_store_string, s1, "str_s1extra_morale_for_s9_troops__reg6_"),
-    # (try_end),
-    # ],
-    # [
-    # ("continue",[],"Continue...",
-    # [
-    ##        (jump_to_menu, "mnu_reports"),
-    # ]),
-    # ]
-    # ),
 
     ("morale_report", 0,  # modified motomataru chief
      "{s1}",
@@ -2375,14 +1625,6 @@ game_menus = [
          (str_store_string, s2, "str_space"),
          (try_end),
          (val_sub, ":sum_modifiers", reg1),
-
-         # (assign, reg2, "$g_player_party_morale_modifier_leadership"),    included in party size modifier now
-         # (try_begin),
-         # (gt, reg2, 0),
-         # (str_store_string, s3, "@{!} +"),
-         # (else_try),
-         # (str_store_string, s3, "str_space"),
-         # (try_end),
 
          (assign, reg2, "$g_player_party_morale_modifier_weariness"),
          (try_begin),
@@ -3246,50 +2488,6 @@ game_menus = [
 
         ]
      ),
-    # native party size chief
-    # ("party_size_report",0,
-    # "{s1}",
-    # "none",
-    # [(call_script, "script_game_get_party_companion_limit"),
-    ##    (assign, ":party_size_limit", reg0),
-    ##
-    ##    (store_skill_level, ":leadership", "skl_leadership", "trp_player"),
-    ##    (val_mul, ":leadership", 5),
-    ##    (store_attribute_level, ":charisma", "trp_player", ca_charisma),
-    ##
-    ##    (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
-    ##    (val_div, ":renown", 25),
-    # (try_begin),
-    ##      (gt, ":leadership", 0),
-    ##      (str_store_string, s2, "@{!} +"),
-    # (else_try),
-    ##      (str_store_string, s2, "str_space"),
-    # (try_end),
-    # (try_begin),
-    ##      (gt, ":charisma", 0),
-    ##      (str_store_string, s3, "@{!} +"),
-    # (else_try),
-    ##      (str_store_string, s3, "str_space"),
-    # (try_end),
-    # (try_begin),
-    ##      (gt, ":renown", 0),
-    ##      (str_store_string, s4, "@{!} +"),
-    # (else_try),
-    ##      (str_store_string, s4, "str_space"),
-    # (try_end),
-    ##    (assign, reg5, ":party_size_limit"),
-    ##    (assign, reg1, ":leadership"),
-    ##    (assign, reg2, ":charisma"),
-    ##    (assign, reg3, ":renown"),
-    ##    (str_store_string, s1, "@Current party size limit is {reg5}.^Current party size modifiers are:^^Base size:  +30^Leadership: {s2}{reg1}^Charisma: {s3}{reg2}^Renown: {s4}{reg3}^TOTAL:  {reg5}"),
-    # ],
-    # [
-    # ("continue",[],"Continue...",
-    # [(jump_to_menu, "mnu_reports"),
-    # ]
-    # ),
-    # ]
-    # ),
 
     # modificacion party size por motomataru
     ("party_size_report", 0, "{s1}", "none", [  # motomataru update 9/29/10 to use same numbers as the function that generates it
@@ -3501,29 +2699,6 @@ game_menus = [
                  (try_end),
              ]
              ),
-            # heridas acaba
-            # navegar solo chief
-            # ("navegar_solo",[(eq, "$g_player_icon_state", pis_ship),],"Explore the ocean.",
-            # [   				(assign, ":scene_to_use", "scn_sea_2"),
-            ##
-            ##		(modify_visitors_at_site, ":scene_to_use"),
-            # (reset_visitors),
-            ###        (assign, "$talk_context", tc_camp),
-            # (assign,":count",30),
-            # (try_for_range,":current_npc",companions_begin,companions_end),
-            # (try_begin),
-            # (main_party_has_troop,":current_npc"),
-            # (set_visitor,":count",":current_npc"),
-            # (try_end),
-            # (val_add,":count",1),
-            # (try_end),
-            # (set_jump_mission,"mt_navegar_solo"),
-            ##        (set_jump_entry, 0),
-            ##        (jump_to_scene, ":scene_to_use"),
-            # (change_screen_mission),
-            # ],
-            # ),
-            # navegar solo acaba
 
             ("camp_action", [], "Take an action.",
              [(jump_to_menu, "mnu_camp_action"),
