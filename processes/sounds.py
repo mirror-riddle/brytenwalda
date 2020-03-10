@@ -1,8 +1,6 @@
-# from headers.common import *
-
 from modules.info import export_dir
 from modules.sounds import sounds
-from common import lf_open
+from processes.common import lf_open
 
 
 def write_python_header(sounds):
@@ -52,7 +50,8 @@ def compile_sounds(sounds):
     return all_sounds
 
 
-print("Exporting sounds...")
-sound_samples = compile_sounds(sounds)
-write_sounds(sound_samples, sounds)
-write_python_header(sounds)
+def process_sounds():
+    print("Exporting sounds...")
+    sound_samples = compile_sounds(sounds)
+    write_sounds(sound_samples, sounds)
+    write_python_header(sounds)

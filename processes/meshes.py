@@ -1,10 +1,6 @@
-# import string
-
-# from headers.common import *
 from modules.info import export_dir
 from modules.meshes import meshes
-
-from common import replace_spaces, lf_open
+from processes.common import replace_spaces, lf_open
 
 
 def save_meshes():
@@ -25,6 +21,7 @@ def save_python_header():
     ofile.close()
 
 
-print("Exporting meshes...")
-save_python_header()
-save_meshes()
+def process_meshes():
+    print("Exporting meshes...")
+    save_python_header()
+    save_meshes()

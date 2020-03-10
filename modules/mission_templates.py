@@ -9,8 +9,8 @@ from headers.items import *
 from headers.item_modifiers import *
 from headers.troops import *
 from ids.items import *
-from .constants import *
-from .coop_mission_templates import *
+from modules.constants import *
+from modules.coop_mission_templates import *
 
 
 ####################################################################################################################

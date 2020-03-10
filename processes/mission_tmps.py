@@ -43,15 +43,21 @@ def save_mission_templates(variables, variable_uses, tag_uses, quick_strings):
     file.write("missionsfile version 1\n")
     file.write(" %d\n" % (len(mission_templates)))
     for mission_template in mission_templates:
-        file.write("mst_%s %s %d " % (convert_to_identifier(mission_template[mission_template_name_pos]), convert_to_identifier(
-            mission_template[mission_template_name_pos]), mission_template[mission_template_flags_pos]))
+        file.write("mst_%s %s %d " % (
+            convert_to_identifier(mission_template[mission_template_name_pos]), 
+            convert_to_identifier(mission_template[mission_template_name_pos]),
+            mission_template[mission_template_flags_pos]
+        ))
         file.write(" %d\n" % (mission_template[mission_template_types_pos]))
         file.write("%s \n" % (mission_template[mission_template_desc_pos].replace(" ", "_")))
         file.write("\n%d " % len(mission_template[mission_template_groups_pos]))
         for group in mission_template[mission_template_groups_pos]:
             save_mission_template_group(file, group)
-        save_triggers(file, convert_to_identifier(
-            mission_template[mission_template_name_pos]), mission_template[mission_template_triggers_pos], variables, variable_uses, tag_uses, quick_strings)
+        save_triggers(file, 
+            convert_to_identifier(mission_template[mission_template_name_pos]),
+            mission_template[mission_template_triggers_pos], 
+            variables, variable_uses, tag_uses, quick_strings
+        )
         file.write("\n")
     file.close()
 

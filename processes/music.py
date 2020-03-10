@@ -1,9 +1,6 @@
-# import string
-
-# from headers.common import *
 from modules.info import export_dir
 from modules.music import tracks
-from common import lf_open
+from processes.common import lf_open
 
 
 def save_python_header():
@@ -22,6 +19,7 @@ def save_tracks():
     file.close()
 
 
-print("Exporting tracks...")
-save_python_header()
-save_tracks()
+def process_musics():
+    print("Exporting tracks...")
+    save_python_header()
+    save_tracks()

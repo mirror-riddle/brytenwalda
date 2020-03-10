@@ -1,6 +1,6 @@
 from modules.info import export_dir
 from modules.animations import animations
-from .common import lf_open
+from processes.common import lf_open
 
 
 def compile_action_sets(actions):
@@ -57,7 +57,8 @@ def save_python_header(action_codes):
     ofile.close()
 
 
-print("Exporting animations...")
-action_codes = compile_action_sets(animations)
-save_python_header(action_codes)
-write_actions(animations, len(action_codes), action_codes, "actions.txt")
+def process_animations():
+    print("Exporting animations...")
+    action_codes = compile_action_sets(animations)
+    save_python_header(action_codes)
+    write_actions(animations, len(action_codes), action_codes, "actions.txt")

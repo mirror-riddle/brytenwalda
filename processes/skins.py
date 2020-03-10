@@ -1,14 +1,8 @@
-# import string
-# import string
-
 from modules.info import export_dir
 from modules.skins import skins
-
 from common import convert_to_identifier
 
-# WARNING: The following should be the same as the number in face_generator.h
 num_voice_types = 2
-#####################
 
 
 def replace_spaces_with_dash(s0):

@@ -1,12 +1,11 @@
 from modules.info import export_dir
-from .common import load_variables
+from processes.common import load_variables
 
 
-print("Checking global variable usages...")
-variable_uses = []
-variables = load_variables(export_dir, variable_uses)
-i = 0
-while (i < len(variables)):
-    if (variable_uses[i] == 0):
-        print("WARNING: Global variable never used: " + variables[i])
-    i = i + 1
+def process_global_variables_unused():
+    print("Checking global variable usages...")
+    variable_uses = []
+    variables = load_variables(variable_uses)
+    for index, variable in enumerate(variables):
+        if (variable_uses[index] == 0):
+            print("WARNING: Global variable never used: ", variable)

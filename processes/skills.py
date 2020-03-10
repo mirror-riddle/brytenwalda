@@ -1,9 +1,7 @@
-# import string
-
-# from headers.common import *
 from modules.info import export_dir
 from modules.skills import skills
-from common import replace_spaces, lf_open
+from processes.common import replace_spaces, lf_open
+
 
 skill_name_pos = 1
 skill_attribute_pos = 2
@@ -30,6 +28,7 @@ def save_python_header():
     ofile.close()
 
 
-print("Exporting skills...")
-save_python_header()
-save_skills()
+def process_skills():
+    print("Exporting skills...")
+    save_python_header()
+    save_skills()

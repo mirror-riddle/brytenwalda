@@ -1,10 +1,6 @@
-# import string
-
-# from headers.common import *
 from modules.info import export_dir
 from modules.strings import strings
-
-from common import convert_to_identifier, replace_spaces, lf_open
+from processes.common import convert_to_identifier, replace_spaces, lf_open
 
 
 def save_strings(strings):
@@ -24,7 +20,7 @@ def save_python_header():
     ofile.write("\n\n")
     ofile.close()
 
-
-print("Exporting strings...")
-save_python_header()
-save_strings(strings)
+def process_strings():
+    print("Exporting strings...")
+    save_python_header()
+    save_strings(strings)

@@ -379,7 +379,7 @@ def insert_quick_string_with_auto_id(sentence, quick_strings):
     return index
 
 
-def param(param, global_vars_list, global_var_uses, local_vars_list, local_var_uses, tag_uses, quick_strings):
+def process_param(param, global_vars_list, global_var_uses, local_vars_list, local_var_uses, tag_uses, quick_strings):
     result = 0
     if (isinstance(param, str)):
         if (param[0] == '$'):
@@ -415,8 +415,7 @@ def save_statement(ofile, opcode, no_variables, statement, variable_list, variab
         lenstatement = 0
     ofile.write("%d %d " % (opcode, lenstatement))
     for i in range(lenstatement):
-        operand = param(statement[i + 1], variable_list, variable_uses,
-                                local_vars_list, local_var_uses, tag_uses, quick_strings)
+        operand = process_param(statement[i + 1], variable_list, variable_uses, local_vars_list, local_var_uses, tag_uses, quick_strings)
         ofile.write("%d " % operand)
 
 
