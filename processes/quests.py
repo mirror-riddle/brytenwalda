@@ -1,5 +1,3 @@
-# import string
-
 from headers.common import opmask_quest_index
 from modules.info import export_dir
 from modules.quests import quests
@@ -28,6 +26,7 @@ def save_python_header():
     ofile.close()
 
 
-print("Exporting quest data...")
-save_quests()
-save_python_header()
+def process_quests():
+    print("Exporting quest data...")
+    save_quests()
+    save_python_header()

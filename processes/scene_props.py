@@ -1,8 +1,5 @@
-# import string
-
 from modules.info import export_dir
 from modules.scene_props import *
-
 from common import lf_open
 from operations import *
 
@@ -26,13 +23,14 @@ def save_python_header():
     file.close()
 
 
-print("Exporting scene props...")
-save_python_header()
-variable_uses = []
-variables = load_variables(export_dir, variable_uses)
-tag_uses = load_tag_uses(export_dir)
-quick_strings = load_quick_strings(export_dir)
-save_scene_props(variables, variable_uses, tag_uses, quick_strings)
-save_variables(export_dir, variables, variable_uses)
-save_tag_uses(export_dir, tag_uses)
-save_quick_strings(export_dir, quick_strings)
+def process_scene_props():
+    print("Exporting scene props...")
+    save_python_header()
+    variable_uses = []
+    variables = load_variables(export_dir, variable_uses)
+    tag_uses = load_tag_uses(export_dir)
+    quick_strings = load_quick_strings(export_dir)
+    save_scene_props(variables, variable_uses, tag_uses, quick_strings)
+    save_variables(export_dir, variables, variable_uses)
+    save_tag_uses(export_dir, tag_uses)
+    save_quick_strings(export_dir, quick_strings)

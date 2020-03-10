@@ -1,12 +1,8 @@
-# import string
-
 from headers.skills import num_skill_words
 from headers.troops import level_bits, level_mask, num_weapon_proficiencies
 from modules.info import export_dir
 from modules.troops import troops
-
 from common import convert_to_identifier, replace_spaces, lf_open
-#from operations import *
 
 
 num_face_numeric_keys = 4
@@ -115,13 +111,13 @@ def save_python_header():
         file.write("trp_%s = %d\n" % (convert_to_identifier(troops[i_troop][0]), i_troop))
     file.close()
 
-
-print("Exporting troops data")
-#tag_uses = load_tag_uses(export_dir)
-save_python_header()
-save_troops()
-#save_tag_uses(export_dir, tag_uses)
-# print "Generating C header..."
-# save_c_header()
-# print "Generating Python header..."
-# print "Finished."
+def process_troops():
+    print("Exporting troops data ...")
+    #tag_uses = load_tag_uses(export_dir)
+    save_python_header()
+    save_troops()
+    #save_tag_uses(export_dir, tag_uses)
+    # print "Generating C header..."
+    # save_c_header()
+    # print "Generating Python header..."
+    # print "Finished."

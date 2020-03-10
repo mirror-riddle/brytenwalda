@@ -69,7 +69,8 @@ def save_python_header():
     file.close()
 
 
-print("Exporting faction data...")
-save_python_header()
-relations = compile_relations()
-save_factions(relations)
+def process_factions():
+    print("Exporting faction data...")
+    save_python_header()
+    relations = compile_relations()
+    save_factions(relations)

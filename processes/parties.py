@@ -1,15 +1,11 @@
-# import types
-
-# from headers.game_menus import *
 from modules.info import export_dir
 from modules.game_menus import game_menus
 from modules.parties import parties
-
 from operations import *
 from common import convert_to_identifier, lf_open
 
 
-def save_parties(parties):
+def save_parties(parties, tag_uses):
     file = open(export_dir + "parties.txt", "w")
     file.write("partiesfile version 1\n")
     file.write("%d %d\n" % (len(parties), len(parties)))
@@ -65,12 +61,13 @@ def save_python_header(parties):
     file.close()
 
 
-print("Exporting parties")
-tag_uses = load_tag_uses(export_dir)
-save_python_header(parties)
-save_parties(parties)
-save_tag_uses(export_dir, tag_uses)
-# print "Generating C header..."
-# save_c_header()
-# print "Generating Python header..."
-# print "Finished."
+def process_parties():
+    print("Exporting parties")
+    tag_uses = load_tag_uses(export_dir)
+    save_python_header(parties)
+    save_parties(parties, tag_uses)
+    save_tag_uses(export_dir, tag_uses)
+    # print "Generating C header..."
+    # save_c_header()
+    # print "Generating Python header..."
+    # print "Finished."

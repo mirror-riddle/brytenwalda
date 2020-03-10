@@ -1,7 +1,5 @@
 from modules.info import export_dir
 from modules.simple_triggers import simple_triggers
-
-# from common import *
 from operations import *
 
 
@@ -17,13 +15,14 @@ def save_simple_triggers_2(variable_list, variable_uses, triggers, tag_uses, qui
     file.close()
 
 
-print("exporting simple triggers...")
-variable_uses = []
-variables = load_variables(export_dir, variable_uses)
-tag_uses = load_tag_uses(export_dir)
-quick_strings = load_quick_strings(export_dir)
-save_simple_triggers_2(variables, variable_uses, simple_triggers, tag_uses, quick_strings)
-save_variables(export_dir, variables, variable_uses)
-save_tag_uses(export_dir, tag_uses)
-save_quick_strings(export_dir, quick_strings)
-# print "finished."
+def process_simple_tiggers():
+    print("exporting simple triggers...")
+    variable_uses = []
+    variables = load_variables(export_dir, variable_uses)
+    tag_uses = load_tag_uses(export_dir)
+    quick_strings = load_quick_strings(export_dir)
+    save_simple_triggers_2(variables, variable_uses, simple_triggers, tag_uses, quick_strings)
+    save_variables(export_dir, variables, variable_uses)
+    save_tag_uses(export_dir, tag_uses)
+    save_quick_strings(export_dir, quick_strings)
+    # print "finished."

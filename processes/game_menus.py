@@ -1,10 +1,5 @@
-# import string
-# import types
-
 from modules.info import export_dir
 from modules.game_menus import game_menus
-
-# from common import *
 from operations import *
 from common import lf_open
 
@@ -42,13 +37,14 @@ def save_python_header():
     ofile.close()
 
 
-print("Exporting game menus data...")
-save_python_header()
-variable_uses = []
-variables = load_variables(export_dir, variable_uses)
-tag_uses = load_tag_uses(export_dir)
-quick_strings = load_quick_strings(export_dir)
-save_game_menus(variables, variable_uses, tag_uses, quick_strings)
-save_variables(export_dir, variables, variable_uses)
-save_tag_uses(export_dir, tag_uses)
-save_quick_strings(export_dir, quick_strings)
+def process_game_menus():
+    print("Exporting game menus data...")
+    save_python_header()
+    variable_uses = []
+    variables = load_variables(export_dir, variable_uses)
+    tag_uses = load_tag_uses(export_dir)
+    quick_strings = load_quick_strings(export_dir)
+    save_game_menus(variables, variable_uses, tag_uses, quick_strings)
+    save_variables(export_dir, variables, variable_uses)
+    save_tag_uses(export_dir, tag_uses)
+    save_quick_strings(export_dir, quick_strings)

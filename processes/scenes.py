@@ -73,11 +73,13 @@ def save_scenes(variables, variable_uses, tag_uses):
     ofile.close()
 
 
-variable_uses = []
-variables = load_variables(export_dir, variable_uses)
-tag_uses = load_tag_uses(export_dir)
-quick_strings = load_quick_strings(export_dir)
-save_scenes(variables, variable_uses, tag_uses)
-save_variables(export_dir, variables, variable_uses)
-save_tag_uses(export_dir, tag_uses)
-save_quick_strings(export_dir, quick_strings)
+def process_scenes():
+    print("Exporting scenes data...")
+    variable_uses = []
+    variables = load_variables(export_dir, variable_uses)
+    tag_uses = load_tag_uses(export_dir)
+    quick_strings = load_quick_strings(export_dir)
+    save_scenes(variables, variable_uses, tag_uses)
+    save_variables(export_dir, variables, variable_uses)
+    save_tag_uses(export_dir, tag_uses)
+    save_quick_strings(export_dir, quick_strings)

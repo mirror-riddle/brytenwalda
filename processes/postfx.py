@@ -1,4 +1,3 @@
-# from headers.common import *
 from modules.info import export_dir
 from modules.postfx import postfx_params
 from common import lf_open
@@ -27,6 +26,7 @@ def write_postfx_params(postfx_params_list):
     ofile.close()
 
 
-print("Exporting postfx_params...")
-write_postfx_params(postfx_params)
-write_python_header(postfx_params)
+def process_postfx():
+    print("Exporting postfx_params...")
+    write_postfx_params(postfx_params)
+    write_python_header(postfx_params)

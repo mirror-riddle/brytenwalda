@@ -1,6 +1,7 @@
 from modules.info import export_dir
 from modules.skins import skins
-from common import convert_to_identifier
+from processes.common import convert_to_identifier
+
 
 num_voice_types = 2
 
@@ -108,5 +109,6 @@ def export_skins(skins):
     ofile.close()
 
 
-print("Exporting skins...")
-export_skins(skins)
+def process_skins():
+    print("Exporting skins...")
+    export_skins(skins)

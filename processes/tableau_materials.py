@@ -1,9 +1,5 @@
-# import string
-# import types
-
 from modules.info import export_dir
 from modules.tableau_materials import tableaus
-
 from common import lf_open
 from operations import *
 
@@ -36,13 +32,14 @@ def save_python_header():
     ofile.close()
 
 
-print("Exporting tableau materials data...")
-save_python_header()
-variable_uses = []
-variables = load_variables(export_dir, variable_uses)
-tag_uses = load_tag_uses(export_dir)
-quick_strings = load_quick_strings(export_dir)
-save_tableau_materials(variables, variable_uses, tag_uses, quick_strings)
-save_variables(export_dir, variables, variable_uses)
-save_tag_uses(export_dir, tag_uses)
-save_quick_strings(export_dir, quick_strings)
+def process_tableau_materials():
+    print("Exporting tableau materials data...")
+    save_python_header()
+    variable_uses = []
+    variables = load_variables(export_dir, variable_uses)
+    tag_uses = load_tag_uses(export_dir)
+    quick_strings = load_quick_strings(export_dir)
+    save_tableau_materials(variables, variable_uses, tag_uses, quick_strings)
+    save_variables(export_dir, variables, variable_uses)
+    save_tag_uses(export_dir, tag_uses)
+    save_quick_strings(export_dir, quick_strings)

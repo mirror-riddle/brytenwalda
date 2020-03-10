@@ -64,6 +64,7 @@ def save_python_header():
     ofile.close()
 
 
-print("Exporting particle data...")
-save_particle_systems()
-save_python_header()
+def process_particle_sys():
+    print("Exporting particle data...")
+    save_particle_systems()
+    save_python_header()

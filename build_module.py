@@ -1,6 +1,5 @@
 import os
 import sys
-import processes
 
 sys.path.append(os.curdir)
 
@@ -14,6 +13,26 @@ from processes.music import process_musics
 from processes.animations import process_animations
 from processes.meshes import process_meshes
 from processes.sounds import process_sounds
+from processes.skins import process_skins
+from processes.map_icons import process_map_icons
+from processes.factions import process_factions
+from processes.items import process_items
+from processes.scenes import process_scenes
+from processes.troops import process_troops
+from processes.particle_sys import process_particle_sys
+from processes.scene_props import process_scene_props
+from processes.tableau_materials import process_tableau_materials
+from processes.presentations import process_presentations
+from processes.party_tmps import process_party_tmps
+from processes.parties import process_parties
+from processes.quests import process_quests
+from processes.info_pages import process_info_pages
+from processes.scripts import process_scripts
+from processes.mission_tmps import process_mission_tmps
+from processes.game_menus import process_game_menus
+from processes.simple_triggers import process_simple_tiggers
+from processes.dialogs import process_dialogs
+from processes.postfx import process_postfx
 
 process_init()
 process_global_variables_unused()
@@ -23,25 +42,24 @@ process_musics()
 process_animations()
 process_meshes()
 process_sounds()
-
-import processes.skins
-import processes.map_icons
-import processes.factions
-import processes.items
-import processes.scenes
-import processes.troops
-import processes.particle_sys
-import processes.scene_props
-import processes.tableau_materials
-import processes.presentations
-import processes.party_tmps
-import processes.parties
-import processes.quests
-import processes.info_pages
-import processes.scripts
-import processes.mission_tmps
-import processes.game_menus
-import processes.simple_triggers
-import processes.dialogs
-import processes.global_variables_unused
-import processes.postfx
+process_skins()
+process_map_icons()
+process_factions()
+process_items()
+process_scenes()
+process_troops()
+process_particle_sys()
+process_scene_props()
+process_tableau_materials()
+process_presentations()
+process_party_tmps()
+process_parties()
+process_quests()
+process_info_pages()
+process_scripts()
+process_mission_tmps()
+process_game_menus()
+process_simple_tiggers()
+process_dialogs()
+process_global_variables_unused()
+process_postfx()

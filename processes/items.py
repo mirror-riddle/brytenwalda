@@ -1,5 +1,3 @@
-# import string
-
 from modules.info import export_dir
 from modules.items import *
 
@@ -64,15 +62,16 @@ def write_items(variable_list, variable_uses, tag_uses, quick_strings):
     ofile.close()
 
 
-print("Exporting item data...")
-save_python_header()
+def process_items():
+    print("Exporting item data...")
+    save_python_header()
 
-variable_uses = []
-variables = load_variables(export_dir, variable_uses)
-tag_uses = load_tag_uses(export_dir)
-quick_strings = load_quick_strings(export_dir)
-write_items(variables, variable_uses, tag_uses, quick_strings)
-save_variables(export_dir, variables, variable_uses)
-save_tag_uses(export_dir, tag_uses)
-save_quick_strings(export_dir, quick_strings)
-# print "Finished with Items."
+    variable_uses = []
+    variables = load_variables(export_dir, variable_uses)
+    tag_uses = load_tag_uses(export_dir)
+    quick_strings = load_quick_strings(export_dir)
+    write_items(variables, variable_uses, tag_uses, quick_strings)
+    save_variables(export_dir, variables, variable_uses)
+    save_tag_uses(export_dir, tag_uses)
+    save_quick_strings(export_dir, quick_strings)
+    # print "Finished with Items."

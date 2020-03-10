@@ -1,11 +1,7 @@
-# import string
-# import types
-
 from modules.info import export_dir
 from modules.triggers import triggers
 from modules.dialogs import dialogs
 from operations import *
-
 from common import convert_to_identifier, lf_open
 
 
@@ -198,17 +194,18 @@ def save_sentences(variable_list, variable_uses, sentences, tag_uses, quick_stri
 # In order to remove cookies not used anymore, edit the cookies_registery.py and remove all entries.
 
 
-print("exporting triggers...")
-variable_uses = []
-variables = load_variables(export_dir, variable_uses)
-tag_uses = load_tag_uses(export_dir)
-quick_strings = load_quick_strings(export_dir)
-# compile_variables(variables)
-save_triggers(variables, variable_uses, triggers, tag_uses, quick_strings)
-print("exporting dialogs...")
-(input_states, output_states) = compile_sentence_tokens(dialogs)
-save_sentences(variables, variable_uses, dialogs, tag_uses, quick_strings, input_states, output_states)
-save_variables(export_dir, variables, variable_uses)
-save_tag_uses(export_dir, tag_uses)
-save_quick_strings(export_dir, quick_strings)
-# print "finished."
+def process_dialogs():
+    print("exporting triggers...")
+    variable_uses = []
+    variables = load_variables(export_dir, variable_uses)
+    tag_uses = load_tag_uses(export_dir)
+    quick_strings = load_quick_strings(export_dir)
+    # compile_variables(variables)
+    save_triggers(variables, variable_uses, triggers, tag_uses, quick_strings)
+    print("exporting dialogs...")
+    (input_states, output_states) = compile_sentence_tokens(dialogs)
+    save_sentences(variables, variable_uses, dialogs, tag_uses, quick_strings, input_states, output_states)
+    save_variables(export_dir, variables, variable_uses)
+    save_tag_uses(export_dir, tag_uses)
+    save_quick_strings(export_dir, quick_strings)
+    # print "finished."

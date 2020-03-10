@@ -1,7 +1,5 @@
 from modules.info import export_dir
 from modules.party_templates import party_templates
-
-#from operations import *
 from common import convert_to_identifier, replace_spaces, lf_open
 
 
@@ -44,8 +42,9 @@ def save_python_header():
     file.close()
 
 
-print("Exporting party_template data...")
-#tag_uses = load_tag_uses(export_dir)
-save_python_header()
-save_party_templates()
-#save_tag_uses(export_dir, tag_uses)
+def process_party_tmps():
+    print("Exporting party_template data...")
+    #tag_uses = load_tag_uses(export_dir)
+    save_python_header()
+    save_party_templates()
+    #save_tag_uses(export_dir, tag_uses)

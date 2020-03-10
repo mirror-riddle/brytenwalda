@@ -1,8 +1,5 @@
-# import string
-
 from modules.info import export_dir
 from modules.info_pages import info_pages
-
 from common import lf_open
 
 
@@ -25,6 +22,7 @@ def save_python_header():
     ofile.close()
 
 
-print("Exporting info_page data...")
-save_info_pages()
-save_python_header()
+def process_info_pages():
+    print("Exporting info_page data...")
+    save_info_pages()
+    save_python_header()
