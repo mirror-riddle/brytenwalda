@@ -6,19 +6,16 @@ from operations import *
 from common import convert_to_identifier, lf_open
 
 
+scene_name_pos = 0
+passages_pos = 8
+scene_outer_terrain_pos = 10
+
+
 def save_python_header():
     ofile = lf_open("../ids/scenes.py", "w")
     for i_scene in range(len(scenes)):
         ofile.write("scn_%s = %d\n" % (convert_to_identifier(scenes[i_scene][0]), i_scene))
     ofile.close()
-
-
-print("Exporting scene data...")
-save_python_header()
-
-scene_name_pos = 0
-passages_pos = 8
-scene_outer_terrain_pos = 10
 
 
 def write_vec(ofile, vec):
@@ -75,6 +72,7 @@ def save_scenes(variables, variable_uses, tag_uses):
 
 def process_scenes():
     print("Exporting scenes data...")
+    save_python_header()
     variable_uses = []
     variables = load_variables(export_dir, variable_uses)
     tag_uses = load_tag_uses(export_dir)
