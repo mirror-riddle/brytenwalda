@@ -1,17 +1,10 @@
-#import string
-#import types
-
 from modules.info import export_dir
 from modules.triggers import triggers
 from modules.dialogs import dialogs
 from modules.simple_triggers import simple_triggers
 from modules.presentations import presentations
 from modules.variables import reserved_variables
-
-# from common import *
 from operations import *
-
-# -------------------------------------------------------
 
 
 def compile_all_global_vars(variable_list, variable_uses, triggers, sentences, game_menus, mission_templates, scripts, simple_triggers):
@@ -98,9 +91,10 @@ def compile_all_global_vars(variable_list, variable_uses, triggers, sentences, g
             print(simple_trigger)
 
 
-print("Compiling all global variables...")
-variable_uses = []
-variables = load_variables(export_dir, variable_uses)
-compile_all_global_vars(variables, variable_uses, triggers, dialogs,
-                        game_menus, mission_templates, scripts, simple_triggers)
-save_variables(export_dir, variables, variable_uses)
+def process_global_variables():
+    print("Compiling all global variables...")
+    variable_uses = []
+    variables = load_variables(export_dir, variable_uses)
+    compile_all_global_vars(variables, variable_uses, triggers, dialogs,
+                            game_menus, mission_templates, scripts, simple_triggers)
+    save_variables(export_dir, variables, variable_uses)
