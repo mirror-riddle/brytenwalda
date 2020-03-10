@@ -1660,21 +1660,16 @@ sp_shield_bash_3 = (
              (agent_set_slot, ":agent", sp_agent_shield_bash_timer, ":rand"), #20 is 20*0.25=5seconds.
             (agent_set_animation, ":agent", "anim_shield_bash"),
 
-            #MOTO just use $character_gender
-                  # (agent_get_troop_id, ":troop", ":agent"),
-                  # (troop_get_type, ":type", ":troop"),
-                  (try_begin),
-           # (this_or_next|eq,"$character_gender",tf_male),
-           # (this_or_next|eq,"$character_gender",tf_alto),
-           # (this_or_next|eq,"$character_gender",tf_bajo),
-           # (eq,"$character_gender",tf_oso),
-                     (eq, "$character_gender", tf_male),
-                     (agent_play_sound, ":agent", "snd_man_yell"),
-                  (else_try),
-                      # (eq, ":type", tf_female),
-                     (agent_play_sound, ":agent", "snd_woman_yell"),
-                  (try_end),
-                  #MOTO end just use $character_gender
+            # ai shield bash sound
+            (try_begin),
+              (agent_get_troop_id, ":troop", ":agent"),
+              (troop_get_type, ":troop_gender", ":troop"),
+                (eq, ":troop_gender", tf_male),
+                (agent_play_sound, ":agent", "snd_man_yell"),
+            (else_try),
+                # (eq, ":type", tf_female),
+                (agent_play_sound, ":agent", "snd_woman_yell"),
+            (try_end),
 
             (agent_play_sound, ":victim", "snd_wooden_hit_low_armor_high_damage"),
             (agent_get_defend_action, ":action", ":victim"),
