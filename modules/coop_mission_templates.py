@@ -2,7 +2,7 @@ from headers.common import *
 from headers.operations import *
 from headers.mission_templates import *
 from headers.triggers import *
-from .constants import *
+from modules.constants import *
 
 
 ####################################################################################################################

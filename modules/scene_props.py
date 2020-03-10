@@ -1,10 +1,10 @@
-# -*- coding: cp1252 -*-
+# -*- coding: utf-8 -*-
 
 from headers.common import *
 from headers.scene_props import *
 from headers.operations import *
 from headers.triggers import *
-from .constants import *
+from modules.constants import *
 
 
 ####################################################################################################################

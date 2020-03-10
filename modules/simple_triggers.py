@@ -9,7 +9,7 @@ from headers.troops import ca_charisma, ca_intelligence
 from headers.item_modifiers import imod_fresh, imod_rotten
 from headers.triggers import ti_on_party_encounter, ti_simulate_battle, ti_question_answered
 from ids.factions import fac_kingdom_1
-from .constants import *
+from modules.constants import *
 
 ####################################################################################################################
 # Simple triggers are the alternative to old style triggers. They do not preserve state, and thus simpler to maintain.

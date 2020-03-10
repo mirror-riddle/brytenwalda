@@ -1,5 +1,5 @@
 from copy import deepcopy
-from .items_helper import *
+from modules.items_helper import *
 
 ####################################################################################################################
 #  Each item record contains the following fields:

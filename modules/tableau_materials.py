@@ -1,6 +1,6 @@
 from headers.common import pos1, pos5, pos8
 from headers.operations import *
-from .constants import *
+from modules.constants import *
 
 
 ####################################################################################################################

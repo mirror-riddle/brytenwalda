@@ -80,8 +80,8 @@ blend_in_continue = arf_blend_in_1
 
 animations = [
     ["stand", 0, amf_client_prediction,
-     #   [3.0, "myanim", 0, 50, arf_cyclic|arf_loop_pos_0_25],
-     [3.0, "anim_human", 50, 52, arf_use_stand_progress | arf_cyclic, 0, (0, 0, 0), 0.25],
+     #  [3.0, "myanim", 0, 50, arf_cyclic|arf_loop_pos_0_25],
+        [3.0, "anim_human", 50, 52, arf_use_stand_progress | arf_cyclic, 0, (0, 0, 0), 0.25],
         [3.0, "anim_human", 60, 62, arf_use_stand_progress | arf_cyclic, 0, (0, 0, 0), 0.75],
         [3.0, "anim_human", 70, 72, arf_use_stand_progress | arf_cyclic, 0, (0, 0, 0), 0.25],
         [3.0, "anim_human", 80, 82, arf_use_stand_progress | arf_cyclic | arf_two_handed_blade, 0, (0, 0, 0), 0.5],

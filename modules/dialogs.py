@@ -6,7 +6,7 @@ from headers.item_modifiers import imod_cracked
 from headers.troops import ca_charisma, ca_intelligence, tf_male, tf_female, wpt_one_handed_weapon
 from ids.troops import *
 from ids.party_templates import *
-from .constants import *
+from modules.constants import *
 
 # from headers.skills import *
 # from headers.triggers import *

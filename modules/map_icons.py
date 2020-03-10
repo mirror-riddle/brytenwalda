@@ -2,7 +2,7 @@ from headers.map_icons import *
 from headers.operations import *
 from headers.triggers import ti_on_init_map_icon
 from ids.sounds import *
-from .constants import *
+from modules.constants import *
 
 ####################################################################################################################
 #  Each map icon record contains the following fields:

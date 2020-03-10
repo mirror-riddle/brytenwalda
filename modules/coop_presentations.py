@@ -3,7 +3,7 @@ from headers.presentations import *
 from headers.operations import *
 from headers.triggers import *
 from headers.items import *
-from .constants import *
+from modules.constants import *
 
 
 ####################################################################################################################

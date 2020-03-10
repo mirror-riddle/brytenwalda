@@ -10,7 +10,7 @@ from headers.mission_templates import *
 from headers.music import mtf_sit_town_infiltrate, mtf_sit_travel
 from headers.terrain_types import *
 from ids.factions import *
-from .constants import *
+from modules.constants import *
 
 
 ####################################################################################################################

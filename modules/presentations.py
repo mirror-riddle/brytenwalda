@@ -6,8 +6,8 @@ from headers.troops import *
 from headers.xgm_mod_options import *
 from headers.terrain_types import dplmc_terrain_code_siege
 from ids.meshes import *
-from .constants import *
-from .coop_presentations import *
+from modules.constants import *
+from modules.coop_presentations import *
 
 
 ##############################################

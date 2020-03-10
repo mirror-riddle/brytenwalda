@@ -7,7 +7,7 @@ from headers.items import *
 from headers.item_modifiers import *
 from headers.terrain_types import *
 from headers.troops import *
-from .constants import *
+from modules.constants import *
 
 
 ####################################################################################################################

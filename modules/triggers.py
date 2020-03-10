@@ -4,7 +4,7 @@ from headers.parties import *
 from headers.skills import *
 from headers.triggers import ti_once, key_left_mouse_button
 from headers.troops import ca_strength, ca_agility, ca_intelligence
-from .constants import *
+from modules.constants import *
 
 
 ####################################################################################################################
