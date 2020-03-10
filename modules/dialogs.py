@@ -21790,7 +21790,7 @@ Wes gesund.", "Cundwalh_historia5", []],
     (call_script, "script_process_outlaws_for_party", "p_temp_party"),
   ],
    "Well, I could use some good soldiers.", "lord_give_troops_1",
-   [(change_screen_give_members),]],
+   [(change_screen_exchange_members),]],
 
   [anyone,"lord_give_troops_1", [],
    "Thank you.", "lord_give_troops_2", []],
