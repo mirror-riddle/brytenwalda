@@ -1,12 +1,7 @@
 from modules.info import export_dir
 from modules.animations import animations
 from common import lf_open
-
-
-def init_actions_file():
-    file = open(export_dir + "actions.txt", "w")
-    file.write("%d\n" % len(animations))
-    return file
+from io_processor import IOProcessor
 
 
 def write_actions_file(file, action):
@@ -28,26 +23,33 @@ def write_actions_file(file, action):
             file.write("0.0 \n")
 
 
-def init_ids_file():
-    file = lf_open("../ids/animations.py", "w")    
-    return file
+class AnimationIOIDs(IOProcessor):
+    
+    def write(self, name, index):
+        self.file.write("anim_%s = %d\n" % (name, index))
+
+    def before_close(self):
+        self.file.write("\n\n")
 
 
-def write_ids_file(file, name, index):
-    file.write("anim_%s = %d\n" % (name, index))
+class AnimationIOActions(IOProcessor):
 
+    def after_open(self):
+        self.file.write("%d\n" % len(animations))
 
-def close_ids_file(file):
-    file.write("\n\n")
-    file.close()
+    def write(self, action):
+        write_actions_file(self.file, action)
 
 
 def process_animations():
     print("Exporting animations...")
-    ids_file = init_ids_file()
-    actions_file = init_actions_file()
+    
+    io_ids = AnimationIOIDs("../ids/animations.py")
+    io_actions = AnimationIOActions(export_dir + "actions.txt")
+    
     for (index, animation) in enumerate(animations):
-        write_ids_file(ids_file, animation[0], index)
-        write_actions_file(actions_file, animation)
-    actions_file.close()
-    close_ids_file(ids_file)
+        io_ids.write(animation[0], index)
+        io_actions.write(animation)
+    
+    io_ids.close()
+    io_actions.close()
