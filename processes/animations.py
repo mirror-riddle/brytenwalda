@@ -23,7 +23,7 @@ def write_actions_file(file, action):
             file.write("0.0 \n")
 
 
-class AnimationIOIDs(IOProcessor):
+class IOIDs(IOProcessor):
     
     def write(self, name, index):
         self.file.write("anim_%s = %d\n" % (name, index))
@@ -32,7 +32,7 @@ class AnimationIOIDs(IOProcessor):
         self.file.write("\n\n")
 
 
-class AnimationIOActions(IOProcessor):
+class IOActions(IOProcessor):
 
     def after_open(self):
         self.file.write("%d\n" % len(animations))
@@ -44,8 +44,8 @@ class AnimationIOActions(IOProcessor):
 def process_animations():
     print("Exporting animations...")
     
-    io_ids = AnimationIOIDs("../ids/animations.py")
-    io_actions = AnimationIOActions(export_dir + "actions.txt")
+    io_ids = IOIDs("../ids/animations.py")
+    io_actions = IOActions(export_dir + "actions.txt")
     
     for (index, animation) in enumerate(animations):
         io_ids.write(animation[0], index)
