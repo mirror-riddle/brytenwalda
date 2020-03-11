@@ -1,6 +1,7 @@
 from modules.info import export_dir
 from modules.factions import factions
 from common import convert_to_identifier, replace_spaces, lf_open
+from io_processor import IOProcessor
 
 faction_name_pos = 0
 faction_flags_pos = 2
@@ -31,46 +32,57 @@ def compile_relations():
     return relations
 
 
-def save_factions(relations):
-    file = open(export_dir + "factions.txt", "w")
-    file.write("factionsfile version 1\n")
-    file.write("%d\n" % len(factions))
-    for i_faction in range(len(factions)):
-        faction = factions[i_faction]
-        fac_color = 0xAAAAAA
-        if len(faction) == 7:
-            fac_color = faction[6]
-        file.write("fac_%s %s %d %d \n" % (convert_to_identifier(
-            faction[0]), replace_spaces(faction[1]), faction[2], fac_color))
-        for reln in relations[i_faction]:
-            file.write(" %f " % reln)
-        file.write("\n")
-        ranks = []
-        if (len(faction) > (faction_ranks_pos)):
-            ranks = faction[faction_ranks_pos]
-        file.write("%d " % (len(ranks)))
-        for rank in ranks:
-            file.write(" %s " % (replace_spaces(rank)))
-    file.close()
+def save_factions(file, relations, faction, i_faction):
+    identifier = convert_to_identifier(faction[0])
+    dashed_name = replace_spaces(faction[1])
+    fac_color = faction[6] if len(faction) == 7 else 0xAAAAAA
+
+    file.write("fac_%s %s %d %d \n" % (identifier, dashed_name, faction[2], fac_color))
+    
+    for reln in relations[i_faction]:
+        file.write(" %f " % reln)
+    file.write("\n")
+    
+    ranks = []
+    if (len(faction) > faction_ranks_pos):
+        ranks = faction[faction_ranks_pos]
+    
+    file.write("%d " % (len(ranks)))
+    
+    for rank in ranks:
+        dashed_rank = replace_spaces(rank)
+        file.write(" %s " % dashed_rank)
 
 
-def two_to_pow(x):
-    result = 1
-    for i in range(x):
-        result = result * 2
-    return result
+class IOFactions(IOProcessor):
+
+    def after_open(self):
+        self.file.write("factionsfile version 1\n")
+        self.file.write("%d\n" % len(factions))
+
+    def write(self, relations, faction, index):
+        save_factions(self.file, relations, faction, index)
 
 
-def save_python_header():
-    file = lf_open("../ids/factions.py", "w")
-    for i_faction in range(len(factions)):
-        file.write("fac_%s = %d\n" % (factions[i_faction][0], i_faction))
-    file.write("\n\n")
-    file.close()
+class IOIDs(IOProcessor):
+    
+    def write(self, id, index):
+        self.file.write("fac_%s = %d\n" % (id, index))
+
+    def before_close(self):
+        self.file.write("\n\n")        
 
 
 def process_factions():
-    print("Exporting faction data...")
-    save_python_header()
+    print("Exporting factions...")
+
     relations = compile_relations()
-    save_factions(relations)
+    io_ids = IOIDs("../ids/factions.py")
+    io_factions = IOFactions(export_dir + "factions.txt")
+
+    for (index, faction) in enumerate(factions):
+        io_ids.write(faction[0], index)
+        io_factions.write(relations, faction, index)
+
+    io_ids.close()   
+    io_factions.close() 
