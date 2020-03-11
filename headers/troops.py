@@ -9,8 +9,8 @@ from headers.common import bignum
 # Troop flags chief cambios
 tf_male = 0
 tf_female = 1
-tf_alto = 2
-tf_alta = 3
+tf_alto = 2     # short height
+tf_alta = 3     # tall height
 tf_bajo = 4
 tf_baja = 5
 tf_oso = 6

@@ -25355,6 +25355,8 @@ resta_fatigue_multi,
 
           (tutorial_message_set_background, 0),
 
+          (call_script, "script_gather_companion_candidates_to_starting_town"),
+
           (change_screen_map),
 
           (try_begin),

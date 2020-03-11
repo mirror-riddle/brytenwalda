@@ -800,43 +800,44 @@ game_menus = [
         "start_game_1", menu_text_color(0xFF000000) | mnf_disable_all_keys,
         "Welcome, adventurer, to Brytenwalda. Before you can start playing the game you must create a character.",
         "none",
-        [(try_begin),
-         (neq, "$creation_canceled", 999),
-         (call_script, "script_randomize_background", 0),
-         (start_presentation, "prsnt_player_background"),
-         (try_end), ],
-        [("start", [], "Create Character", [(start_presentation, "prsnt_player_background"), ]),
-         ("quit", [], "Cancel", [(change_screen_quit), ]), ]),
+        [
+            (try_begin),
+            (neq, "$creation_canceled", 999),
+            (call_script, "script_randomize_background", 0),
+            (start_presentation, "prsnt_player_background"),
+            (try_end), 
+        ],
+        [
+            ("start", [], "Create Character", [(start_presentation, "prsnt_player_background")]),
+            ("quit", [], "Cancel", [(change_screen_quit)]), 
+        ]
+    ),
     # chief nueva creacion pj acaba
 
-    ("start_game_1", menu_text_color(0xFF000000) | mnf_disable_all_keys,
-     "Select your character's gender.",
-     "none",
-     [],
-     [
-        ("start_male", [], "Male",
-         [
-            (troop_set_type, "trp_player", 0),
-         (assign, "$character_gender", tf_male),
-         (assign, "$wound_type", 0),  # 0-8 (0=not wounded, 1-8=type of wound) chief
-         (assign, "$heal_day", 0),   # day that wound heals chief
-         (jump_to_menu, "mnu_start_character_1"),
-         ]
-         ),
-        ("start_female", [], "Female",
-            [
-            (troop_set_type, "trp_player", 1),
-            (assign, "$character_gender", tf_female),
-            (assign, "$wound_type", 0),  # 0-8 (0=not wounded, 1-8=type of wound) chief
-            (assign, "$heal_day", 0),   # day that wound heals chief
-            (jump_to_menu, "mnu_start_character_1"),
+    (
+        "start_game_1", menu_text_color(0xFF000000) | mnf_disable_all_keys,
+        "Select your character's gender.",
+        "none",
+        [],
+        [
+            ("start_male", [], "Male", [
+                (troop_set_type, "trp_player", 0),
+                (assign, "$character_gender", tf_male),
+                (assign, "$wound_type", 0),  # 0-8 (0=not wounded, 1-8=type of wound) chief
+                (assign, "$heal_day", 0),   # day that wound heals chief
+                (jump_to_menu, "mnu_start_character_1"),
+            ]),
+            ("start_female", [], "Female", [
+                (troop_set_type, "trp_player", 1),
+                (assign, "$character_gender", tf_female),
+                (assign, "$wound_type", 0),  # 0-8 (0=not wounded, 1-8=type of wound) chief
+                (assign, "$heal_day", 0),   # day that wound heals chief
+                (jump_to_menu, "mnu_start_character_1"),
+            ]),
+            ("go_back", [], "Go back", [
+                (jump_to_menu, "mnu_start_game_0"),
+            ]),
         ]
-        ),
-        ("go_back", [], "Go back",
-         [
-            (jump_to_menu, "mnu_start_game_0"),
-        ]),
-    ]
     ),
 
     (
@@ -24058,34 +24059,35 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     ("start_phase_3", mnf_disable_all_keys,
      "{s16}^^You are exhausted by the time you find the inn in {s1}, and fall asleep quickly. However, you awake before dawn and are eager to explore your surroundings. You venture out onto the streets, which are still deserted. All of a sudden, you hear a sound that stands the hairs of your neck on end -- the rasp of a blade sliding from its scabbard...",
      "none",
-     [(set_background_mesh, "mesh_pic_extra_malvado"),
-      (assign, ":continue", 1),
-      (try_begin),
-      (eq, "$current_startup_quest_phase", 1),
-      (try_begin),
-      (eq, "$g_killed_first_bandit", 1),
-      (str_store_string, s11, "str_killed_bandit_at_alley_fight"),
-      (else_try),
-      (str_store_string, s11, "str_wounded_by_bandit_at_alley_fight"),
-      (try_end),
-      (jump_to_menu, "mnu_start_phase_4"),
-      (assign, ":continue", 0),
-      (else_try),
-      (eq, "$current_startup_quest_phase", 3),
-      (try_begin),
-      (eq, "$g_killed_first_bandit", 1),
-      (str_store_string, s11, "str_killed_bandit_at_alley_fight"),
-      (else_try),
-      (str_store_string, s11, "str_wounded_by_bandit_at_alley_fight"),
-      (try_end),
-      (jump_to_menu, "mnu_start_phase_4"),
-      (assign, ":continue", 0),
-      (try_end),
+     [
+        (set_background_mesh, "mesh_pic_extra_malvado"),
+        (assign, ":continue", 1),
+        (try_begin),
+            (eq, "$current_startup_quest_phase", 1),
+            (try_begin),
+                (eq, "$g_killed_first_bandit", 1),
+                (str_store_string, s11, "str_killed_bandit_at_alley_fight"),
+            (else_try),
+                (str_store_string, s11, "str_wounded_by_bandit_at_alley_fight"),
+            (try_end),
+            (jump_to_menu, "mnu_start_phase_4"),
+            (assign, ":continue", 0),
+        (else_try),
+            (eq, "$current_startup_quest_phase", 3),
+            (try_begin),
+                (eq, "$g_killed_first_bandit", 1),
+                (str_store_string, s11, "str_killed_bandit_at_alley_fight"),
+            (else_try),
+                (str_store_string, s11, "str_wounded_by_bandit_at_alley_fight"),
+            (try_end),
+            (jump_to_menu, "mnu_start_phase_4"),
+            (assign, ":continue", 0),
+        (try_end),
 
-      (str_store_party_name, s1, "$g_starting_town"),
-      (str_clear, s16),
-      (eq, ":continue", 1),
-      ],
+        (str_store_party_name, s1, "$g_starting_town"),
+        (str_clear, s16),
+        (eq, ":continue", 1),
+     ],
      [
          ("continue", [], "Continue...",
           [

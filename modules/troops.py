@@ -3167,11 +3167,11 @@ troops = [
     "npc2","Aleifr","Aleifr",
     tf_hero|tf_unmoveable_in_party_window, 0,reserved, fac_commoners,
     [
-      itm_linen_tunic,itm_carbatinae_1_bare,itm_club
+      itm_linen_tunic,itm_carbatinae_1_bare,itm_club, itm_hunting_bow, itm_arrows
     ],
-    str_7|agi_6|int_9|cha_12|level(1),wp(80),
+    str_9|agi_9|int_9|cha_12|level(1),wp(100),
     knows_ironflesh_2|knows_weapon_master_2|knows_trade_7|
-    knows_inventory_management_7|knows_athletics_2|knows_riding_1,
+    knows_power_draw_2|knows_athletics_2|knows_riding_1,
     0x000000094a1013c24756d14224b347af00000000001c36db0000000000000000
   ], #chief acabado
 
@@ -3179,11 +3179,11 @@ troops = [
     "npc3","Eithne","Eithene",
     tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,
     [
-      itm_blue_tunic_long,itm_quality_carbatinae_white,itm_knife
+      itm_blue_tunic_long,itm_quality_carbatinae_white,itm_knife, itm_hunting_bow, itm_arrows
     ],
-    str_6|agi_6|int_14|cha_11|level(1),wp(80),
-    knows_wound_treatment_5|knows_trade_3|knows_first_aid_5|knows_surgery_5|
-    knows_inventory_management_2|knows_athletics_2|knows_riding_1|knows_leadership_2,
+    str_8|agi_8|int_14|cha_11|level(1),wp(90),
+    knows_wound_treatment_5|knows_weapon_master_2|knows_first_aid_5|knows_surgery_5|
+    knows_power_draw_2|knows_athletics_2|knows_riding_1|knows_leadership_2,
     0x000000019f0c8004472355def396431e00000000000f5da30000000000000000
   ], #chief acabado
 
@@ -3230,10 +3230,10 @@ troops = [
     [
       itm_picta_4,itm_carbatinae_1_bare, itm_hunting_bow, itm_arrows, itm_knife
     ],
-    str_7|agi_11|int_10|cha_6|level(1),wp(80),
-    knows_ironflesh_1|knows_inventory_management_2|knows_pathfinding_2|knows_riding_1|
-    knows_tracking_5|knows_athletics_2|knows_spotting_2|knows_power_throw_2|
-    knows_weapon_master_2|knows_shield_2,
+    str_8|agi_11|int_12|cha_6|level(1),wp(110),
+    knows_power_draw_2|knows_power_strike_2|knows_pathfinding_5|knows_riding_1|
+    knows_tracking_5|knows_athletics_2|knows_spotting_5|knows_power_throw_2|
+    knows_weapon_master_2|knows_shield_2|knows_foraging_5,
     0x0000000a320cd0014b5388a4da92bb1a00000000001eb96d0000000000000000
   ], #chief acabado
 
@@ -3279,18 +3279,17 @@ troops = [
     "npc11","Gwenllian","Gwenllian",
     tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
     [
-      itm_shirt, itm_ankle_boots, itm_shepherds_crook
+      itm_shirt, itm_ankle_boots, itm_shepherds_crook, itm_hunting_bow, itm_arrows
     ],
-    str_8|agi_11|int_7|cha_8|level(1),wp(70),
-    knows_persuasion_3|knows_weapon_master_2|knows_power_strike_2|knows_shield_1|
-    knows_first_aid_1|knows_pathfinding_1|knows_inventory_management_2|knows_athletics_2|
-    knows_entertain_3|knows_spotting_1|knows_trade_3,
+    str_8|agi_11|int_8|cha_12|level(1),wp(90),
+    knows_persuasion_5|knows_weapon_master_2|knows_power_draw_2|knows_power_strike_2|
+    knows_athletics_2|knows_entertain_5,
     0x000000019f0c8004472355def396431e00000000000f5da30000000000000000
   ], #chief acabado
 
   [
     "npc12","Orosio","Orosio",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,
     [
       itm_cloth_robe_yellow,itm_ankle_boots, itm_staff
     ],
@@ -3418,14 +3417,13 @@ troops = [
 
   [
     "npc_backwoodsharry","Inka","Inka",
-    tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
+    tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,
     [
       itm_short_bow, itm_arrows, itm_shirt, itm_woolen_dress,itm_knife
     ],
-    str_9|agi_12|int_7|cha_6|level(1),wpe(70,90,80,70),
-    knows_power_draw_2|knows_weapon_master_2|knows_wound_treatment_1|
-    knows_trade_3|knows_power_throw_1|knows_leadership_2|knows_first_aid_1|
-    knows_surgery_1|knows_inventory_management_2|knows_athletics_3|knows_riding_1|knows_looting_2,
+    str_9|agi_12|int_9|cha_6|level(1),wpe(80,100,80,70),
+    knows_power_draw_2|knows_weapon_master_2|knows_power_strike_2|
+    knows_leadership_2|knows_athletics_3|knows_riding_1|knows_looting_5,
     0x000000024400100338a1d1d2ecaed44c00000000001536a50000000000000000
   ], #mujer frisia abandonada por su marido chief se lia con eadfrith
 
