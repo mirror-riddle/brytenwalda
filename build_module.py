@@ -126,7 +126,7 @@ def process_one(name):
 def process_by_names(names):
     process_start()
     [process_one(name) for name in names]
-    process_end()
+    # process_end()
 
 
 if __name__ == '__main__':
