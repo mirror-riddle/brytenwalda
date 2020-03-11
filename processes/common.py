@@ -33,16 +33,18 @@ def lf_open(file, mode):
 def is_file_exist(file):
     return Path(file).is_file()
 
+
 def read_variables(file):
     with open(file, "r") as file:
         var_list = file.readlines()
     return var_list
 
+
 def retrieve_variables(file, is_variables_use=False):
     if not is_file_exist(file):
         print(file, "not found. Creating new variables.txt file")
         return []
-    
+
     variables = []
     var_list = read_variables(file)
     for var in var_list:
@@ -64,11 +66,11 @@ def load_variables(variable_uses):
 
 
 def save_varbs(varbs, file):
-    with open(export_dir + file, 'w') as file:
+    with open(export_dir + file, "w") as file:
         [file.write("%s\n" % varb) for varb in varbs]
-            
 
 
 def save_variables(variables, variable_uses):
     save_varbs(variables, "variables.txt")
     save_varbs(variable_uses, "variable_uses.txt")
+

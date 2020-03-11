@@ -62,8 +62,11 @@ def save_triggers(variable_list, variable_uses, triggers, tag_uses, quick_string
 def compile_sentence_tokens(sentences):
     input_tokens = []
     output_tokens = []
-    dialog_states = ["start", "party_encounter", "prisoner_liberated", "enemy_defeated", "party_relieved", "event_triggered", "close_window",
-                     "trade", "exchange_members", "trade_prisoners", "buy_mercenaries", "view_char", "training", "member_chat", "prisoner_chat"]
+    dialog_states = [
+        "start", "party_encounter", "prisoner_liberated", "enemy_defeated", "party_relieved",
+        "event_triggered", "close_window", "trade", "exchange_members", "trade_prisoners",
+        "buy_mercenaries", "view_char", "training", "member_chat", "prisoner_chat"
+    ]
     dialog_state_usages = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
     for sentence in sentences:
         output_token_id = -1
@@ -202,6 +205,7 @@ def process_dialogs():
     quick_strings = load_quick_strings(export_dir)
     # compile_variables(variables)
     save_triggers(variables, variable_uses, triggers, tag_uses, quick_strings)
+    
     print("exporting dialogs...")
     (input_states, output_states) = compile_sentence_tokens(dialogs)
     save_sentences(variables, variable_uses, dialogs, tag_uses, quick_strings, input_states, output_states)

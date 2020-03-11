@@ -11,12 +11,9 @@ faction_ranks_pos = 5
 
 
 def compile_relations():
-    relations = []
-    for i in range(len(factions)):
-        r = [0.0 for j in range(len(factions))]
-        relations.append(r)
-    for i_faction in range(len(factions)):
-        relations[i_faction][i_faction] = factions[i_faction][faction_coherence_pos]
+    relations = [[0.0] * len(factions) for faction in factions]
+    for (i_faction, faction) in enumerate(factions):
+        relations[i_faction][i_faction] = faction[faction_coherence_pos]
         rels = factions[i_faction][faction_relations_pos]
         for rel in rels:
             rel_name = rel[0]
@@ -79,7 +76,7 @@ def process_factions():
     relations = compile_relations()
     io_ids = IOIDs("../ids/factions.py")
     io_factions = IOFactions(export_dir + "factions.txt")
-
+    
     for (index, faction) in enumerate(factions):
         io_ids.write(faction[0], index)
         io_factions.write(relations, faction, index)
