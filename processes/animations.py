@@ -28,6 +28,11 @@ def write_actions_file(file, action):
             file.write("0.0 \n")
 
 
+def init_ids_file():
+    file = lf_open("../ids/animations.py", "w")    
+    return file
+
+
 def write_ids_file(file, name, index):
     file.write("anim_%s = %d\n" % (name, index))
 
@@ -39,8 +44,8 @@ def close_ids_file(file):
 
 def process_animations():
     print("Exporting animations...")
+    ids_file = init_ids_file()
     actions_file = init_actions_file()
-    ids_file = lf_open("../ids/animations.py", "w")
     for (index, animation) in enumerate(animations):
         write_ids_file(ids_file, animation[0], index)
         write_actions_file(actions_file, animation)
