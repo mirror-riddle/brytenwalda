@@ -25,8 +25,8 @@ def write_actions_file(file, action):
 
 class IOIDs(IOProcessor):
     
-    def write(self, name, index):
-        self.file.write("anim_%s = %d\n" % (name, index))
+    def write(self, id, index):
+        self.file.write("anim_%s = %d\n" % (id, index))
 
     def before_close(self):
         self.file.write("\n\n")
