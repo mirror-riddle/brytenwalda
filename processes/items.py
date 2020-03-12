@@ -45,10 +45,8 @@ class ItemProcessor(ModuleProcessor):
         write_items(self.export_file, item)
 
     def write_triggers(self, item, variables, variable_uses, quick_strings):
-        if (len(item) > 8):
-            save_simple_triggers(
-                self.export_file, item[8], variables, variable_uses, [], quick_strings
-            )
+        triggers = item[8] if len(item) > 8 else []
+        save_simple_triggers(self.export_file, triggers, variables, variable_uses, [], quick_strings)
 
 
 def process_items():

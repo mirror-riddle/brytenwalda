@@ -1,9 +1,4 @@
-# import string
-# import types
-
 from common import replace_spaces, convert_to_identifier_with_no_lowercase
-# from headers.common import *
-# from headers.operations import *
 
 from modules.strings import strings
 from modules.skills import skills
@@ -27,6 +22,36 @@ from modules.map_icons import map_icons
 from modules.tableau_materials import tableaus
 from modules.animations import animations
 
+from headers.operations import (
+    try_begin,
+    try_end,
+    try_for_range,
+    try_for_range_backwards,
+    try_for_parties,
+    try_for_agents,
+    try_for_attached_parties,
+    try_for_active_players,
+    try_for_prop_instances,
+
+    call_script,
+
+    store_script_param,
+    store_script_param_1,
+    store_script_param_2,
+
+    can_fail_operations
+)
+
+try_operations = (
+    try_begin,
+    try_for_range,
+    try_for_range_backwards,
+    try_for_parties,
+    try_for_agents,
+    try_for_attached_parties,
+    try_for_active_players,
+    try_for_prop_instances
+)
 
 def get_id_value(tag, identifier, tag_uses):
     tag_type = -1
