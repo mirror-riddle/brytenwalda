@@ -1,40 +1,5 @@
 from modules.info import export_dir
-from common import lf_open
-
-
-class IOProcessor:
-    """ IOProcessor """
-
-    directory = "./"
-    name = "io_processor.txt"
-
-    def __init__(self):
-        path = self.directory + self.name
-        self.file = lf_open(path, "w")
-        self.after_open()
-
-    def after_open(self):
-        pass
-
-    def write(self):
-        pass
-
-    def before_close(self):
-        pass
-
-    def close(self):
-        self.before_close()
-        self.file.close()
-
-
-class IDIOProcessor(IOProcessor):
-    name = "ids.py"
-    directory = "../ids/"
-
-
-class ExportIOProcessor(IOProcessor):
-    name = "export.txt"
-    directory = export_dir
+from common import lf_open, convert_to_identifier
 
 
 class ModuleProcessor():
@@ -60,7 +25,8 @@ class ModuleProcessor():
         self.after_open_export_file()
 
     def write_id_file(self, item, index):
-        self.id_file.write("%s%s = %d\n" %(self.id_prefix, item[0], index))
+        item_id = convert_to_identifier(item[0])
+        self.id_file.write("%s%s = %d\n" %(self.id_prefix, item_id, index))
 
     def write_export_file(self, item, *extra_data):
         pass
