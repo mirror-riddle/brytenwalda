@@ -3,6 +3,7 @@ from headers.skills import *
 from ids.items import *
 from ids.scenes import *
 from ids.factions import *
+from modules.item_templates import *
 
 
 ####################################################################################################################
@@ -1750,11 +1751,7 @@ troops = [
     "nord_recruit","Gebur Engle (Lig. I.)","Geburas Engles",
     tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
     [
-      itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,
-      itm_ankle_boots,itm_wrapping_boots,
-      itm_woolen_cap_newred,itm_woolen_cap_newgrn,itm_woolen_cap_newblk,itm_woolen_cap,
-      itm_shirt,itm_roman_shirt,itm_fattiglinenskjortir,itm_bl_tunicsr01_2,itm_bl_tunicsr02,
-      itm_mercia_tunic1,itm_blue_short_tunic,itm_bl_tunicsr01,itm_fat_body,
+      *sling_stones, *peasant_boots, *phrygian_caps, *peasant_clothes,
       itm_knife,itm_pitch_fork,itm_battle_fork,itm_quarter_staff,itm_sickle,itm_hatchet
     ],
     def_attrib|level(15),wp(110),knows_warrior_basic, nord_face_young_1, nord_face_old_2
@@ -1764,14 +1761,9 @@ troops = [
     "nord_footman","Kotsetla Engle (Lig. I.)","Kotsetlas Engles",
     tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_neutral,
     [
-      itm_javelin,itm_javelin,itm_javelin,itm_sniper_crossbow,itm_flintlock_pistol,itm_heavy_crossbow,
-      itm_ankle_boots,itm_wrapping_boots,
-      itm_woolen_cap_newblu,itm_woolen_cap_newgrn,
-      itm_piel_coat01,itm_piel_coat06,itm_piel_coat03,
-      itm_shirt,itm_wessex_tunic3,itm_mercia_tunic1,itm_peasant_man_f,itm_leather_jerkin,
-      itm_idi_furjacket1,itm_idi_furjacket2,itm_idi_furjacket3,
+      *sling_stones, *peasant_boots, *fur_jackets, *phrygian_caps, 
+      *fur_cloaks, *javelin_packs, *kotsetla_shields,
       itm_palka3,itm_palka4,itm_cudgel,itm_axefaradon2,
-      itm_buckler15,itm_buckler16,itm_buckler28,itm_buckler32,itm_buckler42
     ],
     def_attrib2|level(19),wp(140),knows_warrior_basic, nord_face_young_1, nord_face_old_2
   ],
@@ -1780,14 +1772,9 @@ troops = [
     "nord_trained_footman","Geneata Engle (Med. I.)","Geneatas Engles",
     tf_guarantee_boots|tf_guarantee_shield|tf_guarantee_armor,0,0,fac_neutral,
     [
-      itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,
-      itm_quality_carbatinae_white,itm_quality_carbatinae_white,itm_quality_carbatinae_green,itm_quality_carbatinae_orange,
-      itm_blue_short_tunic2,itm_bluevikingshirt,itm_mercia_tunic10,itm_wessex_tunic4,
-      itm_coat_of_plates9,itm_leather_vest_red,itm_pelt_coat2,itm_idi_furjacket5,itm_idi_furjacket6,
-      itm_lui_battleaxetwoh,itm_saxon_spear,itm_spear_3,itm_langseax,itm_falchion,itm_spear_3,
-      itm_ad_viking_shield_round_35,itm_ad_viking_shield_round_36,itm_ad_viking_shield_round_37,
-      itm_ad_viking_shield_round_38,itm_ad_viking_shield_round_39,itm_ad_viking_shield_round_40,
-      itm_ad_viking_shield_round_41,itm_ad_viking_shield_round_42
+      *quality_carbatinaes, *leather_vests, *geneata_shields, *phrygian_caps,
+      *javelin_packs, *bowl_helmets,
+      itm_lui_battleaxetwoh,itm_saxon_spear,itm_spear_3,itm_langseax,itm_falchion,
     ],
     def_attrib2|level(23),wp(170),knows_warrior_normal,nord_face_young_1, nord_face_old_2
   ],
@@ -1796,27 +1783,19 @@ troops = [
     "nord_warrior","Geoguth Engle (Med. I.)","Geoguthas Engles",
     tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
     [
-      itm_javelin,itm_javelin,itm_javelin,itm_javelin,itm_javelin,
-      itm_quality_carbatinae_green,itm_quality_carbatinae_blue,itm_quality_carbatinae_orange,
-      itm_bl_tunicsleather_3,itm_bl_tunicsleather,itm_bl_tunicsleather_2,
-      itm_leather_vest_green,itm_coat_of_plates1,itm_leather_vest_blue,itm_coat_of_plates3,itm_coat_of_plates5,
-      itm_spear_6,itm_spear_3,itm_langseax,
-      itm_viking_shield_round_27,itm_viking_shield_round_28,itm_viking_shield_round_17,itm_viking_shield_round_33,
-      itm_viking_shield_round_26,itm_viking_shield_round_34,itm_shield_ocho,itm_steel_shield
+      *javelin_packs, *quality_carbatinaes, *rawhide_coats, *phrygian_caps,
+      *geoguth_shields, *bowl_helmets,
+      itm_spear_6,itm_spear_3,itm_langseax,itm_new_sword3,
     ],
     def_attrib2|level(23),wp(170),knows_warrior_normal,nord_face_young_1, nord_face_old_2
   ],
 
   [
     "anglo_portaestandarte","Tacnberend","Tacnberend",
-    tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
+    tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_helmet,0,0,fac_neutral,
     [
-      itm_quality_carbatinae_grey,itm_quality_carbatinae_green,itm_quality_carbatinae_orange,itm_quality_carbatinae_orange,
-      itm_piel_coat02,itm_piel_coat04,itm_piel_coat05,
-      itm_roman_shirt,itm_fattiglinenskjortir,itm_wessex_tunic3,itm_bl_tunicsr02,
-      itm_mercia_tunic1,itm_blue_short_tunic,
-      itm_goat_cap,itm_felt_steppe_cap,itm_boar_helmet,itm_nomad_cap,
-      itm_wessexbanner2,itm_personalbanner,itm_wessexbanner3,itm_trophy_b,itm_leather_gloves,itm_helm_captaina
+      *quality_carbatinaes, *fur_cloaks, *tacnberend_caps, *tacnberend_clothes, itm_leather_gloves,
+      itm_wessexbanner2,itm_personalbanner,itm_wessexbanner3,itm_trophy_b,itm_helm_captaina
     ],
     def_attrib2|level(23),wp(170),knows_warrior_normal,vaegir_face_young_1, vaegir_face_old_2
   ],
@@ -1825,8 +1804,7 @@ troops = [
     "anglo_sacerdote","Cleric Engle","Cleric Engles",
     tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
     [
-      itm_rich_carbatinae_white,itm_quality_carbatinae_white,itm_rich_carbatinae_green,
-      itm_rich_carbatinae_blue,itm_quality_carbatinae_blue,
+      *rich_carbatinaes,
       itm_monk_robe,itm_cloth_robe_grey_1,
       itm_stones,itm_staff
     ],
@@ -1837,8 +1815,7 @@ troops = [
     "anglo_pagano","Woden Priest","Woden Priests",
     tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_neutral,
     [
-      itm_quality_carbatinae_blue,itm_rich_carbatinae_grey,itm_quality_carbatinae_grey,
-      itm_goat_cap,itm_felt_steppe_cap,itm_boar_helmet,
+      *quality_carbatinaes, *tacnberend_caps,
       itm_cloth_robe_yellow,itm_cloth_robe_grey,
       itm_stones,itm_staff
     ],
@@ -1849,16 +1826,10 @@ troops = [
     "nord_veteran","Beadu rinc Engle (Med. I.)","Beadu rincas Engles",
     tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots|tf_guarantee_helmet,0,0,fac_neutral,
     [
-      itm_throwing_spears3,itm_javelin,itm_throwing_spears4,itm_javelin,
-      itm_quality_carbatinae_blue,itm_quality_carbatinae_grey,
-      itm_piel_coat01,itm_piel_coat03,itm_bl_boar_fur,
-      itm_bl_tunic03,itm_redvikingshirt,itm_redtunic,itm_bl_tunic03,itm_leather_armor_c2,
-      itm_leather_armor_c,itm_vae_thick_coat2,itm_vae_thick_coat3,itm_tattered_leather_armor_gr,
-      itm_rathos_bowl_helmet,itm_bowl_helmet,itm_sarranid_helmet1,itm_horn_helmet_3,itm_khergit_cavalry_helmet,
-      itm_dagger,itm_saxon_axe,itm_axe,itm_spear_3,itm_spear_2,itm_lui_battleaxetwoh,
-      itm_ad_viking_shield_round_31,itm_ad_viking_shield_round_32,itm_ad_viking_shield_round_43,
-      itm_ad_viking_shield_round_34,itm_ad_viking_shield_round_36,itm_ad_viking_shield_round_37,
-      itm_ad_viking_shield_round_38,itm_ad_viking_shield_round_39
+      *javelin_throwing_spears, *quality_carbatinaes, *warrior_jackets, *pelt_coats, 
+      *fur_cloaks, itm_bl_boar_fur, *beadu_rinc_shields, *bowl_helmets,
+      itm_sarranid_helmet1,itm_horn_helmet_3,itm_khergit_cavalry_helmet,
+      itm_dagger,itm_axe,itm_spear_3,itm_spear_2,itm_lui_battleaxetwoh,
     ],
     def_attrib3|level(25),wp(185),knows_warrior_veteran,nord_face_young_1, nord_face_old_2
   ],
@@ -1867,14 +1838,11 @@ troops = [
     "nord_champion","Gesith Engle (Lig. C.)","Gesithas Engles",
     tf_mounted|tf_guarantee_all,0,0,fac_neutral,
     [
-      itm_javelin,itm_javelin,itm_javelin,itm_javelin,
-      itm_saddle_horse,itm_steppe_horse,itm_charger,itm_normal_horse24,itm_normal_horse25,itm_normal_horse26,
-      itm_rich_carbatinae_green,itm_rich_carbatinae_blue,itm_quality_carbatinae_blue,
-      itm_padded_leather_blue,itm_padded_leather_brown,itm_byrnie,itm_mail_shirthre,itm_mail_shirtredwhite,itm_mail_shirt_1_trig,
-      itm_vaegir_war_helmet,itm_briton_helm,itm_briton_helm2,itm_magyar_helmet_a,itm_vaegir_mask,itm_talak_spangenhelm,
-      itm_horn_helmet,itm_horn_helmet_3,
-      itm_hunting_dagger,itm_new_sword3,itm_spear_8,itm_spear_4,
-      itm_saxon_adorno_20,itm_saxon_adorno_1,itm_saxon_adorno_2,itm_tab_shield_small_round_c
+      *javelin_packs, *gesith_horses, *rich_carbatinaes, *gesith_shields, *horn_helments,
+      itm_byrnie,itm_mail_shirthre,itm_mail_shirtredwhite,itm_mail_shirt_1_trig,
+      itm_vaegir_war_helmet,itm_briton_helm,itm_briton_helm2,itm_magyar_helmet_a,
+      itm_vaegir_mask,itm_talak_spangenhelm,itm_leather_gloves,
+      itm_new_sword3,itm_spear_8,itm_spear_4,
     ],
     def_attrib3|level(27),wp(200),knows_warrior_veteran,nord_face_young_1, nord_face_old_2
   ],
@@ -1883,11 +1851,11 @@ troops = [
     "nord_huntsman","Sceotand Engle (Missile)","Sceotandas Engles",
     tf_guarantee_ranged|tf_guarantee_armor|tf_guarantee_boots,0,0,fac_neutral,
     [
+      *peasant_boots,
       itm_arrows,itm_short_bow,itm_short_bow,itm_short_bow,itm_hunting_bow,
-      itm_ankle_boots,itm_wrapping_boots,
       itm_leather_steppe_cap_a,itm_roman_shirt,itm_fattiglinenskjortir,itm_bl_tunicsr01_2,itm_bl_tunicsr02,
       itm_mercia_tunic1,itm_blue_short_tunic,itm_bl_tunicsr01,
-      itm_cudgel,itm_dagger,itm_axe
+      itm_cudgel,itm_dagger,
     ],
     basic_ranged_attrib|str_10|level(15),wp(40)|wp_archery(110),
     knows_ironflesh_1|knows_power_draw_2|knows_power_throw_1,nord_face_young_1, nord_face_old_2
@@ -1897,33 +1865,21 @@ troops = [
     "nord_archer","Rigwiga Engle (Hv. I.)","Ridwigas Engles",
     tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_shield|tf_guarantee_gloves,0,0,fac_neutral,
     [
-      itm_throwing_spears3,itm_throwing_spears4,itm_jarid,
-      itm_leather_gloves,itm_rich_carbatinae_grey,itm_carbatinae_greaves_white,
-      itm_tattered_leather_armor_ylw,itm_padded_leather_blue,itm_ad_viking_byrnie_02,itm_ad_viking_byrnie_04,
-      itm_ad_viking_byrnie_06,itm_mail_shirt_9_trig,itm_mail_shirt_2_trig,
-      itm_horn_helmet,itm_horn_helmet_2,itm_spangenhelm_helm,itm_vendel_helmet2,itm_briton_helm4,itm_briton_helm3,
+      *throwing_spears, itm_leather_gloves, *rich_carbatinaes, *horn_helments, *rigwiga_shields,
+      *viking_brynies, itm_spangenhelm_helm, itm_vendel_helmet2,itm_briton_helm4,itm_briton_helm3,
       itm_nordic_veteran_archer_helmet,itm_footman_helmet,
-      itm_scimitar,itm_new_sword3,itm_le_pictishsword3,itm_saxonsword,itm_le_richsword1,
-      itm_ad_viking_shield_round_15,itm_ad_viking_shield_round_30,itm_saxon_adorno_20,itm_saxon_adorno_1,
-      itm_saxon_adorno_2,itm_saxon_adorno_3,itm_saxon_adorno_4,itm_saxon_adorno_5
+      itm_new_sword3,itm_new_sword4,itm_le_richsword1,itm_axe,
     ],
     def_attrib3|level(27),wp(200),knows_warrior_veteran,nord_face_young_1, nord_face_old_2
   ],
 
   [
     "nord_veteran_archer","Duguth Engle (Hv. I.)","Duguthas Engles",
-    tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots|tf_guarantee_helmet,0,0,fac_neutral,
+    tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots|tf_guarantee_helmet|tf_guarantee_gloves,0,0,fac_neutral,
     [
-      itm_throwing_spears3,itm_throwing_spears4,itm_jarid,
-      itm_rich_carbatinae_blue,itm_quality_carbatinae_blue,itm_carbatinae_greaves_white,
-      itm_noblemanshirt_gaelic,itm_noblemanshirt_pictish,
-      itm_leather_vest_red,itm_coat_of_plates8,itm_coat_of_plates9,itm_padded_jack_3_trig,itm_tattered_leather_armor_blk,
-      itm_mail_shirt_8_trig,itm_mail_shirt_7_trig,itm_mail_shirt_4_trig,
-      itm_woolen_cap_newwht,itm_woolen_cap,
-      itm_norman_helmet,itm_rathos_bowl_helmet,itm_leather_cap,itm_leather_steppe_cap_b,
-      itm_spear_1,itm_le_bamburghsword,itm_langseax,
-      itm_viking_shield_round_27,itm_viking_shield_round_28,itm_viking_shield_round_17,itm_viking_shield_round_33,
-      itm_viking_shield_round_26,itm_viking_shield_round_34,itm_shield_ocho,itm_steel_shield
+      *throwing_spears, *normal_greaves, *mail_shirt_trigs, *bowl_helmets, *duguth_shields,
+      itm_tattered_leather_armor_blk,itm_norman_helmet, itm_leather_gloves,
+      itm_spear_1,itm_le_bamburghsword,itm_new_sword3, itm_new_sword4,
     ],
     def_attrib3|level(27),wp(200),knows_warrior_veteran,nord_face_young_1, nord_face_old_2
   ],
@@ -1932,14 +1888,12 @@ troops = [
     "engle_hearth","Hearthweru Engle (Elit. I.)","Hearthweruas Engles",
     tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_helmet|tf_guarantee_shield,0,0,fac_neutral,
     [
-      itm_throwing_spears3,itm_throwing_spears4,itm_jarid,
-      itm_leather_gloves,
-      itm_carbatinae_greaves_blue,itm_rich_carbatinae_grey,itm_splinted_leather_greaves,
-      itm_padded_jack_8_trig,itm_heraldic_mail_with_tunic,itm_mail_coat_2_trig,itm_mail_shirtdeer,
+      *throwing_spears, itm_leather_gloves, *rich_greaves, itm_splinted_leather_greaves,
+      itm_heraldic_mail_with_tunic,itm_mail_coat_2_trig,itm_mail_shirtdeer,
       itm_mail_shirt_grn,itm_mail_shirt_red,itm_byrnie_e_new,itm_byrnie2,
       itm_vaegir_war_helmet,itm_briton_helm,itm_briton_helm5,itm_flat_topped_helmet,itm_talak_spangenhelm,
       itm_vaegir_mask,itm_briton_helm4,itm_bascinet_3,
-      itm_spear_1,itm_spear_2,itm_new_sword4,itm_new_sword3,itm_le_richsword1,
+      itm_spear_1,itm_spear_2,itm_new_sword4,itm_new_sword3,itm_le_richsword1,itm_axe,
       itm_tab_shield_round_c
     ],
     def_attrib3|level(32),wp(260),knows_warrior_elite,nord_face_young_1, nord_face_old_2

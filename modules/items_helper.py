@@ -99,6 +99,7 @@ missile_distance_trigger = [
      ])]
 # CC
 
+
 def get_item_status(item):
     return (
         get_weight(item[6]), get_abundance(item[6]), get_head_armor(item[6]),
@@ -107,6 +108,7 @@ def get_item_status(item):
         get_weapon_length(item[6]), get_max_ammo(item[6]), get_thrust_damage(item[6]),
         get_swing_damage(item[6]),
     )
+
 
 def create_item(prefix, subfix):
     return prefix + subfix
@@ -1254,7 +1256,7 @@ all_light_armors = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_body_armor | itp_covers_legs | itp_civilian, 0, 520,
-            weight(3) | abundance(60) | body_armor(20) | leg_armor(3) | difficulty(4),
+            weight(3) | abundance(60) | body_armor(25) | leg_armor(3) | difficulty(4),
             imodbits_cloth, [], angle_saxon_kingdoms
         ]
     ),
