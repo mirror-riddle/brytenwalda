@@ -23,25 +23,20 @@ def write_actions_file(file, action):
 
 
 class AnimationProcessor(ModuleProcessor):
+    id_prefix = "anim_"
     id_name = "animations.py"
     export_name = "actions.txt"
 
     def after_open_export_file(self):
         self.export_file.write("%d\n" % len(animations))
     
-    def write_id_file(self, animation, index):
-        self.id_file.write("anim_%s = %d\n" % (animation[0], index))
-
     def write_export_file(self, animation):
         write_actions_file(self.export_file, animation)
-
-    def before_close_id_file(self):
-        self.id_file.write("\n\n")
 
 
 def process_animations():
     print("Exporting animations...") 
     processor = AnimationProcessor()
-    for (index, animation) in enumerate(animations):
+    for index, animation in enumerate(animations):
         processor.write(animation, index)
     processor.close()

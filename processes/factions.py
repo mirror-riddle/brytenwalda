@@ -50,6 +50,7 @@ def save_factions(file, faction, faction_names):
 
 
 class FactionProcessor(ModuleProcessor):
+    id_prefix = "fac_"
     id_name = "factions.py"
     export_name = "factions.txt"
 
@@ -57,20 +58,14 @@ class FactionProcessor(ModuleProcessor):
         self.export_file.write("factionsfile version 1\n")
         self.export_file.write("%d\n" % len(factions))
 
-    def write_id_file(self, faction, index):
-        self.id_file.write("fac_%s = %d\n" % (faction[0], index))
-
     def write_export_file(self, faction, faction_names):
         save_factions(self.export_file, faction, faction_names)
-
-    def before_close_id_file(self):
-        self.id_file.write("\n\n")
 
 
 def process_factions():
     print("Exporting factions...")
     processor = FactionProcessor()
     faction_names = [faction[0] for faction in factions]
-    for (index, faction) in enumerate(factions):
+    for index, faction in enumerate(factions):
         processor.write(faction, index, faction_names)
     processor.close()

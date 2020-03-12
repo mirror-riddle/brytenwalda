@@ -38,6 +38,7 @@ class ExportIOProcessor(IOProcessor):
 
 
 class ModuleProcessor():
+    id_prefix = "id_"
     id_name = "ids.py"
     export_name = "export.txt"
 
@@ -59,7 +60,7 @@ class ModuleProcessor():
         self.after_open_export_file()
 
     def write_id_file(self, item, index):
-        pass
+        self.id_file.write("%s%s = %d\n" %(self.id_prefix, item[0], index))
 
     def write_export_file(self, item, *extra_data):
         pass
@@ -69,7 +70,7 @@ class ModuleProcessor():
         self.write_export_file(item, *extra_data)
 
     def before_close_id_file(self):
-        pass
+        self.id_file.write("\n\n")
 
     def before_close_export_file(self):
         pass
