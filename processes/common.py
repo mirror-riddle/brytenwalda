@@ -1,6 +1,36 @@
 from pathlib import Path
-from headers.common import tags_end
 from modules.info import export_dir
+from headers.common import tags_end
+from headers.operations import (
+    try_begin,
+    try_end,
+    try_for_range,
+    try_for_range_backwards,
+    try_for_parties,
+    try_for_agents,
+    try_for_attached_parties,
+    try_for_active_players,
+    try_for_prop_instances,
+
+    call_script,
+
+    store_script_param,
+    store_script_param_1,
+    store_script_param_2,
+
+    can_fail_operations
+)
+
+try_operations = (
+    try_begin,
+    try_for_range,
+    try_for_range_backwards,
+    try_for_parties,
+    try_for_agents,
+    try_for_attached_parties,
+    try_for_active_players,
+    try_for_prop_instances
+)
 
 
 def convert_to_identifier_with_no_lowercase(s0):
@@ -75,24 +105,56 @@ def save_variables(variables, variable_uses):
     save_varbs(variable_uses, "variable_uses.txt")
 
 
-def load_tag_uses():
-    tag_uses = [ [] ] * tags_end
-    # for i in range(tags_end):
-    #     sub_tag_uses = []
-    #     tag_uses.append(sub_tag_uses)
+def save_statement_block(
+    ofile, statement_name, can_fail_statement, statements, variable_list, variable_uses, quick_strings
+):
+    local_vars = []
+    local_var_uses = []
+    ofile.write("%d " % len(statements))
+    store_script_param_1_uses = 0
+    store_script_param_2_uses = 0
+    current_depth = 0
+    can_fail = 0
+    for index, statement in enumerate(statements):
+        if isinstance(statement, list) or isinstance(statement, tuple):
+            opcode = statement[0]
+            no_variables = 0
+        else:
+            opcode = statement
+            no_variables = 1
+        if (opcode in try_operations):
+            current_depth += 1
+        elif (opcode == try_end):
+            current_depth -= 1
+        elif (opcode == store_script_param_1 or (opcode == store_script_param and statement[2] == 1)):
+            store_script_param_1_uses += 1
+        elif (opcode == store_script_param_2 or (opcode == store_script_param and statement[2] == 2)):
+            store_script_param_2_uses += 1
+        elif (can_fail_statement == 0 and current_depth == 0 and (opcode in can_fail_operations or (
+                (opcode == call_script) and (statement[1].startswith("cf_", 7))
+            )) and ( not statement_name.startswith("cf_"))):
+            print("WARNING: Script can fail at operation #%d. Use cf_ at the beginning of its name: %s"
+                %(index, statement_name)
+            )
+        save_statement(ofile, opcode, no_variables, statement, variable_list,
+                       variable_uses, local_vars, local_var_uses, [], quick_strings)
+    if (store_script_param_1_uses > 1):
+        print("WARNING: store_script_param_1 is used more than once:" + statement_name)
+    if (store_script_param_2_uses > 1):
+        print("WARNING: store_script_param_2 is used more than once:" + statement_name)
+    i = 0
+    while (i < len(local_vars)):
+        if (local_var_uses[i] == 0 and not(local_vars[i].startswith("unused"))):
+            print("WARNING: Local variable never used: " + local_vars[i] + ", at: " + str(statement_name))
+        i = i + 1
+    if (len(local_vars) > 128):
+        print("WARNING: Script uses more than 128 local wariables: " +
+              str(statement_name) + "variables count:" + str(len(local_vars)))
 
-    try:
-        file = open(export_dir + "tag_uses.txt", "r")
-        var_list = file.readlines()
-        file.close()
-        for v in var_list:
-            vv = v.strip().split(';')
-            if vv:
-                for v2 in vv:
-                    vvv = v2.split(' ')
-                    if len(vvv) >= 3:
-                        ensure_tag_use(tag_uses, int(vvv[0]), int(vvv[1]))
-                        tag_uses[int(vvv[0])][int(vvv[1])] = int(vvv[2])
-    except:
-        print("Creating new tag_uses.txt file...")
-    return tag_uses
+
+def save_simple_triggers(ofile, triggers, variable_list, variable_uses, quick_strings):
+    ofile.write("%d\n" % len(triggers))
+    for trigger in triggers:
+        ofile.write("%f " % (trigger[0]))
+        save_statement_block(ofile, 0, 1, trigger[1], variable_list, variable_uses, quick_strings)
+        ofile.write("\n")
