@@ -1,6 +1,6 @@
 from modules.info_pages import info_pages
 from common import lf_open, replace_spaces
-from io_processor import ModuleProcessor
+from module_processor import ModuleProcessor
 
 
 class InfoPageProcessor(ModuleProcessor):

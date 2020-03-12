@@ -99,6 +99,14 @@ missile_distance_trigger = [
      ])]
 # CC
 
+def get_item_status(item):
+    return (
+        get_weight(item[6]), get_abundance(item[6]), get_head_armor(item[6]),
+        get_body_armor(item[6]), get_leg_armor(item[6]), get_difficulty(item[6]),
+        get_hit_points(item[6]), get_speed_rating(item[6]), get_missile_speed(item[6]),
+        get_weapon_length(item[6]), get_max_ammo(item[6]), get_thrust_damage(item[6]),
+        get_swing_damage(item[6]),
+    )
 
 def create_item(prefix, subfix):
     return prefix + subfix

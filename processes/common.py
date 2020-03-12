@@ -1,5 +1,5 @@
 from pathlib import Path
-
+from headers.common import tags_end
 from modules.info import export_dir
 
 
@@ -74,3 +74,25 @@ def save_variables(variables, variable_uses):
     save_varbs(variables, "variables.txt")
     save_varbs(variable_uses, "variable_uses.txt")
 
+
+def load_tag_uses():
+    tag_uses = [ [] ] * tags_end
+    # for i in range(tags_end):
+    #     sub_tag_uses = []
+    #     tag_uses.append(sub_tag_uses)
+
+    try:
+        file = open(export_dir + "tag_uses.txt", "r")
+        var_list = file.readlines()
+        file.close()
+        for v in var_list:
+            vv = v.strip().split(';')
+            if vv:
+                for v2 in vv:
+                    vvv = v2.split(' ')
+                    if len(vvv) >= 3:
+                        ensure_tag_use(tag_uses, int(vvv[0]), int(vvv[1]))
+                        tag_uses[int(vvv[0])][int(vvv[1])] = int(vvv[2])
+    except:
+        print("Creating new tag_uses.txt file...")
+    return tag_uses

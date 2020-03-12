@@ -1,6 +1,6 @@
 from modules.animations import animations
 from common import lf_open
-from io_processor import ModuleProcessor
+from module_processor import ModuleProcessor
 
 
 def write_actions_file(file, action):

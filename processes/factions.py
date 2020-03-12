@@ -1,7 +1,7 @@
 from functools import reduce
 from modules.factions import factions
 from common import convert_to_identifier, replace_spaces, lf_open
-from io_processor import ModuleProcessor
+from module_processor import ModuleProcessor
 
 faction_name_pos = 0
 faction_flags_pos = 2

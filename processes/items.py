@@ -1,77 +1,67 @@
+from functools import reduce
 from modules.info import export_dir
-from modules.items import *
-
-from operations import *
-from common import convert_to_identifier, lf_open
-
-
-def get_item_code(item):
-    prefix = "it_"
-    code = prefix + item[0]
-    return code
+from modules.items import items, get_item_status
+from module_processor import ModuleProcessor
+from operations import save_quick_strings, save_simple_triggers, load_quick_strings
+from common import (
+    convert_to_identifier, lf_open, load_variables, replace_spaces, save_variables
+)
 
 
-def save_python_header():
-    file = lf_open("../ids/items.py", "w")
-    for i_item in range(len(items)):
-        file.write("itm_%s = %d\n" % (convert_to_identifier(items[i_item][0]), i_item))
-    file.close()
+def variations_reducer(base, variation):
+    variation_string = ("%s %d " % (variation[0], variation[1]))
+    return ("%s%s" % (base, variation_string))
 
 
-def write_items(variable_list, variable_uses, tag_uses, quick_strings):
-    itemkinds_file_name = export_dir + "item_kinds1.txt"
-    ofile = open(itemkinds_file_name, "w")
-    ofile.write("itemsfile version 3\n")
-    ofile.write("%d\n" % len(items))
-    for item in items:
-        if (item[3] & itp_merchandise) > 0:
-            id_no = find_object(items, convert_to_identifier(item[0]))
-            add_tag_use(tag_uses, tag_item, id_no)
-        ofile.write(" itm_%s %s %s %d " % (convert_to_identifier(
-            item[0]), replace_spaces(item[1]), replace_spaces(item[1]), len(item[2])))
-        item_variations = item[2]
-        for item_variation in item_variations:
-            ofile.write(" %s %d " % (item_variation[0], item_variation[1]))
-        ofile.write(" %d %d %d %d %f %d %d %d %d %d %d %d %d %d %d %d %d\n" % (item[3], item[4], item[5], item[7],
-                                                                               get_weight(item[6]),
-                                                                               get_abundance(item[6]),
-                                                                               get_head_armor(item[6]),
-                                                                               get_body_armor(item[6]),
-                                                                               get_leg_armor(item[6]),
-                                                                               get_difficulty(item[6]),
-                                                                               get_hit_points(item[6]),
-                                                                               get_speed_rating(item[6]),
-                                                                               get_missile_speed(item[6]),
-                                                                               get_weapon_length(item[6]),
-                                                                               get_max_ammo(item[6]),
-                                                                               get_thrust_damage(item[6]),
-                                                                               get_swing_damage(item[6]),
-                                                                               ))
-        if (len(item) > 9):
-            ofile.write(" %d\n" % (len(item[9])))
-            for item_faction in item[9]:
-                ofile.write(" %d" % item_faction)
-            ofile.write("\n")
-        else:
-            ofile.write(" 0\n")
-        trigger_list = []
+def factions_reducer(base, faction):
+    return ("%s%d " % (base, faction))
+
+
+def write_items(ofile, item):
+    identity = convert_to_identifier(item[0])
+    name = replace_spaces(item[1])
+    status = get_item_status(item)
+    variations_info = reduce(variations_reducer, item[2], "")
+    info = (item[3], item[4], item[5], item[7]) + status
+    ofile.write("itm_%s %s %s %d %s " % (identity, name, name, len(item[2]), variations_info))
+    ofile.write("%d %d %d %d %f %d %d %d %d %d %d %d %d %d %d %d %d\n" % info)
+    if (len(item) > 9):
+        factions_info = reduce(factions_reducer, item[9], "")
+        ofile.write("%d \n%s \n" % (len(item[9]), factions_info))
+    else:
+        ofile.write("0 \n")
+
+
+class ItemProcessor(ModuleProcessor):
+    id_prefix = "itm_"
+    id_name = "items.py"
+    export_name = "item_kinds1.txt"
+
+    def after_open_export_file(self):
+        self.export_file.write("itemsfile version 3\n")
+        self.export_file.write("%d\n" % len(items))
+
+    def write_export_file(self, item):
+        write_items(self.export_file, item)
+
+    def write_triggers(self, item, variables, variable_uses, quick_strings):
         if (len(item) > 8):
-            trigger_list = item[8]
-        save_simple_triggers(ofile, trigger_list, variable_list, variable_uses, tag_uses, quick_strings)
-
-    ofile.close()
+            save_simple_triggers(
+                self.export_file, item[8], variables, variable_uses, [], quick_strings
+            )
 
 
 def process_items():
-    print("Exporting item data...")
-    save_python_header()
-
+    print("Exporting item...")
     variable_uses = []
-    variables = load_variables(export_dir, variable_uses)
-    tag_uses = load_tag_uses(export_dir)
+    variables = load_variables(variable_uses)
     quick_strings = load_quick_strings(export_dir)
-    write_items(variables, variable_uses, tag_uses, quick_strings)
-    save_variables(export_dir, variables, variable_uses)
-    save_tag_uses(export_dir, tag_uses)
+
+    processor = ItemProcessor()
+    for index, item in enumerate(items):
+        processor.write(item, index)
+        processor.write_triggers(item, variables, variable_uses, quick_strings)
+    processor.close()
+
+    save_variables(variables, variable_uses)
     save_quick_strings(export_dir, quick_strings)
-    # print "Finished with Items."
