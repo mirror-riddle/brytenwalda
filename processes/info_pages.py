@@ -22,8 +22,7 @@ class IOInfoPages(IOProcessor):
     def write(self, info_page):
         title = replace_spaces(info_page[1])
         content = replace_spaces(info_page[2])
-        self.file.write("ip_%s %s %s" % (info_page[0], title, content))
-        self.file.write("\n")
+        self.file.write("ip_%s %s %s\n" % (info_page[0], title, content))
 
 
 def process_info_pages():
