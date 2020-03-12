@@ -1,3 +1,4 @@
+from functools import reduce
 from modules.info import export_dir
 from modules.factions import factions
 from common import convert_to_identifier, replace_spaces, lf_open
@@ -10,45 +11,45 @@ faction_relations_pos = 4
 faction_ranks_pos = 5
 
 
-def compile_relations():
-    relations = [[0.0] * len(factions) for faction in factions]
-    for (i_faction, faction) in enumerate(factions):
-        relations[i_faction][i_faction] = faction[faction_coherence_pos]
-        rels = factions[i_faction][faction_relations_pos]
-        for rel in rels:
-            rel_name = rel[0]
-            other_pos = -1
-            for j_f in range(len(factions)):
-                if factions[j_f][faction_name_pos] == rel_name:
-                    other_pos = j_f
-            if other_pos == -1:
-                print("ERROR faction not found: " + rel_name)
-            else:
-                relations[other_pos][i_faction] = rel[1]
-                relations[i_faction][other_pos] = rel[1]
-    return relations
+def get_faction_relations(faction, faction_names):
+    relations = faction[faction_relations_pos]
+    faction_relations = [0.0] * len(faction_names)
+    for relation in relations:
+        try:
+            index = faction_names.index(relation[0])
+            faction_relations[index] = relation[1]
+        except ValueError:
+            print("ERROR faction not found: " + relation[0])
+    return faction_relations
 
 
-def save_factions(file, relations, faction, i_faction):
+def relations_reducer(x, y):
+    return "%s%f " % (x, y)
+
+
+def ranks_reducer(x, y):
+    return ("%s%s " % (x, replace_spaces(y)))
+
+
+def save_factions(file, faction, i_faction, faction_names):
     identifier = convert_to_identifier(faction[0])
     dashed_name = replace_spaces(faction[1])
     fac_color = faction[6] if len(faction) == 7 else 0xAAAAAA
 
     file.write("fac_%s %s %d %d \n" % (identifier, dashed_name, faction[2], fac_color))
-    
-    for reln in relations[i_faction]:
-        file.write(" %f " % reln)
-    file.write("\n")
-    
-    ranks = []
+
+    relations = get_faction_relations(faction, faction_names)
+    relations_string = reduce(relations_reducer, relations, "")
+    file.write(relations_string + "\n")
+
     if (len(faction) > faction_ranks_pos):
         ranks = faction[faction_ranks_pos]
-    
-    file.write("%d " % (len(ranks)))
-    
-    for rank in ranks:
-        dashed_rank = replace_spaces(rank)
-        file.write(" %s " % dashed_rank)
+        ranks_string = reduce(ranks_reducer, ranks, "")
+        file.write("%d %s" % (len(ranks), ranks_string))
+    else:
+        file.write("0 ")
+
+    file.write("\n")
 
 
 class IOFactions(IOProcessor):
@@ -62,24 +63,24 @@ class IOFactions(IOProcessor):
 
 
 class IOIDs(IOProcessor):
-    
+
     def write(self, id, index):
         self.file.write("fac_%s = %d\n" % (id, index))
 
     def before_close(self):
-        self.file.write("\n\n")        
+        self.file.write("\n\n")
 
 
 def process_factions():
     print("Exporting factions...")
 
-    relations = compile_relations()
+    faction_names = [faction[0] for faction in factions]
     io_ids = IOIDs("../ids/factions.py")
     io_factions = IOFactions(export_dir + "factions.txt")
-    
+
     for (index, faction) in enumerate(factions):
         io_ids.write(faction[0], index)
-        io_factions.write(relations, faction, index)
+        io_factions.write(faction, index, faction_names)
 
-    io_ids.close()   
-    io_factions.close() 
+    io_ids.close()
+    io_factions.close()
