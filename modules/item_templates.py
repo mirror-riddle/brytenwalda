@@ -277,7 +277,7 @@ gesith_shields = [
     itm_tab_shield_small_round_c    
 ]
 
-horn_helments = [
+horn_helmets = [
     itm_horn_helmet,
     itm_horn_helmet_2,
     itm_horn_helmet_3

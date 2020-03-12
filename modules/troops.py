@@ -1784,7 +1784,7 @@ troops = [
     tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
     [
       *javelin_packs, *quality_carbatinaes, *rawhide_coats, *phrygian_caps,
-      *geoguth_shields, *bowl_helmets,
+      *geoguth_shields, *horn_helmets,
       itm_spear_6,itm_spear_3,itm_langseax,itm_new_sword3,
     ],
     def_attrib2|level(23),wp(170),knows_warrior_normal,nord_face_young_1, nord_face_old_2
@@ -1838,7 +1838,7 @@ troops = [
     "nord_champion","Gesith Engle (Lig. C.)","Gesithas Engles",
     tf_mounted|tf_guarantee_all,0,0,fac_neutral,
     [
-      *javelin_packs, *gesith_horses, *rich_carbatinaes, *gesith_shields, *horn_helments,
+      *javelin_packs, *gesith_horses, *rich_carbatinaes, *gesith_shields,
       itm_byrnie,itm_mail_shirthre,itm_mail_shirtredwhite,itm_mail_shirt_1_trig,
       itm_vaegir_war_helmet,itm_briton_helm,itm_briton_helm2,itm_magyar_helmet_a,
       itm_vaegir_mask,itm_talak_spangenhelm,itm_leather_gloves,
@@ -1865,7 +1865,7 @@ troops = [
     "nord_archer","Rigwiga Engle (Hv. I.)","Ridwigas Engles",
     tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_shield|tf_guarantee_gloves,0,0,fac_neutral,
     [
-      *throwing_spears, itm_leather_gloves, *rich_carbatinaes, *horn_helments, *rigwiga_shields,
+      *throwing_spears, itm_leather_gloves, *rich_carbatinaes, *horn_helmets, *rigwiga_shields,
       *viking_brynies, itm_spangenhelm_helm, itm_vendel_helmet2,itm_briton_helm4,itm_briton_helm3,
       itm_nordic_veteran_archer_helmet,itm_footman_helmet,
       itm_new_sword3,itm_new_sword4,itm_le_richsword1,itm_axe,
