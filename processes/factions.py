@@ -1,8 +1,7 @@
 from functools import reduce
-from modules.info import export_dir
 from modules.factions import factions
 from common import convert_to_identifier, replace_spaces, lf_open
-from io_processor import IOProcessor
+from io_processor import ModuleProcessor
 
 faction_name_pos = 0
 faction_flags_pos = 2
@@ -31,7 +30,7 @@ def ranks_reducer(x, y):
     return ("%s%s " % (x, replace_spaces(y)))
 
 
-def save_factions(file, faction, i_faction, faction_names):
+def save_factions(file, faction, faction_names):
     identifier = convert_to_identifier(faction[0])
     dashed_name = replace_spaces(faction[1])
     fac_color = faction[6] if len(faction) == 7 else 0xAAAAAA
@@ -45,42 +44,33 @@ def save_factions(file, faction, i_faction, faction_names):
     if (len(faction) > faction_ranks_pos):
         ranks = faction[faction_ranks_pos]
         ranks_string = reduce(ranks_reducer, ranks, "")
-        file.write("%d %s" % (len(ranks), ranks_string))
+        file.write("%d %s\n" % (len(ranks), ranks_string))
     else:
-        file.write("0 ")
-
-    file.write("\n")
+        file.write("0 \n")
 
 
-class IOFactions(IOProcessor):
+class FactionProcessor(ModuleProcessor):
+    id_name = "factions.py"
+    export_name = "factions.txt"
 
-    def after_open(self):
-        self.file.write("factionsfile version 1\n")
-        self.file.write("%d\n" % len(factions))
+    def after_open_export_file(self):
+        self.export_file.write("factionsfile version 1\n")
+        self.export_file.write("%d\n" % len(factions))
 
-    def write(self, relations, faction, index):
-        save_factions(self.file, relations, faction, index)
+    def write_id_file(self, faction, index):
+        self.id_file.write("fac_%s = %d\n" % (faction[0], index))
 
+    def write_export_file(self, faction, faction_names):
+        save_factions(self.export_file, faction, faction_names)
 
-class IOIDs(IOProcessor):
-
-    def write(self, id, index):
-        self.file.write("fac_%s = %d\n" % (id, index))
-
-    def before_close(self):
-        self.file.write("\n\n")
+    def before_close_id_file(self):
+        self.id_file.write("\n\n")
 
 
 def process_factions():
     print("Exporting factions...")
-
+    processor = FactionProcessor()
     faction_names = [faction[0] for faction in factions]
-    io_ids = IOIDs("../ids/factions.py")
-    io_factions = IOFactions(export_dir + "factions.txt")
-
     for (index, faction) in enumerate(factions):
-        io_ids.write(faction[0], index)
-        io_factions.write(faction, index, faction_names)
-
-    io_ids.close()
-    io_factions.close()
+        processor.write(faction, index, faction_names)
+    processor.close()
