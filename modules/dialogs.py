@@ -32170,100 +32170,170 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
    #juego de la moneda acaba
 
 #Bounty hunting chief
-  [anyone|plyr,"tavernkeeper_talk", [         (eq, "$g_bounty_activo", 0),
-(store_partner_quest,":tavernkeepers_quest"),
-                             (lt,":tavernkeepers_quest",0),],
-   "Are there any bounties posted?", "tavernkeeper_request_mission_ask",[         (assign, "$g_bounty_activo", 1),]],
-  [anyone|plyr,"tavernkeeper_talk", [(store_partner_quest,":tavernkeepers_quest"),
-                             (ge,":tavernkeepers_quest",0),],
-   "About the bounty you gave me...", "tavernkeeper_active_mission_1",[]],
-  [anyone,"tavernkeeper_active_mission_1", [], "Yes, have you made any progress on it?", "tavernkeeper_active_mission_2",[]],
+  [anyone|plyr,"tavernkeeper_talk",
+    [
+      (eq, "$g_bounty_activo", 0),
+      (store_partner_quest,":tavernkeepers_quest"),
+      (lt,":tavernkeepers_quest",0),
+    ],
+   "Are there any bounties posted?", 
+   "tavernkeeper_request_mission_ask",
+   [(assign, "$g_bounty_activo", 1),]
+  ],
+  
+  [anyone|plyr,"tavernkeeper_talk", 
+    [
+      (store_partner_quest,":tavernkeepers_quest"),
+      (ge,":tavernkeepers_quest",0)
+    ],
+    "About the bounty you gave me...", 
+    "tavernkeeper_active_mission_1",
+    []
+  ],
 
-  [anyone|plyr,"tavernkeeper_active_mission_2", [(store_partner_quest,":tavernkeepers_quest"),
-                                         (check_quest_succeeded, ":tavernkeepers_quest"),
-                                         (quest_get_slot, ":quest_target_center", ":tavernkeepers_quest", slot_quest_target_center),
-                                         (str_store_party_name, s3, ":quest_target_center"),
-                                         (quest_get_slot, ":quest_target_dna", ":tavernkeepers_quest", slot_quest_target_dna),
-                                         (call_script, "script_get_name_from_dna_to_s50", ":quest_target_dna"),
-                                         (str_store_string, s4, s50),],
-   "I found {s4} hiding at {s3} and I gave him his punishment.", "tavernkeeper_hunt_down_fugitive_success",
-   []],
+  [anyone,"tavernkeeper_active_mission_1",
+    [], 
+    "Yes, have you made any progress on it?", 
+    "tavernkeeper_active_mission_2",
+    []
+  ],
 
-  [anyone|plyr,"tavernkeeper_active_mission_2", [(store_partner_quest,":tavernkeepers_quest"),
-                                         (check_quest_failed, ":tavernkeepers_quest"),
-                                         ],
-   "I'm afraid they got away.", "tavernkeeper_hunt_down_fugitive_fail",
-   []],
+  [anyone|plyr,"tavernkeeper_active_mission_2", 
+    [
+      (store_partner_quest,":tavernkeepers_quest"),
+      (check_quest_succeeded, ":tavernkeepers_quest"),
+      (quest_get_slot, ":quest_target_center", ":tavernkeepers_quest", slot_quest_target_center),
+      (str_store_party_name, s3, ":quest_target_center"),
+      (quest_get_slot, ":quest_target_dna", ":tavernkeepers_quest", slot_quest_target_dna),
+      (call_script, "script_get_name_from_dna_to_s50", ":quest_target_dna"),
+      (str_store_string, s4, s50),
+    ],
+    "I found {s4} hiding at {s3} and I gave him his punishment.", "tavernkeeper_hunt_down_fugitive_success",
+    []
+  ],
+
+  [anyone|plyr,"tavernkeeper_active_mission_2", 
+    [
+      (store_partner_quest,":tavernkeepers_quest"),
+      (check_quest_failed, ":tavernkeepers_quest"),
+    ],
+    "I'm afraid they got away.", 
+    "tavernkeeper_hunt_down_fugitive_fail",
+    []
+  ],
 
   [anyone|plyr,"tavernkeeper_active_mission_2", [], "I am still working on it.", "tavernkeeper_active_mission_3",[]],
+  
   [anyone|plyr,"tavernkeeper_active_mission_2", [], "I am afraid I won't be able to do this quest.", "tavernkeeper_mission_failed",[]],
 
   [anyone,"tavernkeeper_active_mission_3", [], "I see. Well why are you still here?", "tavernkeeper_pretalk",[]],
 
-  [anyone,"tavernkeeper_mission_failed", [], "{s43}", "tavernkeeper_pretalk",
-   [
-    (call_script, "script_lord_comment_to_s43", "$g_talk_troop", "str_lord_mission_failed_default"),
-   (store_partner_quest,":tavernkeepers_quest"),
-    (call_script, "script_abort_quest", ":tavernkeepers_quest", 1)]],
+  [anyone,"tavernkeeper_mission_failed", [], 
+    "{s43}", "tavernkeeper_pretalk",
+    [
+      (call_script, "script_lord_comment_to_s43", "$g_talk_troop", "str_lord_mission_failed_default"),
+      (store_partner_quest,":tavernkeepers_quest"),
+      (call_script, "script_abort_quest", ":tavernkeepers_quest", 1)
+    ]
+  ],
 
   [anyone,"tavernkeeper_hunt_down_fugitive_success", [],
-   "Well done, {playername}!\
-  'Tis good to know you can be trusted to handle things with an appropriate level of tactfulness.\
- A bounty I promised, and a bounty you shall have. 300 scillingas and not a copper less!", "tavernkeeper_hunt_down_fugitive_success_2",
-   [
-     (add_xp_as_reward, 300),
-    ]],
+    "Well done, {playername}!\
+    'Tis good to know you can be trusted to handle things with an appropriate level of tactfulness.\
+    A bounty I promised, and a bounty you shall have. 300 scillingas and not a copper less!", 
+    "tavernkeeper_hunt_down_fugitive_success_2",
+    [(add_xp_as_reward, 300),]
+  ],
 
   [anyone|plyr,"tavernkeeper_hunt_down_fugitive_success_2", [],
-   "Let me take the money, {s65}. Thank you.", "tavernkeeper_hunt_down_fugitive_reward_accept",[]],
+    "Let me take the money, {s65}. Thank you.", 
+    "tavernkeeper_hunt_down_fugitive_reward_accept",
+    []
+  ],
+  
   [anyone|plyr,"tavernkeeper_hunt_down_fugitive_success_2", [],
-   "This is blood money. I can't accept it.", "tavernkeeper_hunt_down_fugitive_reward_reject",[]],
+    "This is blood money. I can't accept it.", 
+    "tavernkeeper_hunt_down_fugitive_reward_reject",
+    []
+  ],
 
   [anyone,"tavernkeeper_hunt_down_fugitive_reward_accept", [],
-   "Of course, {playername}. Here you are.", "tavernkeeper_pretalk",[
-       (call_script, "script_troop_add_gold", "trp_player", 300),
-       (call_script, "script_change_player_relation_with_troop", "$g_talk_troop", 2),
+    "Of course, {playername}. Here you are.", 
+    "tavernkeeper_pretalk",
+    [
+      (call_script, "script_troop_add_gold", "trp_player", 300),
+      (call_script, "script_change_player_relation_with_troop", "$g_talk_troop", 2),
       (store_partner_quest,":tavernkeepers_quest"),
-       (call_script, "script_end_quest", ":tavernkeepers_quest"),
-       ]],
+      (call_script, "script_end_quest", ":tavernkeepers_quest"),
+    ]
+  ],
 
   [anyone,"tavernkeeper_hunt_down_fugitive_reward_reject", [],
-   "You are a {s25} for whom justice is its own reward, eh? As you wish it, {playername}, as you wish it.\
- An honourable sentiment, to be true.", "tavernkeeper_pretalk",[
-       (call_script, "script_change_player_honor", 3),
-       (call_script, "script_change_player_relation_with_troop", "$g_talk_troop", 2),
+    "You are a {s25} for whom justice is its own reward, eh? As you wish it, {playername}, as you wish it.\
+    An honourable sentiment, to be true.", 
+    "tavernkeeper_pretalk",
+    [
+      (call_script, "script_change_player_honor", 3),
+      (call_script, "script_change_player_relation_with_troop", "$g_talk_troop", 2),
       (store_partner_quest,":tavernkeepers_quest"),
-       (call_script, "script_end_quest", ":tavernkeepers_quest"),
-       ]],
+      (call_script, "script_end_quest", ":tavernkeepers_quest"),
+    ]
+  ],
 
   [anyone,"tavernkeeper_hunt_down_fugitive_fail", [],
-   "It is a sad day when that {s44} manages to avoid the hand of justice yet again.\
- I thought you would be able to do this, {playername}. Clearly I was wrong.", "tavernkeeper_pretalk",
-   [
-    (troop_get_slot, ":insult_string", "$g_talk_troop", slot_lord_reputation_type),
-    (val_add, ":insult_string", "str_lord_insult_default"),
-    (str_store_string, 44, ":insult_string"),
+    "It is a sad day when that {s44} manages to avoid the hand of justice yet again.\
+    I thought you would be able to do this, {playername}. Clearly I was wrong.", "tavernkeeper_pretalk",
+    [
+      (troop_get_slot, ":insult_string", "$g_talk_troop", slot_lord_reputation_type),
+      (val_add, ":insult_string", "str_lord_insult_default"),
+      (str_store_string, 44, ":insult_string"),
+      (call_script, "script_change_player_relation_with_troop", "$g_talk_troop", -1),
+      (store_partner_quest,":tavernkeepers_quest"),
+      (call_script, "script_end_quest", ":tavernkeepers_quest"),
+    ]
+  ],
 
-    (call_script, "script_change_player_relation_with_troop", "$g_talk_troop", -1),
-   (store_partner_quest,":tavernkeepers_quest"),
-    (call_script, "script_end_quest", ":tavernkeepers_quest"),
-    ]],
+  [anyone,"tavernkeeper_request_mission_ask", [], 
+    "So you reckon yourself a bountyhunter, eh?", 
+    "tavernkeeper_tell_mission",
+    [
+      (call_script, "script_random_bounty", "$g_talk_troop"),
+      (assign, "$random_quest_no", reg0),
+    ]
+  ],
 
-  [anyone,"tavernkeeper_request_mission_ask", [], "So you reckon yourself a bountyhunter, eh?", "tavernkeeper_tell_mission",
-   [
-       (call_script, "script_random_bounty", "$g_talk_troop"),
-       (assign, "$random_quest_no", reg0),
-   ]],
-
-  [anyone,"tavernkeeper_tell_mission", [(eq,"$random_quest_no","qst_bounty_1")],
-   "I have something you could help with, an issue with the lawless villain known as {s4}. \
- He supposedly murdered someone, or stole something, or....whatever,\
- and have been on the run from his judgement ever since.\
- There is a bounty of 300 scillingas on his head. Associates of the murderer who,\
- while he issue him no ill will...reckon that this outlaw may have taken refuge\
- with his kinsmen at {s3}.\
- You might be able to hunt him down and give him what they deserve...\
- ^and claim the bounty for yourself of course.", "tavernkeeper_mission_hunt_down_fugitive_told",
+  [anyone,"tavernkeeper_tell_mission", 
+    [(eq,"$random_quest_no","qst_bounty_1")],
+    "I have something you could help with, an issue with the lawless villain known as {s4}. \
+  He supposedly murdered someone, or stole something, or....whatever,\
+  and have been on the run from his judgement ever since.\
+  There is a bounty of 300 scillingas on his head. Associates of the murderer who,\
+  while he issue him no ill will...reckon that this outlaw may have taken refuge\
+  with his kinsmen at {s3}.\
+  You might be able to hunt him down and give him what they deserve...\
+  ^and claim the bounty for yourself of course.", "tavernkeeper_mission_hunt_down_fugitive_told",
+    [
+      (quest_get_slot, ":quest_target_center", "$random_quest_no", slot_quest_target_center),
+      (quest_get_slot, ":quest_target_dna", "$random_quest_no", slot_quest_target_dna),
+      (str_store_troop_name_link,s9, "$g_talk_troop"),
+      (str_store_party_name_link,s3, ":quest_target_center"),
+      (call_script, "script_get_name_from_dna_to_s50", ":quest_target_dna"),
+      (str_store_string, s4, s50),
+      (setup_quest_text, "$random_quest_no"),
+      (str_store_string, s2, "@{s9} asked you to hunt down a fugitive named {s4}. They are currently believed to be at {s3}."),
+    ]
+  ],
+  
+  [anyone,"tavernkeeper_tell_mission", 
+    [(eq,"$random_quest_no","qst_bounty_2")],
+    "I have something you could help with, an issue with the lawless villain known as {s4}. \
+  He supposedly murdered someone, or stole something, or....whatever,\
+  and have been on the run from his judgement ever since.\
+  There is a bounty of 300 scillingas on his head. Associates of the murderer who,\
+  while he issue him no ill will...reckon that this outlaw may have taken refuge\
+  with his kinsmen at {s3}.\
+  You might be able to hunt him down and give him what they deserve...\
+  ^and claim the bounty for yourself of course.", "tavernkeeper_mission_hunt_down_fugitive_told",
    [
      (quest_get_slot, ":quest_target_center", "$random_quest_no", slot_quest_target_center),
      (quest_get_slot, ":quest_target_dna", "$random_quest_no", slot_quest_target_dna),
@@ -32274,25 +32344,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
      (setup_quest_text, "$random_quest_no"),
      (str_store_string, s2, "@{s9} asked you to hunt down a fugitive named {s4}. They are currently believed to be at {s3}."),
    ]],
-  [anyone,"tavernkeeper_tell_mission", [(eq,"$random_quest_no","qst_bounty_2")],
-   "I have something you could help with, an issue with the lawless villain known as {s4}. \
- He supposedly murdered someone, or stole something, or....whatever,\
- and have been on the run from his judgement ever since.\
- There is a bounty of 300 scillingas on his head. Associates of the murderer who,\
- while he issue him no ill will...reckon that this outlaw may have taken refuge\
- with his kinsmen at {s3}.\
- You might be able to hunt him down and give him what they deserve...\
- ^and claim the bounty for yourself of course.", "tavernkeeper_mission_hunt_down_fugitive_told",
-   [
-     (quest_get_slot, ":quest_target_center", "$random_quest_no", slot_quest_target_center),
-     (quest_get_slot, ":quest_target_dna", "$random_quest_no", slot_quest_target_dna),
-     (str_store_troop_name_link,s9, "$g_talk_troop"),
-     (str_store_party_name_link,s3, ":quest_target_center"),
-     (call_script, "script_get_name_from_dna_to_s50", ":quest_target_dna"),
-     (str_store_string, s4, s50),
-     (setup_quest_text, "$random_quest_no"),
-     (str_store_string, s2, "@{s9} asked you to hunt down a fugitive named {s4}. They are currently believed to be at {s3}."),
-   ]],
+  
   [anyone,"tavernkeeper_tell_mission", [(eq,"$random_quest_no","qst_bounty_3")],
    "I have something you could help with, an issue with the lawless villain known as {s4}. \
  He supposedly murdered someone, or stole something, or....whatever,\
@@ -32312,6 +32364,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
      (setup_quest_text, "$random_quest_no"),
      (str_store_string, s2, "@{s9} asked you to hunt down a fugitive named {s4}. They are currently believed to be at {s3}."),
    ]],
+  
   [anyone,"tavernkeeper_tell_mission", [(eq,"$random_quest_no","qst_bounty_4")],
    "I have something you could help with, an issue with the lawless villain known as {s4}. \
  He supposedly murdered someone, or stole something, or....whatever,\
@@ -32331,6 +32384,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
      (setup_quest_text, "$random_quest_no"),
      (str_store_string, s2, "@{s9} asked you to hunt down a fugitive named {s4}. They are currently believed to be at {s3}."),
    ]],
+  
   [anyone,"tavernkeeper_tell_mission", [(eq,"$random_quest_no","qst_bounty_5")],
    "I have something you could help with, an issue with the lawless villain known as {s4}. \
  He supposedly murdered someone, or stole something, or....whatever,\
@@ -32350,6 +32404,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
      (setup_quest_text, "$random_quest_no"),
      (str_store_string, s2, "@{s9} asked you to hunt down a fugitive named {s4}. They are currently believed to be at {s3}."),
    ]],
+  
   [anyone,"tavernkeeper_tell_mission", [(eq,"$random_quest_no","qst_bounty_6")],
    "I have something you could help with, an issue with the lawless villain known as {s4}. \
  He supposedly murdered someone, or stole something, or....whatever,\
@@ -32375,7 +32430,12 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 
   [anyone|plyr,"tavernkeeper_mission_hunt_down_fugitive_told", [],
    "I will claim this bounty.", "tavernkeeper_mission_hunt_down_fugitive_accepted",[]],
-  [anyone|plyr,"tavernkeeper_mission_hunt_down_fugitive_told", [], "I am too busy to go after them at the moment.", "tavernkeeper_mission_hunt_down_fugitive_rejected",[]],
+  
+  [anyone|plyr,"tavernkeeper_mission_hunt_down_fugitive_told", [], 
+    "I am too busy to go after them at the moment.", 
+    "tavernkeeper_mission_hunt_down_fugitive_rejected",
+    []
+  ],
 
   [anyone,"tavernkeeper_mission_hunt_down_fugitive_accepted", [], "That's excellent, {playername}.\
  His associates will be so grateful to have him....found.\
