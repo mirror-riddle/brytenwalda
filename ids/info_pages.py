@@ -18,5 +18,3 @@ ip_toponimia_brytenwalda = 16
 ip_diccionario_brytenwalda = 17
 ip_formations = 18
 ip_credits = 19
-
-

@@ -88,5 +88,3 @@ fac_slavers = 86
 fac_peasant_rebels = 87
 fac_noble_refugees = 88
 fac_apoyoplayer = 89
-
-

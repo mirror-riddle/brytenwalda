@@ -70,7 +70,7 @@ class ModuleProcessor():
         self.write_export_file(item, *extra_data)
 
     def before_close_id_file(self):
-        self.id_file.write("\n\n")
+        pass
 
     def before_close_export_file(self):
         pass
