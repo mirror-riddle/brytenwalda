@@ -222,5 +222,3 @@ qsttag_learn_where_merchant_brother_is = 504403158265495660
 qsttag_save_relative_of_merchant = 504403158265495661
 qsttag_save_town_from_bandits = 504403158265495662
 qsttag_quests_end = 504403158265495663
-
-
