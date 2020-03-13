@@ -24,5 +24,4 @@ def process_init():
   variables_file = 'variables.txt'
   variables = retrieve_lines(variables_file)
   variable_uses = [1] * len(variables)
-  print(variables[0], len(variables[0]))
   save_variables(variables, variable_uses)

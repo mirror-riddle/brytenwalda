@@ -30,7 +30,6 @@ def process_presentations():
   save_python_header()
   quick_strings = load_quick_strings()
   variables, variable_uses = load_variables()
-  print(len(variables))
 
   save_presentations(variables, variable_uses, quick_strings)
 
