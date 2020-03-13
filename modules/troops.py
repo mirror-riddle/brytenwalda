@@ -309,7 +309,7 @@ tf_guarantee_all_wo_ranged = tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_
 troops = [
   ["player","Player","Player",tf_hero|tf_unmoveable_in_party_window,no_scene,reserved,fac_player_faction,
    [],
-   str_4|agi_4|int_4|cha_4,wp(15),0,0x000000018000000136db6db6db6db6db00000000001db6db0000000000000000],
+   str_10|agi_10|int_10|cha_10,wp(55),0,0x000000018000000136db6db6db6db6db00000000001db6db0000000000000000],
   ["multiplayer_profile_troop_male","multiplayer_profile_troop_male","multiplayer_profile_troop_male", tf_hero|tf_guarantee_all, 0, 0,fac_commoners,
    [itm_leather_jerkin, itm_ankle_boots],
    0, 0, 0, 0x000000018000000136db6db6db6db6db00000000001db6db0000000000000000],
@@ -3135,7 +3135,7 @@ troops = [
     [
       itm_blue_tunic_long,itm_quality_carbatinae_white,itm_knife, itm_hunting_bow, itm_arrows
     ],
-    str_8|agi_8|int_14|cha_11|level(1),wp(90),
+    str_11|agi_11|int_14|cha_11|level(1),wp(100),
     knows_wound_treatment_5|knows_weapon_master_2|knows_first_aid_5|knows_surgery_5|
     knows_power_draw_2|knows_athletics_2|knows_riding_1|knows_leadership_2,
     0x000000019f0c8004472355def396431e00000000000f5da30000000000000000
