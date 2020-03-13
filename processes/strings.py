@@ -1,26 +1,31 @@
 from modules.info import export_dir
 from modules.strings import strings
 from processes.common import convert_to_identifier, replace_spaces, lf_open
+from module_processor import ModuleProcessor
 
 
-def save_strings(strings):
-    ofile = open(export_dir + "strings.txt", "w", -1, "utf-8")
-    ofile.write("stringsfile version 1\n")
-    ofile.write("%d\n" % len(strings))
-    for i_string in range(len(strings)):
-        str = strings[i_string]
-        ofile.write("str_%s %s\n" % (convert_to_identifier(str[0]), replace_spaces(str[1])))
-    ofile.close()
+def save_string(file, string):
+  identity = convert_to_identifier(string[0])
+  content = replace_spaces(string[1])
+  file.write("str_%s %s\n" % (identity, content))
 
 
-def save_python_header():
-    ofile = lf_open("../ids/strings.py", "w")
-    for i_string in range(len(strings)):
-        ofile.write("str_%s = %d\n" % (convert_to_identifier(strings[i_string][0]), i_string))
-    ofile.write("\n\n")
-    ofile.close()
+class StringProcessor(ModuleProcessor):
+  id_prefix = "str_"
+  id_name = "strings.py"
+  export_name = "strings.txt"
+
+  def after_open_export_file(self):
+    self.export_file.write("stringsfile version 1\n")
+    self.export_file.write("%d\n" % len(strings))
+
+  def write_export_file(self, string):
+    save_string(self.export_file, string)
+
 
 def process_strings():
-    print("Exporting strings...")
-    save_python_header()
-    save_strings(strings)
+  print("Exporting strings...")
+  processor = StringProcessor()
+  for index, string in enumerate(strings):
+    processor.write(string, index)
+  processor.close()

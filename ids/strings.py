@@ -4195,5 +4195,3 @@ str_initial_gold_multiplierboth = 4193
 str_initial_gold_multipliert1 = 4194
 str_initial_gold_multipliert2 = 4195
 str_choose_a_captain = 4196
-
-
