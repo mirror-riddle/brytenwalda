@@ -1,9 +1,9 @@
 from modules.info import export_dir
 from modules.tableau_materials import tableaus
-from common import lf_open
-from operations import (
-    save_statement_block, load_variables, load_quick_strings,
-    save_variables, save_quick_strings
+from operations import save_statement_block
+from common import (
+    load_variables, load_quick_strings,
+    save_variables, save_quick_strings, lf_open
 )
 from module_processor import ModuleProcessor
 
@@ -41,9 +41,8 @@ class TableauMaterialProcessor(ModuleProcessor):
 
 def process_tableau_materials():
   print("Exporting tableau materials data...")
-  variable_uses = []
-  variables = load_variables(export_dir, variable_uses)
-  quick_strings = load_quick_strings(export_dir)
+  quick_strings = load_quick_strings()
+  variables, variable_uses = load_variables()
 
   processor = TableauMaterialProcessor()
   for index, tableau in enumerate(tableaus):
@@ -51,5 +50,5 @@ def process_tableau_materials():
     processor.save_statements(tableau, variables, variable_uses, quick_strings)
   processor.close()
 
-  save_variables(export_dir, variables, variable_uses)
-  save_quick_strings(export_dir, quick_strings)
+  save_quick_strings(quick_strings)
+  save_variables(variables, variable_uses)

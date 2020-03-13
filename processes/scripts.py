@@ -1,7 +1,10 @@
 from modules.info import export_dir
 from modules.scripts import scripts
-from operations import *
-from common import convert_to_identifier, lf_open, load_variables
+from operations import save_statement_block
+from common import (
+    convert_to_identifier, lf_open, load_variables, save_variables,
+    load_quick_strings, save_quick_strings
+)
 from module_processor import ModuleProcessor
 
 
@@ -32,14 +35,13 @@ class ScriptProcessor(ModuleProcessor):
 
 def process_scripts():
   print("Exporting scripts...")
-  variable_uses = []
-  variables = load_variables(variable_uses)
-  quick_strings = load_quick_strings(export_dir)
+  quick_strings = load_quick_strings()
+  variables, variable_uses = load_variables()
 
   processor = ScriptProcessor()
   for index, script in enumerate(scripts):
     processor.write(script, index, variables, variable_uses, quick_strings)
   processor.close()
 
-  save_variables(export_dir, variables, variable_uses)
-  save_quick_strings(export_dir, quick_strings)
+  save_quick_strings(quick_strings)
+  save_variables(variables, variable_uses)
