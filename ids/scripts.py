@@ -889,5 +889,3 @@ script_coop_copy_register_to_hero_xp = 887
 script_coop_copy_hero_to_file = 888
 script_coop_copy_file_to_hero = 889
 script_gather_companion_candidates_to_starting_town = 890
-
-
