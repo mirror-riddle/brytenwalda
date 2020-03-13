@@ -51,27 +51,27 @@ party_templates = [
 
     #  ("black_khergit_raiders","Black Khergit Raiders",icon_khergit_horseman_b|carries_goods(2),0,fac_black_khergits,bandit_personality,[(trp_black_khergit_guard,1,10),(trp_black_khergit_horseman,5,5)]),
     ("steppe_bandits", "Scoti Raiders", icon_axeman | carries_goods(2), 0, fac_mountain_bandits,
-     bandit_personality, [(trp_looter_leader2, 1, 2), (trp_steppe_bandit, 8, 58)]),
+     bandit_personality, [(trp_looter_leader2, 1, 2), (trp_steppe_bandit, 18, 58)]),
     ("taiga_bandits", "Outlaw Warriors", icon_axeman | carries_goods(2), 0, fac_outlaws,
-     bandit_personality, [(trp_looter_leader2, 1, 2), (trp_taiga_bandit, 8, 58)]),
+     bandit_personality, [(trp_looter_leader2, 1, 2), (trp_taiga_bandit, 18, 58)]),
     ("desert_bandits", "Bandits Gang", icon_axeman | carries_goods(2), 0, fac_outlaws,
-     bandit_personality, [(trp_looter_leader2, 1, 2), (trp_desert_bandit, 8, 58)]),
+     bandit_personality, [(trp_looter_leader2, 1, 2), (trp_desert_bandit, 18, 58)]),
     ("forest_bandits", "Unrights Gang", icon_axeman | carries_goods(2), 0, fac_forest_bandits,
-     bandit_personality, [(trp_looter_leader2, 1, 2), (trp_forest_bandit, 4, 52), (trp_brigand, 8, 40)]),
+     bandit_personality, [(trp_looter_leader2, 1, 2), (trp_forest_bandit, 14, 52), (trp_brigand, 18, 40)]),
     ("mountain_bandits", "Band of Thieves and Murderers", icon_axeman | carries_goods(2), 0,
-     fac_outlaws, bandit_personality, [(trp_looter_leader2, 1, 2), (trp_mountain_bandit, 4, 60)]),
+     fac_outlaws, bandit_personality, [(trp_looter_leader2, 1, 2), (trp_mountain_bandit, 14, 60)]),
     ("sea_raiders", "Frankish Raiders", icon_axeman | carries_goods(2), 0, fac_mountain_bandits,
      bandit_personality, [(trp_sea_raider_leader2, 1, 2), (trp_sea_raider, 15, 70)]),
     ("sea_raiders2", "Dena Raiders", icon_axeman | carries_goods(2), 0, fac_mountain_bandits,
      bandit_personality, [(trp_sea_raider_leader2, 1, 2), (trp_black_khergit_horseman, 14, 70)]),
     # new party chief
     ("sea_band", "Warrior Band", icon_axeman | carries_goods(2), 0, fac_mountain_bandits, bandit_personality, [
-     (trp_looter_leader2, 1, 2), (trp_sea_raider, 8, 40), (trp_looter, 8, 40), (trp_mountain_bandit, 5, 30)]),
+     (trp_looter_leader2, 1, 2), (trp_sea_raider, 8, 40), (trp_looter, 18, 40), (trp_mountain_bandit, 15, 30)]),
     # chief acaba
     ("deserters", "Masterless Men", icon_axeman | carries_goods(3), 0, fac_deserters, bandit_personality, []),
 
     ("merchant_caravan", "Merchant Caravan", icon_gray_knight | carries_goods(40) | pf_auto_remove_in_town | pf_quest_party,
-        0, fac_commoners, escorted_merchant_personality, [(trp_caravan_master, 1, 1), (trp_caravan_guard, 5, 25)]),
+        0, fac_commoners, escorted_merchant_personality, [(trp_caravan_master, 1, 1), (trp_caravan_guard, 15, 25)]),
     ("troublesome_bandits", "Troublesome Bandits", icon_axeman | carries_goods(9)
         | pf_quest_party, 0, fac_outlaws, bandit_personality, [(trp_bandit, 14, 55)]),
     ("bandits_awaiting_ransom", "Bandits Awaiting Ransom", icon_axeman | carries_goods(9) | pf_auto_remove_in_town |

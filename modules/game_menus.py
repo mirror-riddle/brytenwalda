@@ -3232,6 +3232,9 @@ game_menus = [
           [(start_presentation, "prsnt_upgrade_tree_1"),
            ]
           ),
+         ("gather_companions", [], "Gather Companions.", 
+            [(call_script, "script_gather_companion_candidates_to_starting_town")]
+         ),
          # chief arbol de tropas acaba
          ("camp_recruit_prisoners",
           [(troops_can_join, 1),
