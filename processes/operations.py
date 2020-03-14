@@ -8,15 +8,15 @@ from headers.operations import (
     try_for_attached_parties,
     try_for_active_players,
     try_for_prop_instances,
-
     call_script,
-
     store_script_param,
     store_script_param_1,
     store_script_param_2,
-
-    can_fail_operations
+    can_fail_operations,
+    lhs_operations,
+    global_lhs_operations
 )
+from headers.common import *
 from modules.strings import strings
 from modules.skills import skills
 from modules.music import tracks
@@ -33,13 +33,12 @@ from modules.scripts import scripts
 from modules.mission_templates import mission_templates
 from modules.game_menus import game_menus
 from modules.particle_systems import particle_systems
-from modules.scene_props import *
+from modules.scene_props import scene_props
 from modules.presentations import presentations
 from modules.map_icons import map_icons
 from modules.tableau_materials import tableaus
 from modules.animations import animations
-
-from common import replace_spaces, convert_to_identifier_with_no_lowercase
+from common import replace_spaces, convert_to_identifier_with_no_lowercase, save_variables, save_quick_strings
 from global_variables import variables, variable_uses, quick_strings
 
 try_operations = (
@@ -53,6 +52,9 @@ try_operations = (
     try_for_prop_instances
 )
 
+def save_global_variables():
+  save_quick_strings(quick_strings)
+  save_variables(variables, variable_uses)
 
 def get_id_value(tag, identifier, tag_uses):
   tag_type = -1
@@ -143,69 +145,6 @@ def get_identifier_value(str, tag_uses):
   else:
     print("Error: Invalid object:" + str + ".Variables should start with $ sign and references should start with a tag")
   return result
-
-
-def load_quick_strings(export_dir):
-  quick_strings = []
-  try:
-    file = open(export_dir + "quick_strings.txt", "r")
-    str_list = file.readlines()
-    file.close()
-    for s in str_list:
-      s = s.strip()
-      if s:
-        ssplit = s.split(' ')
-        if len(ssplit) == 2:
-          quick_strings.append(ssplit)
-  except:
-    print("Creating new quick_strings.txt file...")
-  return quick_strings
-
-
-def save_quick_strings(export_dir, quick_strings):
-  file = open(export_dir + "quick_strings.txt", "w")
-  file.write("%d\n" % len(quick_strings))
-  for i in range(len(quick_strings)):
-    file.write("%s %s\n" % (quick_strings[i][0], replace_spaces(quick_strings[i][1])))
-  file.close()
-
-
-def load_variables(export_dir, variable_uses):
-  variables = []
-  try:
-    file = open(export_dir + "variables.txt", "r")
-    var_list = file.readlines()
-    file.close()
-    for v in var_list:
-      vv = v.strip()
-      if vv:
-        variables.append(vv)
-  except:
-    print("variables.txt not found. Creating new variables.txt file")
-
-  try:
-    file = open(export_dir + "variable_uses.txt", "r")
-    var_list = file.readlines()
-    file.close()
-    for v in var_list:
-      vv = v.strip()
-      if vv:
-        variable_uses.append(int(vv))
-  except:
-    print("variable_uses.txt not found. Creating new variable_uses.txt file")
-
-  return variables
-
-
-def save_variables(export_dir, variables_list, variable_uses):
-  file = open(export_dir + "variables.txt", "w")
-  for i in range(len(variables_list)):
-    file.write("%s\n" % variables_list[i])
-  file.close()
-  file = open(export_dir + "variable_uses.txt", "w")
-  for i in range(len(variables_list)):
-    file.write("%d\n" % variable_uses[i])
-  file.close()
 
 
 def ensure_tag_use(tag_uses, tag_no, object_no):
@@ -346,15 +285,14 @@ def is_can_fail_operation(op_code):
   return 0
 
 
-def search_quick_string_keys(key, quick_strings):
-  index = -1
-  for i in range(len(quick_strings)):
-    if quick_strings[i][0] == key:
-      index = i
-  return index
+def search_quick_string_keys(key):
+  for index, quick_string in enumerate(quick_strings):
+    if quick_string[0] == key:
+      return index
+  return -1
 
 
-def insert_quick_string_with_auto_id(sentence, quick_strings):
+def insert_quick_string_with_auto_id(sentence):
   index = 0
   text = convert_to_identifier_with_no_lowercase(sentence)
   sentence = replace_spaces(sentence)
@@ -365,12 +303,12 @@ def insert_quick_string_with_auto_id(sentence, quick_strings):
     i = lt
   auto_id = "qstr_" + text[0:i]
   done = 0
-  index = search_quick_string_keys(auto_id, quick_strings)
+  index = search_quick_string_keys(auto_id)
   if index >= 0 and (quick_strings[index][1] == sentence):
     done = 1
   while (i <= lt) and not done:
     auto_id = "qstr_" + text[0:i]
-    index = search_quick_string_keys(auto_id, quick_strings)
+    index = search_quick_string_keys(auto_id)
     if index >= 0:
       if quick_strings[index][1] == sentence:
         done = 1
@@ -382,9 +320,8 @@ def insert_quick_string_with_auto_id(sentence, quick_strings):
       quick_strings.append([auto_id, sentence])
   if not done:
     number = 1
-    # quick_strings is list, not has_key method
     new_auto_id = auto_id + str(number)
-    while search_quick_string_keys(new_auto_id, quick_strings):
+    while search_quick_string_keys(new_auto_id):
       number += 1
       new_auto_id = auto_id + str(number)
     auto_id = new_auto_id
@@ -405,7 +342,7 @@ def process_param(param, local_vars_list, local_var_uses):
       result = get_variable(param, local_vars_list, local_var_uses)
       result |= opmask_local_variable
     elif (param[0] == '@'):
-      result = insert_quick_string_with_auto_id(param[1:], quick_strings)
+      result = insert_quick_string_with_auto_id(param[1:])
       result |= opmask_quick_string
     else:
       result = get_identifier_value(param.lower(), [])

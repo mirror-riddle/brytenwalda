@@ -1,4 +1,4 @@
-from global_variables import variables, variable_uses
+from operations import variables, variable_uses
 
 def process_global_variables_unused():
     print("Checking global variable usages...")

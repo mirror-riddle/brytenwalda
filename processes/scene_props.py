@@ -1,5 +1,5 @@
+from headers.scene_props import get_spr_hit_points
 from modules.scene_props import scene_props
-from operations import get_spr_hit_points
 from simple_triggers import save_simple_triggers
 from module_processor import ModuleProcessor
 

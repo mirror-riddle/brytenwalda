@@ -1,12 +1,10 @@
-from common import retrieve_lines, save_variables, save_quick_strings
+# This module should ONLY be imported by operations.py, because another import
+# will execure initialization again.
+
+from common import retrieve_lines
 
 
 # global variables init
 quick_strings = []
 variables = retrieve_lines("variables.txt")
 variable_uses = [1] * len(variables)
-
-
-def save_global_variables():
-  save_quick_strings(quick_strings)
-  save_variables(variables, variable_uses)
