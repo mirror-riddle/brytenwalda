@@ -9,7 +9,7 @@ def convert_to_identifier_with_no_lowercase(s0):
   s1 = re.sub(r"[ '`()-]", "_", s0)
   s2 = re.sub(r"[,|]", '', s1)
   return s2
-  
+
 
 def convert_to_identifier(s0):
   s1 = convert_to_identifier_with_no_lowercase(s0)
@@ -18,7 +18,7 @@ def convert_to_identifier(s0):
 
 def replace_spaces(s0):
   return re.sub(r" ", "_", s0)
-  
+
 
 def lf_open(file, mode):
   return open(file, mode, -1, "utf-8", None, '\n')
@@ -42,7 +42,7 @@ def retrieve_lines(file, transformer=None):
   lines = read_lines(file)
   solid_lines = []
   for line in lines:
-    striped_line =  line.strip()
+    striped_line = line.strip()
     if striped_line:
       solid_lines.append(striped_line)
   if isfunction(transformer):

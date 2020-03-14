@@ -1,24 +1,13 @@
 from headers.common import opmask_quest_index
-from modules.info import export_dir
 from modules.quests import quests
-from common import lf_open, replace_spaces
 from module_processor import ModuleProcessor
+from common import replace_spaces
 
 
 def save_quest(file, quest):
   file.write("qst_%s %s %d %s\n" % (
     quest[0], replace_spaces(quest[1]), quest[2], replace_spaces(quest[3]))
   )
-
-
-def save_python_header():
-  ofile = lf_open("../ids/quests.py", "w")
-  for i_quest in range(len(quests)):
-    ofile.write("qst_%s = %d\n" % (quests[i_quest][0], i_quest))
-  for i_quest in range(len(quests)):
-    ofile.write("qsttag_%s = %d\n" % (quests[i_quest][0], opmask_quest_index | i_quest))
-  ofile.write("\n\n")
-  ofile.close()
 
 
 class QuestProcessor(ModuleProcessor):
@@ -43,7 +32,7 @@ class QuestProcessor(ModuleProcessor):
     self.id_file.write(string)
 
 def process_quests():
-  print("Exporting quest...")
+  print("exporting quests...")
   processor = QuestProcessor()
   for index, quest in enumerate(quests):
     processor.write(quest, index)

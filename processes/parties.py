@@ -1,8 +1,7 @@
-from modules.info import export_dir
 from modules.game_menus import game_menus
 from modules.parties import parties
 from operations import find_object
-from common import convert_to_identifier, lf_open, replace_spaces
+from common import convert_to_identifier, replace_spaces
 from module_processor import ModuleProcessor
 
 
@@ -59,7 +58,7 @@ class PartyProcessor(ModuleProcessor):
 
 
 def process_parties():
-  print("Exporting parties...")
+  print("exporting parties...")
   processor = PartyProcessor()
   for index, party in enumerate(parties):
     processor.write(party, index, index)

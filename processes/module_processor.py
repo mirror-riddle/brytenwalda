@@ -1,3 +1,4 @@
+import os
 from modules.info import export_dir
 from common import lf_open, convert_to_identifier
 
@@ -6,12 +7,13 @@ class ModuleProcessor():
   id_prefix = "id_"
   id_name = "ids.py"
   export_name = "export.txt"
+  clean_ids_file = False
 
   def __init__(self):
-    id_path = "../ids/" + self.id_name
-    export_path = export_dir + self.export_name
-    self.id_file = lf_open(id_path, "w")
-    self.export_file = lf_open(export_path, "w")
+    self.id_path = "../ids/" + self.id_name
+    self.export_path = export_dir + self.export_name
+    self.id_file = lf_open(self.id_path, "w")
+    self.export_file = lf_open(self.export_path, "w")
     self.after_open()
 
   def after_open_id_file(self):
@@ -45,12 +47,10 @@ class ModuleProcessor():
     self.before_close_id_file()
     self.before_close_export_file()
 
-  def after_close(self):
-    pass
-
   def close(self):
     self.before_close_id_file()
     self.before_close_export_file()
     self.id_file.close()
     self.export_file.close()
-    self.after_close()
+    if self.clean_ids_file:
+      os.remove(self.id_path)

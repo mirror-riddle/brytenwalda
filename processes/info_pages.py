@@ -1,6 +1,6 @@
 from modules.info_pages import info_pages
-from common import lf_open, replace_spaces
 from module_processor import ModuleProcessor
+from common import replace_spaces
 
 
 class InfoPageProcessor(ModuleProcessor):
@@ -19,7 +19,7 @@ class InfoPageProcessor(ModuleProcessor):
 
 
 def process_info_pages():
-    print("Exporting info_page...")
+    print("exporting info_pages...")
     processor = InfoPageProcessor()
     for index, info_page in enumerate(info_pages):
         processor.write(info_page, index)

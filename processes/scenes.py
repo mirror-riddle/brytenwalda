@@ -1,22 +1,7 @@
-from modules.info import export_dir
 from modules.scenes import scenes
 from modules.troops import troops, find_troop
-from common import (
-    convert_to_identifier, lf_open, load_variables, replace_spaces,
-    save_variables, load_quick_strings, save_quick_strings
-)
-
-
-scene_name_pos = 0
-passages_pos = 8
-scene_outer_terrain_pos = 10
-
-
-def save_python_header():
-  ofile = lf_open("../ids/scenes.py", "w")
-  for i_scene in range(len(scenes)):
-    ofile.write("scn_%s = %d\n" % (convert_to_identifier(scenes[i_scene][0]), i_scene))
-  ofile.close()
+from module_processor import ModuleProcessor
+from common import convert_to_identifier, replace_spaces
 
 
 def write_vec(ofile, vec):
@@ -41,43 +26,51 @@ def write_passage(ofile, scenes, passage):
   ofile.write(" %d " % scene_no)
 
 
-def save_scenes(variables, variable_uses, tag_uses):
-  ofile = open(export_dir + "scenes.txt", "w")
-  ofile.write("scenesfile version 1\n")
-  ofile.write(" %d\n" % len(scenes))
-  for scene in scenes:
-    ofile.write("scn_%s %s %d %s %s %f %f %f %f %f %s " % (convert_to_identifier(scene[0]), replace_spaces(
-        scene[0]), scene[1], scene[2], scene[3], scene[4][0], scene[4][1], scene[5][0], scene[5][1], scene[6], scene[7]))
-    passages = scene[passages_pos]
-    ofile.write("\n  %d " % len(passages))
-    for passage in passages:
-      write_passage(ofile, scenes, passage)
-    chest_troops = scene[9]
-    ofile.write("\n  %d " % len(chest_troops))
-    for chest_troop in chest_troops:
-      troop_no = find_troop(troops, chest_troop)
-      if (troop_no < 0):
-        print("Error unable to find chest-troop: " + chest_troop)
-        troop_no = 0
-      else:
-        pass
-      ofile.write(" %d " % troop_no)
-    ofile.write("\n")
-    if (len(scene) > scene_outer_terrain_pos):
-      ofile.write(" %s " % scene[scene_outer_terrain_pos])
+def save_scene(ofile, scene):
+  identity = convert_to_identifier(scene[0])
+  name = replace_spaces(scene[0])
+  ofile.write("scn_%s %s %d %s %s %f %f %f %f %f %s " % (
+      identity, name, scene[1], scene[2], scene[3], scene[4][0],
+      scene[4][1], scene[5][0], scene[5][1], scene[6], scene[7])
+  )
+  passages = scene[8]
+  ofile.write("\n  %d " % len(passages))
+  for passage in passages:
+    write_passage(ofile, scenes, passage)
+  chest_troops = scene[9]
+  ofile.write("\n  %d " % len(chest_troops))
+  for chest_troop in chest_troops:
+    troop_no = find_troop(troops, chest_troop)
+    if (troop_no < 0):
+      print("Error unable to find chest-troop: " + chest_troop)
+      troop_no = 0
     else:
-      ofile.write(" 0 ")
-    ofile.write("\n")
-  ofile.close()
+      pass
+    ofile.write(" %d " % troop_no)
+  ofile.write("\n")
+  if (len(scene) > 10):
+    ofile.write(" %s " % scene[10])
+  else:
+    ofile.write(" 0 ")
+  ofile.write("\n")
+
+
+class SceneProcessor(ModuleProcessor):
+  id_prefix = "scn_"
+  id_name = "scenes.py"
+  export_name = "scenes.txt"
+
+  def after_open_export_file(self):
+    self.export_file.write("scenesfile version 1\n")
+    self.export_file.write(" %d\n" % len(scenes))
+
+  def write_export_file(self, scene):
+    save_scene(self.export_file, scene)
 
 
 def process_scenes():
-  print("Exporting scenes data...")
-  save_python_header()
-  quick_strings = load_quick_strings()
-  variables, variable_uses = load_variables()
-
-  save_scenes(variables, variable_uses, [])
-
-  save_quick_strings(quick_strings)
-  save_variables(variables, variable_uses)
+  print("exporting scenes...")
+  processor = SceneProcessor()
+  for index, scene in enumerate(scenes):
+    processor.write(scene, index)
+  processor.close()

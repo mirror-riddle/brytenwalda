@@ -1,17 +1,11 @@
 from functools import reduce
 from modules.factions import factions
-from common import convert_to_identifier, replace_spaces, lf_open
+from common import convert_to_identifier, replace_spaces
 from module_processor import ModuleProcessor
-
-faction_name_pos = 0
-faction_flags_pos = 2
-faction_coherence_pos = 3
-faction_relations_pos = 4
-faction_ranks_pos = 5
 
 
 def get_faction_relations(faction, faction_names):
-    relations = faction[faction_relations_pos]
+    relations = faction[4]
     faction_relations = [0.0] * len(faction_names)
     for relation in relations:
         try:
@@ -41,8 +35,8 @@ def save_factions(file, faction, faction_names):
     relations_string = reduce(relations_reducer, relations, "")
     file.write(relations_string + "\n")
 
-    if (len(faction) > faction_ranks_pos):
-        ranks = faction[faction_ranks_pos]
+    if (len(faction) > 5):
+        ranks = faction[5]
         ranks_string = reduce(ranks_reducer, ranks, "")
         file.write("%d %s\n" % (len(ranks), ranks_string))
     else:
@@ -63,7 +57,7 @@ class FactionProcessor(ModuleProcessor):
 
 
 def process_factions():
-    print("Exporting factions...")
+    print("exporting factions...")
     processor = FactionProcessor()
     faction_names = [faction[0] for faction in factions]
     for index, faction in enumerate(factions):

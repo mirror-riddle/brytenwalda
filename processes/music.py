@@ -1,6 +1,4 @@
-from modules.info import export_dir
 from modules.music import tracks
-from processes.common import lf_open
 from module_processor import ModuleProcessor
 
 
@@ -21,7 +19,7 @@ class MusicProcessor(ModuleProcessor):
 
 
 def process_musics():
-  print("Exporting tracks...")
+  print("exporting tracks...")
   processor = MusicProcessor()
   for index, track in enumerate(tracks):
     processor.write(track, index)

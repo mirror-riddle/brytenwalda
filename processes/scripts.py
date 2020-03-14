@@ -1,14 +1,10 @@
-from modules.info import export_dir
 from modules.scripts import scripts
 from operations import save_statement_block
-from common import (
-    convert_to_identifier, lf_open, load_variables, save_variables,
-    load_quick_strings, save_quick_strings
-)
 from module_processor import ModuleProcessor
+from common import convert_to_identifier
 
 
-def save_script(file, script, variables, variable_uses, quick_strings):
+def save_script(file, script):
   identity = convert_to_identifier(script[0])
   block = script[1]
   if isinstance(block, list):
@@ -16,7 +12,7 @@ def save_script(file, script, variables, variable_uses, quick_strings):
   else:
     file.write("%s %f\n" % (identity, script[1]))
     block = script[2]
-  save_statement_block(file, identity, 0, block, variables, variable_uses, [], quick_strings)
+  save_statement_block(file, identity, 0, block)
   file.write("\n")
 
 
@@ -29,19 +25,13 @@ class ScriptProcessor(ModuleProcessor):
     self.export_file.write("scriptsfile version 1\n")
     self.export_file.write("%d\n" % len(scripts))
 
-  def write_export_file(self, script, variables, variable_uses, quick_strings):
-    save_script(self.export_file, script, variables, variable_uses, quick_strings)
+  def write_export_file(self, script):
+    save_script(self.export_file, script)
 
 
 def process_scripts():
-  print("Exporting scripts...")
-  quick_strings = load_quick_strings()
-  variables, variable_uses = load_variables()
-
+  print("exporting scripts...")
   processor = ScriptProcessor()
   for index, script in enumerate(scripts):
-    processor.write(script, index, variables, variable_uses, quick_strings)
+    processor.write(script, index)
   processor.close()
-
-  save_quick_strings(quick_strings)
-  save_variables(variables, variable_uses)

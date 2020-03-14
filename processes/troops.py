@@ -1,12 +1,8 @@
 from headers.skills import num_skill_words
 from headers.troops import level_bits, level_mask, num_weapon_proficiencies
-from modules.info import export_dir
 from modules.troops import troops
-from common import convert_to_identifier, replace_spaces, lf_open
+from common import convert_to_identifier, replace_spaces
 from module_processor import ModuleProcessor
-
-
-num_face_numeric_keys = 4
 
 
 def save_troops(file, troop):
@@ -66,10 +62,10 @@ def save_troops(file, troop):
 
   for fckey in (face_keys):
     word_keys = []
-    for word_no in range(num_face_numeric_keys):
+    for word_no in range(4):
       word_keys.append((fckey >> (64 * word_no)) & 0xFFFFFFFFFFFFFFFF)
-    for word_no in range(num_face_numeric_keys):
-      file.write("%d " % (word_keys[(num_face_numeric_keys - 1) - word_no]))
+    for word_no in range(4):
+      file.write("%d " % (word_keys[(4 - 1) - word_no]))
 
   file.write("\n")
 
@@ -88,7 +84,7 @@ class TroopProcessor(ModuleProcessor):
 
 
 def process_troops():
-  print("Exporting troops...")
+  print("exporting troops...")
   processor = TroopProcessor()
   for index, troop in enumerate(troops):
     processor.write(troop, index)

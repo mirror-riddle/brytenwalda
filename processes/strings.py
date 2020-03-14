@@ -1,6 +1,5 @@
-from modules.info import export_dir
 from modules.strings import strings
-from processes.common import convert_to_identifier, replace_spaces, lf_open
+from processes.common import convert_to_identifier, replace_spaces
 from module_processor import ModuleProcessor
 
 
@@ -24,7 +23,7 @@ class StringProcessor(ModuleProcessor):
 
 
 def process_strings():
-  print("Exporting strings...")
+  print("exporting strings...")
   processor = StringProcessor()
   for index, string in enumerate(strings):
     processor.write(string, index)

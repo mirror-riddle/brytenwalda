@@ -1,34 +1,28 @@
-from modules.info import export_dir
 from modules.skills import skills
-from processes.common import replace_spaces, lf_open
+from processes.common import replace_spaces
+from module_processor import ModuleProcessor
 
 
-skill_name_pos = 1
-skill_attribute_pos = 2
-skill_max_level_pos = 3
-skill_desc_pos = 4
+def save_skill(file, skill):
+  file.write("skl_%s %s " % (skill[0], replace_spaces(skill[1])))
+  file.write("%d %d %s\n" % (skill[2], skill[3],replace_spaces(skill[4])))
 
 
-def save_skills():
-    ofile = open(export_dir + "skills.txt", "w")
-    ofile.write("%d\n" % (len(skills)))
-    for i_skill in range(len(skills)):
-        skill = skills[i_skill]
-        ofile.write("skl_%s %s " % (skill[0], replace_spaces(skill[1])))
-        ofile.write("%d %d %s\n" % (skill[skill_attribute_pos],
-                                    skill[skill_max_level_pos], (skill[skill_desc_pos].replace(" ", "_"))))
-    ofile.close()
+class SkillProcessor(ModuleProcessor):
+  id_prefix = "skl_"
+  id_name = "skills.py"
+  export_name = "skills.txt"
 
+  def after_open_export_file(self):
+    self.export_file.write("%d\n" % len(skills))
 
-def save_python_header():
-    ofile = lf_open("../ids/skills.py", "w")
-    for i_skill in range(len(skills)):
-        ofile.write("skl_%s = %d\n" % (skills[i_skill][0], i_skill))
-    ofile.write("\n\n")
-    ofile.close()
+  def write_export_file(self, skill):
+    save_skill(self.export_file, skill)
 
 
 def process_skills():
-    print("Exporting skills...")
-    save_python_header()
-    save_skills()
+  print("exporting skills...")
+  processor = SkillProcessor()
+  for index, skill in enumerate(skills):
+    processor.write(skill, index)
+  processor.close()

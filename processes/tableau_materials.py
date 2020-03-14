@@ -1,11 +1,6 @@
-from modules.info import export_dir
 from modules.tableau_materials import tableaus
-from operations import save_statement_block
-from common import (
-    load_variables, load_quick_strings,
-    save_variables, save_quick_strings, lf_open
-)
 from module_processor import ModuleProcessor
+from operations import save_statement_block
 
 
 def save_tableau_materials(ofile, tableau):
@@ -33,22 +28,13 @@ class TableauMaterialProcessor(ModuleProcessor):
 
   def write_export_file(self, tableau):
     save_tableau_materials(self.export_file, tableau)
-
-  def save_statements(self, tableau, variables, variable_uses, quick_strings):
-    save_statement_block(self.export_file, 0, 1, tableau[9], variables, variable_uses, [], quick_strings)
+    save_statement_block(self.export_file, 0, 1, tableau[9])
     self.export_file.write("\n")
 
 
 def process_tableau_materials():
-  print("Exporting tableau materials data...")
-  quick_strings = load_quick_strings()
-  variables, variable_uses = load_variables()
-
+  print("exporting tableau materials...")
   processor = TableauMaterialProcessor()
   for index, tableau in enumerate(tableaus):
     processor.write(tableau, index)
-    processor.save_statements(tableau, variables, variable_uses, quick_strings)
   processor.close()
-
-  save_quick_strings(quick_strings)
-  save_variables(variables, variable_uses)

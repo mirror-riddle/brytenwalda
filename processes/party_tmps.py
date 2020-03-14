@@ -1,6 +1,5 @@
-from modules.info import export_dir
 from modules.party_templates import party_templates
-from common import convert_to_identifier, replace_spaces, lf_open
+from common import convert_to_identifier, replace_spaces
 from module_processor import ModuleProcessor
 
 
@@ -46,7 +45,7 @@ class PartyTemplateProcessor(ModuleProcessor):
 
 
 def process_party_tmps():
-  print("Exporting party_templates...")
+  print("exporting party templates...")
   processor = PartyTemplateProcessor()
   for index, party_template in enumerate(party_templates):
     processor.write(party_template, index)

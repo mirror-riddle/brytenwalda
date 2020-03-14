@@ -1,12 +1,8 @@
 from functools import reduce
-from modules.info import export_dir
 from modules.items import items, get_item_status
 from module_processor import ModuleProcessor
-from operations import save_simple_triggers
-from common import (
-    convert_to_identifier, lf_open, replace_spaces, load_variables,
-    save_variables, save_quick_strings, load_quick_strings
-)
+from simple_triggers import save_simple_triggers
+from common import convert_to_identifier, replace_spaces
 
 
 def variations_reducer(base, variation):
@@ -18,7 +14,7 @@ def factions_reducer(base, faction):
   return ("%s%d " % (base, faction))
 
 
-def write_items(ofile, item):
+def write_item(ofile, item):
   identity = convert_to_identifier(item[0])
   name = replace_spaces(item[1])
   status = get_item_status(item)
@@ -31,6 +27,8 @@ def write_items(ofile, item):
     ofile.write("%d \n%s \n" % (len(item[9]), factions_info))
   else:
     ofile.write("0 \n")
+  triggers = item[8] if len(item) > 8 else []
+  save_simple_triggers(ofile, triggers)
 
 
 class ItemProcessor(ModuleProcessor):
@@ -43,23 +41,12 @@ class ItemProcessor(ModuleProcessor):
     self.export_file.write("%d\n" % len(items))
 
   def write_export_file(self, item):
-    write_items(self.export_file, item)
-
-  def write_triggers(self, item, variables, variable_uses, quick_strings):
-    triggers = item[8] if len(item) > 8 else []
-    save_simple_triggers(self.export_file, triggers, variables, variable_uses, [], quick_strings)
+    write_item(self.export_file, item)
 
 
 def process_items():
-  print("Exporting item...")
-  quick_strings = load_quick_strings()
-  variables, variable_uses = load_variables()
-
+  print("exporting items...")
   processor = ItemProcessor()
   for index, item in enumerate(items):
     processor.write(item, index)
-    processor.write_triggers(item, variables, variable_uses, quick_strings)
   processor.close()
-
-  save_quick_strings(quick_strings)
-  save_variables(variables, variable_uses)

@@ -910,5 +910,3 @@ mesh_pic_sarranid_encounter1 = 908
 mesh_pic_extra_duelos = 909
 mesh_pic_extra_barco2 = 910
 mesh_pic_extra_monasterio = 911
-
-

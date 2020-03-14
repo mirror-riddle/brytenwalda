@@ -6,7 +6,7 @@ sys.path.append(os.curdir)
 os.chdir('./processes')
 
 from processes.init import process_init
-from processes.global_variables import process_global_variables
+from processes.global_variables import save_global_variables
 from processes.strings import process_strings
 from processes.skills import process_skills
 from processes.music import process_musics
@@ -39,7 +39,6 @@ from processes.postfx import process_postfx
 
 process_functions = {
     # 'init': process_init,
-    # 'global_variables': process_global_variables,
     'strings': process_strings,
     'skills': process_skills,
     'musics': process_musics,
@@ -110,12 +109,12 @@ def process_start():
     print('______________________________')
 
     process_init()
-    process_global_variables()
 
 
 def process_end():
     process_global_variables_unused()
-
+    save_global_variables()
+    
     print('______________________________')
     print('Script processing has ended.')
 
@@ -128,8 +127,9 @@ def process_one(name):
 
 def process_by_names(names):
     process_start()
-    [process_one(name) for name in names]
-    # process_end()
+    for name in names:
+      process_one(name)
+    save_global_variables()
 
 
 if __name__ == '__main__':

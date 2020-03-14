@@ -1,33 +1,14 @@
-from headers.triggers import (
-    trigger_check_pos, trigger_conditions_pos, trigger_consequences_pos,
-    trigger_delay_pos, trigger_rearm_pos
-)
-from modules.info import export_dir
 from modules.mission_templates import mission_templates
-from operations import (
-    save_statement_block,
-)
-from common import (
-    convert_to_identifier, lf_open, load_variables, replace_spaces,
-    save_variables, load_quick_strings, save_quick_strings
-)
+from operations import save_statement_block
+from common import convert_to_identifier, replace_spaces
 from module_processor import ModuleProcessor
-
-mission_template_name_pos = 0
-mission_template_flags_pos = 1
-mission_template_types_pos = 2
-mission_template_desc_pos = 3
-mission_template_groups_pos = 4
-mission_template_triggers_pos = 5
+from triggers import save_trigger
 
 
-def save_triggers(file, template_name, triggers, variable_list, variable_uses, quick_strings):
+def save_triggers(file, triggers):
   file.write("%d\n" % len(triggers))
   for trigger in triggers:
-    file.write("%f %f %f " % (trigger[trigger_check_pos], trigger[trigger_delay_pos], trigger[trigger_rearm_pos]))
-    save_statement_block(file, 0, 1, trigger[trigger_conditions_pos], variable_list, variable_uses, [], quick_strings)
-    save_statement_block(file, 0, 1, trigger[trigger_consequences_pos], variable_list, variable_uses, [], quick_strings)
-    file.write("\n")
+    save_trigger(file, trigger)
 
 
 def save_mission_template_group(file, entry):
@@ -59,22 +40,12 @@ class MissionTemplateProcessor(ModuleProcessor):
 
   def write_export_file(self, mission_template):
     save_mission_template(self.export_file, mission_template)
-
-  def write_tiggers(self, mission_template, variables, variable_uses, quick_strings):
-    identity = convert_to_identifier(mission_template[0])
-    save_triggers(self.export_file, identity, mission_template[5], variables, variable_uses, quick_strings)
+    save_triggers(self.export_file, mission_template[5])
 
 
 def process_mission_tmps():
-  print("Exporting mission_template...")
-  quick_strings = load_quick_strings()
-  variables, variable_uses = load_variables()
-
+  print("exporting mission_templates...")
   processor = MissionTemplateProcessor()
   for index, mission_template in enumerate(mission_templates):
     processor.write(mission_template, index)
-    processor.write_tiggers(mission_template, variables, variable_uses, quick_strings)
   processor.close()
-
-  save_quick_strings(quick_strings)
-  save_variables(variables, variable_uses)

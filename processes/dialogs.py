@@ -1,11 +1,7 @@
 from modules.info import export_dir
-from modules.triggers import triggers
 from modules.dialogs import dialogs
 from operations import save_statement_block
-from common import (
-  convert_to_identifier, lf_open, load_variables,
-  save_variables, load_quick_strings, save_quick_strings
-)
+from common import convert_to_identifier, lf_open
 
 
 speaker_pos = 0
@@ -131,7 +127,7 @@ def create_auto_id2(sentence, auto_ids):
   return auto_id
 
 
-def save_sentences(variable_list, variable_uses, sentences, quick_strings, input_states, output_states):
+def save_sentences(sentences, input_states, output_states):
   file = open(export_dir + "conversation.txt", "w")
   file.write("dialogsfile version 2\n")
   file.write("%d\n" % len(sentences))
@@ -142,15 +138,13 @@ def save_sentences(variable_list, variable_uses, sentences, quick_strings, input
     try:
       dialog_id = create_auto_id2(sentence, auto_ids)
       file.write("%s %d %d " % (dialog_id, sentence[speaker_pos], input_states[i]))
-      save_statement_block(file, 0, 1, sentence[sentence_conditions_pos],
-                           variable_list, variable_uses, [], quick_strings)
+      save_statement_block(file, 0, 1, sentence[sentence_conditions_pos])
 
       file.write("%s " % (sentence[text_pos].replace(" ", "_")))
       if (len(sentence[text_pos]) == 0):
         file.write("NO_TEXT ")
       file.write(" %d " % (output_states[i]))
-      save_statement_block(file, 0, 1, sentence[sentence_consequences_pos],
-                           variable_list, variable_uses, [], quick_strings)
+      save_statement_block(file, 0, 1, sentence[sentence_consequences_pos])
       if (len(sentence) > sentence_voice_over_pos):
         file.write("%s " % sentence[sentence_voice_over_pos])
       else:
@@ -167,11 +161,5 @@ def save_sentences(variable_list, variable_uses, sentences, quick_strings, input
 
 def process_dialogs():
   print("exporting dialogs...")
-  quick_strings = load_quick_strings()
-  variables, variable_uses = load_variables()
-
   input_states, output_states = compile_sentence_tokens(dialogs)
-  save_sentences(variables, variable_uses, dialogs, quick_strings, input_states, output_states)
-
-  save_quick_strings(quick_strings)
-  save_variables(variables, variable_uses)
+  save_sentences(dialogs, input_states, output_states)

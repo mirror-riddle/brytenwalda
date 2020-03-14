@@ -1,27 +1,29 @@
-from modules.info import export_dir
 from modules.meshes import meshes
-from processes.common import replace_spaces, lf_open
+from processes.common import replace_spaces
+from module_processor import ModuleProcessor
 
 
-def save_meshes():
-    ofile = open(export_dir + "meshes.txt", "w")
-    ofile.write("%d\n" % len(meshes))
-    for i_mesh in range(len(meshes)):
-        mesh = meshes[i_mesh]
-        ofile.write("mesh_%s %d %s %f %f %f %f %f %f %f %f %f\n" % (mesh[0], mesh[1], replace_spaces(
-            mesh[2]), mesh[3], mesh[4], mesh[5], mesh[6], mesh[7], mesh[8], mesh[9], mesh[10], mesh[11]))
-    ofile.close()
+def save_mesh(file, mesh):
+  file.write("mesh_%s %d %s %f %f %f %f %f %f %f %f %f\n" % (
+    mesh[0], mesh[1], replace_spaces(mesh[2]), mesh[3], mesh[4], 
+    mesh[5], mesh[6], mesh[7], mesh[8], mesh[9], mesh[10], mesh[11])
+  )
 
 
-def save_python_header():
-    ofile = lf_open("../ids/meshes.py", "w")
-    for i_mesh in range(len(meshes)):
-        ofile.write("mesh_%s = %d\n" % (meshes[i_mesh][0], i_mesh))
-    ofile.write("\n\n")
-    ofile.close()
+class MeshProcessor(ModuleProcessor):
+  id_prefix = "mesh_"
+  id_name = "meshes.py"
+  export_name = "meshes.txt"
 
+  def after_open_export_file(self):
+    self.export_file.write("%d\n" % len(meshes))
+
+  def write_export_file(self, mesh):
+    save_mesh(self.export_file, mesh)
 
 def process_meshes():
-    print("Exporting meshes...")
-    save_python_header()
-    save_meshes()
+  print("exporting meshes...")
+  processor = MeshProcessor()
+  for index, mesh in enumerate(meshes):
+    processor.write(mesh, index)
+  processor.close()

@@ -207,5 +207,3 @@ snd_mp_killing_opponent = 205
 snd_mp_battle_lost = 206
 snd_mp_battle_won = 207
 snd_horn2 = 208
-
-
