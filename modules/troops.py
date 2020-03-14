@@ -1761,7 +1761,7 @@ troops = [
     "nord_footman","Kotsetla Engle (Lig. I.)","Kotsetlas Engles",
     tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_neutral,
     [
-      *sling_stones, *peasant_boots, *fur_jackets, *phrygian_caps, 
+      *sling_stones, *peasant_boots, *fur_jackets, *phrygian_caps,
       *fur_cloaks, *javelin_packs, *kotsetla_shields,
       itm_palka3,itm_palka4,itm_cudgel,itm_axefaradon2,
     ],
@@ -1826,7 +1826,7 @@ troops = [
     "nord_veteran","Beadu rinc Engle (Med. I.)","Beadu rincas Engles",
     tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots|tf_guarantee_helmet,0,0,fac_neutral,
     [
-      *javelin_throwing_spears, *quality_carbatinaes, *warrior_jackets, *pelt_coats, 
+      *javelin_throwing_spears, *quality_carbatinaes, *warrior_jackets, *pelt_coats,
       *fur_cloaks, itm_bl_boar_fur, *beadu_rinc_shields, *bowl_helmets,
       itm_sarranid_helmet1,itm_horn_helmet_3,itm_khergit_cavalry_helmet,
       itm_dagger,itm_axe,itm_spear_3,itm_spear_2,itm_lui_battleaxetwoh,
@@ -3841,7 +3841,7 @@ troops = [
   ["kingdom_20_lady_3","Ingen Brude","Ingen Brude",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_20,  [ itm_sarranid_felt_head_cloth,itm_pictishdress1, itm_rich_carbatinae_red], def_attrib|level(2),wp(50),knows_common|knows_riding_2, 0x00000001b9002002364dd8aa5475d76400000000001db8d30000000000000000],
   ["kingdom_20_lady_4","Ingen Domlech","Ingen Domlech",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_20,  [ itm_pictishdress3, itm_rich_carbatinae_red], def_attrib|level(2),wp(50),knows_common|knows_riding_2, 0x000000057a0000014123dae69e8e48e200000000001e08db0000000000000000],
   ["kingdom_20_lady_5","Ingen Gwydd","Ingen Gwydd",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_20, [   itm_sarranid_dress_a,      itm_rich_carbatinae_red],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, 0x00000007e900200416ed96e88b8d595a00000000001cb8ac0000000000000000],
-  ["kingdom_20_lady_6","Bridei","Bridei",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_20, [     itm_picta_2],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, 0x000000057008200222d432cf6d4a2ae300000000001d37a10000000000000000],
+  ["kingdom_20_lady_6","Bridei","Bridei",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_20, [  itm_sarranid_dress_a,      itm_rich_carbatinae_red],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, 0x000000057008200222d432cf6d4a2ae300000000001d37a10000000000000000],
   ["kingdom_20_lady_7","Eithne","Eithne",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_20,  [  itm_common_veil_b,itm_sarranid_dress_b], def_attrib|level(2),wp(50),knows_common|knows_riding_2, 0x00000001b9002002364dd8aa5475d76400000000001db8d30000000000000000],
 
   ["kingdom_21_lady_1","Ninnoc","Ninnoc",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_21,  [    itm_lady_dress_ruby,itm_rich_carbatinae_red], def_attrib|level(2),wp(50),knows_common|knows_riding_2, 0x000000000204200629b131e90d6a8ae400000000001e28dd0000000000000000],
