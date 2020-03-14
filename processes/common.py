@@ -1,4 +1,4 @@
-import re
+import re, uuid
 from inspect import isfunction
 from pathlib import Path
 from modules.info import export_dir
@@ -80,3 +80,7 @@ def save_quick_strings(quick_strings):
     for string in quick_strings:
       content = replace_spaces(string[1])
       file.write("%s %s\n" % (string[0], content))
+
+
+def random_id_string():
+  return str(uuid.uuid1())[:8]

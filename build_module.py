@@ -38,7 +38,6 @@ from processes.postfx import process_postfx
 
 
 process_functions = {
-    # 'init': process_init,
     'strings': process_strings,
     'skills': process_skills,
     'musics': process_musics,
@@ -66,8 +65,6 @@ process_functions = {
     'triggers': process_triggers,
     'dialogs': process_dialogs,
     'postfx': process_postfx
-    # 'global_variables_unused': process_global_variables_unused,
-
 }
 
 def process_all():
@@ -113,7 +110,6 @@ def process_start():
 
 def process_end():
     process_global_variables_unused()
-
     save_global_variables()
 
     print('______________________________')

@@ -34,8 +34,9 @@ class ModuleProcessor():
     pass
 
   def write(self, item, index, *extra_data):
-    self.write_id_file(item, index)
     self.write_export_file(item, *extra_data)
+    if not self.clean_ids_file:
+      self.write_id_file(item, index)
 
   def before_close_id_file(self):
     pass

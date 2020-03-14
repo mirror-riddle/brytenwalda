@@ -23,9 +23,6 @@ class SimpleTriggerProcessor(ModuleProcessor):
     self.export_file.write("simple_triggers_file version 1\n")
     self.export_file.write("%d\n" % len(simple_triggers))
 
-  def write_id_file(self, simple_trigger, index):
-    pass
-
   def write_export_file(self, simple_trigger):
     save_simple_trigger(self.export_file, simple_trigger)
 

@@ -18,9 +18,6 @@ class TriggerProcessor(ModuleProcessor):
     self.export_file.write("triggersfile version 1\n")
     self.export_file.write("%d\n" % len(triggers))
 
-  def write_id_file(self, tigger, index):
-    pass
-
   def write_export_file(self, trigger):
     save_trigger(self.export_file, trigger)
 

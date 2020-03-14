@@ -1,19 +1,15 @@
+from uuid import uuid1
 from modules.info import export_dir
 from modules.dialogs import dialogs
 from operations import save_statement_block
-from common import convert_to_identifier, lf_open
+from common import convert_to_identifier, replace_spaces
+from module_processor import ModuleProcessor
 
 
-speaker_pos = 0
-ipt_token_pos = 1
-sentence_conditions_pos = 2
-text_pos = 3
-opt_token_pos = 4
-sentence_consequences_pos = 5
-sentence_voice_over_pos = 6
-
+auto_ids = {}
 
 # -------------------------------------------------------
+
 
 def save_dialog_states(dialog_states):
   file = open(export_dir + "dialog_states.txt", "w")
@@ -23,7 +19,7 @@ def save_dialog_states(dialog_states):
 
 
 # =================================================================
-def compile_sentence_tokens(sentences):
+def compile_dialog_tokens(dialogs):
   input_tokens = []
   output_tokens = []
   dialog_states = [
@@ -32,9 +28,9 @@ def compile_sentence_tokens(sentences):
       "buy_mercenaries", "view_char", "training", "member_chat", "prisoner_chat"
   ]
   dialog_state_usages = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-  for sentence in sentences:
+  for dialog in dialogs:
     output_token_id = -1
-    output_token = sentence[opt_token_pos]
+    output_token = dialog[4]
     found = 0
     for i_t in range(len(dialog_states)):
       if output_token == dialog_states[i_t]:
@@ -46,9 +42,9 @@ def compile_sentence_tokens(sentences):
       dialog_state_usages.append(0)
       output_token_id = len(dialog_states) - 1
     output_tokens.append(output_token_id)
-  for sentence in sentences:
+  for dialog in dialogs:
     input_token_id = -1
-    input_token = sentence[ipt_token_pos]
+    input_token = dialog[1]
     found = 0
     for i_t in range(len(dialog_states)):
       if input_token == dialog_states[i_t]:
@@ -57,9 +53,9 @@ def compile_sentence_tokens(sentences):
         found = 1
         break
     if not found:
-      print(sentence[ipt_token_pos])
-      print(sentence[text_pos])
-      print(sentence[opt_token_pos])
+      print(dialog[1])
+      print(dialog[3])
+      print(dialog[4])
       print("**********************************************************************************")
       print("ERROR: INPUT TOKEN NOT FOUND:" + input_token)
       print("**********************************************************************************")
@@ -72,42 +68,10 @@ def compile_sentence_tokens(sentences):
   return (input_tokens, output_tokens)
 
 
-def create_auto_id(sentence, auto_ids):
-  text = convert_to_identifier(sentence[text_pos])
-  done = 0
-  i = 20
-  lt = len(text)
-  if (i > lt):
-    i = lt
-  auto_id = "dlga_" + text[0:i]
-  done = 0
-  if auto_ids.has_key(auto_id) and (auto_ids[auto_id] == text):
-    done = 1
-  while (i <= lt) and not done:
-    auto_id = "dlga_" + text[0:i]
-    if auto_ids.has_key(auto_id):
-      if auto_ids[auto_id] == text:
-        done = 1
-      else:
-        i += 1
-    else:
-      done = 1
-      auto_ids[auto_id] = text
-  if not done:
-    number = 1
-    new_auto_id = auto_id + str(number)
-    while auto_ids.has_key(new_auto_id):
-      number += 1
-      new_auto_id = auto_id + str(number)
-    auto_id = new_auto_id
-    auto_ids[auto_id] = text
-  return auto_id
-
-
-def create_auto_id2(sentence, auto_ids):
-  text = sentence[text_pos]
-  token_ipt = convert_to_identifier(sentence[ipt_token_pos])
-  token_opt = convert_to_identifier(sentence[opt_token_pos])
+def create_auto_id2(dialog, auto_ids):
+  text = dialog[3]
+  token_ipt = convert_to_identifier(dialog[1])
+  token_opt = convert_to_identifier(dialog[4])
   done = 0
   auto_id = "dlga_" + token_ipt + ":" + token_opt
   done = 0
@@ -127,39 +91,37 @@ def create_auto_id2(sentence, auto_ids):
   return auto_id
 
 
-def save_sentences(sentences, input_states, output_states):
-  file = open(export_dir + "conversation.txt", "w")
-  file.write("dialogsfile version 2\n")
-  file.write("%d\n" % len(sentences))
-  # Create an empty dictionary
-  auto_ids = {}
-  for i in range(len(sentences)):
-    sentence = sentences[i]
-    try:
-      dialog_id = create_auto_id2(sentence, auto_ids)
-      file.write("%s %d %d " % (dialog_id, sentence[speaker_pos], input_states[i]))
-      save_statement_block(file, 0, 1, sentence[sentence_conditions_pos])
+def save_dialog(file, dialog, input_state, output_state):
+  dialog_id = create_auto_id2(dialog, auto_ids)
+  file.write("%s %d %d " % (dialog_id, dialog[0], input_state))
+  save_statement_block(file, 0, 1, dialog[2])
+  file.write("%s " % replace_spaces(dialog[3]))
+  if (len(dialog[3]) == 0):
+    file.write("NO_TEXT ")
+  file.write(" %d " % output_state)
+  save_statement_block(file, 0, 1, dialog[5])
+  if (len(dialog) > 6):
+    file.write("%s " % dialog[6])
+  else:
+    file.write("NO_VOICEOVER ")
+  file.write("\n")
 
-      file.write("%s " % (sentence[text_pos].replace(" ", "_")))
-      if (len(sentence[text_pos]) == 0):
-        file.write("NO_TEXT ")
-      file.write(" %d " % (output_states[i]))
-      save_statement_block(file, 0, 1, sentence[sentence_consequences_pos])
-      if (len(sentence) > sentence_voice_over_pos):
-        file.write("%s " % sentence[sentence_voice_over_pos])
-      else:
-        file.write("NO_VOICEOVER ")
-      file.write("\n")
-    except:
-      print("Error in dialog line:")
-      print(sentence)
-  file.close()
 
-# Registered cookies is a list which enables the order of cookies to remain fixed across changes.
-# In order to remove cookies not used anymore, edit the cookies_registery.py and remove all entries.
+class DialogProcessor(ModuleProcessor):
+  clean_ids_file = True
+  export_name = "conversation.txt"
 
+  def after_open_export_file(self):
+    self.export_file.write("dialogsfile version 2\n")
+    self.export_file.write("%d\n" % len(dialogs))
+
+  def write_export_file(self, dialog, input_state, output_state):
+    save_dialog(self.export_file, dialog, input_state, output_state)
 
 def process_dialogs():
   print("exporting dialogs...")
-  input_states, output_states = compile_sentence_tokens(dialogs)
-  save_sentences(dialogs, input_states, output_states)
+  input_states, output_states = compile_dialog_tokens(dialogs)
+  processor = DialogProcessor()
+  for index, dialog in enumerate(dialogs):
+    processor.write(dialog, index, input_states[index], output_states[index])
+  processor.close()
