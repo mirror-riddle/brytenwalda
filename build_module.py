@@ -31,6 +31,7 @@ from processes.scripts import process_scripts
 from processes.mission_tmps import process_mission_tmps
 from processes.game_menus import process_game_menus
 from processes.simple_triggers import process_simple_tiggers
+from processes.triggers import process_triggers
 from processes.dialogs import process_dialogs
 from processes.global_variables_unused import process_global_variables_unused
 from processes.postfx import process_postfx
@@ -63,6 +64,7 @@ process_functions = {
     'mission_tmps': process_mission_tmps,
     'game_menus': process_game_menus,
     'simple_triggers': process_simple_tiggers,
+    'triggers': process_triggers,
     'dialogs': process_dialogs,
     'postfx': process_postfx
     # 'global_variables_unused': process_global_variables_unused,    
@@ -96,6 +98,7 @@ def process_all():
     process_mission_tmps()
     process_game_menus()
     process_simple_tiggers()
+    process_triggers()
     process_dialogs()
     process_postfx()
     

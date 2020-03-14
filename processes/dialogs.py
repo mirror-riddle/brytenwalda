@@ -1,8 +1,3 @@
-from headers.triggers import (
-  trigger_check_pos, trigger_conditions_pos,
-  trigger_consequences_pos, trigger_delay_pos,
-  trigger_rearm_pos
-)
 from modules.info import export_dir
 from modules.triggers import triggers
 from modules.dialogs import dialogs
@@ -28,41 +23,6 @@ def save_dialog_states(dialog_states):
   file = open(export_dir + "dialog_states.txt", "w")
   for dialog_state in dialog_states:
     file.write("%s\n" % dialog_state)
-  file.close()
-
-
-# def compile_variables(cookies_list):
-#  for trigger in triggers:
-#    for consequence in trigger[trigger_consequences_pos]:
-#      compile_statement(consequence,cookies_list)
-#  for sentence in sentences:
-#    for consequence in sentence[sentence_consequences_pos]:
-#      compile_statement(consequence,cookies_list)
-#  for trigger in triggers:
-#    for condition in trigger[trigger_conditions_pos]:
-#      compile_statement(condition,cookies_list)
-#  for sentence in sentences:
-#    for condition in sentence[sentence_conditions_pos]:
-#      compile_statement(condition,cookies_list)
-#  return cookies_list
-
-def save_triggers(variable_list, variable_uses, triggers, quick_strings):
-  file = open(export_dir + "triggers.txt", "w")
-  file.write("triggersfile version 1\n")
-  file.write("%d\n" % len(triggers))
-  for i in range(len(triggers)):
-    trigger = triggers[i]
-    file.write("%f %f %f " % (trigger[trigger_check_pos], trigger[trigger_delay_pos], trigger[trigger_rearm_pos]))
-    save_statement_block(file, 0, 1, trigger[trigger_conditions_pos],
-                         variable_list, variable_uses, [], quick_strings)
-    save_statement_block(file, 0, 1, trigger[trigger_consequences_pos],
-                         variable_list, variable_uses, [], quick_strings)
-#    for condition in trigger[trigger_conditions_pos]:
-#      save_operation(file,condition,variable_list)
-#    file.write(" %d "%(len(trigger[trigger_consequences_pos])))
-#    for consequence in trigger[trigger_consequences_pos]:
-#      save_operation(file,consequence,variable_list)
-    file.write("\n")
   file.close()
 
 
@@ -206,17 +166,12 @@ def save_sentences(variable_list, variable_uses, sentences, quick_strings, input
 
 
 def process_dialogs():
-  print("exporting triggers...")
-
+  print("exporting dialogs...")
   quick_strings = load_quick_strings()
   variables, variable_uses = load_variables()
 
-  save_triggers(variables, variable_uses, triggers, quick_strings)
-
-  print("exporting dialogs...")
   input_states, output_states = compile_sentence_tokens(dialogs)
   save_sentences(variables, variable_uses, dialogs, quick_strings, input_states, output_states)
 
   save_quick_strings(quick_strings)
   save_variables(variables, variable_uses)
-  # print "finished."
