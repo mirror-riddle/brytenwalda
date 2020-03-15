@@ -1859,7 +1859,7 @@ triggers = [
 
          (try_begin),
          (lt, ":npc_morale", 20),
-         (store_random_in_range, ":random", 0, 100),
+         (store_random_in_range, ":random", 20, 100),
          (val_add, ":npc_morale", ":random"),
          (lt, ":npc_morale", 20),
          (assign, "$npc_is_quitting", ":npc"),

@@ -793,7 +793,7 @@ game_menus = [
             # Dunde's Restart Custom Battle END
         ]
     ),
-    
+
     # chief nueva creacion pj
     # This needs to be the first window!!! dunde
     (
@@ -805,11 +805,11 @@ game_menus = [
             (neq, "$creation_canceled", 999),
             (call_script, "script_randomize_background", 0),
             (start_presentation, "prsnt_player_background"),
-            (try_end), 
+            (try_end),
         ],
         [
             ("start", [], "Create Character", [(start_presentation, "prsnt_player_background")]),
-            ("quit", [], "Cancel", [(change_screen_quit)]), 
+            ("quit", [], "Cancel", [(change_screen_quit)]),
         ]
     ),
     # chief nueva creacion pj acaba
@@ -1248,7 +1248,7 @@ game_menus = [
                 (troop_raise_proficiency, "trp_player", wpt_two_handed_weapon, 10),
                 (troop_add_gold, "trp_player", 250),
                 (troop_set_slot, "trp_player", slot_troop_renown, 20),
-                
+
                 (else_try),
                 (eq, "$background_type", cb_guard),
                 (troop_raise_attribute, "trp_player", ca_strength, 1),
@@ -3232,8 +3232,8 @@ game_menus = [
           [(start_presentation, "prsnt_upgrade_tree_1"),
            ]
           ),
-         ("gather_companions", [], "Gather Companions.", 
-            [(call_script, "script_gather_companion_candidates_to_starting_town")]
+         ("update_all_companions", [], "Update All Companions.",
+            [(call_script, "script_update_all_companions")]
          ),
          # chief arbol de tropas acaba
          ("camp_recruit_prisoners",

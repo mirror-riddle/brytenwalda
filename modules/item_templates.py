@@ -210,7 +210,7 @@ throwing_spears = [
     itm_throwing_spears,
     itm_throwing_spears3,
     itm_throwing_spears4,
-    itm_jarid,    
+    itm_jarid,
 ]
 
 bowl_helmets = [
@@ -274,7 +274,7 @@ gesith_shields = [
     itm_saxon_adorno_20,
     itm_saxon_adorno_1,
     itm_saxon_adorno_2,
-    itm_tab_shield_small_round_c    
+    itm_tab_shield_small_round_c
 ]
 
 horn_helmets = [
@@ -295,13 +295,13 @@ rigwiga_shields = [
 ]
 
 duguth_shields = [
-      itm_viking_shield_round_27,
-      itm_viking_shield_round_28,
-      itm_viking_shield_round_17,
-      itm_viking_shield_round_33,
-      itm_viking_shield_round_26,
-      itm_viking_shield_round_34,
-      itm_shield_ocho,itm_steel_shield
+    itm_viking_shield_round_27,
+    itm_viking_shield_round_28,
+    itm_viking_shield_round_17,
+    itm_viking_shield_round_33,
+    itm_viking_shield_round_26,
+    itm_viking_shield_round_34,
+    itm_shield_ocho, itm_steel_shield
 ]
 
 viking_brynies = [
@@ -322,4 +322,27 @@ mail_shirt_trigs = [
     itm_mail_shirt_7_trig,
     itm_mail_shirt_8_trig,
     itm_mail_shirt_9_trig,
+]
+
+# britons
+briton_peasant_boots = [
+    itm_bare_legs_blue,
+    itm_carbatinae_1_bare,
+]
+
+briton_peasant_hoods = [
+    itm_hood_newblk,
+    itm_common_hood,
+]
+
+briton_peasant_clothes = [
+    itm_shirt,
+    itm_shirtb,
+    itm_shirtc,
+    itm_shirtd,
+    itm_roman_shirt,
+    itm_bl_tunicsr01,
+    itm_bl_tunicsr02,
+    itm_bl_tunicsr01_2,
+    itm_fattiglinenskjortir,
 ]

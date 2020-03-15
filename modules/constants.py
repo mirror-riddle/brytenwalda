@@ -1697,7 +1697,7 @@ tavern_travelers_end = tavern_booksellers_begin
 ransom_brokers_begin = "trp_ransom_broker_1"
 ransom_brokers_end = tavern_travelers_begin
 
-mercenary_troops_begin = "trp_watchman"
+mercenary_troops_begin = "trp_farmer"
 mercenary_troops_end = "trp_mercenaries_end"
 
 multiplayer_troops_begin = "trp_multiplayer_empieza"  # chief cambia multiplayer chief

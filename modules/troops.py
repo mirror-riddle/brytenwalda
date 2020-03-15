@@ -309,7 +309,7 @@ tf_guarantee_all_wo_ranged = tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_
 troops = [
   ["player","Player","Player",tf_hero|tf_unmoveable_in_party_window,no_scene,reserved,fac_player_faction,
    [],
-   str_10|agi_10|int_10|cha_10,wp(55),0,0x000000018000000136db6db6db6db6db00000000001db6db0000000000000000],
+   str_4|agi_4|int_4|cha_4,wp(15),0,0x000000018000000136db6db6db6db6db00000000001db6db0000000000000000],
   ["multiplayer_profile_troop_male","multiplayer_profile_troop_male","multiplayer_profile_troop_male", tf_hero|tf_guarantee_all, 0, 0,fac_commoners,
    [itm_leather_jerkin, itm_ankle_boots],
    0, 0, 0, 0x000000018000000136db6db6db6db6db00000000001db6db0000000000000000],
@@ -397,21 +397,6 @@ troops = [
     def_attrib|level(15),wp(110),knows_common,man_face_middle_1, man_face_old_2
   ],
 
-  ##JIK chief - new troop entry
-   [
-     "cantaber_iuventus","Cantaber Iuventus","Cantaber Iuventi",
-     tf_guarantee_boots|tf_guarantee_shield|tf_guarantee_ranged,no_scene,reserved,fac_commoners,
-     [
-       itm_javelin,itm_spear_2,itm_spatha,itm_hunting_dagger,
-       itm_turret_hat_blue,itm_turret_hat_green,itm_bare_legs_blue,itm_carbatinae_1_bare,
-       itm_roman_shirt,itm_shirtc,itm_shirtd,itm_shirte,itm_khergit_elite_armor,itm_hauberk6,itm_mail_shirt_a_copy,
-       itm_rathos_spangenhelm_a,itm_bowl_helmet,itm_norman_helmet,itm_leather_cap,
-       itm_cantabro_shield_1,itm_cantabro_shield_2,itm_cantabro_shield_3,itm_cantabro_shield_4,itm_cantabro_shield_5,
-       itm_cantabro_shield_6,itm_cantabro_shield_7,itm_cantabro_shield_8,itm_cantabro_shield_9,itm_cantabro_shield_10
-     ],
-     def_attrib3|level(32),wp(260),knows_warrior_elite,mercenary_face_1, mercenary_face_2
-   ], #chief cambiado
-
    [
      "townsman","Townsman (Lig. I.)","Townsmen",
      tf_guarantee_boots,no_scene,reserved,fac_commoners,
@@ -438,6 +423,21 @@ troops = [
      ],
      def_attrib2|level(19),wp(140),knows_warrior_basic,mercenary_face_1, mercenary_face_2
    ],
+
+  ##JIK chief - new troop entry
+   [
+     "cantaber_iuventus","Cantaber Iuventus","Cantaber Iuventi",
+     tf_guarantee_boots|tf_guarantee_shield|tf_guarantee_ranged|tf_guarantee_armor,no_scene,reserved,fac_commoners,
+     [
+       itm_javelin,itm_spear_2,itm_spatha,itm_hunting_dagger,
+       itm_turret_hat_blue,itm_turret_hat_green,itm_bare_legs_blue,itm_carbatinae_1_bare,
+       itm_roman_shirt,itm_shirtc,itm_shirtd,itm_shirte,itm_khergit_elite_armor,itm_hauberk6,itm_mail_shirt_a_copy,
+       itm_rathos_spangenhelm_a,itm_bowl_helmet,itm_norman_helmet,itm_leather_cap,
+       itm_cantabro_shield_1,itm_cantabro_shield_2,itm_cantabro_shield_3,itm_cantabro_shield_4,itm_cantabro_shield_5,
+       itm_cantabro_shield_6,itm_cantabro_shield_7,itm_cantabro_shield_8,itm_cantabro_shield_9,itm_cantabro_shield_10
+     ],
+     def_attrib3|level(32),wp(260),knows_warrior_elite,mercenary_face_1, mercenary_face_2
+   ], #chief cambiado
 
 #tempered chief anadido
    [
@@ -941,11 +941,7 @@ troops = [
      "swadian_recruit","Aillt (Lig. I.)","Aillts",
      tf_guarantee_boots|tf_guarantee_armor,0,0,fac_neutral,
      [
-       itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,itm_stones,itm_sniper_crossbow,itm_flintlock_pistol,
-       itm_bare_legs_blue,itm_carbatinae_1_bare,itm_carbatinae_1_bare,
-       itm_hood_newblk,itm_common_hood,
-       itm_shirt,itm_roman_shirt,itm_bl_tunicsr01,itm_bl_tunicsr01_2,itm_bl_tunicsr02,
-       itm_shirtb,itm_shirtc,itm_shirtd,itm_fattiglinenskjortir,
+       *sling_stones, *briton_peasant_boots, *briton_peasant_hoods, *briton_peasant_clothes,
        itm_knife,itm_pitch_fork,itm_cudgel,itm_battle_fork,itm_club,itm_sickle
      ],
      def_attrib|level(15),wp(110),knows_common,swadian_face_younger_1, swadian_face_middle_2
@@ -3106,12 +3102,9 @@ troops = [
 
   [
     "npc1","Osmund","Osmund",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,
-    [
-      itm_bluevikingshirt,itm_ankle_boots,itm_knife
-    ],
-    str_10|agi_9|int_9|cha_6|level(1),wp(100),
-    knows_tracking_4|knows_ironflesh_2|knows_weapon_master_2|
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners, [],
+    str_10|agi_9|int_9|cha_6|level(10),wp(100),
+    knows_tracking_10|knows_ironflesh_2|knows_weapon_master_2|
     knows_power_throw_2|knows_inventory_management_2|knows_pathfinding_2|
     knows_athletics_3|knows_spotting_3|knows_riding_1, #skills 2/3 player at that level
     0x0000000b8004344b324a95da9965ac5600000000001cf4ee0000000000000000
@@ -3119,35 +3112,26 @@ troops = [
 
   [
     "npc2","Aleifr","Aleifr",
-    tf_hero|tf_unmoveable_in_party_window, 0,reserved, fac_commoners,
-    [
-      itm_linen_tunic,itm_carbatinae_1_bare,itm_club, itm_hunting_bow, itm_arrows
-    ],
-    str_9|agi_9|int_9|cha_12|level(1),wp(100),
-    knows_ironflesh_2|knows_weapon_master_2|knows_trade_7|
+    tf_hero|tf_unmoveable_in_party_window, 0,reserved, fac_commoners,[],
+    str_9|agi_9|int_9|cha_12|level(10),wp(105),
+    knows_ironflesh_2|knows_weapon_master_2|knows_trade_10|
     knows_power_draw_2|knows_athletics_2|knows_riding_1,
     0x000000094a1013c24756d14224b347af00000000001c36db0000000000000000
   ], #chief acabado
 
   [
     "npc3","Eithne","Eithene",
-    tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,
-    [
-      itm_blue_tunic_long,itm_quality_carbatinae_white,itm_knife, itm_hunting_bow, itm_arrows
-    ],
-    str_11|agi_11|int_14|cha_11|level(1),wp(100),
-    knows_wound_treatment_5|knows_weapon_master_2|knows_first_aid_5|knows_surgery_5|
+    tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,[],
+    str_11|agi_11|int_14|cha_11|level(10),wp(110),
+    knows_wound_treatment_10|knows_weapon_master_2|knows_first_aid_10|knows_surgery_10|
     knows_power_draw_2|knows_athletics_2|knows_riding_1|knows_leadership_2,
     0x000000019f0c8004472355def396431e00000000000f5da30000000000000000
   ], #chief acabado
 
   [
     "npc4","Athrwys ap Gwawrddur","Arthur",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
-    [
-      itm_leather_jerkin,itm_ankle_boots, itm_spear_2
-    ],
-    str_10|agi_8|int_8|cha_8|level(1),wpe(90,60,50,40),
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[],
+    str_10|agi_8|int_8|cha_8|level(10),wpe(100,90,90,80),
     knows_weapon_master_3|knows_power_strike_2|knows_inventory_management_1|
     knows_ironflesh_2|knows_riding_1|knows_athletics_2|knows_power_draw_2|
     knows_shield_2|knows_tactics_4|knows_leadership_2,
@@ -3156,11 +3140,8 @@ troops = [
 
   [
     "npc5","Frioc","Frioc",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
-    [
-      itm_linen_tunic,itm_ankle_boots, itm_spear_2
-    ],
-    str_9|agi_7|int_8|cha_10|level(1),wp(80),
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[],
+    str_9|agi_7|int_8|cha_10|level(10),wp(90),
     knows_riding_1|knows_power_strike_3|knows_ironflesh_3|knows_power_throw_2|
     knows_shield_2|knows_leadership_5|knows_weapon_master_2|knows_athletics_2,
     0x000000018310e1c44691ad2333b0acdc00000000001e99230000000000000000
@@ -3168,11 +3149,8 @@ troops = [
 
   [
     "npc6","Bodero","Bodero",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
-    [
-      itm_shirt,itm_ankle_boots,itm_javelin, itm_spear_3
-    ],
-    str_10|agi_10|int_6|cha_8|level(1),wp(110),
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[],
+    str_10|agi_10|int_6|cha_8|level(10),wp(110),
     knows_power_throw_4|knows_weapon_master_2|knows_power_strike_2|knows_ironflesh_2|
     knows_athletics_2|knows_shield_2|knows_trainer_2|knows_leadership_5,
     0x00000001bc08e5c9631e6e279c4d9cdb00000000001d4b720000000000000000
@@ -3180,24 +3158,18 @@ troops = [
 
   [
     "npc7","Bridei","Bridei",
-    tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,
-    [
-      itm_picta_4,itm_carbatinae_1_bare, itm_hunting_bow, itm_arrows, itm_knife
-    ],
-    str_8|agi_11|int_12|cha_6|level(1),wp(110),
-    knows_power_draw_2|knows_power_strike_2|knows_pathfinding_5|knows_riding_1|
-    knows_tracking_5|knows_athletics_2|knows_spotting_5|knows_power_throw_2|
-    knows_weapon_master_2|knows_shield_2|knows_foraging_5,
+    tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,[],
+    str_8|agi_11|int_12|cha_6|level(10),wp(110),
+    knows_power_draw_2|knows_power_strike_2|knows_pathfinding_10|knows_riding_1|
+    knows_tracking_10|knows_athletics_2|knows_spotting_10|knows_power_throw_2|
+    knows_weapon_master_2|knows_shield_2|knows_foraging_10,
     0x0000000a320cd0014b5388a4da92bb1a00000000001eb96d0000000000000000
   ], #chief acabado
 
   [
     "npc8","Siwi","Siwi",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
-    [
-      itm_woolen_cap_newwht,itm_shirt,itm_carbatinae_1_bare, itm_spear_3
-    ],
-    str_10|agi_8|int_6|cha_10|level(1),wp(90),
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[],
+    str_10|agi_8|int_6|cha_10|level(10),wp(90),
     knows_weapon_master_3|knows_persuasion_2|knows_power_strike_2|
     knows_ironflesh_2|knows_athletics_3|knows_shield_2|knows_leadership_3|
     knows_entertain_2|knows_inventory_management_2,
@@ -3206,11 +3178,8 @@ troops = [
 
   [
     "npc9","Lothar","Lothar",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
-    [
-      itm_arena_tunic_blue,itm_quality_carbatinae_grey, itm_spear_1
-    ],
-    str_9|agi_10|int_6|cha_9|level(1),wp(90),
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[],
+    str_9|agi_10|int_6|cha_9|level(10),wp(90),
     knows_weapon_master_2|knows_persuasion_2|knows_riding_1|knows_athletics_2|
     knows_leadership_1|knows_tactics_2|knows_power_throw_2|knows_power_strike_2|
     knows_ironflesh_2|knows_shield_2,
@@ -3219,11 +3188,8 @@ troops = [
 
   [
     "npc10","Ceawlin","Ceawlin",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
-    [
-      itm_shirt,itm_quality_carbatinae_grey, itm_spear_2, itm_talak_seax
-    ],
-    str_13|agi_10|int_5|cha_6|level(1),wp(110),
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[],
+    str_13|agi_10|int_5|cha_6|level(10),wp(110),
     knows_weapon_master_3|knows_trainer_2|knows_leadership_4|knows_ironflesh_5|
     knows_athletics_2|knows_shield_2|knows_power_strike_2|knows_inventory_management_2,
     0x000000015e105004570cae574c6e48fd00000000001f2c9a0000000000000000
@@ -3231,36 +3197,27 @@ troops = [
 
   [
     "npc11","Gwenllian","Gwenllian",
-    tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
-    [
-      itm_shirt, itm_ankle_boots, itm_shepherds_crook, itm_hunting_bow, itm_arrows
-    ],
-    str_8|agi_11|int_8|cha_12|level(1),wp(90),
-    knows_persuasion_5|knows_weapon_master_2|knows_power_draw_2|knows_power_strike_2|
-    knows_athletics_2|knows_entertain_5,
+    tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[],
+    str_8|agi_11|int_8|cha_12|level(10),wp(90),
+    knows_persuasion_10|knows_weapon_master_2|knows_power_draw_2|knows_power_strike_2|
+    knows_athletics_2|knows_entertain_10,
     0x000000019f0c8004472355def396431e00000000000f5da30000000000000000
   ], #chief acabado
 
   [
     "npc12","Orosio","Orosio",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,
-    [
-      itm_cloth_robe_yellow,itm_ankle_boots, itm_staff
-    ],
-    str_10|agi_5|int_13|cha_6|level(1),wp(70),
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,[],
+    str_10|agi_5|int_13|cha_6|level(10),wp(110),
     knows_ironflesh_2|knows_riding_1|knows_weapon_master_2|knows_athletics_1|
-    knows_leadership_1|knows_inventory_management_2|knows_surgery_5|
-    knows_wound_treatment_4|knows_first_aid_4,
+    knows_leadership_1|knows_inventory_management_2|knows_surgery_10|
+    knows_wound_treatment_10|knows_first_aid_10,
     0x00000001bf0ce446133331b2a14e26e500000000001ec86b0000000000000000
   ], #chief acabado
 
   [
     "npc13","Liuva","Liuva",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
-    [
-      itm_arena_tunic_white,itm_quality_carbatinae_grey, itm_spear_2
-    ],
-    str_9|agi_7|int_11|cha_7|level(1),wp(110),
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[],
+    str_9|agi_7|int_11|cha_7|level(10),wp(110),
     knows_trainer_4|knows_leadership_1|knows_athletics_2|knows_ironflesh_3|
     knows_power_strike_3|knows_power_throw_2|knows_shield_2|knows_weapon_master_2,
     0x000000079f08520a494d564b6b65b89b00000000001da51e0000000000000000
@@ -3268,11 +3225,8 @@ troops = [
 
   [
     "npc14","Brian","Brian",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
-    [
-      itm_fattiglinenskjortir,itm_quality_carbatinae_grey, itm_spear_1
-    ],
-    str_8|agi_8|int_8|cha_10|level(1),wp(100),
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[],
+    str_8|agi_8|int_8|cha_10|level(10),wp(100),
     knows_riding_1|knows_leadership_1|knows_athletics_2|knows_ironflesh_2|
     knows_trainer_3|knows_power_strike_2|knows_power_throw_1|knows_shield_2|
     knows_weapon_master_3|knows_entertain_2,
@@ -3281,23 +3235,17 @@ troops = [
 
   [
     "npc15","Agasicles","Agasicles",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
-    [
-      itm_arena_tunic_white,itm_quality_carbatinae_grey, itm_spear_5
-    ],
-    str_8|agi_8|int_12|cha_6|level(1),wp(80),
-    knows_tactics_2|knows_engineer_5|knows_trade_1|knows_athletics_2|
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[],
+    str_8|agi_8|int_12|cha_6|level(10),wp(100),
+    knows_tactics_2|knows_engineer_10|knows_trade_1|knows_athletics_2|
     knows_power_throw_2|knows_shield_2|knows_tracking_1|knows_spotting_1,
     0x0000000f5110e45308ec865716aa35ab00000000001d2b8d0000000000000000
   ], #chief acabado
 
   [
     "npc16","Aedh","Aedh",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
-    [
-      itm_shirt,itm_quality_carbatinae_grey, itm_knife,itm_donkey
-    ],
-    str_9|agi_9|int_6|cha_10|level(1),wp(80),
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[],
+    str_9|agi_9|int_6|cha_10|level(10),wp(110),
     knows_ironflesh_3|knows_persuasion_2|knows_weapon_master_2|knows_athletics_2|
     knows_shield_2|knows_surgery_1|knows_wound_treatment_4|knows_first_aid_3,
     0x00000004bf0475c85f4e9592de4e574c00000000001e369c0000000000000000
@@ -3306,11 +3254,8 @@ troops = [
 ##########chief mas companions
   [
     "npc_basher","Ciniod","Ciniod",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
-    [
-      itm_war_paint_two, itm_knife, itm_spear_2
-    ],
-    str_12|agi_6|int_6|cha_4|level(1),wp(90),
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[],
+    str_12|agi_6|int_6|cha_4|level(10),wp(90),
     knows_weapon_master_2|knows_power_throw_2|knows_power_strike_2|
     knows_inventory_management_2|knows_looting_2|knows_ironflesh_4|
     knows_athletics_2|knows_shield_2|knows_leadership_3|knows_tactics_2,
@@ -3319,25 +3264,19 @@ troops = [
 
   [
     "npc_sange","Onuist","Onuist",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
-    [
-      itm_spear_2, itm_war_paintus
-    ],
-    str_12|agi_13|int_6|cha_5|level(1),wp(90),
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[],
+    str_12|agi_13|int_6|cha_5|level(10),wp(96),
     knows_weapon_master_2|knows_power_throw_2|knows_power_strike_2|
     knows_ironflesh_3|knows_athletics_2|knows_shield_2|knows_leadership_3|
-    knows_inventory_management_2|knows_looting_3,
+    knows_inventory_management_2|knows_looting_10,
     0x00000001bf04b1cd25656dd49d4e691c00000000001e44a40000000000000000
   ], #terminado chief
 
   ##--
   [
     "npc_paintrain","Eadwine","Eadwine",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
-    [
-      itm_spear_2, itm_shirt, itm_ankle_boots
-    ],
-    str_9|agi_10|int_9|cha_6|level(1),wpe(80,80,80,70),
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[],
+    str_9|agi_10|int_9|cha_6|level(10),wpe(100,100,100,70),
     knows_ironflesh_2|knows_wound_treatment_2|knows_weapon_master_2|
     knows_power_draw_2|knows_pathfinding_3|knows_athletics_2|
     knows_tracking_3|knows_spotting_3|knows_riding_1|knows_inventory_management_1, #skills 2/3 player at that level
@@ -3346,24 +3285,18 @@ troops = [
 
   [
     "npc_hammertime","Mihael ap Cadwalladr","Mihael",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
-    [
-      itm_shirt,itm_quality_carbatinae_grey, itm_knife
-    ],
-    str_7|agi_7|int_9|cha_11|level(1),wp(80),
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[],
+    str_10|agi_10|int_9|cha_11|level(10),wp(100),
     knows_weapon_master_2| knows_power_throw_2|knows_pathfinding_4|knows_athletics_1|
-    knows_tracking_1|knows_spotting_4|knows_riding_1|knows_inventory_management_2|knows_trade_4, #skills 2/3 player at that level
+    knows_tracking_1|knows_spotting_4|knows_riding_1|knows_trade_10, #skills 2/3 player at that level
     0x00000009f408928c24acb238d3692aeb00000000001dbd220000000000000000
   ], #chief acabado
 
   #starts with short sword
   [
     "npc_tank","Ultan","Ultan",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
-    [
-      itm_staff, itm_cloth_robe_grey
-    ],
-    str_12|agi_6|int_11|cha_5|level(1),wp(70),
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[],
+    str_12|agi_6|int_11|cha_5|level(10),wp(110),
     knows_ironflesh_2|knows_persuasion_2|knows_weapon_master_3|knows_power_strike_3|
     knows_athletics_1|knows_inventory_management_2|knows_surgery_1|knows_wound_treatment_4|knows_first_aid_4,
     0x00000009dc0812c6392288c05579cd13000000000012a2d30000000000000000
@@ -3371,23 +3304,17 @@ troops = [
 
   [
     "npc_backwoodsharry","Inka","Inka",
-    tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,
-    [
-      itm_short_bow, itm_arrows, itm_shirt, itm_woolen_dress,itm_knife
-    ],
-    str_9|agi_12|int_9|cha_6|level(1),wpe(80,100,80,70),
+    tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,[],
+    str_9|agi_12|int_9|cha_6|level(10),wpe(100,100,90,70),
     knows_power_draw_2|knows_weapon_master_2|knows_power_strike_2|
-    knows_leadership_2|knows_athletics_3|knows_riding_1|knows_looting_5,
+    knows_leadership_2|knows_athletics_3|knows_riding_1|knows_looting_10,
     0x000000024400100338a1d1d2ecaed44c00000000001536a50000000000000000
   ], #mujer frisia abandonada por su marido chief se lia con eadfrith
 
   [
     "npc_deadeye","Eadfrith","Eadfrith",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,
-    [
-      itm_black_hood, itm_hand_axe, itm_ankle_boots
-    ],
-    str_11|agi_10|int_9|cha_4|level(1),wpe(70,90,60,70),
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,[],
+    str_11|agi_10|int_9|cha_4|level(10),wpe(100,100,90,70),
     knows_power_strike_1|knows_weapon_master_1|knows_ironflesh_2|knows_power_throw_2|
     knows_power_draw_2|knows_athletics_2|knows_tracking_3|knows_spotting_3|
     knows_riding_1|knows_inventory_management_1, #skills 2/3 player at that level
@@ -3396,11 +3323,8 @@ troops = [
 
   [
     "npc_probulator","Matui Turthail","Matui",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
-    [
-      itm_shortened_spear, itm_javelin, itm_shirtc, itm_ankle_boots
-    ],
-    str_10|agi_6|int_10|cha_8|level(1),wp(90),
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[],
+    str_10|agi_6|int_10|cha_8|level(10),wp(110),
     knows_pathfinding_3|knows_tracking_1|knows_spotting_3|knows_leadership_2|
     knows_athletics_1|knows_ironflesh_2|knows_persuasion_2|knows_power_throw_2|
     knows_shield_2|knows_inventory_management_2|knows_weapon_master_1, #skills 2/3 player at that level
@@ -3410,11 +3334,8 @@ troops = [
   #starts w/ military scythe
   [
     "npc_grim","Clovis","Clovis",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
-    [
-      itm_shortened_spear, itm_black_hood, itm_cloth_robe_grey, itm_ankle_boots
-    ],
-    str_9|agi_8|int_10|cha_7|level(1),wp(110),
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[],
+    str_9|agi_8|int_10|cha_7|level(10),wp(110),
     knows_power_strike_2|knows_weapon_master_2|knows_riding_1|
     knows_ironflesh_2|knows_tactics_3|knows_engineer_3|knows_trade_1|
     knows_athletics_2|knows_power_throw_1|knows_shield_2|knows_trainer_3|
@@ -3424,11 +3345,8 @@ troops = [
 
   [
     "npc_enchantress","Connor mac Odhrain","Connor",
-    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,
-    [
-      itm_short_bow, itm_arrows, itm_knife, itm_armor_9, itm_ankle_boots
-    ],
-    str_10|agi_6|int_6|cha_12|level(1),wpe(70,100,70,70),
+    tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[],
+    str_10|agi_6|int_6|cha_12|level(10),wpe(100,100,100,70),
     knows_riding_2|knows_power_draw_2|knows_leadership_4|knows_athletics_1|
     knows_ironflesh_2|knows_power_strike_2|knows_power_throw_3|knows_shield_2|
     knows_weapon_master_2|knows_inventory_management_2,
