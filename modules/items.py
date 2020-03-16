@@ -2316,8 +2316,8 @@ items = [
     ["throwing_daggers",         "Wooden Javelin", [("kijek", 0)], itp_type_polearm | itp_primary | itp_secondary | itp_wooden_parry, itc_staff,
      200, weight(2) | spd_rtng(88) | swing_damage(9, cut) | thrust_damage(20,  cut) | weapon_length(65), imodbits_polearm],  # chief cambiado
     # jabalinas para jinetes ligeros
-    ["javelin_jinetes",         "Horsemen Javelins", [("02atgeirr1", 0), ("javelins_quiver_new", ixmesh_carry)], itp_type_thrown | itp_primary | itp_secondary | itp_bonus_against_shield | itp_next_item_as_melee, itcf_throw_javelin | itcf_carry_quiver_back | itcf_show_holster_when_drawn,
-     300, weight(4) | difficulty(2) | spd_rtng(75) | shoot_speed(28) | thrust_damage(31,  cut) | max_ammo(6) | weapon_length(65) | accuracy(95), imodbits_thrown, missile_distance_trigger],  # chief cambiado max_ammo
+    ["javelin_jinetes",         "Horsemen Javelins", [("02atgeirr1", 0)], itp_type_thrown | itp_primary | itp_secondary | itp_bonus_against_shield | itp_next_item_as_melee, itcf_throw_javelin | itcf_show_holster_when_drawn,
+     300, weight(4) | difficulty(2) | spd_rtng(75) | shoot_speed(28) | thrust_damage(31,  cut) | max_ammo(15) | weapon_length(65) | accuracy(95), imodbits_thrown, missile_distance_trigger],  # chief cambiado max_ammo
     ["shortened_military_scythe",         "Horseman Javelin", [("02atgeirr1", 0)], itp_type_polearm | itp_primary | itp_secondary | itp_wooden_parry, itc_staff,
      300, weight(4) | spd_rtng(82) | swing_damage(9, cut) | thrust_damage(25,  cut) | weapon_length(65), imodbits_polearm],  # chief cambiado
     # chief cambiado modelo y todo kastad_krokaspjott

@@ -18,8 +18,8 @@ imodbits_sword_high = imodbit_rusty | imodbit_chipped | imodbit_balanced | imodb
 imodbits_axe = imodbit_rusty | imodbit_chipped | imodbit_heavy
 imodbits_mace = imodbit_rusty | imodbit_chipped | imodbit_heavy
 imodbits_pick = imodbit_rusty | imodbit_chipped | imodbit_balanced | imodbit_heavy
-#imodbits_bow = imodbit_cracked | imodbit_bent | imodbit_strong |imodbit_masterwork
-imodbits_bow = imodbit_cracked | imodbit_bent | imodbit_strong
+imodbits_bow = imodbit_cracked | imodbit_bent | imodbit_strong |imodbit_masterwork
+# imodbits_bow = imodbit_cracked | imodbit_bent | imodbit_strong
 imodbits_crossbow = imodbit_cracked | imodbit_bent | imodbit_masterwork
 imodbits_missile = imodbit_bent | imodbit_large_bag
 imodbits_thrown = imodbit_bent | imodbit_heavy | imodbit_balanced | imodbit_large_bag
@@ -1532,7 +1532,7 @@ all_light_helments = create_all_items_simple([
         ],
         [
             itp_merchandise | itp_type_head_armor | itp_attach_armature | itp_fit_to_head, 0, 1580,
-            weight(3) | abundance(10) | head_armor(20) | body_armor(15) | leg_armor(0) | difficulty(4),
+            weight(3) | abundance(10) | head_armor(30) | body_armor(15) | leg_armor(0) | difficulty(4),
             imodbits_cloth, [], angle_saxon_kingdoms
         ]
     ),
